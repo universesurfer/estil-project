@@ -12,11 +12,11 @@ const userSchema = new Schema({
   avatar      : String,
   appointments: {
     date   : Date,
-    stylist: Schema.Types.ObjectId, ref: 'Stylist'
+    stylist: {type: Schema.Types.ObjectId, ref: 'Stylist'}
   }
 });
 
 userSchema.set('timestamps', true);
 
-const User = mongoose.models('User', userSchema);
+const User = mongoose.model('User', userSchema);
 module.exports = User;

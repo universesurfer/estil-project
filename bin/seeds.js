@@ -1,9 +1,9 @@
-const mongoose = ('mongoose');
+const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/estil');
 const User = require('../models/user');
 const Stylist = require('../models/stylist');
 
-const user = [
+const users = [
   {
     name        : 'Cara',
     email       : "cara@i.com",
@@ -11,8 +11,7 @@ const user = [
     role        : 'User',
     avatar      : ' ',
     appointments: {
-      date : new Date(),
-      stylist : ' '
+      date : new Date()
     }
   },
   {
@@ -22,8 +21,7 @@ const user = [
     role        : 'User',
     avatar      : ' ',
     appointments: {
-      date : new Date(),
-      stylist : ' '
+      date : new Date()
     }
   },
   {
@@ -33,20 +31,18 @@ const user = [
     role        : 'User',
     avatar      : ' ',
     appointments: {
-      date : new Date(),
-      stylist : ' '
+      date : new Date()
     }
   }];
 
-const Stylist = [
+const stylists = [
   {
     name        : 'Harry Potter',
     email       : 'harry@potter.co',
     password    : 'abcd',
     role        : 'Stylist',
     appointments: {
-      date : new Date(),
-      users : ' '
+      date : new Date()
     },
     avatar: ' ',
     experience  : '',
@@ -61,8 +57,7 @@ const Stylist = [
     password    : 'abcd',
     role        : 'Stylist',
     appointments: {
-      date : new Date(),
-      users : ' '
+      date : new Date()
     },
     avatar: ' ',
     experience  : '',
