@@ -9,13 +9,7 @@ const stylistSchema = new Schema({
   role        : {type: String, required: true},
   appointments: {
     date   : Date,
-<<<<<<< HEAD
-    users  : String
-    // Schema.Types.ObjectId,
-    // ref: 'User'
-=======
     user  : {type: Schema.Types.ObjectId, ref: 'User'}
->>>>>>> master
   },
   avatar      : String,
   experience  : String,

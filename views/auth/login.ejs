@@ -6,9 +6,9 @@
 			<div class="login-agileits-top">
 				<form action="/login" method="post">
 					<p>Username </p>
-					<input id="input1" type="text" class="email" name="email" placeholder="Email address" required=""/>
+					<input id="input1" type="text" class="email" name="username" placeholder="Email address" required=""/>
 					<p>Password</p>
-					<input id="input2" type="password" class="password" name="Password" placeholder=".........." required=""/>
+					<input id="input2" type="password" class="password" name="password" placeholder=".........." required=""/>
 					<% if (typeof(message) != "undefined") {%>
 						<div class="error-message"><%= message %></div>
 					<% } %>

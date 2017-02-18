@@ -56,14 +56,14 @@ authController.get("/login", (req, res, next) => {
 });
 
 authController.post("/login", passport.authenticate("local", {
-  successRedirect: "/",
+  successRedirect: "/profile",
   failureRedirect: "/login",
   failureFlash: true,
   passReqToCallback: true
 }));
 
 authController.get("/profile", ensureLogin.ensureLoggedIn(), (req, res) => {
-  res.render("profile", { user: req.user });
+  res.render("private/profile", { user: req.user });
 });
 
 authController.get("/logout", (req, res) => {

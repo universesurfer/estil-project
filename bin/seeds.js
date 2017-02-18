@@ -1,48 +1,7 @@
 const mongoose = require('mongoose');
-<<<<<<< HEAD:bin/seed.js
-=======
-mongoose.connect('mongodb://localhost:27017/estil');
->>>>>>> master:bin/seeds.js
 const User = require('../models/user');
 const Stylist = require('../models/stylist');
-mongoose.connect('mongodb://localhost/estil');
 
-<<<<<<< HEAD:bin/seed.js
-// const users = [
-//   {
-//     name        : 'Cara',
-//     email       : "cara@i.com",
-//     password    : '1234',
-//     role        : 'User',
-//     avatar      : ' ',
-//     appointments: {
-//       date : new Date(),
-//       stylist : ' '
-//     }
-//   },
-//   {
-//     name        : 'Tasha',
-//     email       : 'tasha@cool.com',
-//     password    : '2345',
-//     role        : 'User',
-//     avatar      : ' ',
-//     appointments: {
-//       date : new Date(),
-//       stylist : ' '
-//     }
-//   },
-//   {
-//     name        : 'Mika',
-//     email       : 'mika@yell.com',
-//     password    : '3456',
-//     role        : 'User',
-//     avatar      : ' ',
-//     appointments: {
-//       date : new Date(),
-//       stylist : ' '
-//     }
-//   }];
-=======
 const users = [
   {
     firstName   : 'Cara',
@@ -76,8 +35,8 @@ const users = [
     appointments: {
       date : new Date()
     }
-  }];
->>>>>>> master:bin/seeds.js
+	}
+];
 
 const stylists = [
   {
@@ -87,12 +46,7 @@ const stylists = [
     password    : 'abcd',
     role        : 'Stylist',
     appointments: {
-<<<<<<< HEAD:bin/seed.js
-      date : new Date(),
-      user : ' '
-=======
       date : new Date()
->>>>>>> master:bin/seeds.js
     },
     avatar: ' ',
     experience  : '',
@@ -108,12 +62,7 @@ const stylists = [
     password    : 'abcd',
     role        : 'Stylist',
     appointments: {
-<<<<<<< HEAD:bin/seed.js
-      date : new Date(),
-      user : " "
-=======
       date : new Date()
->>>>>>> master:bin/seeds.js
     },
     avatar: ' ',
     experience  : '',
