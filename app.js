@@ -7,7 +7,6 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 const expressLayouts = require('express-ejs-layouts');
 
-
 const session       = require("express-session");
 const bcrypt        = require("bcrypt");
 const passport      = require("passport");
@@ -15,7 +14,6 @@ const LocalStrategy = require("passport-local").Strategy;
 const flash = require("connect-flash");
 
 mongoose.connect('mongodb://localhost:27017/estil');
-
 
 var index = require('./routes/index');
 var users = require('./routes/users');
