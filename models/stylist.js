@@ -8,14 +8,18 @@ const stylistSchema = new Schema({
   role        : {type: String, required: true},
   appointments: {
     date   : Date,
+<<<<<<< HEAD
     users  : String
     // Schema.Types.ObjectId,
     // ref: 'User'
+=======
+    user  : {type: Schema.Types.ObjectId, ref: 'User'}
+>>>>>>> master
   },
   avatar      : String,
   experience  : String,
   expertise   : {type: String, enum : ['Male', 'Female', 'Any']},
-  price       : { type: Number, default: null },
+  price       : {type: Number, default: null },
   availability: String,
   location    : String
 });

@@ -10,9 +10,13 @@ const userSchema = new Schema({
   avatar      : String,
   appointments: {
     date   : Date,
+<<<<<<< HEAD
     stylist: String
     // Schema.Types.ObjectId,
     // ref: 'Stylist'
+=======
+    stylist: {type: Schema.Types.ObjectId, ref: 'Stylist'}
+>>>>>>> master
   }
 });
 
