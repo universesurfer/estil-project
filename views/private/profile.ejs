@@ -1,5 +1,26 @@
-<% if (user) { %>
-  <div>
-    <a href="/">Index</a>
-  </div>
-<% } %>
+<head>
+	<link rel='stylesheet' href='/stylesheets/nav.css'>
+</head>
+
+<body>
+	<nav>
+	  <ul class="primary">
+	    <li>
+	      <a href="/profile">Profile</a>
+	      <ul class="sub">
+	        <li><a href="/profile/edit">Edit Profile</a></li>
+	      </ul>
+	    </li>
+	    <li>
+	      <a href="">Search</a>
+	    </li>
+	    <li>
+	      <a href="">Featured Stylists</a>
+	    </li>
+			<li>
+	      <a href="/logout">Log out</a>
+	    </li>
+	  </ul>
+	</nav>
+
+</body>
