@@ -47,7 +47,7 @@ const stylists = [
     avatar: ' ',
     experience  : '',
     expertise   : 'Any',
-    price       : ' ',
+    price       : 30,
     availability: ' ',
     location    : 'Via Augusta, 92'
   },
@@ -62,7 +62,7 @@ const stylists = [
     avatar: ' ',
     experience  : '',
     expertise   : 'Any',
-    price       : ' ',
+    price       : 40,
     availability: ' ',
     location    : 'Carrer de lAtlàntida, 53, 08003 Barcelona'
   },
