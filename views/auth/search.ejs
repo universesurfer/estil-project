@@ -1,7 +1,39 @@
+<link rel="stylesheet" href="stylesheets/stylesearch.css">
+<h3>Search</h3>
 
-<h3>Google map goes here</h3>
- <div id="map"></div>
+<div id="container">
+  <h5>Find stylists by:</h5>
+  <label for="price">Price</label>
+  <input type="text" name="price"></input>
+
+  <div class="dropdown">
+  <label for="day">Day</label>
+  <button name="day" class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+  Pick a day
+   <span class="caret"></span>
+ </button>
+ <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+   <li><a data-target="#">Monday</a></li>
+   <li><a data-target="#">Tuesday</a></li>
+   <li><a data-target="#">Wednesday</a></li>
+   <li><a data-target="#">Thursday</a></li>
+   <li><a data-target="#">Friday</a></li>
+   <li><a data-target="#">Saturday</a></li>
+   <li><a data-target="#">Sunday</a></li>
+ </ul>
+ </div>
+
+  <label for="spot">My place/salon</label>
+  <input type="text" name="spot"></input>
+
+  <label for="price">Price</label>
+  <input type="text" name="price"></input>
+</div>
 
 
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAPr_6SPIIKbgLtuwBMSnZmiAg2kTwlXPc"></script>
+
+ <div id="map-canvas"></div>
+
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAPr_6SPIIKbgLtuwBMSnZmiAg2kTwlXPc&libraries=places"></script>
 <script src="javascripts/search.js"></script>
