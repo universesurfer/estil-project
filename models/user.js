@@ -6,17 +6,17 @@ const userSchema = new Schema({
   name        : {type: String, required: true},
   email       : {type: String, required: true},
   password    : {type: String, required: true},
-  role        : {type: String, required: true,
-    enum: ['User', 'Stylist'],
-    default: 'User'},
+  role        : {type: String, required: true},
   avatar      : String,
   appointments: {
     date   : Date,
-    stylist: Schema.Types.ObjectId, ref: 'Stylist'
+    stylist: String
+    // Schema.Types.ObjectId,
+    // ref: 'Stylist'
   }
 });
 
 userSchema.set('timestamps', true);
 
-const User = mongoose.models('User', userSchema);
+const User = mongoose.model('User', userSchema);
 module.exports = User;
