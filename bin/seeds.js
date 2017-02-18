@@ -120,14 +120,14 @@ const stylists = [
 ];
 
 
-// User.create(users, (err, docs)=> {
-//   if (err){throw(err);}
-//
-//   docs.forEach( (user)=>{
-//     console.log(user.name);
-//   })
-//   mongoose.connection.close();
-// });
+User.create(users, (err, docs)=> {
+  if (err){throw(err);}
+
+  docs.forEach( (user)=>{
+    console.log(user.name);
+  })
+  mongoose.connection.close();
+});
 
 Stylist.create(stylists, (err, docs)=> {
   if (err){throw(err);}
