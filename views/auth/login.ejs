@@ -4,11 +4,14 @@
 		<!-- login form -->
 		<div class="login-form">
 			<div class="login-agileits-top">
-				<form action="#" method="post">
-					<p>Email Address </p>
+				<form action="/login" method="post">
+					<p>Username </p>
 					<input id="input1" type="text" class="email" name="email" placeholder="Email address" required=""/>
 					<p>Password</p>
 					<input id="input2" type="password" class="password" name="Password" placeholder=".........." required=""/>
+					<% if (typeof(message) != "undefined") {%>
+						<div class="error-message"><%= message %></div>
+					<% } %>
 					<input type="submit" value="Login">
 				</form>
 			</div>
