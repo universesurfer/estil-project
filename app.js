@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 const expressLayouts = require('express-ejs-layouts');
 const User           = require("./models/user");
+const Stylist           = require("./models/stylist");
 
 const session       = require("express-session");
 const bcrypt        = require("bcrypt");
@@ -60,7 +61,7 @@ passport.deserializeUser((id, cb) => {
 });
 
 app.use(flash());
-passport.use(new LocalStrategy((username, password, next) => {
+passport.use('user-login', new LocalStrategy((username, password, next) => {
   User.findOne({ username }, (err, user) => {
     if (err) {
       return next(err);
@@ -71,7 +72,23 @@ passport.use(new LocalStrategy((username, password, next) => {
     if (!bcrypt.compareSync(password, user.password)) {
       return next(null, false, { message: "Incorrect password" });
     }
+		console.log(user);
+    return next(null, user);
+  });
+}));
 
+passport.use('stylist-login', new LocalStrategy((username, password, next) => {
+  Stylist.findOne({ username }, (err, user) => {
+    if (err) {
+      return next(err);
+    }
+    if (!user) {
+      return next(null, false, { message: "Incorrect username" });
+    }
+    if (!bcrypt.compareSync(password, user.password)) {
+      return next(null, false, { message: "Incorrect password" });
+    }
+		console.log(user);
     return next(null, user);
   });
 }));
