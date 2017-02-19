@@ -119,33 +119,17 @@ authController.post("/stylist/login", passport.authenticate("stylist-login", {
   passReqToCallback: true
 }));
 
-function ensureLoggedIn(options) {
-  if (typeof options == 'string') {
-    options = { redirectTo: options }
-  }
-  options = options || {};
+authController.get("/profile", ensureLogin.ensureLoggedIn(), (req, res) => {
+  res.render("private/profile", { user: req.user });
+});
 
-  var url = options.redirectTo || '/login';
-  var setReturnTo = (options.setReturnTo === undefined) ? true : options.setReturnTo;
-
-  return function(req, res, next) {
-    if (!req.isAuthenticated || !req.isAuthenticated()) {
-      if (setReturnTo && req.session) {
-        req.session.returnTo = req.originalUrl || req.url;
-      }
-      return res.redirect(url);
-    }
-    next();
-  }
-}
-
-authController.get("/profile", ensureLoggedIn("/stylist/login"), (req, res) => {
+authController.get("/profile", ensureLogin.ensureLoggedIn("/stylist/login"), (req, res) => {
   res.render("private/profile", { user: req.user });
 });
 
 authController.get("/logout", (req, res) => {
   req.logout();
-  res.redirect("/login");
+  res.redirect("/");
 });
 
 module.exports = authController;
