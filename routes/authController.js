@@ -91,7 +91,7 @@ authController.post("/stylist/signup", (req, res, next) => {
       if (err) {
         res.render("auth/signup", { message: "The username already exists" });
       } else {
-        res.redirect("/login");
+        res.redirect("/stylist/login");
       }
     });
   });
@@ -129,7 +129,6 @@ function ensureLoggedIn(options) {
   var setReturnTo = (options.setReturnTo === undefined) ? true : options.setReturnTo;
 
   return function(req, res, next) {
-		console.log(req.session);
     if (!req.isAuthenticated || !req.isAuthenticated()) {
       if (setReturnTo && req.session) {
         req.session.returnTo = req.originalUrl || req.url;

@@ -50,14 +50,22 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 passport.serializeUser((user, cb) => {
-  cb(null, user.id);
+  cb(null, {id: user.id, role: user.role});
 });
 
-passport.deserializeUser((id, cb) => {
-  User.findOne({ "_id": id }, (err, user) => {
-    if (err) { return cb(err); }
-    cb(null, user);
-  });
+passport.deserializeUser((user, cb) => {
+	if (user.role == "User") {
+	  User.findOne({ "_id": user.id }, (err, user) => {
+	    if (err) { return cb(err); }
+	    cb(null, user);
+	  });
+	}
+	else if (user.role == "Stylist") {
+		Stylist.findOne({ "_id": user.id }, (err, user) => {
+	    if (err) { return cb(err); }
+	    cb(null, user);
+	  });
+	}
 });
 
 app.use(flash());
@@ -72,7 +80,6 @@ passport.use('user-login', new LocalStrategy((username, password, next) => {
     if (!bcrypt.compareSync(password, user.password)) {
       return next(null, false, { message: "Incorrect password" });
     }
-		console.log(user);
     return next(null, user);
   });
 }));
@@ -88,7 +95,6 @@ passport.use('stylist-login', new LocalStrategy((username, password, next) => {
     if (!bcrypt.compareSync(password, user.password)) {
       return next(null, false, { message: "Incorrect password" });
     }
-		console.log(user);
     return next(null, user);
   });
 }));
