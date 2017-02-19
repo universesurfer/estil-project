@@ -20,10 +20,19 @@
 //
 //
 // });
+$(".dropdown-menu li").click(function(){
+  var setText = $(this).text();
+  var thisButton = $(this).closest(".dropdown");
+  $(thisButton).find("button").html(setText);
+
+// });
+
+});
 
 window.onload = getMyLocation;
 
 $('.dropdown-toggle').dropdown();
+
 
 var map;
 function getMyLocation() {
