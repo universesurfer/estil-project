@@ -1,8 +1,14 @@
-<a href="/login">Login</a>
-<br>
-<a href="/signup">Sign Up</a>
-<br>
-<a href="/stylist/login">Stylist Login</a>
-<br>
-<a href="/stylist/signup">Stylist Signup</a>
-<br>
+<%
+	if (typeof user == "undefined"){%>
+		<a href="/login">Login</a>
+		<br>
+		<a href="/signup">Sign Up</a>
+		<br>
+		<a href="/stylist/login">Stylist Login</a>
+		<br>
+		<a href="/stylist/signup">Stylist Signup</a>
+		<br>
+	<%} else {%>
+		<a href="/logout">Logout</a>
+		<br>
+	<%}%>
