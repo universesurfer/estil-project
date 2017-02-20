@@ -1,29 +1,40 @@
 <head>
 	<link rel="stylesheet" href="/stylesheets/profiles.css">
 </head>
+<body>
 
 <a href="/stylist/profile">Profile</a>
 <br>
 <a href="/logout">Logout</a>
 
-<%
 
-var avatar, services, expertise, languages, description, price, availability, location;
-
-function popVars(cat) {
-	if (typeof user.cat != "undefined") {
-		cat = user.cat;
-	}
-}
-
-for (var prop in user) {
-	popVars(prop);
-}
-
-var name = user.firstName + " " + user.lastName;
-
-%>
-
-<form action="/stylist/profile/<%= user._id%>" method="POST">
-
+<form action="/stylist/profile/edit" method="POST">
+  <h5>Add a profile picture</h5>
+  <input type="file" name="avatar">
+  <img src="<%= user.avatar%>" alt="">
+  <label for="firstName">First name:</label>
+  <input type="text" name="firstName" value="<%=user.firstName%>">
+  <label for="lastName">Last name:</label>
+  <input type="text" name="lastName" value="<%=user.lastName%>">
+  <label for="username">Username:</label>
+  <input type="text" name="username" value="<%=user.username%>">
+  <label for="services">Services:</label>
+  <input type="text" name="services" value="<%=user.services%>">
+  <label for="expertise">Expertise:</label>
+  <input type="text" name="expertise" value="<%=user.expertise%>">
+  <label for="description">Description:</label>
+  <textarea type="text" name="description" value="<%=user.description%>"></textarea>
+  <label for="languages">Languages:</label>
+  <input type="text" name="languages" value="<%=user.languages%>">
+  <label for="price">Price:</label>
+  <input type="text" name="price" value="<%=user.price%>">
+  <label for="availability">Availability:</label>
+  <input type="text" name="availability" value="<%=user.availability%>">
+  <label for="mobile">Home visits/Salon:</label>
+  <input type="text" name="mobile" value="<%=user.mobile%>">
+  <label for="location">Location:</label>
+  <input type="text" name="location" value="<%=user.location%>">
+  <button type="submit">Update profile</button>
 </form>
+
+</body>

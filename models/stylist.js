@@ -13,11 +13,16 @@ const stylistSchema = new Schema({
   },
   avatar      : String,
 	services 		: String,
-  expertise   : String,
-	language		: String,
+  expertise   : { type: String,
+    enum: ['Men', 'Women', 'Both'],
+    default: ['Both'] },
+	languages		: String,
 	description : String,
   price       : String,
   availability: String,
+  mobile      : {type: String,
+    enum : ['Home visit', 'Salon', 'Both'],
+    default : ['Both'] },
   location    : {type: {type: String}, coordinates: [Number]}
 });
 

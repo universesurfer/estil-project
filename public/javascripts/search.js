@@ -158,7 +158,7 @@ google.maps.event.addListener(autocomplete, 'place_changed', function() {
 //   }
 //
 // }
-//
+// //
 // function windowInfoCreate(marker, autocomplete, latLng, content) {
 //   var infoWindowOptions = {
 //     content: content,

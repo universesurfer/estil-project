@@ -5,3 +5,7 @@ table {
 td {
 	width: 150px;
 }
+
+input {
+  display: block;
+}

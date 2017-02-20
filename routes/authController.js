@@ -1,11 +1,13 @@
-var express = require('express');
+var express          = require('express');
 const authController = express.Router();
 const User           = require("../models/user");
-const Stylist           = require("../models/stylist");
+const Stylist        = require("../models/stylist");
 const bcrypt         = require("bcrypt");
 const bcryptSalt     = 10;
-const passport = require("passport");
-const ensureLogin = require("connect-ensure-login");
+const passport       = require("passport");
+const ensureLogin    = require("connect-ensure-login");
+const multer         = require('multer');
+var upload           = multer({ dest: './public/uploads/' });
 
 authController.get('/signup', function(req, res, next) {
   res.render('auth/signup');
@@ -62,6 +64,8 @@ authController.post("/stylist/signup", (req, res, next) => {
   var username = req.body.email;
   var password = req.body.password;
 
+  console.log(req);
+  console.log(req.body);
   if (username === "" || password === "") {
     res.render("auth/signup", { message: "Indicate email and password" });
     return;
@@ -86,11 +90,12 @@ authController.post("/stylist/signup", (req, res, next) => {
 			date: new Date(),
 			avatar: " ",
 			services: " ",
-			expertise: " ",
-			language: " ",
+			expertise: ["Both"],
+			languages: " ",
 			description: " ",
 			price: " ",
 			availability: " ",
+      mobile: ["Both"],
 			location: " "
     });
 
@@ -130,32 +135,51 @@ authController.get("/profile", ensureLogin.ensureLoggedIn(), (req, res) => {
   res.render("private/profile", { user: req.user });
 });
 
-authController.get("/stylist/profile/", ensureLogin.ensureLoggedIn("/stylist/login"), (req, res) => {
+authController.get("/stylist/profile", ensureLogin.ensureLoggedIn("/stylist/login"), (req, res) => {
   res.render("private/stylist-profile", { user: req.user });
 });
 
-authController.post("/stylist/profile", ensureLogin.ensureLoggedIn("/stylist/login"), (req, res) => {
-	Stylist.findOne({ "username": req.user.username }, "username", (err, stylist) => {
-
-
-			req.user.avatar = req.body.avatar;
-			req.user.services = req.body.services;
-			req.user.expertise = req.body.expertise;
-			req.user.languages = req.body.languages;
-			req.user.description = req.body.description;
-			req.user.price = req.body.price;
-			req.user.availability = req.body.availability;
-			req.user.location = req.body.location;
-
-		stylist.update(stylistUpdates,(err) => {
-			res.render("private/stylist-profile", { user: req.user });
-		})
-	});
-});
+// authController.post("/stylist/profile", ensureLogin.ensureLoggedIn("/stylist/login"), (req, res) => {
+//   console.log(req.body.firstName);
+//   Stylist.findOne({ "username": req.user.username }, "username", (err, stylist) => {
+//
+//       req.user.firstName = req.body.firstName;
+// 			req.user.avatar = req.body.avatar;
+// 			req.user.services = req.body.services;
+// 			req.user.expertise = req.body.expertise;
+// 			req.user.languages = req.body.languages;
+// 			req.user.description = req.body.description;
+// 			req.user.price = req.body.price;
+// 			req.user.availability = req.body.availability;
+// 			req.user.location = req.body.location;
+//
+//
+//
+// 		stylist.update(stylistUpdates,(err) => {
+//     res.redirect("/stylist/profile");
+// 		})
+// 	});
+// });
 
 authController.get("/stylist/profile/edit", ensureLogin.ensureLoggedIn("/stylist/login"), (req, res) => {
+  var userId = req.params.id;
   res.render("private/stylist-profile-edit", { user: req.user });
 });
+
+authController.post("/stylist/profile/edit", ensureLogin.ensureLoggedIn("/stylist/login"), (req, res, err) => {
+
+  var userId = req.user._id;
+  var stylist = req.body;
+  console.log(stylist);
+
+  Stylist.findOneAndUpdate({"_id": userId}, {$set: stylist}, (err)=> {
+    if (err){console.log("error updating stylist");}
+  });
+
+  res.redirect("/stylist/profile");
+});
+
+
 
 authController.get("/logout", (req, res) => {
   req.logout();

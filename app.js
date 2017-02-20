@@ -14,14 +14,18 @@ const bcrypt         = require("bcrypt");
 const passport       = require("passport");
 const LocalStrategy  = require("passport-local").Strategy;
 const flash          = require("connect-flash");
+const multer         = require('multer');
 
 mongoose.connect('mongodb://localhost:27017/estil');
 
-var index = require('./routes/index');
-var users = require('./routes/users');
-var authController = require('./routes/authController');
-
 var app = express();
+
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+
 
 app.use(expressLayouts);
 app.set('layout', 'layouts/main-layout');
@@ -32,13 +36,12 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+// app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
+
+var index = require('./routes/index');
+var users = require('./routes/users');
+var authController = require('./routes/authController');
 
 app.use(session({
   secret: "passport-local-strategy",
