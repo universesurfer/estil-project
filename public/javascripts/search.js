@@ -52,8 +52,9 @@ function apiMarkerCreate(latLng, placeResult) {
     animation: google.maps.Animation.DROP,
     clickable: true
   };
+
   //Setting up the marker object to mark the location on the map canvas.
-  var marker = new google.maps.Marker(markerOptions);
+  var marker = new google.maps.Marker(); //markerOptions
   var input = /** @type {HTMLInputElement} */(document.getElementById('pac-input'));
   var autocomplete = new google.maps.places.Autocomplete(input);
 	autocomplete.bindTo('bounds', map);

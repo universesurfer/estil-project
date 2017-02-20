@@ -28,7 +28,7 @@ authController.post("/signup", (req, res, next) => {
 
   User.findOne({ username }, "username", (err, user) => {
     if (user !== null) {
-      res.render("auth/signup", { message: "The email already exists" });
+      res.render("auth/signup", { message: "Email already in use" });
       return;
     }
 
@@ -98,7 +98,7 @@ authController.post("/stylist/signup", (req, res, next) => {
       if (err) {
         res.render("auth/signup", { message: "The username already exists" });
       } else {
-        res.redirect("/stylist/login");
+        res.redirect("/stylist/profile");
       }
     });
   });
@@ -130,7 +130,7 @@ authController.get("/profile", ensureLogin.ensureLoggedIn(), (req, res) => {
   res.render("private/profile", { user: req.user });
 });
 
-authController.get("/stylist/profile", ensureLogin.ensureLoggedIn("/stylist/login"), (req, res) => {
+authController.get("/stylist/profile/", ensureLogin.ensureLoggedIn("/stylist/login"), (req, res) => {
   res.render("private/stylist-profile", { user: req.user });
 });
 

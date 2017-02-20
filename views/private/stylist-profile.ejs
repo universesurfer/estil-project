@@ -6,20 +6,16 @@
 <br>
 <a href="/logout">Logout</a>
 
-<%
-
-var name = user.firstName + " " + user.lastName;
-
-%>
-
+<%var name = user.firstName + " " + user.lastName %>
+<form action="/stylist-profile" method="POST">
+  <h5>Add a profile picture</h5>
+<input type="file" name="profilePic">
+    <button type="submit">Add</button>
+  </form>
 <table>
   <tr>
     <td>Name</td>
-    <td><%=user.name%></td>
-  </tr>
-  <tr>
-    <td>Avatar</td>
-    <td><%=user.avatar%></td>
+    <td><%= name %></td>
   </tr>
 	<tr>
     <td>Services</td>
@@ -50,3 +46,5 @@ var name = user.firstName + " " + user.lastName;
 		<td><%=user.location%></td>
 	</tr>
 </table>
+
+<script type="text/javascript" src="../javascripts/profile.js"></script>

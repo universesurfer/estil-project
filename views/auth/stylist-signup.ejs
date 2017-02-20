@@ -21,7 +21,10 @@
 						<input id="input3" type="text" class="email" name="email" placeholder="Email Address" required=""/>
 						<p>Password</p>
 						<input id="input4" type="password" class="password" name="password" placeholder=".........." required=""/>
-						<input type="submit" value="Sign Up">
+            <% if (typeof(message) != "undefined") { %>
+              <div class="error-message"><%= message %></div>
+            <% } %>
+            <input type="submit" value="Sign Up">
 					</form>
 				</div>
 
