@@ -12,9 +12,11 @@ const stylistSchema = new Schema({
     user  : {type: Schema.Types.ObjectId, ref: 'User'}
   },
   avatar      : String,
-  experience  : String,
-  expertise   : {type: String, enum : ['Male', 'Female', 'Any']},
-  price       : {type: Number, default: null },
+	services 		: String,
+  expertise   : String,
+	language		: String,
+	description : String,
+  price       : String,
   availability: String,
   location    : String
 });
