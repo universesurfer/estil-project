@@ -113,7 +113,7 @@ authController.get("/stylist/login", (req, res, next) => {
 });
 
 authController.post("/stylist/login", passport.authenticate("stylist-login", {
-  successRedirect: "/profile",
+  successRedirect: "/stylist/profile",
   failureRedirect: "/stylist/login",
   failureFlash: true,
   passReqToCallback: true
@@ -123,8 +123,8 @@ authController.get("/profile", ensureLogin.ensureLoggedIn(), (req, res) => {
   res.render("private/profile", { user: req.user });
 });
 
-authController.get("/profile", ensureLogin.ensureLoggedIn("/stylist/login"), (req, res) => {
-  res.render("private/profile", { user: req.user });
+authController.get("/stylist/profile", ensureLogin.ensureLoggedIn("/stylist/login"), (req, res) => {
+  res.render("private/stylist-profile", { user: req.user });
 });
 
 authController.get("/logout", (req, res) => {
