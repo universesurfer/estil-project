@@ -18,7 +18,7 @@ const stylistSchema = new Schema({
 	description : String,
   price       : String,
   availability: String,
-  location    : String
+  location    : {type: {type: String}, coordinates: [Number]}
 });
 
 stylistSchema.index({location: '2dsphere'});

@@ -1,19 +1,19 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
+var express          = require('express');
+var path             = require('path');
+var favicon          = require('serve-favicon');
+var logger           = require('morgan');
+var cookieParser     = require('cookie-parser');
+var bodyParser       = require('body-parser');
+var mongoose         = require('mongoose');
 const expressLayouts = require('express-ejs-layouts');
 const User           = require("./models/user");
-const Stylist           = require("./models/stylist");
+const Stylist        = require("./models/stylist");
 
-const session       = require("express-session");
-const bcrypt        = require("bcrypt");
-const passport      = require("passport");
-const LocalStrategy = require("passport-local").Strategy;
-const flash = require("connect-flash");
+const session        = require("express-session");
+const bcrypt         = require("bcrypt");
+const passport       = require("passport");
+const LocalStrategy  = require("passport-local").Strategy;
+const flash          = require("connect-flash");
 
 mongoose.connect('mongodb://localhost:27017/estil');
 

@@ -24,44 +24,6 @@ var name = user.firstName + " " + user.lastName;
 
 %>
 
-<form action="/stylist/profile" method="POST">
-	<table>
-	  <tr>
-	    <td>Name</td>
-	    <td><%=name%></td>
-	  </tr>
-	  <tr>
-	    <td>Avatar</td>
-	    <td><input type="text" name="avatar" value="<%=avatar%>"></td>
-	  </tr>
-		<tr>
-	    <td>Services</td>
-	    <td><input type="text" name="services" value="<%=services%>"></td>
-	  </tr>
-		<tr>
-			<td>Expertise</td>
-			<td><input type="text" name="expertise" value="<%=expertise%>"></td>
-		</tr>
-		<tr>
-			<td>Languages</td>
-			<td><input type="text" name="languages" value="<%=languages%>"></td>
-		</tr>
-		<tr>
-			<td>Description</td>
-			<td><input type="text" name="description" value="<%=description%>"></td>
-		</tr>
-		<tr>
-			<td>Price</td>
-			<td><input type="text" name="price" value="<%=price%>"></td>
-		</tr>
-		<tr>
-			<td>Availability</td>
-			<td><input type="text" name="availability" value="<%=availability%>"></td>
-		</tr>
-		<tr>
-			<td>Location</td>
-			<td><input type="text" name="location" value="<%=location%>"></td>
-		</tr>
-	</table>
-	<input type="submit" value="Edit Profile">
+<form action="/stylist/profile/<%= user._id%>" method="POST">
+
 </form>
