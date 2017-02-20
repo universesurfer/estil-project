@@ -16,7 +16,6 @@ authController.get('/stylist/signup', function(req, res, next) {
 });
 
 authController.post("/signup", (req, res, next) => {
-	console.log(req.body);
 	var firstName = req.body.firstName;
 	var lastName = req.body.lastName;
   var username = req.body.email;
@@ -42,10 +41,10 @@ authController.post("/signup", (req, res, next) => {
 			lastName,
       username,
       password: hashPass,
-			role: "User"
+			role: "User",
+			avatar: " ",
+			appointments: new Date()
     });
-
-		console.log(newUser);
 
     newUser.save((err) => {
       if (err) {
@@ -58,7 +57,6 @@ authController.post("/signup", (req, res, next) => {
 });
 
 authController.post("/stylist/signup", (req, res, next) => {
-	console.log(req.body);
 	var firstName = req.body.firstName;
 	var lastName = req.body.lastName;
   var username = req.body.email;
@@ -84,7 +82,16 @@ authController.post("/stylist/signup", (req, res, next) => {
 			lastName,
       username,
       password: hashPass,
-			role: "Stylist"
+			role: "Stylist",
+			date: new Date(),
+			avatar: " ",
+			services: " ",
+			expertise: " ",
+			language: " ",
+			description: " ",
+			price: " ",
+			availability: " ",
+			location: " "
     });
 
     newStylist.save((err) => {
@@ -128,7 +135,22 @@ authController.get("/stylist/profile", ensureLogin.ensureLoggedIn("/stylist/logi
 });
 
 authController.post("/stylist/profile", ensureLogin.ensureLoggedIn("/stylist/login"), (req, res) => {
-  res.render("private/stylist-profile", { user: req.user });
+	Stylist.findOne({ "username": req.user.username }, "username", (err, stylist) => {
+
+
+			req.user.avatar = req.body.avatar;
+			req.user.services = req.body.services;
+			req.user.expertise = req.body.expertise;
+			req.user.languages = req.body.languages;
+			req.user.description = req.body.description;
+			req.user.price = req.body.price;
+			req.user.availability = req.body.availability;
+			req.user.location = req.body.location;
+
+		stylist.update(stylistUpdates,(err) => {
+			res.render("private/stylist-profile", { user: req.user });
+		})
+	});
 });
 
 authController.get("/stylist/profile/edit", ensureLogin.ensureLoggedIn("/stylist/login"), (req, res) => {

@@ -8,7 +8,7 @@ const stylistSchema = new Schema({
   password    : {type: String, required: true},
   role        : {type: String, required: true},
   appointments: {
-    date   : Date,
+    date  : Date,
     user  : {type: Schema.Types.ObjectId, ref: 'User'}
   },
   avatar      : String,

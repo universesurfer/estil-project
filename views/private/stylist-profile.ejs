@@ -8,18 +8,6 @@
 
 <%
 
-var avatar, services, expertise, languages, description, price, location;
-
-function popVars(cat) {
-	if (typeof user.cat != "undefined") {
-		cat = user.cat;
-	}
-}
-
-for (var prop in user) {
-	popVars(prop);
-}
-
 var name = user.firstName + " " + user.lastName;
 
 %>
@@ -27,38 +15,38 @@ var name = user.firstName + " " + user.lastName;
 <table>
   <tr>
     <td>Name</td>
-    <td><%=name%></td>
+    <td><%=user.name%></td>
   </tr>
   <tr>
     <td>Avatar</td>
-    <td><%=avatar%></td>
+    <td><%=user.avatar%></td>
   </tr>
 	<tr>
     <td>Services</td>
-    <td><%=services%></td>
+    <td><%=user.services%></td>
   </tr>
 	<tr>
 		<td>Expertise</td>
-		<td><%=expertise%></td>
+		<td><%=user.expertise%></td>
 	</tr>
 	<tr>
 		<td>Languages</td>
-		<td><%=languages%></td>
+		<td><%=user.languages%></td>
 	</tr>
 	<tr>
 		<td>Description</td>
-		<td><%=description%></td>
+		<td><%=user.description%></td>
 	</tr>
 	<tr>
 		<td>Price</td>
-		<td><%=price%></td>
+		<td><%=user.price%></td>
 	</tr>
 	<tr>
 		<td>Availability</td>
-		<td><%=avatar%></td>
+		<td><%=user.avatar%></td>
 	</tr>
 	<tr>
 		<td>Location</td>
-		<td><%=location%></td>
+		<td><%=user.location%></td>
 	</tr>
 </table>

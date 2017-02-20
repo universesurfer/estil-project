@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const User = require('../models/user');
 const Stylist = require('../models/stylist');
+mongoose.connect('mongodb://localhost/estil');
 
 const users = [
   {
@@ -48,12 +49,14 @@ const stylists = [
     appointments: {
       date : new Date()
     },
-    avatar: ' ',
-    experience  : '',
-    expertise   : 'Any',
-    price       : 30,
+    avatar			: ' ',
+		services		: ' ',
+		expertise   : 'Any',
+		language		: ' ',
+    description : ' ',
+    price       : ' ',
     availability: ' ',
-    address     : 'Via Augusta, 92'
+    location    : 'Via Augusta, 92'
   },
   {
     firstName   : 'Hermione',
@@ -64,30 +67,34 @@ const stylists = [
     appointments: {
       date : new Date()
     },
-    avatar: ' ',
-    experience  : '',
-    expertise   : 'Any',
-    price       : 40,
+		avatar			: ' ',
+		services		: ' ',
+		expertise   : 'Any',
+		language		: ' ',
+    description : ' ',
+    price       : ' ',
     availability: ' ',
-    address     : 'Carrer de lAtlàntida, 53, 08003 Barcelona'
+    location    : 'Carrer de lAtlàntida, 53, 08003 Barcelona'
   },
 ];
 
 
 User.create(users, (err, docs)=> {
-  if (err){throw(err);}
+	console.log(users.username);
+  if (err){
+		throw(err);}
 
   docs.forEach( (user)=>{
-    console.log(user.username);
   })
   mongoose.connection.close();
 });
 
 Stylist.create(stylists, (err, docs)=> {
-  if (err){throw(err);}
+	console.log(stylists.username);
+  if (err){
+		throw(err);}
 
   docs.forEach( (stylist)=>{
-    console.log(stylist.username);
   })
   mongoose.connection.close();
 });
