@@ -1,0 +1,67 @@
+<head>
+	<link rel="stylesheet" href="/stylesheets/profiles.css">
+</head>
+
+<a href="/stylist/profile">Profile</a>
+<br>
+<a href="/logout">Logout</a>
+
+<%
+
+var avatar, services, expertise, languages, description, price, availability, location;
+
+function popVars(cat) {
+	if (typeof user.cat != "undefined") {
+		cat = user.cat;
+	}
+}
+
+for (var prop in user) {
+	popVars(prop);
+}
+
+var name = user.firstName + " " + user.lastName;
+
+%>
+
+<form action="/stylist/profile" method="POST">
+	<table>
+	  <tr>
+	    <td>Name</td>
+	    <td><input type="text" value="<%=name%>"></td>
+	  </tr>
+	  <tr>
+	    <td>Avatar</td>
+	    <td><input type="text" value="<%=avatar%>"></td>
+	  </tr>
+		<tr>
+	    <td>Services</td>
+	    <td><input type="text" value="<%=services%>"></td>
+	  </tr>
+		<tr>
+			<td>Expertise</td>
+			<td><input type="text" value="<%=expertise%>"></td>
+		</tr>
+		<tr>
+			<td>Languages</td>
+			<td><input type="text" value="<%=languages%>"></td>
+		</tr>
+		<tr>
+			<td>Description</td>
+			<td><input type="text" value="<%=description%>"></td>
+		</tr>
+		<tr>
+			<td>Price</td>
+			<td><input type="text" value="<%=price%>"></td>
+		</tr>
+		<tr>
+			<td>Availability</td>
+			<td><input type="text" value="<%=availability%>"></td>
+		</tr>
+		<tr>
+			<td>Location</td>
+			<td><input type="text" value="<%=location%>"></td>
+		</tr>
+	</table>
+	<input type="submit" value="Edit Profile">
+</form>

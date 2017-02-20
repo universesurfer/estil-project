@@ -1,9 +1,64 @@
+<head>
+	<link rel="stylesheet" href="/stylesheets/profiles.css">
+</head>
+
+<a href="/stylist/profile/edit">Edit Profile</a>
+<br>
 <a href="/logout">Logout</a>
-<ul>
-	<li>Stylist profile</li>
-	<li></li>
-	<li></li>
-	<li></li>
-	<li></li>
-	<li></li>
-</ul>
+
+<%
+
+var avatar, services, expertise, languages, description, price, location;
+
+function popVars(cat) {
+	if (typeof user.cat != "undefined") {
+		cat = user.cat;
+	}
+}
+
+for (var prop in user) {
+	popVars(prop);
+}
+
+var name = user.firstName + " " + user.lastName;
+
+%>
+
+<table>
+  <tr>
+    <td>Name</td>
+    <td><%=name%></td>
+  </tr>
+  <tr>
+    <td>Avatar</td>
+    <td><%=avatar%></td>
+  </tr>
+	<tr>
+    <td>Services</td>
+    <td><%=services%></td>
+  </tr>
+	<tr>
+		<td>Expertise</td>
+		<td><%=expertise%></td>
+	</tr>
+	<tr>
+		<td>Languages</td>
+		<td><%=languages%></td>
+	</tr>
+	<tr>
+		<td>Description</td>
+		<td><%=description%></td>
+	</tr>
+	<tr>
+		<td>Price</td>
+		<td><%=price%></td>
+	</tr>
+	<tr>
+		<td>Availability</td>
+		<td><%=avatar%></td>
+	</tr>
+	<tr>
+		<td>Location</td>
+		<td><%=location%></td>
+	</tr>
+</table>

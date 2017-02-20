@@ -127,6 +127,14 @@ authController.get("/stylist/profile", ensureLogin.ensureLoggedIn("/stylist/logi
   res.render("private/stylist-profile", { user: req.user });
 });
 
+authController.post("/stylist/profile", ensureLogin.ensureLoggedIn("/stylist/login"), (req, res) => {
+  res.render("private/stylist-profile", { user: req.user });
+});
+
+authController.get("/stylist/profile/edit", ensureLogin.ensureLoggedIn("/stylist/login"), (req, res) => {
+  res.render("private/stylist-profile-edit", { user: req.user });
+});
+
 authController.get("/logout", (req, res) => {
   req.logout();
   res.redirect("/");
