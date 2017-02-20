@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var Stylist = require('../models/stylist.js');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -7,9 +8,17 @@ router.get('/', function(req, res, next) {
 });
 
 
-router.get('/search', (req, res, err)=> {
-  if(err){console.log('Error ahhh!');}
-  res.render('auth/search');
+router.get('/search', (req, res)=> {
+  res.render('search');
 });
+
+router.post('/search/results',(req, res, next) => {
+  Stylist.find((error, places) => {
+    if (error) { next(error); }
+    else {
+      res.json(places);
+    }
+  })
+})
 
 module.exports = router;
