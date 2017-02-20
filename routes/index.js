@@ -9,6 +9,13 @@ router.get('/', function(req, res, next) {
 
 
 router.get('/search', (req, res)=> {
+	Stylist.find({},"location", (req, allStylists) => {
+		locations = [];
+		allStylists.forEach(function(stylist){
+			locations.push(stylist.location);
+		})
+		testLocation = locations[0];
+	})
   res.render('search');
 });
 

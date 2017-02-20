@@ -6,9 +6,11 @@ $(".dropdown-menu li").click(function(){
   $(thisButton).find("button").html(setText);
 });
 
-window.onload = getMyLocation;
 
 var map;
+
+//generates initial map based on geolocation
+window.onload = getMyLocation;
 function getMyLocation() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(displayLocation);
@@ -25,12 +27,9 @@ function displayLocation(position) {
 
   //Creating a new object for using latitude and longitude values with Google map.
   var latLng = new google.maps.LatLng(latitude, longitude);
-
   showMap(latLng);
-
-  // addNearByPlaces(latLng);
-  apiMarkerCreate(latLng);
-
+	//creates marker for current location
+  // apiMarkerCreate(latLng);
 }
 
 function showMap(latLng) {
@@ -43,9 +42,18 @@ function showMap(latLng) {
 
   //Creating the Map instance and assigning the HTML div element to render it in.
   map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+	//takes input and performs autocomplete
+	var marker = new google.maps.Marker();
+	var input = /** @type {HTMLInputElement} */(document.getElementById('pac-input'));
+	var autocomplete = new google.maps.places.Autocomplete(input);
+	autocomplete.bindTo('bounds', map);
+	map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+	windowInfoCreate(marker, autocomplete, latLng);
+
 }
 
-function apiMarkerCreate(latLng, placeResult) {
+function apiMarkerCreate(latLng) {
   var markerOptions = {
     position: latLng,
     map: map,
@@ -54,14 +62,7 @@ function apiMarkerCreate(latLng, placeResult) {
   };
 
   //Setting up the marker object to mark the location on the map canvas.
-  var marker = new google.maps.Marker(); //markerOptions
-  var input = /** @type {HTMLInputElement} */(document.getElementById('pac-input'));
-  var autocomplete = new google.maps.places.Autocomplete(input);
-	autocomplete.bindTo('bounds', map);
-
-	map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-
-  windowInfoCreate(marker, autocomplete, latLng);
+  var marker = new google.maps.Marker(markerOptions); //markerOptions
 
 }
 
@@ -97,6 +98,7 @@ function windowInfoCreate(marker, autocomplete, latLng, content) {
 	    placeId: place.place_id,
 	    location: place.geometry.location
 	  }));
+
 	  marker.setVisible(true);
 
 	  infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
