@@ -17,4 +17,9 @@
 #pac-input {
   position: relative;
   display: block;
+	font-size: 20px;
+}
+
+.location {
+	margin-left: 10px;
 }
