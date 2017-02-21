@@ -103,7 +103,7 @@ passport.use('stylist-login', new LocalStrategy((username, password, next) => {
 }));
 
 app.use('/', index);
-// app.use('/users', us);
+app.use('/', profile);
 app.use('/', authController);
 
 // catch 404 and forward to error handler

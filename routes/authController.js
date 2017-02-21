@@ -98,10 +98,6 @@ authController.post("/stylist/signup", (req, res, next) => {
 			price: " ",
 			availability: " ",
       mobile: ["Both"],
-			geolocation: {
-			  type: "Point",
-			  coordinates: []
-			},
 			location: " "
     });
 
@@ -137,93 +133,96 @@ authController.post("/stylist/login", passport.authenticate("stylist-login", {
   passReqToCallback: true
 }));
 
-authController.get("/profile", ensureLogin.ensureLoggedIn(), (req, res) => {
-  Picture.findOne({"user": req.user.username, "profile": true}, (err, picture)=>{
-    if (err){console.log("Error finding photo");}
-    res.render("private/profile", { user: req.user, picture: picture});
-  });
-});
-
-authController.get("/stylist/profile", ensureLogin.ensureLoggedIn("/stylist/login"), (req, res) => {
-
-  res.render("private/stylist-profile", { user: req.user });
-});
-
-authController.get("/profile/edit", ensureLogin.ensureLoggedIn(), (req, res) => {
-  Picture.findOne({"user": req.user.username, "profile": true}, (err, picture)=>{
-    if (err){console.log("Error finding photo");}
-    res.render("private/profile-edit", { user: req.user, picture: picture});
-  });
-});
-
-authController.get("/stylist/profile/edit", ensureLogin.ensureLoggedIn("/stylist/login"), (req, res) => {
-  Picture.findOne({"user": req.user.username, "profile": true}, (err, picture)=>{
-    if (err){console.log("Error finding photo");}
-    res.render("private/stylist-profile-edit", { user: req.user, picture: picture});
-  });
-});
-
-authController.post("/profile/edit", ensureLogin.ensureLoggedIn(), (req, res, err) => {
-
-  var userId = req.user._id;
-  var userUpdated = req.body;
-  console.log(userUpdated);
-  var review = req.body.review;
-  console.log(review);
-
-  User.update({"_id": userId}, {$set: userUpdated}, (err, user)=> {
-    if (err){console.log("error updating user");}
-  });
-  User.update({"_id": userId}, {$push: {reviews: [review]}}, (err, user)=> {
-    if (err){console.log("error updating user");}
-    res.redirect("/profile");
-  });
-});
-
-authController.post('/profile/photo-upload', upload.single('file'), function(req, res){
-
-  pic = new Picture({
-    // name: req.body.name,
-    pic_path: `/uploads/${req.file.filename}`,
-    pic_name: req.file.originalname,
-		user: req.user.username,
-    profile: true
-  });
-
-	console.log(req.user.username);
-
-  pic.save((err) => {
-      res.redirect('/profile/edit');
-  });
-});
-
-
-authController.post("/stylist/profile/edit", ensureLogin.ensureLoggedIn("/stylist/login"), (req, res, err) => {
-
-  var userId = req.user._id;
-  var stylist = req.body;
-
-  Stylist.findOneAndUpdate({"_id": userId}, {$set: stylist}, (err)=> {
-    if (err){console.log("error updating stylist");}
-  });
-
-  res.redirect("/stylist/profile");
-});
-
-authController.post('/stylist/profile/photo-upload', upload.single('file'), function(req, res){
-
-  pic = new Picture({
-    // name: req.body.name,
-    pic_path: `/uploads/${req.file.filename}`,
-    pic_name: req.file.originalname,
-		user: req.user.username,
-    profile: true
-  });
-
-  pic.save((err) => {
-      res.redirect('/stylist/profile/edit');
-  });
-});
+// authController.get("/profile", ensureLogin.ensureLoggedIn(), (req, res) => {
+//   Picture.findOne({"user": req.user.username, "profile": true}, (err, picture)=>{
+//     if (err){console.log("Error finding photo");}
+//     res.render("private/profile", { user: req.user, picture: picture});
+//   });
+// });
+//
+// authController.get("/stylist/profile", ensureLogin.ensureLoggedIn("/stylist/login"), (req, res) => {
+//
+//   res.render("private/stylist-profile", { user: req.user });
+// });
+//
+// authController.get("/profile/edit", ensureLogin.ensureLoggedIn(), (req, res) => {
+//   Picture.findOne({"user": req.user.username, "profile": true}, (err, picture)=>{
+//     if (err){console.log("Error finding photo");}
+//     res.render("private/profile-edit", { user: req.user, picture: picture});
+//   });
+// });
+//
+// authController.get("/stylist/profile/edit", ensureLogin.ensureLoggedIn("/stylist/login"), (req, res) => {
+//   Picture.findOne({"user": req.user.username, "profile": true}, (err, picture)=>{
+//     if (err){console.log("Error finding photo");}
+//     res.render("private/stylist-profile-edit", { user: req.user, picture: picture});
+//   });
+// });
+//
+// authController.post("/profile/edit", ensureLogin.ensureLoggedIn(), (req, res, err) => {
+//
+//   var userId = req.user._id;
+//   var userUpdated = req.body;
+//   console.log(userUpdated);
+//   var review = req.body.review;
+//   console.log(review);
+//
+//   User.update({"_id": userId}, {$set: userUpdated}, (err, user)=> {
+//     if (err){console.log("error updating user");}
+//   });
+//   User.update({"_id": userId}, {$push: {reviews: [review]}}, (err, user)=> {
+//     if (err){console.log("error updating user");}
+//     res.redirect("/profile");
+//   });
+// });
+//
+// authController.post('/profile/photo-upload', upload.single('file'), function(req, res){
+//
+//   pic = new Picture({
+//     // name: req.body.name,
+//     pic_path: `/uploads/${req.file.filename}`,
+//     pic_name: req.file.originalname,
+// 		user: req.user.username,
+//     profile: true
+//   });
+//
+// 	console.log(req.user.username);
+//
+//   pic.save((err) => {
+//       res.redirect('/profile/edit');
+//   });
+// });
+//
+//
+// authController.post("/stylist/profile/edit", ensureLogin.ensureLoggedIn("/stylist/login"), (req, res, err) => {
+//
+//   var userId = req.user._id;
+//   var stylist = req.body;
+//   console.log(stylist);
+//
+//   Stylist.findOneAndUpdate({"_id": userId}, {$set: stylist}, (err)=> {
+//     if (err){console.log("error updating stylist");}
+//   });
+//
+//   res.redirect("/stylist/profile");
+// });
+//
+// authController.post('/stylist/profile/photo-upload', upload.single('file'), function(req, res){
+//
+//   pic = new Picture({
+//     // name: req.body.name,
+//     pic_path: `/uploads/${req.file.filename}`,
+//     pic_name: req.file.originalname,
+// 		user: req.user.username,
+//     profile: true
+//   });
+//
+// 	console.log(req.user.username);
+//
+//   pic.save((err) => {
+//       res.redirect('/stylist/profile/edit');
+//   });
+// });
 
 
 

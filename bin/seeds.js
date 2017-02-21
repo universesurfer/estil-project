@@ -1,6 +1,7 @@
-const mongoose = require('mongoose');
-const User = require('../models/user');
-const Stylist = require('../models/stylist');
+const mongoose     = require('mongoose');
+const User         = require('../models/user');
+const Stylist      = require('../models/stylist');
+const Appointment  = require('../models/appointment');
 mongoose.connect('mongodb://localhost/estil');
 
 // const users = [
@@ -78,13 +79,25 @@ mongoose.connect('mongodb://localhost/estil');
 //   },
 // ];
 
-const appointment = [
+// {type: Schema.Types.ObjectId, ref: 'Stylist'},
+
+const appointments = [
   {
     date     : new Date(),
-    stylist  : {type: Schema.Types.ObjectId, ref: 'Stylist'},
-    user     : {type: Schema.Types.ObjectId, ref: 'User'},
+    startTime: new Date().getTime(),
+    endTime  : new Date().getTime(),
+    stylist  : {_id : "58ac18323f5a5d90da837256"},
+    user     : {_id : "58aaf2da08b1d75aa7d4d8ff"},
     completed: true
   },
+  // {
+  //   date     : new Date(),
+  //   startTime: new Date().getTime(),
+  //   endTime  : new Date().getTime(),
+  //   stylist  : {_id : "58ac18323f5a5d90da837256"},
+  //   user     : {_id :  "58ac2c0a83f71c95b6e8fc74"},
+  //   completed: false
+  // },
 ];
 
 Appointment.create(appointments, (err, docs)=> {

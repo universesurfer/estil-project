@@ -7,7 +7,6 @@ const stylistSchema = new Schema({
   username    : {type: String, required: true},
   password    : {type: String, required: true},
   role        : {type: String, required: true},
-  appointments: {type: Schema.Types.ObjectId, ref: 'Appointment'},
   avatar      : String,
 	services 		: String,
   expertise   : { type: String,
@@ -22,7 +21,14 @@ const stylistSchema = new Schema({
     default : ['Both']
 	},
   geolocation  : {type: {type: String}, coordinates: [Number]},
-	location: String
+	location: String,
+  reviews : [
+		{
+		    name    : String,
+			  comment : String,
+			  stars   : Number,
+			  date    : Date
+		}]
 });
 
 stylistSchema.index({location: '2dsphere'});
