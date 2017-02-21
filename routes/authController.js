@@ -65,8 +65,6 @@ authController.post("/stylist/signup", (req, res, next) => {
   var username = req.body.email;
   var password = req.body.password;
 
-  console.log(req);
-  console.log(req.body);
   if (username === "" || password === "") {
     res.render("auth/signup", { message: "Indicate email and password" });
     return;
@@ -97,6 +95,10 @@ authController.post("/stylist/signup", (req, res, next) => {
 			price: " ",
 			availability: " ",
       mobile: ["Both"],
+			geolocation: {
+			  type: "Point",
+			  coordinates: []
+			},
 			location: " "
     });
 
@@ -145,7 +147,6 @@ authController.get("/stylist/profile", ensureLogin.ensureLoggedIn("/stylist/logi
 authController.get("/stylist/profile/edit", ensureLogin.ensureLoggedIn("/stylist/login"), (req, res) => {
   Picture.findOne({"user": req.user.username, "profile": true}, (err, picture)=>{
     if (err){console.log("Error finding photo");}
-    console.log(picture);
     res.render("private/stylist-profile-edit", { user: req.user, picture: picture});
   });
 });
@@ -154,7 +155,6 @@ authController.post("/stylist/profile/edit", ensureLogin.ensureLoggedIn("/stylis
 
   var userId = req.user._id;
   var stylist = req.body;
-  console.log(stylist);
 
   Stylist.findOneAndUpdate({"_id": userId}, {$set: stylist}, (err)=> {
     if (err){console.log("error updating stylist");}
@@ -172,8 +172,6 @@ authController.post('/stylist/profile/photo-upload', upload.single('file'), func
 		user: req.user.username,
     profile: true
   });
-
-	console.log(req.user.username);
 
   pic.save((err) => {
       res.redirect('/stylist/profile/edit');

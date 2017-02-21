@@ -22,8 +22,10 @@ const stylistSchema = new Schema({
   availability: String,
   mobile      : {type: String,
     enum : ['Home visit', 'Salon', 'Both'],
-    default : ['Both'] },
-  location    : {type: {type: String}, coordinates: [Number]}
+    default : ['Both']
+	},
+  geolocation  : {type: {type: String}, coordinates: [Number]},
+	location: String
 });
 
 stylistSchema.index({location: '2dsphere'});

@@ -9,8 +9,7 @@
 <div class="col-lg-3 col-md-4 col-xs-6 thumb">
   <form action="/stylist/profile/photo-upload" method="POST" enctype="multipart/form-data">
     <a class="thumbnail" href="#">
-      <% console.log(picture);
-      if (picture){%>
+      <%if (picture){%>
       <img class="img-responsive" src="<%=picture.pic_path%>" alt="">
       <%} else {%>
       <img class="img-responsive" src="/images/default-avatar.png" alt="">
@@ -48,10 +47,13 @@
   <label for="mobile">Home visits/Salon:</label>
   <input type="text" name="mobile" value="<%=user.mobile%>">
   <label for="location">Location:</label>
-
   <input type="text" name="location" id="location" value="<%=user.location%>">
+	<input type="text" name="lon" id="lon">
+	<input type="text" name="lat" id="lat">
   <button type="submit">Update profile</button>
 </form>
+
+
 
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAPr_6SPIIKbgLtuwBMSnZmiAg2kTwlXPc&libraries=places"></script>
 <script src="../../javascripts/getlocations.js"></script>

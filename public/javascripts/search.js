@@ -6,13 +6,13 @@ $(".dropdown-menu li").click(function(){
   $(thisButton).find("button").html(setText);
 });
 
-
 var map;
 
 //generates initial map based on geolocation
 window.onload = getMyLocation;
 
 function getMyLocation() {
+	console.log(latLng);
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(displayLocation);
   } else {
@@ -28,6 +28,7 @@ function displayLocation(position) {
 
   //Creating a new object for using latitude and longitude values with Google map.
   var latLng = new google.maps.LatLng(latitude, longitude);
+	console.log(latLng);
   showMap(latLng);
 }
 
