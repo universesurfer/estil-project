@@ -5,7 +5,9 @@ const pictureSchema = new Schema({
   name: String,
   pic_path: String,
   pic_name: String,
-	user: String
+	user: String,
+  profile: {type: Boolean,
+    default: false}
 }, {
   timestamps: { createdAt: "created_at", updatedAt: "updated_at" }
 });
