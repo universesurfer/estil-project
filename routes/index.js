@@ -15,7 +15,7 @@ router.get('/', function(req, res, next) {
 
 
 router.get('/search', (req, res)=> {
-	Stylist.find({},"location", (req, allStylists) => {
+	Stylist.find({},"location", (err, allStylists) => {
 		locations = [];
 		allStylists.forEach(function(stylist){
 			locations.push(stylist.location);
@@ -44,7 +44,6 @@ router.get('/profile/pictures', ensureLogin.ensureLoggedIn("/login"), function(r
 router.post('/profile/pictures/upload', upload.single('file'), function(req, res){
 
   pic = new Picture({
-    name: req.body.name,
     pic_path: `/uploads/${req.file.filename}`,
     pic_name: req.file.originalname,
 		user: req.user.username

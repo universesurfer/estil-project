@@ -11,7 +11,7 @@
 <form action="/stylist/profile/edit" method="POST">
   <h5>Add a profile picture</h5>
   <input type="file" name="avatar">
-  <img src="<%= user.avatar%>" alt="">
+  <img src="<%=user.avatar%>" alt="">
   <label for="firstName">First name:</label>
   <input type="text" name="firstName" value="<%=user.firstName%>">
   <label for="lastName">Last name:</label>
