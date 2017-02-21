@@ -2,13 +2,15 @@ var express          = require('express');
 const authController = express.Router();
 const User           = require("../models/user");
 const Stylist        = require("../models/stylist");
+const Picture        = require('../models/picture');
+const Appointment    = require('../models/appointment');
 const bcrypt         = require("bcrypt");
 const bcryptSalt     = 10;
 const passport       = require("passport");
 const ensureLogin    = require("connect-ensure-login");
 const multer         = require('multer');
 var upload           = multer({ dest: './public/uploads/' });
-const Picture        = require('../models/picture');
+
 
 authController.get('/signup', function(req, res, next) {
   res.render('auth/signup');
@@ -46,7 +48,8 @@ authController.post("/signup", (req, res, next) => {
       password: hashPass,
 			role: "User",
 			avatar: " ",
-			appointments: new Date()
+			appointments: new Date(),
+      reviews: [" "]
     });
 
     newUser.save((err) => {
@@ -65,8 +68,6 @@ authController.post("/stylist/signup", (req, res, next) => {
   var username = req.body.email;
   var password = req.body.password;
 
-  console.log(req);
-  console.log(req.body);
   if (username === "" || password === "") {
     res.render("auth/signup", { message: "Indicate email and password" });
     return;
@@ -133,7 +134,10 @@ authController.post("/stylist/login", passport.authenticate("stylist-login", {
 }));
 
 authController.get("/profile", ensureLogin.ensureLoggedIn(), (req, res) => {
-  res.render("private/profile", { user: req.user });
+  Picture.findOne({"user": req.user.username, "profile": true}, (err, picture)=>{
+    if (err){console.log("Error finding photo");}
+    res.render("private/profile", { user: req.user, picture: picture});
+  });
 });
 
 authController.get("/stylist/profile", ensureLogin.ensureLoggedIn("/stylist/login"), (req, res) => {
@@ -141,14 +145,54 @@ authController.get("/stylist/profile", ensureLogin.ensureLoggedIn("/stylist/logi
   res.render("private/stylist-profile", { user: req.user });
 });
 
+authController.get("/profile/edit", ensureLogin.ensureLoggedIn(), (req, res) => {
+  Picture.findOne({"user": req.user.username, "profile": true}, (err, picture)=>{
+    if (err){console.log("Error finding photo");}
+    res.render("private/profile-edit", { user: req.user, picture: picture});
+  });
+});
 
 authController.get("/stylist/profile/edit", ensureLogin.ensureLoggedIn("/stylist/login"), (req, res) => {
   Picture.findOne({"user": req.user.username, "profile": true}, (err, picture)=>{
     if (err){console.log("Error finding photo");}
-    console.log(picture);
     res.render("private/stylist-profile-edit", { user: req.user, picture: picture});
   });
 });
+
+authController.post("/profile/edit", ensureLogin.ensureLoggedIn(), (req, res, err) => {
+
+  var userId = req.user._id;
+  var userUpdated = req.body;
+  console.log(userUpdated);
+  var review = req.body.review;
+  console.log(review);
+
+  User.update({"_id": userId}, {$set: userUpdated}, (err, user)=> {
+    if (err){console.log("error updating user");}
+  });
+  User.update({"_id": userId}, {$push: {reviews: [review]}}, (err, user)=> {
+    if (err){console.log("error updating user");}
+    res.redirect("/profile");
+  });
+});
+
+authController.post('/profile/photo-upload', upload.single('file'), function(req, res){
+
+  pic = new Picture({
+    // name: req.body.name,
+    pic_path: `/uploads/${req.file.filename}`,
+    pic_name: req.file.originalname,
+		user: req.user.username,
+    profile: true
+  });
+
+	console.log(req.user.username);
+
+  pic.save((err) => {
+      res.redirect('/profile/edit');
+  });
+});
+
 
 authController.post("/stylist/profile/edit", ensureLogin.ensureLoggedIn("/stylist/login"), (req, res, err) => {
 

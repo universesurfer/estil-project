@@ -1,0 +1,39 @@
+<head>
+	<link rel="stylesheet" href="/stylesheets/profiles.css">
+</head>
+<body>
+
+<a href="/profile">Profile</a>
+<br>
+<a href="/logout">Logout</a>
+<br>
+<div class="col-lg-3 col-md-4 col-xs-6 thumb">
+  <form action="/profile/photo-upload" method="POST" enctype="multipart/form-data">
+    <a class="thumbnail" href="#">
+      <% console.log(picture);
+      if (picture){%>
+      <img class="img-responsive" src="<%=picture.pic_path%>" alt="">
+      <%} else {%>
+      <img class="img-responsive" src="/images/default-avatar.png" alt="">
+      <%}%>
+    </a>
+    <input type="file" name="file">
+    <input type="submit" value="Upload">
+  </form>
+</div>
+
+<form action="/profile/edit" method="POST">
+  <label for="firstName">First name:</label>
+  <input type="text" name="firstName" value="<%=user.firstName%>">
+  <label for="lastName">Last name:</label>
+  <input type="text" name="lastName" value="<%=user.lastName%>">
+  <label for="username">Username:</label>
+  <input type="text" name="username" value="<%=user.username%>">
+  <label for="review">Leave a review:</label>
+  <p><%=user.review%></p>
+  <textarea name="review" id="review" cols="30" rows="10"></textarea>
+  <br>
+  <button type="submit">Update profile</button>
+</form>
+
+</body>
