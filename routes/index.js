@@ -17,7 +17,7 @@ router.get('/search', (req, res)=> {
 	res.render('search');
 });
 
-router.get("/api/locations", (req, res)=> {
+router.post("/api/search", (req, res)=> {
 	Stylist.find({},"geolocation", (err, allStylists) => {
 		locations = {};
 		allStylists.forEach(function(stylist, index){
@@ -25,15 +25,6 @@ router.get("/api/locations", (req, res)=> {
 		})
 	})
 	res.json(locations);
-})
-
-router.post('/search/results',(req, res, next) => {
-  Stylist.find((error, places) => {
-    if (error) { next(error); }
-    else {
-      res.json(places);
-    }
-  })
 })
 
 router.get('/profile/pictures', ensureLogin.ensureLoggedIn("/login"), function(req,res) {
