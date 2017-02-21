@@ -69,13 +69,13 @@ authController.post("/stylist/signup", (req, res, next) => {
   var password = req.body.password;
 
   if (username === "" || password === "") {
-    res.render("auth/signup", { message: "Indicate email and password" });
+    res.render("auth/stylist-signup", { message: "Indicate email and password" });
     return;
   }
 
   Stylist.findOne({ username }, "username", (err, user) => {
     if (user !== null) {
-      res.render("auth/signup", { message: "The email already exists" });
+      res.render("auth/stylist-signup", { message: "The email already exists" });
       return;
     }
 
@@ -100,14 +100,15 @@ authController.post("/stylist/signup", (req, res, next) => {
       mobile: ["Both"],
 			geolocation: {
 			  type: "Point",
-			  coordinates: []
+			  coordinates: [90,0]
 			},
-			location: " "
+			location: ""
     });
 
     newStylist.save((err) => {
       if (err) {
-        res.render("auth/signup", { message: "The username already exists" });
+				console.log(err);
+        res.render("auth/stylist-signup", { message: "The username already exists" });
       } else {
         res.redirect("/stylist/profile");
       }
@@ -157,10 +158,12 @@ authController.get("/profile/edit", ensureLogin.ensureLoggedIn(), (req, res) => 
 });
 
 authController.get("/stylist/profile/edit", ensureLogin.ensureLoggedIn("/stylist/login"), (req, res) => {
+
   Picture.findOne({"user": req.user.username, "profile": true}, (err, picture)=>{
     if (err){console.log("Error finding photo");}
     res.render("private/stylist-profile-edit", { user: req.user, picture: picture});
   });
+
 });
 
 authController.post("/profile/edit", ensureLogin.ensureLoggedIn(), (req, res, err) => {
@@ -202,6 +205,8 @@ authController.post("/stylist/profile/edit", ensureLogin.ensureLoggedIn("/stylis
 
   var userId = req.user._id;
   var stylist = req.body;
+
+	stylist.geolocation = {type:'Point', coordinates: [req.body.lon, req.body.lat]};
 
   Stylist.findOneAndUpdate({"_id": userId}, {$set: stylist}, (err)=> {
     if (err){console.log("error updating stylist");}

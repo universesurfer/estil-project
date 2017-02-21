@@ -13,16 +13,14 @@ router.get('/', function(req, res, next) {
   res.render('index', {user: req.user});
 });
 
-
 router.get('/search', (req, res)=> {
-	Stylist.find({},"location", (err, allStylists) => {
-		locations = [];
-		allStylists.forEach(function(stylist){
-			locations.push(stylist.location);
+	Stylist.find({},"geolocation", (err, allStylists) => {
+		locations = {};
+		allStylists.forEach(function(stylist, index){
+			locations["prop" + index] = stylist.geolocation.coordinates;
 		})
-		testLocation = locations[0];
 	})
-  res.render('search');
+  res.render('search', locations);
 });
 
 router.post('/search/results',(req, res, next) => {
