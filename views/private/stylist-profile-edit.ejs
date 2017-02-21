@@ -48,8 +48,11 @@
   <label for="mobile">Home visits/Salon:</label>
   <input type="text" name="mobile" value="<%=user.mobile%>">
   <label for="location">Location:</label>
-  <input type="text" name="location" value="<%=user.location%>">
+
+  <input type="text" name="location" id="location" value="<%=user.location%>">
   <button type="submit">Update profile</button>
 </form>
 
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAPr_6SPIIKbgLtuwBMSnZmiAg2kTwlXPc&libraries=places"></script>
+<script src="../../javascripts/getlocations.js"></script>
 </body>
