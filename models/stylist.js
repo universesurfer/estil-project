@@ -7,10 +7,7 @@ const stylistSchema = new Schema({
   username    : {type: String, required: true},
   password    : {type: String, required: true},
   role        : {type: String, required: true},
-  appointments: {
-    date  : Date,
-    user  : {type: Schema.Types.ObjectId, ref: 'User'}
-  },
+  appointments: {type: Schema.Types.ObjectId, ref: 'Appointment'},
   avatar      : String,
 	services 		: String,
   expertise   : { type: String,
