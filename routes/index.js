@@ -78,5 +78,35 @@ router.post('/stylist/profile/portfolio/upload', upload.single('file'), function
   });
 });
 
+router.get('/view-stylist/:id', function(req,res) {
+	var dotAt = req.params.id.indexOf(".");
+	var firstName = req.params.id.substring(0,dotAt);
+	var lastName = req.params.id.substring(dotAt+1);
+
+	//searching by first and last name, will have a problem if two users have the exact same name,
+	//would create unique usernames in the future to use in the public profile URL
+	Stylist.findOne({"firstName":firstName, "lastName":lastName},(err,stylist) => {
+		var URLId = req.params.id;
+		res.render('stylist-public',{URLId, stylist});
+	})
+
+})
+
+router.get('/view-stylist/:id/portfolio', function(req,res) {
+	var dotAt = req.params.id.indexOf(".");
+	var firstName = req.params.id.substring(0,dotAt);
+	var lastName = req.params.id.substring(dotAt+1);
+
+	var stylistUsername, URLId = req.params.id;
+
+	Stylist.findOne({"firstName":firstName, "lastName":lastName},{"username": 1},(err,stylist) => {
+		stylistUsername = stylist.username;
+		Picture.find({"user" : stylistUsername}, (err, pictures) => {
+			res.render('stylist-public-portfolio', {URLId, pictures})
+		})
+	})
+
+})
+
 
 module.exports = router;

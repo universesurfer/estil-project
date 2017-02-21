@@ -76,7 +76,7 @@ function showMapWithMyLocation(position) {
 
 					var stylistName = firstName + " " + lastName;
 
-					var content = "<a href='./stylist/" + firstName + "." + lastName+ "'>" + stylistName + "</a><br>" +  response[stylistMapInfo]["address"];
+					var content = "<a href='./view-stylist/" + firstName + "." + lastName+ "'>" + stylistName + "</a><br>" +  response[stylistMapInfo]["address"];
 
 					var infoWindow = new google.maps.InfoWindow({
 						content: content
