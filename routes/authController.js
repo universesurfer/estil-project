@@ -8,6 +8,7 @@ const passport       = require("passport");
 const ensureLogin    = require("connect-ensure-login");
 const multer         = require('multer');
 var upload           = multer({ dest: './public/uploads/' });
+const Picture        = require('../models/picture');
 
 authController.get('/signup', function(req, res, next) {
   res.render('auth/signup');
@@ -136,34 +137,17 @@ authController.get("/profile", ensureLogin.ensureLoggedIn(), (req, res) => {
 });
 
 authController.get("/stylist/profile", ensureLogin.ensureLoggedIn("/stylist/login"), (req, res) => {
+
   res.render("private/stylist-profile", { user: req.user });
 });
 
-// authController.post("/stylist/profile", ensureLogin.ensureLoggedIn("/stylist/login"), (req, res) => {
-//   console.log(req.body.firstName);
-//   Stylist.findOne({ "username": req.user.username }, "username", (err, stylist) => {
-//
-//       req.user.firstName = req.body.firstName;
-// 			req.user.avatar = req.body.avatar;
-// 			req.user.services = req.body.services;
-// 			req.user.expertise = req.body.expertise;
-// 			req.user.languages = req.body.languages;
-// 			req.user.description = req.body.description;
-// 			req.user.price = req.body.price;
-// 			req.user.availability = req.body.availability;
-// 			req.user.location = req.body.location;
-//
-//
-//
-// 		stylist.update(stylistUpdates,(err) => {
-//     res.redirect("/stylist/profile");
-// 		})
-// 	});
-// });
 
 authController.get("/stylist/profile/edit", ensureLogin.ensureLoggedIn("/stylist/login"), (req, res) => {
-  var userId = req.params.id;
-  res.render("private/stylist-profile-edit", { user: req.user });
+  Picture.findOne({"user": req.user.username, "profile": true}, (err, picture)=>{
+    if (err){console.log("Error finding photo");}
+    console.log(picture);
+    res.render("private/stylist-profile-edit", { user: req.user, picture: picture});
+  });
 });
 
 authController.post("/stylist/profile/edit", ensureLogin.ensureLoggedIn("/stylist/login"), (req, res, err) => {
@@ -177,6 +161,23 @@ authController.post("/stylist/profile/edit", ensureLogin.ensureLoggedIn("/stylis
   });
 
   res.redirect("/stylist/profile");
+});
+
+authController.post('/stylist/profile/photo-upload', upload.single('file'), function(req, res){
+
+  pic = new Picture({
+    // name: req.body.name,
+    pic_path: `/uploads/${req.file.filename}`,
+    pic_name: req.file.originalname,
+		user: req.user.username,
+    profile: true
+  });
+
+	console.log(req.user.username);
+
+  pic.save((err) => {
+      res.redirect('/stylist/profile/edit');
+  });
 });
 
 
