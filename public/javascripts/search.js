@@ -53,11 +53,13 @@ function showMapWithMyLocation(position) {
 		success: function(response) {
 			var markers = [];
 
-			for (var stylistLocation in response) {
-				if (response.hasOwnProperty(stylistLocation)){
+			for (var stylistMapInfo in response) {
+				if (response.hasOwnProperty(stylistMapInfo)){
 
-					var lat = response[stylistLocation][1];
-					var lon = response[stylistLocation][0];
+					console.log(response[stylistMapInfo]);
+
+					var lat = response[stylistMapInfo]["coords"][1];
+					var lon = response[stylistMapInfo]["coords"][0];
 
 					var stylistMarker = {
 						lat: lat,
@@ -69,7 +71,16 @@ function showMapWithMyLocation(position) {
 						map: map
 					});
 
-					var infoWindow = new google.maps.InfoWindow();
+					var firstName = response[stylistMapInfo]["firstName"];
+					var lastName = response[stylistMapInfo]["lastName"];
+
+					var stylistName = firstName + " " + lastName;
+
+					var content = "<a href='./stylist/" + firstName + "." + lastName+ "'>" + stylistName + "</a><br>" +  response[stylistMapInfo]["address"];
+
+					var infoWindow = new google.maps.InfoWindow({
+						content: content
+					});
 
 					markers.push([addMarker,infoWindow]);
 

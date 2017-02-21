@@ -18,13 +18,19 @@ router.get('/search', (req, res)=> {
 });
 
 router.post("/api/search", (req, res)=> {
-	Stylist.find({},"geolocation", (err, allStylists) => {
-		locations = {};
+	Stylist.find({},{"firstName":1, "lastName":1, "geolocation":1, "location":1}, (err, allStylists) => {
+		mapInfo = {};
 		allStylists.forEach(function(stylist, index){
-			locations["prop" + index] = stylist.geolocation.coordinates;
+			console.log(stylist);
+			mapInfo["prop" + index] = {
+				coords: stylist.geolocation.coordinates,
+				address: stylist.location,
+				firstName: stylist.firstName,
+				lastName: stylist.lastName
+			};
 		})
 	})
-	res.json(locations);
+	res.json(mapInfo);
 })
 
 router.get('/profile/pictures', ensureLogin.ensureLoggedIn("/login"), function(req,res) {

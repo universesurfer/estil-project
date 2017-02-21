@@ -206,6 +206,7 @@ authController.post("/stylist/profile/edit", ensureLogin.ensureLoggedIn("/stylis
   var stylist = req.body;
 
 	stylist.geolocation = {type:'Point', coordinates: [req.body.lon, req.body.lat]};
+	stylist.location = req.body.location;
 
   Stylist.findOneAndUpdate({"_id": userId}, {$set: stylist}, (err)=> {
     if (err){console.log("error updating stylist");}
