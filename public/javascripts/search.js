@@ -52,6 +52,34 @@ function showMap(latLng) {
 
 	markerCreate(newArea, type);
 
+	$.ajax({
+		url: "http://localhost:3000/api/locations",
+		method: "GET",
+		success: function(response) {
+			for (var stylistLocation in response) {
+				if (response.hasOwnProperty(stylistLocation)){
+					var lat = response[stylistLocation][0];
+					var lon = response[stylistLocation][1];
+
+					marker = {};
+					marker.lat = lat;
+					marker.lng = lon;
+
+					console.log(marker);
+
+				  var marker = new google.maps.Marker({
+						position: marker,
+					  map: map
+					});
+
+				}
+			}
+		},
+		error: function(error) {
+			console.log(error);
+		}
+	})
+
 }
 
 function markerCreate(autocomplete, type) {
@@ -74,9 +102,6 @@ function markerCreate(autocomplete, type) {
 	    placeId: place.place_id,
 	    location: place.geometry.location
 	  });
-		console.log(place.place_id);
-		console.log(place.geometry.location);
-		console.log(place);
 	  marker.setVisible(true);
 
 		infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + place.formatted_address + '</div>');

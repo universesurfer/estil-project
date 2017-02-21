@@ -14,14 +14,18 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/search', (req, res)=> {
+	res.render('search');
+});
+
+router.get("/api/locations", (req, res)=> {
 	Stylist.find({},"geolocation", (err, allStylists) => {
 		locations = {};
 		allStylists.forEach(function(stylist, index){
 			locations["prop" + index] = stylist.geolocation.coordinates;
 		})
 	})
-  res.render('search', locations);
-});
+	res.json(locations);
+})
 
 router.post('/search/results',(req, res, next) => {
   Stylist.find((error, places) => {
