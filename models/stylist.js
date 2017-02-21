@@ -25,7 +25,7 @@ const stylistSchema = new Schema({
 	location: String
 });
 
-stylistSchema.index({location: '2dsphere'});
+stylistSchema.index({geolocation: '2dsphere'});
 stylistSchema.set('timestamps', true);
 
 const Stylist = mongoose.model('Stylist', stylistSchema);
