@@ -1,6 +1,7 @@
-const mongoose = require('mongoose');
-const User = require('../models/user');
-const Stylist = require('../models/stylist');
+const mongoose     = require('mongoose');
+const User         = require('../models/user');
+const Stylist      = require('../models/stylist');
+const Appointment  = require('../models/appointment');
 mongoose.connect('mongodb://localhost/estil');
 
 const users = [
@@ -11,9 +12,6 @@ const users = [
     password    : '1234',
     role        : 'User',
     avatar      : ' ',
-    // appointments: {
-    //   date : new Date()
-    // }
   },
   {
     firstName   : 'Tasha',
@@ -22,9 +20,6 @@ const users = [
     password    : '2345',
     role        : 'User',
     avatar      : ' ',
-    // appointments: {
-    //   date : new Date()
-    // }
   },
   {
     firstName   : 'Mika',
@@ -33,9 +28,6 @@ const users = [
     password    : '3456',
     role        : 'User',
     avatar      : ' ',
-    // appointments: {
-    //   date : new Date()
-    // }
 	}
 ];
 
@@ -46,9 +38,6 @@ const stylists = [
     username    : 'harry@potter.co',
     password    : 'abcd',
     role        : 'Stylist',
-    // appointments: {
-    //   date : new Date()
-    // },
     avatar			: ' ',
 		services		: ' ',
 		expertise: ["Both"],
@@ -62,6 +51,14 @@ const stylists = [
 			coordinates: [10,10]
 		},
     // location    : 'Via Augusta, 92'
+    reviews : [
+      {
+        name    : " ",
+        comment : " ",
+        stars   : 1,
+        date    : new Date()
+      }
+    ]
   },
   {
     firstName   : 'Hermione',
@@ -69,61 +66,77 @@ const stylists = [
     username    : 'hermione@granger.co.uk',
     password    : 'abcd',
     role        : 'Stylist',
-    // appointments: {
-    //   date : new Date()
-    // },
 		avatar			: ' ',
 		services		: ' ',
-		expertise: ["Both"],
-		languages: " ",
-		description: " ",
-		price: " ",
+		expertise   : ["Both"],
+		languages   : " ",
+		description : " ",
+		price       : " ",
 		availability: " ",
-		mobile: ["Both"],
-		geolocation: {
-			type: "Point",
+		mobile      : ["Both"],
+		geolocation : {
+			type       : "Point",
 			coordinates: [20,20]
 		},
     // location : 'Carrer de lAtlàntida, 53 08003, Barcelona'
+    reviews : [
+      {
+        name    : " ",
+        comment : " ",
+        stars   : 4,
+        date    : new Date()
+      }
+    ]
   }
 ];
 
-// const appointment = [
-//   {
-//     date     : new Date(),
-//     stylist  : {type: Schema.Types.ObjectId, ref: 'Stylist'},
-//     user     : {type: Schema.Types.ObjectId, ref: 'User'},
-//     completed: true
-//   },
-// ];
-//
-// Appointment.create(appointments, (err, docs)=> {
-//   if (err){
-// 		throw(err);}
-//
-//   docs.forEach( (appointment)=>{
-//     console.log(appointments._id);
-//   });
-//   mongoose.connection.close();
-// });
+
+const appointments = [
+  {
+    date     : new Date(),
+    startTime: new Date().getTime(),
+    endTime  : new Date().getTime(),
+    stylist  : {_id : "58ac741e46a05babb522aa69"},
+    user     : {_id : "58ac7365b2ba19ab38c51a5d"},
+    completed: true
+  },
+  {
+    date     : new Date(),
+    startTime: new Date().getTime(),
+    endTime  : new Date().getTime(),
+    stylist  : {_id : "58ac742846a05babb522aa6b"},
+    user     : {_id :  "58ac73d5b2ba19ab38c51a5e"},
+    completed: false
+  },
+];
+
+Appointment.create(appointments, (err, docs)=> {
+  if (err){
+		throw(err);}
+
+  docs.forEach( (appointment)=>{
+    console.log(appointments._id);
+  });
+  mongoose.connection.close();
+});
 
 
 User.create(users, (err, docs)=> {
+	console.log(users.username);
   if (err){
 		throw(err);}
 
   docs.forEach( (user)=>{
-		console.log(user.username);
   })
   mongoose.connection.close();
 });
 
 Stylist.create(stylists, (err, docs)=> {
+	console.log(stylists.username);
   if (err){
 		throw(err);}
 
   docs.forEach( (stylist)=>{
-		console.log(stylist.username);
   })
   mongoose.connection.close();
 });

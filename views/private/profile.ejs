@@ -10,15 +10,13 @@
 
 <div class="col-lg-3 col-md-4 col-xs-6 thumb">
   <a class="thumbnail" href="#">
-    <% console.log(picture);
-    if (picture){%>
+    <% if (picture){%>
     <img class="img-responsive" src="<%=picture.pic_path%>" alt="">
     <%} else {%>
     <img class="img-responsive" src="/images/default-avatar.png" alt="">
     <%}%>
   </a>
 </div>
-
 
 <%var name = user.firstName + " " + user.lastName %>
 
@@ -33,7 +31,10 @@
 	</tr>
   <tr>
     <td>Appointments</td>
-    <td><%=user.appointments%></td>
+    <td><%=appointment.date%></td>
+    <td><%=appointment.startTime%></td>
+    <td><%=appointment.stylist%></td>
+
   </tr>
   <tr>
 		<td>Reviews</td>
@@ -46,5 +47,3 @@
     <%}%>
 	</tr>
 </table>
-
-<script src="/javascripts/profile.js"></script>

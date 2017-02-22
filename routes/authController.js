@@ -47,9 +47,7 @@ authController.post("/signup", (req, res, next) => {
       username,
       password: hashPass,
 			role: "User",
-			avatar: " ",
-			appointments: new Date(),
-      reviews: [" "]
+			avatar: " "
     });
 
     newUser.save((err) => {
@@ -87,22 +85,29 @@ authController.post("/stylist/signup", (req, res, next) => {
 			firstName,
 			lastName,
       username,
-      password: hashPass,
-			role: "Stylist",
-			date: new Date(),
-			avatar: " ",
-			services: " ",
-			expertise: ["Both"],
-			languages: " ",
-			description: " ",
-			price: " ",
+      password    : hashPass,
+			role        : "Stylist",
+			date        : new Date(),
+			avatar      : " ",
+			services    : " ",
+			expertise   : ["Both"],
+			languages   : " ",
+			description : " ",
+			price       : " ",
 			availability: " ",
-      mobile: ["Both"],
-			geolocation: {
-			  type: "Point",
+      mobile      : ["Both"],
+			geolocation : {
+			  type       : "Point",
 			  coordinates: [90,0]
 			},
-			location: ""
+			location    : "",
+      reviews     : [
+        {
+            name    : "",
+            comment : "",
+            stars   : 0,
+            date    : new Date()
+        }]
     });
 
     newStylist.save((err) => {
@@ -140,8 +145,16 @@ authController.post("/stylist/login", passport.authenticate("stylist-login", {
 
 authController.get("/profile", ensureLogin.ensureLoggedIn(), (req, res) => {
   Picture.findOne({"user": req.user.username, "profile": true}, (err, picture)=>{
-    if (err){console.log("Error finding photo");}
-    res.render("private/profile", { user: req.user, picture: picture});
+    if (err){
+      console.log("Error finding photo");
+    }
+  Appointment.findOne({"user": req.user._id}, (err, appointment)=>{
+    if (err){
+      console.log("Error finding appointment");
+    }
+    console.log("found app:" + appointment);
+    res.render("private/profile", { user: req.user, picture: picture, appointment: appointment });
+    });
   });
 });
 
@@ -229,6 +242,7 @@ authController.post('/stylist/profile/photo-upload', upload.single('file'), func
       res.redirect('/stylist/profile/edit');
   });
 });
+
 
 
 
