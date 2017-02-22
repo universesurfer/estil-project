@@ -1,17 +1,4 @@
-// Sets new option of dropdown
-
-$(".dropdown-menu li").click(function(){
-  var setText = $(this).text();
-  var thisButton = $(this).closest(".dropdown");
-  $(thisButton).find("button").html(setText);
-});
-
 var map;
-
-//generates initial map based on geolocation
-$(document).ready(function(){
-	getMyLocation();
-})
 
 function getMyLocation() {
   if (navigator.geolocation) {
@@ -55,8 +42,6 @@ function showMapWithMyLocation(position) {
 
 			for (var stylistMapInfo in response) {
 				if (response.hasOwnProperty(stylistMapInfo)){
-
-					console.log(response[stylistMapInfo]);
 
 					var lat = response[stylistMapInfo]["coords"][1];
 					var lon = response[stylistMapInfo]["coords"][0];
@@ -147,3 +132,18 @@ function runAutocomplete() {
 	});
 
 }
+
+//generates initial map based on geolocation
+$(document).ready(function(){
+	getMyLocation();
+
+	// Sets new option of dropdown
+
+	$(".dropdown-menu li").click(function(){
+	  var setText = $(this).text();
+		console.log(setText);
+	  var thisButton = $(this).closest(".dropdown");
+	  $(thisButton).find("button").html(setText);
+	});
+
+})

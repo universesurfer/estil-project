@@ -98,7 +98,7 @@ authController.post("/stylist/signup", (req, res, next) => {
       mobile      : ["Both"],
 			geolocation : {
 			  type       : "Point",
-			  coordinates: [90,0]
+			  coordinates: [9999,9999]
 			},
 			location    : "",
       reviews     : [

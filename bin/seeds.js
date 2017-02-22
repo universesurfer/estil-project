@@ -31,64 +31,66 @@ const users = [
 	}
 ];
 
-const stylists = [
-  {
-    firstName   : 'Harry',
-		lastName    : 'Potter',
-    username    : 'harry@potter.co',
-    password    : 'abcd',
-    role        : 'Stylist',
-    avatar			: ' ',
-		services		: ' ',
-		expertise: ["Both"],
-		languages: " ",
-		description: " ",
-		price: " ",
-		availability: " ",
-		mobile: ["Both"],
-		geolocation: {
-			type: "Point",
-			coordinates: [10,10]
-		},
-    // location    : 'Via Augusta, 92'
-    reviews : [
-      {
-        name    : " ",
-        comment : " ",
-        stars   : 1,
-        date    : new Date()
-      }
-    ]
-  },
-  {
-    firstName   : 'Hermione',
-		lastName    : 'Granger',
-    username    : 'hermione@granger.co.uk',
-    password    : 'abcd',
-    role        : 'Stylist',
-		avatar			: ' ',
-		services		: ' ',
-		expertise   : ["Both"],
-		languages   : " ",
-		description : " ",
-		price       : " ",
-		availability: " ",
-		mobile      : ["Both"],
-		geolocation : {
-			type       : "Point",
-			coordinates: [20,20]
-		},
-    // location : 'Carrer de lAtlàntida, 53 08003, Barcelona'
-    reviews : [
-      {
-        name    : " ",
-        comment : " ",
-        stars   : 4,
-        date    : new Date()
-      }
-    ]
-  }
-];
+const stylists=[{firstName:"Harry",lastName:"Potter",username:"harry@potter.co",password:"abcd",role:"Stylist",avatar:" ",services:" ",expertise:["Both"],languages:" ",description:" ",price:" ",availability:["Monday"],mobile:["Both"],geolocation:{type:"Point",coordinates:[2.189858,41.386333]},location:" ",reviews:[{name:" ",comment:" ",stars:1,date:new Date()}]},{firstName:"Hermione",lastName:"Granger",username:"hermione@granger.co.uk",password:"abcd",role:"Stylist",avatar:" ",services:" ",expertise:["Both"],languages:" ",description:" ",price:" ",availability:["Tuesday"],mobile:["Both"],geolocation:{type:"Point",coordinates:[2.186015,41.388123]},location:" ",reviews:[{name:" ",comment:" ",stars:4,date:new Date()}]}];
+
+// const stylists = [
+//   {
+//     firstName   : 'Harry',
+// 		lastName    : 'Potter',
+//     username    : 'harry@potter.co',
+//     password    : 'abcd',
+//     role        : 'Stylist',
+//     avatar			: ' ',
+// 		services		: ' ',
+// 		expertise: ["Both"],
+// 		languages: " ",
+// 		description: " ",
+// 		price: " ",
+// 		availability: " ",
+// 		mobile: ["Both"],
+// 		geolocation: {
+// 			type: "Point",
+// 			coordinates: [9999,9999]
+// 		},
+//     location    : ' ',
+//     reviews : [
+//       {
+//         name    : " ",
+//         comment : " ",
+//         stars   : 1,
+//         date    : new Date()
+//       }
+//     ]
+//   },
+//   {
+//     firstName   : 'Hermione',
+// 		lastName    : 'Granger',
+//     username    : 'hermione@granger.co.uk',
+//     password    : 'abcd',
+//     role        : 'Stylist',
+// 		avatar			: ' ',
+// 		services		: ' ',
+// 		expertise   : ["Both"],
+// 		languages   : " ",
+// 		description : " ",
+// 		price       : " ",
+// 		availability: " ",
+// 		mobile      : ["Both"],
+// 		geolocation : {
+// 			type       : "Point",
+// 			coordinates: [9999,9999]
+// 		},
+//     location : ' ',
+//     reviews : [
+//       {
+//         name    : " ",
+//         comment : " ",
+//         stars   : 4,
+//         date    : new Date()
+//       }
+//     ]
+//   }
+// ];
 
 
 const appointments = [
@@ -115,28 +117,28 @@ Appointment.create(appointments, (err, docs)=> {
 		throw(err);}
 
   docs.forEach( (appointment)=>{
-    console.log(appointments._id);
+    console.log(appointment._id);
   });
   mongoose.connection.close();
 });
 
 
 User.create(users, (err, docs)=> {
-	console.log(users.username);
   if (err){
 		throw(err);}
 
   docs.forEach( (user)=>{
+		console.log(user.username);
   })
   mongoose.connection.close();
 });
 
 Stylist.create(stylists, (err, docs)=> {
-	console.log(stylists.username);
   if (err){
 		throw(err);}
 
   docs.forEach( (stylist)=>{
+		console.log(stylist.username);
   })
   mongoose.connection.close();
 });

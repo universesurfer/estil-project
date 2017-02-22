@@ -15,7 +15,7 @@ const stylistSchema = new Schema({
 	languages		: String,
 	description : String,
   price       : String,
-  availability: String,
+  availability: [String],
   mobile      : {type: String,
     enum : ['Home visit', 'Salon', 'Both'],
     default : ['Both']
