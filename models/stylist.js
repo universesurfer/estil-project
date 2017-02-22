@@ -24,6 +24,7 @@ const stylistSchema = new Schema({
 	location: String,
   reviews : [
     {
+        userId  : {type: Schema.Types.ObjectId, ref: 'User'},
         name    : String,
         comment : String,
         stars   : Number,

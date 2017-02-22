@@ -30,22 +30,21 @@
 		<td><%=user.username%></td>
 	</tr>
   <tr>
-    <td>Appointments</td>
+    <td>Appointments:</td>
     <% appointments.forEach((app)=> {%>
-    <td>When: <%=app.date.toDateString()%></td>
-    <td>At: <%=app.startTime.toLocaleTimeString()%></td>
-    <td>With: <%=stylist.username%></td>
-    <td>Completed: <%=app.completed%></td>
+      <tr>
+      <td>When: <%=app.date.toDateString()%></td>
+      <td>At: <%=app.startTime.toLocaleTimeString()%></td>
+      <td>With: <%=app.stylist.username %></td>
+      <td>Completed:
+        <%if (app.completed === false) {%>
+          No
+        <%} else {%>
+          Yes
+          <%}%></td>
+      </tr>
     <%});%>
   </tr>
   <tr>
-		<td>Reviews</td>
-    <% if (user.reviews){%>
-    <% user.reviews.forEach((userRev)=>{%>
-		<td><%=userRev%></td>
-    <%});%>
-    <%} else {%>
-    <td>You haven't left any reviews yet. <a href="/profile/edit">Add a review </a></td>
-    <%}%>
 	</tr>
 </table>

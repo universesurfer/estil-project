@@ -10,6 +10,8 @@ const passport       = require("passport");
 const ensureLogin    = require("connect-ensure-login");
 const multer         = require('multer');
 var upload           = multer({ dest: './public/uploads/' });
+const mongoose = require('mongoose');
+const _ = require('underscore');
 
 
 authController.get('/signup', function(req, res, next) {
@@ -103,6 +105,7 @@ authController.post("/stylist/signup", (req, res, next) => {
 			location    : "",
       reviews     : [
         {
+            userId  : {type: Schema.Types.ObjectId, ref: 'User'},
             name    : "",
             comment : "",
             stars   : 0,
@@ -149,26 +152,17 @@ authController.get("/profile", ensureLogin.ensureLoggedIn(), (req, res) => {
       console.log("Error finding photo");
     }
 
-    Appointment.find({"user": req.user._id}, (err, appointments)=>{
-      if (err){
-        console.log("Error finding appointment");
-      }
-
-      for (var i = 0; i < appointments.length; i++) {
-        Stylist.findOne({"_id": appointments[i].stylist}, (err, stylist)=>{
-          if (err){
-            console.log("Error finding stylist");
-          }
-          if (i == appointments.length) {
-            res.render("private/profile", { user: req.user, picture: picture, appointments: appointments, stylist: stylist});
-          }
-        });
-      }
-
-    });
-
+    Appointment.find({"user": req.user._id })
+      .populate('stylist', 'username')
+      .exec(function (err, appointments) {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log('appointments', appointments);
+          res.render("private/profile", { user: req.user, picture: picture, appointments: appointments});
+        }
+      });
   });
-
 });
 
 authController.get("/stylist/profile", ensureLogin.ensureLoggedIn("/stylist/login"), (req, res) => {
