@@ -29,9 +29,28 @@
   <input type="text" name="lastName" value="<%=user.lastName%>">
   <label for="username">Username:</label>
   <input type="text" name="username" value="<%=user.username%>">
-  <label for="review">Leave a review:</label>
-  <p><%=user.review%></p>
-  <textarea name="review" id="review" cols="30" rows="10"></textarea>
+  <div>
+    <tr>
+      <td>Appointment:</td>
+      <% appointments.forEach((app)=> {%>
+        <tr>
+          <td>When: <%=app.date.toDateString()%></td>
+          <td>At: <%=app.startTime.toLocaleTimeString()%></td>
+          <td>With: <a href="/view-stylist/<%=app.stylist.firstName%>.<%=app.stylist.lastName%>"><%=app.stylist.username %></td></a>
+        </tr>
+        <a href=#>Leave a review</a>
+        <br></br>
+        <%});%>
+        <br></br>
+        <label for="review">Leave a review for:</label>
+        <input type="text" name="stylistName" value="<%=appointments[0].stylist.username%>">
+        <label for="stars">Star Rating:</label>
+        <input type="number" name="stars">
+        <textarea name="review" id="review" cols="30" rows="10"></textarea>
+        <br>
+  </div>
+
+
   <br>
   <button type="submit">Update profile</button>
 </form>

@@ -43,19 +43,20 @@
           Yes
           <%}%></td>
       </tr>
-
+    <%});%>
   </tr>
   <tr>
-    <td>Review:</td>
-    <%console.log("user._id: ", app.user)%>
-    <%console.log("app.stylist: ", app.stylist.reviews[0].userId)%>
-    <% if(app.user.toString() === app.stylist.reviews[0].userId.toString()) {%>
-      <td><%=app.stylist.reviews[0].comment%></td>
-      <td>Stars: <%=app.stylist.reviews[0].stars%></td>
-      <td>Date: <%=app.stylist.reviews[0].date.toDateString()%></td>
-    <%} else {%>
-      <td>You haven't left any reviews yet. Leave a review</td>
+    <td>Reviews:</td>
+    <%console.log("arse: ", appointments[1].stylist.reviews[0].date.toDateString())%>
+    <% for (var i = 0; i < appointments.length; i++){%>
+      <% for (var j = 0; j < appointments[i].stylist.reviews.length; j++) {%>
+        <% var appsRevs = appointments[i].stylist.reviews[j];%>
+          <td><%=appsRevs.comment%></td>
+          <td>Stars: <%=appsRevs.stars%></td>
+          <% if( appsRevs.date !== undefined){%>
+            <td>Date: <%= appsRevs.date.toDateString();%> </td>
+          <%}%>
       <%}%>
+    <%}%>
 	</tr>
-  <%});%>
 </table>
