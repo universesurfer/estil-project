@@ -149,10 +149,10 @@ $(document).ready(function(){
 		markers.forEach(function(marker){
 			var filterStylistBy = marker[2][$(that).parent().attr("id")];
 			if (filterStylistBy.indexOf(setText) != -1) {
-				marker[0].setVisible(false);
+				marker[0].setVisible(true);
 			}
 			else {
-				marker[0].setVisible(true);
+				marker[0].setVisible(false);
 			};
 		});
 
