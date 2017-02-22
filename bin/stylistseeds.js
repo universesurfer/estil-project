@@ -10,7 +10,7 @@ const stylists = [
 		expertise: "Men",
 		languages: " ",
 		description: " ",
-		price: " ",
+		price: "€€€",
 		availability: ["Monday"],
 		mobile: ["Both"],
 		geolocation: {
@@ -38,7 +38,7 @@ const stylists = [
 		expertise   : "Any",
 		languages   : " ",
 		description : " ",
-		price       : " ",
+		price       : "€€",
 		availability: ["Tuesday"],
 		mobile      : ["Both"],
 		geolocation : {
@@ -66,7 +66,7 @@ const stylists = [
 		expertise   : "Any",
 		languages   : " ",
 		description : " ",
-		price       : " ",
+		price       : "€€",
 		availability: ["Monday"],
 		mobile      : ["Both"],
 		geolocation : {

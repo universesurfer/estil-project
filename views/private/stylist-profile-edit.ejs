@@ -39,6 +39,7 @@
 		<%} else {%>
 			<input type="checkbox" name="cut" value="Cut">Cut
 		<%}%>
+			<input type="text" name="cutPrice" value="" placeholder="Average price">
 	</label>
 	<label class="checkbox-inline services">
 		<% if (user.services.indexOf("Blow Dry") != -1) {%>
@@ -46,6 +47,7 @@
 		<%} else {%>
 			<input type="checkbox" name="blowdry" value="Blow Dry">Blow Dry
 		<%}%>
+			<input type="text" name="blowdryPrice" value="" placeholder="Average price">
 	</label>
 	<label class="checkbox-inline services">
 		<% if (user.services.indexOf("Color") != -1) {%>
@@ -53,6 +55,7 @@
 		<%} else {%>
 			<input type="checkbox" name="color" value="Color">Color
 		<%}%>
+			<input type="text" name="colorPrice" value="" placeholder="Average price">
 	</label>
 	<br>
   <label for="expertise">Expertise:</label>

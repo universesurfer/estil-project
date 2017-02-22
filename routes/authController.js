@@ -159,8 +159,10 @@ authController.get("/profile", ensureLogin.ensureLoggedIn(), (req, res) => {
 });
 
 authController.get("/stylist/profile", ensureLogin.ensureLoggedIn("/stylist/login"), (req, res) => {
-
-  res.render("private/stylist-profile", { user: req.user });
+	Picture.findOne({"user": req.user.username, "profile": true}, (err, picture)=>{
+    if (err){console.log("Error finding photo");}
+    res.render("private/stylist-profile", { user: req.user, picture: picture});
+  });
 });
 
 authController.get("/profile/edit", ensureLogin.ensureLoggedIn(), (req, res) => {
@@ -216,11 +218,15 @@ authController.get("/stylist/profile/edit", ensureLogin.ensureLoggedIn("/stylist
 authController.post("/stylist/profile/edit", ensureLogin.ensureLoggedIn("/stylist/login"), (req, res, err) => {
 
   var userId = req.user._id;
+
+	//store main body of data from edit profile page
   var stylist = req.body;
 
+	//store locations in correct format
 	stylist.geolocation = {type:'Point', coordinates: [req.body.lon, req.body.lat]};
 	stylist.location = req.body.location;
 
+	//reformatting checklists
 	stylist.services = [];
 	stylist.availability = [];
 
@@ -242,16 +248,49 @@ authController.post("/stylist/profile/edit", ensureLogin.ensureLoggedIn("/stylis
 	updateParam("saturday","availability");
 	updateParam("sunday","availability");
 
-	// if (req.body.cut) {
-	// 	stylist.services.push(req.body.cut)
-	// }
-	// if (req.body.blowdry) {
-	// 	stylist.services.push(req.body.blowdry)
-	// }
-	// if (req.body.color) {
-	// 	stylist.services.push(req.body.color)
-	// }
+	//building price algorithms
+	stylist.priceList = [];
 
+	function buildPrice(bodyParam,property,multiplier) {
+		if (req.body[bodyParam]) {
+			var stylePriceIndex = Number(req.body[bodyParam]) * multiplier;
+			stylist[property].push(stylePriceIndex);
+		}
+		delete stylist[bodyParam];
+	}
+
+	buildPrice("cutPrice","priceList",4);
+	buildPrice("blowdryPrice","priceList",2.75);
+	buildPrice("colorPrice","priceList",1);
+
+	var numberOfPrices = stylist.priceList.length;
+
+	//if price information has been inputted by the stylist, then we can build a price using an algorithm, as below
+	if (numberOfPrices > 0) {
+		var total = 0;
+		for (var i = 0; i < numberOfPrices; i++){
+			total += stylist.priceList[i];
+		}
+		var stylistPriceIndex = total / numberOfPrices;
+
+		if (stylistPriceIndex < 50) {
+			stylist.price = "€";
+		}
+		else if (stylistPriceIndex >= 50 && stylistPriceIndex < 75) {
+			stylist.price = "€€";
+		}
+		else if (stylistPriceIndex >=75 ){
+			stylist.price = "€€€";
+		}
+	}
+
+
+
+
+
+	console.log(stylist["priceList"]);
+
+	//updating stylist info in DB
   Stylist.findOneAndUpdate({"_id": userId}, {$set: stylist}, (err)=> {
     if (err){console.log("error updating stylist");}
   });
