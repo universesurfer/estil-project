@@ -143,20 +143,26 @@ $(document).ready(function(){
 	  var thisButton = $(this).closest(".dropdown");
 	  $(thisButton).find("button").html(setText);
 
-		console.log(markers);
 		var that = this;
 
-		markers.forEach(function(marker){
-			var filterStylistBy = marker[2][$(that).parent().attr("id")];
-			if (filterStylistBy.indexOf(setText) != -1) {
-				marker[0].setVisible(true);
-			}
-			else {
-				marker[0].setVisible(false);
-			};
-		});
+		//filter by day of the week availability
 
-		console.log(markers);
+		if ($(that).parent().attr("id") == "availability") {
+			markers.forEach(function(marker){
+				var filterCategory = marker[2][$(that).parent().attr("id")];
+				if (setText != "Every Day") {
+					if (filterCategory.indexOf(setText) != -1) {
+						marker[0].setVisible(true);
+					}
+					else {
+						marker[0].setVisible(false);
+					};
+				}
+				else {
+					marker[0].setVisible(true);
+				}
+			});
+		}
 
 	});
 
