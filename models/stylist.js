@@ -8,7 +8,7 @@ const stylistSchema = new Schema({
   password    : {type: String, required: true},
   role        : {type: String, required: true},
   avatar      : String,
-	services 		: String,
+	services 		: [String],
   expertise   : { type: String,
     enum: ['Men', 'Women', 'Any'],
     default: ['Any'] },
