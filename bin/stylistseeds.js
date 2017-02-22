@@ -7,13 +7,14 @@ const stylists = [
     role        : 'Stylist',
     avatar			: ' ',
 		services		: ['Blow Dry','Color'],
-		expertise: "Men",
-		languages: " ",
-		description: " ",
-		price: "€€€",
+		expertise		: "Men",
+		languages		: " ",
+		description	: " ",
+		price				: "€€€",
 		availability: ["Monday"],
-		mobile: ["Both"],
-		geolocation: {
+		mobile			: ["Salon"],
+		distance 		: 0,
+		geolocation	: {
 			type: "Point",
 			coordinates: [2.189858,41.386333]
 		},
@@ -41,6 +42,7 @@ const stylists = [
 		price       : "€€",
 		availability: ["Tuesday"],
 		mobile      : ["Both"],
+		distance 		: 2,
 		geolocation : {
 			type       : "Point",
 			coordinates: [2.186015,41.388123]
@@ -69,9 +71,39 @@ const stylists = [
 		price       : "€€",
 		availability: ["Monday"],
 		mobile      : ["Both"],
+		distance 		: 2,
 		geolocation : {
 			type       : "Point",
 			coordinates: [2.180722, 41.390699]
+		},
+    location : ' ',
+    reviews : [
+      {
+        name    : " ",
+        comment : " ",
+        stars   : 4,
+        date    : new Date()
+      }
+    ]
+  },
+	{
+    firstName   : 'Hard',
+		lastName    : 'Worker',
+    username    : 'go@far.co.uk',
+    password    : 'abcd',
+    role        : 'Stylist',
+		avatar			: ' ',
+		services		: ['Cut','Blow Dry','Color'],
+		expertise   : "Any",
+		languages   : " ",
+		description : " ",
+		price       : "€",
+		availability: ["Monday", "Friday", "Saturday", "Sunday"],
+		mobile      : ["Both"],
+		distance		: 5,
+		geolocation : {
+			type       : "Point",
+			coordinates: [2.197201, 41.402385]
 		},
     location : ' ',
     reviews : [

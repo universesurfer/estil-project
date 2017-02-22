@@ -20,6 +20,7 @@ const stylistSchema = new Schema({
     enum : ['Home visit', 'Salon', 'Both'],
     default : ['Both']
 	},
+	distance: Number,
   geolocation  : {type: {type: String}, coordinates: [Number]},
 	location: String,
   reviews : [
