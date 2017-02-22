@@ -18,15 +18,10 @@ router.get('/search', (req, res)=> {
 });
 
 router.post("/api/search", (req, res)=> {
-	Stylist.find({},{"firstName":1, "lastName":1, "geolocation":1, "location":1}, (err, allStylists) => {
+	Stylist.find({}, (err, allStylists) => {
 		mapInfo = {};
 		allStylists.forEach(function(stylist, index){
-			mapInfo["prop" + index] = {
-				coords: stylist.geolocation.coordinates,
-				address: stylist.location,
-				firstName: stylist.firstName,
-				lastName: stylist.lastName
-			};
+			mapInfo["prop" + index] = stylist;
 		})
 		res.json(mapInfo);
 	})

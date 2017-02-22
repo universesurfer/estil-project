@@ -1,4 +1,4 @@
-var map;
+var map, markers = [];
 
 function getMyLocation() {
   if (navigator.geolocation) {
@@ -38,13 +38,12 @@ function showMapWithMyLocation(position) {
 		url: "http://localhost:3000/api/search",
 		method: "POST",
 		success: function(response) {
-			var markers = [];
 
 			for (var stylistMapInfo in response) {
 				if (response.hasOwnProperty(stylistMapInfo)){
 
-					var lat = response[stylistMapInfo]["coords"][1];
-					var lon = response[stylistMapInfo]["coords"][0];
+					var lat = response[stylistMapInfo]["geolocation"]["coordinates"][1];
+					var lon = response[stylistMapInfo]["geolocation"]["coordinates"][0];
 
 					var stylistMarker = {
 						lat: lat,
@@ -67,7 +66,7 @@ function showMapWithMyLocation(position) {
 						content: content
 					});
 
-					markers.push([addMarker,infoWindow]);
+					markers.push([addMarker,infoWindow,response[stylistMapInfo]]);
 
 				}
 			}
@@ -141,9 +140,24 @@ $(document).ready(function(){
 
 	$(".dropdown-menu li").click(function(){
 	  var setText = $(this).text();
-		console.log(setText);
 	  var thisButton = $(this).closest(".dropdown");
 	  $(thisButton).find("button").html(setText);
+
+		console.log(markers);
+		var that = this;
+
+		markers.forEach(function(marker){
+			var filterStylistBy = marker[2][$(that).parent().attr("id")];
+			if (filterStylistBy.indexOf(setText) != -1) {
+				marker[0].setVisible(false);
+			}
+			else {
+				marker[0].setVisible(true);
+			};
+		});
+
+		console.log(markers);
+
 	});
 
 })
