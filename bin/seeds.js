@@ -92,35 +92,34 @@ mongoose.connect('mongodb://localhost/estil');
 //   }
 // ];
 
-
-const appointments = [
-  // {
-  //   date     : new Date(),
-  //   startTime: new Date().getTime(),
-  //   endTime  : new Date().getTime(),
-  //   stylist  : {_id : "58ad6d1460af79cc7ab22aca"},
-  //   user     : {_id : "58ac7365b2ba19ab38c51a5d"},
-  //   completed: true
-  // },
-  {
-    date     : new Date(),
-    startTime: new Date().getTime(),
-    endTime  : new Date().getTime(),
-    stylist  : {_id : "58ad6d1460af79cc7ab22aca"},
-    user     : {_id :  "58ac73d5b2ba19ab38c51a5e"},
-    completed: false
-  },
-];
-
-Appointment.create(appointments, (err, docs)=> {
-  if (err){
-		throw(err);}
-
-  docs.forEach( (appointment)=>{
-    console.log(appointments._id);
-  });
-  mongoose.connection.close();
-});
+// const appointments = [
+//   {
+//     date     : new Date(),
+//     startTime: new Date().getTime(),
+//     endTime  : new Date().getTime(),
+//     stylist  : {_id : "58ad6d1460af79cc7ab22aca"},
+//     user     : {_id : "58ac7365b2ba19ab38c51a5d"},
+//     completed: true
+//   },
+//   {
+//     date     : new Date(),
+//     startTime: new Date().getTime(),
+//     endTime  : new Date().getTime(),
+//     stylist  : {_id : "58ad6d1460af79cc7ab22aca"},
+//     user     : {_id :  "58ac73d5b2ba19ab38c51a5e"},
+//     completed: false
+//   },
+// ];
+//
+// Appointment.create(appointments, (err, docs)=> {
+//   if (err){
+// 		throw(err);}
+//
+//   docs.forEach( (appointment)=>{
+//     console.log(appointments._id);
+//   });
+//   mongoose.connection.close();
+// });
 
 //
 // User.create(users, (err, docs)=> {

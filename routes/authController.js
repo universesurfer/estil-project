@@ -151,14 +151,14 @@ authController.get("/profile", ensureLogin.ensureLoggedIn(), (req, res) => {
     if (err){
       console.log("Error finding photo");
     }
-
     Appointment.find({"user": req.user._id })
-      .populate('stylist', 'username')
+      .populate('stylist', 'username reviews')
       .exec(function (err, appointments) {
         if (err) {
           console.log(err);
         } else {
           console.log('appointments', appointments);
+          console.log('revs', appointments[0].stylist.reviews);
           res.render("private/profile", { user: req.user, picture: picture, appointments: appointments});
         }
       });
