@@ -1,0 +1,51 @@
+<head>
+	<link rel="stylesheet" href="/stylesheets/profiles.css">
+</head>
+
+<a href="./<%=URLId%>/portfolio">Stylist Portfolio</a>
+<br>
+<a href="/logout">Logout</a>
+
+<div class="col-lg-3 col-md-4 col-xs-6 thumb">
+  <a class="thumbnail" href="#">
+    <img class="img-responsive" src="/images/default-avatar.png" alt="">
+  </a>
+</div>
+
+
+<%var name = stylist.firstName + " " + stylist.lastName %>
+
+<table>
+  <tr>
+    <td>Name</td>
+    <td><%= name %></td>
+  </tr>
+	<tr>
+    <td>Services</td>
+    <td><%=stylist.services%></td>
+  </tr>
+	<tr>
+		<td>Expertise</td>
+		<td><%=stylist.expertise%></td>
+	</tr>
+	<tr>
+		<td>Languages</td>
+		<td><%=stylist.languages%></td>
+	</tr>
+	<tr>
+		<td>Description</td>
+		<td><%=stylist.description%></td>
+	</tr>
+	<tr>
+		<td>Price</td>
+		<td><%=stylist.price%></td>
+	</tr>
+	<tr>
+		<td>Availability</td>
+		<td><%=stylist.availability%></td>
+	</tr>
+	<tr>
+		<td>Location</td>
+		<td><%=stylist.location%></td>
+	</tr>
+</table>

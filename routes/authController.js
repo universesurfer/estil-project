@@ -170,15 +170,6 @@ authController.get("/profile/edit", ensureLogin.ensureLoggedIn(), (req, res) => 
   });
 });
 
-authController.get("/stylist/profile/edit", ensureLogin.ensureLoggedIn("/stylist/login"), (req, res) => {
-
-  Picture.findOne({"user": req.user.username, "profile": true}, (err, picture)=>{
-    if (err){console.log("Error finding photo");}
-    res.render("private/stylist-profile-edit", { user: req.user, picture: picture});
-  });
-
-});
-
 authController.post("/profile/edit", ensureLogin.ensureLoggedIn(), (req, res, err) => {
 
   var userId = req.user._id;
@@ -213,6 +204,14 @@ authController.post('/profile/photo-upload', upload.single('file'), function(req
   });
 });
 
+authController.get("/stylist/profile/edit", ensureLogin.ensureLoggedIn("/stylist/login"), (req, res) => {
+
+  Picture.findOne({"user": req.user.username, "profile": true}, (err, picture)=>{
+    if (err){console.log("Error finding photo");}
+    res.render("private/stylist-profile-edit", { user: req.user, picture: picture});
+  });
+
+});
 
 authController.post("/stylist/profile/edit", ensureLogin.ensureLoggedIn("/stylist/login"), (req, res, err) => {
 
@@ -220,6 +219,7 @@ authController.post("/stylist/profile/edit", ensureLogin.ensureLoggedIn("/stylis
   var stylist = req.body;
 
 	stylist.geolocation = {type:'Point', coordinates: [req.body.lon, req.body.lat]};
+	stylist.location = req.body.location;
 
   Stylist.findOneAndUpdate({"_id": userId}, {$set: stylist}, (err)=> {
     if (err){console.log("error updating stylist");}
