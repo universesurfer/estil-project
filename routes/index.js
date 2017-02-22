@@ -29,8 +29,9 @@ router.post("/api/search", (req, res)=> {
 				lastName: stylist.lastName
 			};
 		})
+    res.json(mapInfo);
 	})
-	res.json(mapInfo);
+
 })
 
 router.get('/profile/pictures', ensureLogin.ensureLoggedIn("/login"), function(req,res) {

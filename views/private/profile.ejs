@@ -31,10 +31,12 @@
 	</tr>
   <tr>
     <td>Appointments</td>
-    <td><%=appointment.date%></td>
-    <td><%=appointment.startTime%></td>
-    <td><%=appointment.stylist%></td>
-
+    <% appointments.forEach((app)=> {%>
+    <td>When: <%=app.date.toDateString()%></td>
+    <td>At: <%=app.startTime.toLocaleTimeString()%></td>
+    <td>With: <%=stylist.username%></td>
+    <td>Completed: <%=app.completed%></td>
+    <%});%>
   </tr>
   <tr>
 		<td>Reviews</td>

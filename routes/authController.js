@@ -148,14 +148,27 @@ authController.get("/profile", ensureLogin.ensureLoggedIn(), (req, res) => {
     if (err){
       console.log("Error finding photo");
     }
-  Appointment.findOne({"user": req.user._id}, (err, appointment)=>{
-    if (err){
-      console.log("Error finding appointment");
-    }
-    console.log("found app:" + appointment);
-    res.render("private/profile", { user: req.user, picture: picture, appointment: appointment });
+
+    Appointment.find({"user": req.user._id}, (err, appointments)=>{
+      if (err){
+        console.log("Error finding appointment");
+      }
+
+      for (var i = 0; i < appointments.length; i++) {
+        Stylist.findOne({"_id": appointments[i].stylist}, (err, stylist)=>{
+          if (err){
+            console.log("Error finding stylist");
+          }
+          if (i == appointments.length) {
+            res.render("private/profile", { user: req.user, picture: picture, appointments: appointments, stylist: stylist});
+          }
+        });
+      }
+
     });
+
   });
+
 });
 
 authController.get("/stylist/profile", ensureLogin.ensureLoggedIn("/stylist/login"), (req, res) => {
