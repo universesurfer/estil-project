@@ -21,7 +21,6 @@ router.post("/api/search", (req, res)=> {
 	Stylist.find({},{"firstName":1, "lastName":1, "geolocation":1, "location":1}, (err, allStylists) => {
 		mapInfo = {};
 		allStylists.forEach(function(stylist, index){
-			console.log(stylist);
 			mapInfo["prop" + index] = {
 				coords: stylist.geolocation.coordinates,
 				address: stylist.location,
@@ -29,13 +28,13 @@ router.post("/api/search", (req, res)=> {
 				lastName: stylist.lastName
 			};
 		})
+		res.json(mapInfo);
 	})
-	res.json(mapInfo);
+
 })
 
 router.get('/profile/pictures', ensureLogin.ensureLoggedIn("/login"), function(req,res) {
 	Picture.find({"user" : req.user.username},(err, pictures) => {
-		console.log(pictures);
 		res.render('private/profile-pictures', {pictures})
 	})
 })
@@ -48,8 +47,6 @@ router.post('/profile/pictures/upload', upload.single('file'), function(req, res
 		user: req.user.username
   });
 
-	console.log(req.user.username);
-
   pic.save((err) => {
       res.redirect('/profile/pictures');
   });
@@ -57,7 +54,6 @@ router.post('/profile/pictures/upload', upload.single('file'), function(req, res
 
 router.get('/stylist/profile/portfolio', ensureLogin.ensureLoggedIn("/stylist/login"), function(req,res) {
 	Picture.find({"user" : req.user.username},(err, pictures) => {
-		console.log(pictures);
 		res.render('private/stylist-portfolio', {pictures})
 	})
 })
@@ -70,8 +66,6 @@ router.post('/stylist/profile/portfolio/upload', upload.single('file'), function
     pic_name: req.file.originalname,
 		user: req.user.username
   });
-
-	console.log(req.user.username);
 
   pic.save((err) => {
       res.redirect('/stylist/profile/portfolio');
