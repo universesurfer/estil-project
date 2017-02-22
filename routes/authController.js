@@ -90,7 +90,7 @@ authController.post("/stylist/signup", (req, res, next) => {
 			date        : new Date(),
 			avatar      : " ",
 			services    : " ",
-			expertise   : ["Both"],
+			expertise   : ["Any"],
 			languages   : " ",
 			description : " ",
 			price       : " ",
@@ -98,7 +98,7 @@ authController.post("/stylist/signup", (req, res, next) => {
       mobile      : ["Both"],
 			geolocation : {
 			  type       : "Point",
-			  coordinates: [9999,9999]
+			  coordinates: [0,90]
 			},
 			location    : "",
       reviews     : [
