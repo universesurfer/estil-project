@@ -143,26 +143,98 @@ $(document).ready(function(){
 	  var thisButton = $(this).closest(".dropdown");
 	  $(thisButton).find("button").html(setText);
 
-		var that = this;
+		var dropDowns = $(".dropdown-toggle");
 
-		//filter by day of the week availability
+		//collect active filters
 
-		if ($(that).parent().attr("id") == "availability") {
-			markers.forEach(function(marker){
-				var filterCategory = marker[2][$(that).parent().attr("id")];
-				if (setText != "Every Day") {
-					if (filterCategory.indexOf(setText) != -1) {
-						marker[0].setVisible(true);
-					}
-					else {
-						marker[0].setVisible(false);
-					};
-				}
-				else {
-					marker[0].setVisible(true);
-				}
-			});
+		var filters = [];
+
+		for (var i = 0; i < dropDowns.length; i++) {
+			if (dropDowns[i].innerHTML.indexOf("span class=") != -1) {
+				filters.push(" ");
+			}
+			else {
+				filters.push(dropDowns[i].innerHTML)
+			}
 		}
+
+		//collect every marker's criteria
+
+		allMarkersCriteria = [];
+
+		markers.forEach(function(marker){
+			var singleMarkerCriteria = {
+			price: marker[2].price,
+			availability: marker[2].availability,
+			mobile: marker[2].mobile,
+			services: marker[2].services,
+			expertise: marker[2].expertise,
+			marker: marker
+			};
+			allMarkersCriteria.push(singleMarkerCriteria);
+		})
+
+
+		//loop through all markers to test criteria
+
+		allMarkersCriteria.forEach(function(marker){
+			console.log(filters[4]);
+			console.log(marker["expertise"]);
+			if (filters[0] != " " && filters[0] != marker["price"] ||
+				(filters[1] != " " && marker["availability"].indexOf(filters[1]) == -1) ||
+				(filters[2] != " " && filters[2] != marker["mobile"])||
+				(filters[3] != " " && filters[3] != marker["services"])||
+				(filters[4] != " " && filters[4] != marker["expertise"])
+			) {
+				marker["marker"][0].setVisible(false);
+			}
+			else {
+				marker["marker"][0].setVisible(true);
+			}
+		})
+
+		// allMarkersCriteria.forEach(function(marker){
+		// 	console.log(filters[1]);
+		// 	console.log(marker["availability"].indexOf(filters[1]));
+		// 	if (filters[0] != " " && filters[0] != marker["price"]){
+		// 		marker["marker"][0].setVisible(false);
+		// 	}
+		// 	if (filters[1] != " " && marker["availability"].indexOf(filters[1]) == -1) {
+		// 		console.log("here");
+		// 		marker["marker"][0].setVisible(false);
+		// 	}
+		// 	if (filters[2] != " " && filters[2] != marker["mobile"]){
+		// 		marker["marker"][0].setVisible(false);
+		// 	}
+		// 	if (filters[3] != " " && filters[3] != marker["services"]){
+		// 		marker["marker"][0].setVisible(false);
+		// 	}
+		// 	if (filters[4] != " " && filters[4] != marker["expertise"]){
+		// 		marker["marker"][0].setVisible(false);
+		// 	}
+		// })
+
+
+		// var that = this;
+		//
+		// //filter by day of the week availability
+		//
+		// if ($(that).parent().attr("id") == "availability") {
+		// 	markers.forEach(function(marker){
+		// 		var filterCategory = marker[2][$(that).parent().attr("id")];
+		// 		if (setText != "Every Day") {
+		// 			if (filterCategory.indexOf(setText) != -1) {
+		// 				marker[0].setVisible(true);
+		// 			}
+		// 			else {
+		// 				marker[0].setVisible(false);
+		// 			};
+		// 		}
+		// 		else {
+		// 			marker[0].setVisible(true);
+		// 		}
+		// 	});
+		// }
 
 	});
 
