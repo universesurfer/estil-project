@@ -12,7 +12,6 @@ var map;
 window.onload = getMyLocation;
 
 function getMyLocation() {
-	console.log(latLng);
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(displayLocation);
   } else {

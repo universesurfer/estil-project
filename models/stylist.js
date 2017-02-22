@@ -23,15 +23,16 @@ const stylistSchema = new Schema({
   geolocation  : {type: {type: String}, coordinates: [Number]},
 	location: String,
   reviews : [
-		{
-		    name    : String,
-			  comment : String,
-			  stars   : Number,
-			  date    : Date
-		}]
+    {
+        name    : String,
+        comment : String,
+        stars   : Number,
+        date    : Date
+    }
+  ]
 });
 
-stylistSchema.index({location: '2dsphere'});
+stylistSchema.index({geolocation: '2dsphere'});
 stylistSchema.set('timestamps', true);
 
 const Stylist = mongoose.model('Stylist', stylistSchema);

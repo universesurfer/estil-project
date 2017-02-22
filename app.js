@@ -40,7 +40,7 @@ app.use(express.static('public'));
 
 
 var index = require('./routes/index');
-var profile = require('./routes/profile');
+// var profile = require('./routes/profile');
 var authController = require('./routes/authController');
 
 app.use(session({
@@ -103,7 +103,7 @@ passport.use('stylist-login', new LocalStrategy((username, password, next) => {
 }));
 
 app.use('/', index);
-app.use('/', profile);
+// app.use('/', profile);
 app.use('/', authController);
 
 // catch 404 and forward to error handler

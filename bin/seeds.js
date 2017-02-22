@@ -4,100 +4,110 @@ const Stylist      = require('../models/stylist');
 const Appointment  = require('../models/appointment');
 mongoose.connect('mongodb://localhost/estil');
 
-// const users = [
-//   {
-//     firstName   : 'Cara',
-// 		lastName    : 'Delevigne',
-//     username    : "cara@i.com",
-//     password    : '1234',
-//     role        : 'User',
-//     avatar      : ' ',
-//     appointments: {
-//       date : new Date()
-//     }
-//   },
-//   {
-//     firstName   : 'Tasha',
-// 		lastName    : 'Romasha',
-//     username    : 'tasha@cool.com',
-//     password    : '2345',
-//     role        : 'User',
-//     avatar      : ' ',
-//     appointments: {
-//       date : new Date()
-//     }
-//   },
-//   {
-//     firstName   : 'Mika',
-// 		lastName    : 'Thasika',
-//     username    : 'mika@yell.com',
-//     password    : '3456',
-//     role        : 'User',
-//     avatar      : ' ',
-//     appointments: {
-//       date : new Date()
-//     }
-// 	}
-// ];
-//
-// const stylists = [
-//   {
-//     firstName   : 'Harry',
-// 		lastName    : 'Potter',
-//     username    : 'harry@potter.co',
-//     password    : 'abcd',
-//     role        : 'Stylist',
-//     appointments: {
-//       date : new Date()
-//     },
-//     avatar			: ' ',
-// 		services		: ' ',
-// 		expertise   : 'Any',
-// 		language		: ' ',
-//     description : ' ',
-//     price       : ' ',
-//     availability: ' ',
-//     location    : 'Via Augusta, 92'
-//   },
-//   {
-//     firstName   : 'Hermione',
-// 		lastName    : 'Granger',
-//     username    : 'hermione@granger.co.uk',
-//     password    : 'abcd',
-//     role        : 'Stylist',
-//     appointments: {
-//       date : new Date()
-//     },
-// 		avatar			: ' ',
-// 		services		: ' ',
-// 		expertise   : 'Any',
-// 		language		: ' ',
-//     description : ' ',
-//     price       : ' ',
-//     availability: ' ',
-//     location    : 'Carrer de lAtlàntida, 53, 08003 Barcelona'
-//   },
-// ];
+const users = [
+  {
+    firstName   : 'Cara',
+		lastName    : 'Delevigne',
+    username    : "cara@i.com",
+    password    : '1234',
+    role        : 'User',
+    avatar      : ' ',
+  },
+  {
+    firstName   : 'Tasha',
+		lastName    : 'Romasha',
+    username    : 'tasha@cool.com',
+    password    : '2345',
+    role        : 'User',
+    avatar      : ' ',
+  },
+  {
+    firstName   : 'Mika',
+		lastName    : 'Thasika',
+    username    : 'mika@yell.com',
+    password    : '3456',
+    role        : 'User',
+    avatar      : ' ',
+	}
+];
 
-// {type: Schema.Types.ObjectId, ref: 'Stylist'},
+const stylists = [
+  {
+    firstName   : 'Harry',
+		lastName    : 'Potter',
+    username    : 'harry@potter.co',
+    password    : 'abcd',
+    role        : 'Stylist',
+    avatar			: ' ',
+		services		: ' ',
+		expertise: ["Both"],
+		languages: " ",
+		description: " ",
+		price: " ",
+		availability: " ",
+		mobile: ["Both"],
+		geolocation: {
+			type: "Point",
+			coordinates: [10,10]
+		},
+    // location    : 'Via Augusta, 92'
+    reviews : [
+      {
+        name    : " ",
+        comment : " ",
+        stars   : 1,
+        date    : new Date()
+      }
+    ]
+  },
+  {
+    firstName   : 'Hermione',
+		lastName    : 'Granger',
+    username    : 'hermione@granger.co.uk',
+    password    : 'abcd',
+    role        : 'Stylist',
+		avatar			: ' ',
+		services		: ' ',
+		expertise   : ["Both"],
+		languages   : " ",
+		description : " ",
+		price       : " ",
+		availability: " ",
+		mobile      : ["Both"],
+		geolocation : {
+			type       : "Point",
+			coordinates: [20,20]
+		},
+    // location : 'Carrer de lAtlàntida, 53 08003, Barcelona'
+    reviews : [
+      {
+        name    : " ",
+        comment : " ",
+        stars   : 4,
+        date    : new Date()
+      }
+    ]
+  }
+];
+
 
 const appointments = [
   {
     date     : new Date(),
     startTime: new Date().getTime(),
     endTime  : new Date().getTime(),
-    stylist  : {_id : "58ac18323f5a5d90da837256"},
-    user     : {_id : "58aaf2da08b1d75aa7d4d8ff"},
+    stylist  : {_id : "58ac741e46a05babb522aa69"},
+    user     : {_id : "58ac7365b2ba19ab38c51a5d"},
     completed: true
   },
-  // {
-  //   date     : new Date(),
-  //   startTime: new Date().getTime(),
-  //   endTime  : new Date().getTime(),
-  //   stylist  : {_id : "58ac18323f5a5d90da837256"},
-  //   user     : {_id :  "58ac2c0a83f71c95b6e8fc74"},
-  //   completed: false
-  // },
+  {
+    date     : new Date(),
+    startTime: new Date().getTime(),
+    endTime  : new Date().getTime(),
+    stylist  : {_id : "58ac742846a05babb522aa6b"},
+    user     : {_id :  "58ac73d5b2ba19ab38c51a5e"},
+    completed: false
+  },
 ];
 
 Appointment.create(appointments, (err, docs)=> {
@@ -111,22 +121,22 @@ Appointment.create(appointments, (err, docs)=> {
 });
 
 
-// User.create(users, (err, docs)=> {
-// 	console.log(users.username);
-//   if (err){
-// 		throw(err);}
-//
-//   docs.forEach( (user)=>{
-//   })
-//   mongoose.connection.close();
-// });
+User.create(users, (err, docs)=> {
+	console.log(users.username);
+  if (err){
+		throw(err);}
 
-// Stylist.create(stylists, (err, docs)=> {
-// 	console.log(stylists.username);
-//   if (err){
-// 		throw(err);}
-//
-//   docs.forEach( (stylist)=>{
-//   })
-//   mongoose.connection.close();
-// });
+  docs.forEach( (user)=>{
+  })
+  mongoose.connection.close();
+});
+
+Stylist.create(stylists, (err, docs)=> {
+	console.log(stylists.username);
+  if (err){
+		throw(err);}
+
+  docs.forEach( (stylist)=>{
+  })
+  mongoose.connection.close();
+});
