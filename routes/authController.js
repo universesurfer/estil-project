@@ -221,6 +221,17 @@ authController.post("/stylist/profile/edit", ensureLogin.ensureLoggedIn("/stylis
 	stylist.geolocation = {type:'Point', coordinates: [req.body.lon, req.body.lat]};
 	stylist.location = req.body.location;
 
+	stylist.services = [];
+	if (req.body.cut) {
+		stylist.services.push(req.body.cut)
+	}
+	if (req.body.blowdry) {
+		stylist.services.push(req.body.blowdry)
+	}
+	if (req.body.color) {
+		stylist.services.push(req.body.color)
+	}
+
   Stylist.findOneAndUpdate({"_id": userId}, {$set: stylist}, (err)=> {
     if (err){console.log("error updating stylist");}
   });

@@ -20,6 +20,8 @@
   </form>
 </div>
 
+<%console.log(user.services)%>
+
 <form action="/stylist/profile/edit" method="POST">
 
   <h5>Add a profile picture</h5>
@@ -32,12 +34,35 @@
   <input type="text" name="lastName" value="<%=user.lastName%>">
   <label for="username">Username:</label>
   <input type="text" name="username" value="<%=user.username%>">
-  <label for="services">Services:</label>
-  <input type="text" name="services" value="<%=user.services%>">
+	<label for="checkbox">Services:</label>
+	<label class="checkbox-inline">
+		<% if (user.services.indexOf("Cut") != -1) {%>
+			<input type="checkbox" name="cut" value="Cut" checked>Cut
+		<%} else {%>
+			<input type="checkbox" name="cut" value="Cut">Cut
+		<%}%>
+	</label>
+	<label class="checkbox-inline">
+		<% if (user.services.indexOf("Blow Dry") != -1) {%>
+			<input type="checkbox" name="blowdry" value="Blow Dry" checked>Blow Dry
+		<%} else {%>
+			<input type="checkbox" name="blowdry" value="Blow Dry">Blow Dry
+		<%}%>
+	</label>
+	<label class="checkbox-inline">
+		<% if (user.services.indexOf("Color") != -1) {%>
+			<input type="checkbox" name="color" value="Color" checked>Color
+		<%} else {%>
+			<input type="checkbox" name="color" value="Color">Color
+		<%}%>
+	</label>
+	<br>
   <label for="expertise">Expertise:</label>
   <input type="text" name="expertise" value="<%=user.expertise%>">
   <label for="description">Description:</label>
+	<br>
   <textarea type="text" name="description" value="<%=user.description%>"></textarea>
+	<br>
   <label for="languages">Languages:</label>
   <input type="text" name="languages" value="<%=user.languages%>">
   <label for="price">Price:</label>

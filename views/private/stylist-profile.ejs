@@ -25,7 +25,9 @@
   </tr>
 	<tr>
     <td>Services</td>
-    <td><%=user.services%></td>
+		<%user.services.forEach(function(services){%>
+			<td><%=services%></td>
+		<%})%>
   </tr>
 	<tr>
 		<td>Expertise</td>
