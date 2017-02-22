@@ -47,7 +47,9 @@
 	</tr>
 	<tr>
 		<td>Availability</td>
-		<td><%=user.availability%></td>
+		<%user.availability.forEach(function(availability){%>
+			<td><%=availability%></td>
+		<%})%>
 	</tr>
 	<tr>
 		<td>Location</td>
