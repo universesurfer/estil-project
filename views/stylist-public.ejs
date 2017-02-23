@@ -1,11 +1,11 @@
 <head>
   <link rel="stylesheet" href="/stylesheets/profiles.css">
-  <script type="text/javascript" src="../jquery/dist/jquery.min.js"></script>
-  <script type="text/javascript" src="../moment/min/moment.min.js"></script>
-  <script type="text/javascript" src="../bootstrap/dist/js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="../eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
-  <link rel="stylesheet" href="../bootstrap/dist/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="../eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
+  <script type="text/javascript" src="../../jquery/dist/jquery.min.js"></script>
+  <script type="text/javascript" src="../../moment/min/moment.min.js"></script>
+  <script type="text/javascript" src="../../bootstrap/dist/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="../../eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+  <link rel="stylesheet" href="../../bootstrap/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="../../eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
 </head>
 
 <body>
@@ -60,31 +60,34 @@
 	<br><br>
 	<button type="button" id="book">Book with <%=name%></button>
 
-	<div class="appointmentBox hide">
-			<label for="bookAppointment">Pick an appointment time</label>
-			<input id="book-appointment" type="datetime" name="bookAppointment">
+	<form action="./<%=URLId%>/book" method="POST">
+		<div class="appointmentBox hide">
+				<label for="bookAppointment">Pick an appointment time</label>
+				<div class="container">
+			    <div class="row">
+			        <div class='col-sm-6'>
+			            <div class="form-group">
+			                <div class='input-group date' id='datetimepicker1'>
+			                    <input type='text' class="form-control" />
+			                    <span class="input-group-addon">
+			                        <span class="glyphicon glyphicon-calendar"></span>
+			                    </span>
+			                </div>
+			            </div>
+			        </div>
+			        <script type="text/javascript">
+			            $(function () {
+			                $('#datetimepicker1').datetimepicker();
+			            });
+			        </script>
+			    </div>
+			</div>
 			<textarea name="review" id="review" cols="30" rows="10" placeholder="Write any special requests here"></textarea>
-	</div>
+			<input type="submit" value="Request an Appointment">
+		</div>
+	</form>
 
-		<div class="container">
-	    <div class="row">
-	        <div class='col-sm-6'>
-	            <div class="form-group">
-	                <div class='input-group date' id='datetimepicker1'>
-	                    <input type='text' class="form-control" />
-	                    <span class="input-group-addon">
-	                        <span class="glyphicon glyphicon-calendar"></span>
-	                    </span>
-	                </div>
-	            </div>
-	        </div>
-	        <script type="text/javascript">
-	            $(function () {
-	                $('#datetimepicker1').datetimepicker();
-	            });
-	        </script>
-	    </div>
-	</div>
+
 
 	<script src="/javascripts/profile.js"></script>
 </body>
