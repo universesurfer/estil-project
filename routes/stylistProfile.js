@@ -45,13 +45,20 @@ stylistProfile.get("/stylist/profile/edit", ensureLogin.ensureLoggedIn("/stylist
 stylistProfile.post("/stylist/profile/edit", ensureLogin.ensureLoggedIn("/stylist/login"), (req, res, err) => {
 
   var userId = req.user._id;
+	var stylist = {};
 
 	//store main body of data from edit profile page
-  var stylist = req.body;
+	for (var update in req.body) {
+		if (req.body.hasOwnProperty(update) && req.body[update]) {
+			stylist[update] = req.body[update];
+		}
+	}
 
 	//store locations in correct format
-	stylist.geolocation = {type:'Point', coordinates: [req.body.lon, req.body.lat]};
-	stylist.location = req.body.location;
+	if (req.body.location) {
+		stylist.geolocation = {type:'Point', coordinates: [req.body.lon, req.body.lat]};
+		stylist.location = req.body.location;
+	}
 
 	//reformatting checklists
 	stylist.services = [];
@@ -111,9 +118,13 @@ stylistProfile.post("/stylist/profile/edit", ensureLogin.ensureLoggedIn("/stylis
 		}
 	}
 
+
 	//updating stylist info in DB
-  Stylist.findOneAndUpdate({"_id": userId}, {$set: stylist}, (err)=> {
-    if (err){console.log("error updating stylist");}
+  Stylist.findOneAndUpdate({"_id": userId}, {$set: stylist}, (err,stylist)=> {
+    if (err){
+			console.log("error updating stylist");
+			// console.log(err);
+		}
   });
 
   res.redirect("/stylist/profile");
