@@ -103,14 +103,7 @@ authController.post("/stylist/signup", (req, res, next) => {
 			  coordinates: [90,0]
 			},
 			location    : "",
-      reviews     : [
-        {
-            userId  : {type: Schema.Types.ObjectId, ref: 'User'},
-            name    : "",
-            comment : "",
-            stars   : 0,
-            date    : new Date()
-        }]
+      reviews     : []
     });
 
     newStylist.save((err) => {
@@ -167,8 +160,12 @@ authController.get("/profile", ensureLogin.ensureLoggedIn(), (req, res) => {
 });
 
 authController.get("/stylist/profile", ensureLogin.ensureLoggedIn("/stylist/login"), (req, res) => {
-
-  res.render("private/stylist-profile", { user: req.user });
+  Picture.findOne({"user": req.user.username, "profile": true}, {}, { sort: { 'created_at' : -1 } }, (err, picture)=>{
+    if (err){
+      console.log("Error finding photo");
+    }
+    res.render("private/stylist-profile", { user: req.user });
+  });
 });
 
 authController.get("/profile/edit", ensureLogin.ensureLoggedIn(), (req, res) => {
@@ -242,7 +239,7 @@ authController.post('/profile/photo-upload', upload.single('file'), function(req
 
 authController.get("/stylist/profile/edit", ensureLogin.ensureLoggedIn("/stylist/login"), (req, res) => {
 
-  Picture.findOne({"user": req.user.username, "profile": true}, (err, picture)=>{
+  Picture.findOne({"user": req.user.username, "profile": true}, {}, { sort: { 'created_at' : -1 } }, (err, picture)=>{
     if (err){console.log("Error finding photo");}
     res.render("private/stylist-profile-edit", { user: req.user, picture: picture});
   });
