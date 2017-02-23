@@ -18,3 +18,11 @@ p {
 .hide {
 	display: none;
 }
+
+.confirmReq {
+  display: block;
+}
+
+.newBookingConfirmed {
+  display: block;
+}

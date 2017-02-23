@@ -99,31 +99,30 @@ const appointments = [
     date     : new Date(),
     startTime: new Date().getTime(),
     endTime  : new Date().getTime(),
-    stylist  : {_id : "58aec25922e7e31acf961f8c"},
-		stylistUsername : "harry@potter.co",
-    user     : {_id : "58aec27bc0f3671ab92dbb08"},
-		userUsername: "e",
-    completed: true
+    stylist  : {_id : "58aeaa84c9c2d527d0db47f2"},
+    user     : {_id : "58aea2ef20b5ac2419eca716"},
+    completed: true,
+    accept   : true
+
   },
   {
     date     : new Date(),
     startTime: new Date().getTime(),
     endTime  : new Date().getTime(),
-    stylist  : {_id : "58ad6d1460af79cc7ab22aca"},
-		stylistUsername :	"hermione@granger.co.uk",
-    user     : {_id :  "58ac73d5b2ba19ab38c51a5e"},
-		userUsername: "mika@yell.com",
-    completed: false
+    stylist  : {_id : "58aeab3fc9c2d527d0db47f3"},
+    user     : {_id : "58ac73d5b2ba19ab38c51a5e"},
+    completed: false,
+    accept   : false
+
   },
 	{
 		date     : new Date(),
 		startTime: new Date().getTime(),
 		endTime  : new Date().getTime(),
-		stylist  : {_id : "58ae09e867514d4060546501"},
-		stylistUsername : "hermione@granger.co.uk",
-		user     : {_id :  "58ac73d5b2ba19ab38c51a5e"},
-		userUsername: "cara@i.com",
-		completed: false
+		stylist  : {_id : "58aeaa84c9c2d527d0db47f2"},
+		user     : {_id : "58ac73d5b2ba19ab38c51a5e"},
+		completed: false,
+    accept   : false
 	},
 ];
 

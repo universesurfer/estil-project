@@ -21,11 +21,24 @@ router.post("/api/search", (req, res)=> {
 		mapInfo = {};
 		allStylists.forEach(function(stylist, index){
 			mapInfo["prop" + index] = stylist;
-		})
+		});
 		res.json(mapInfo);
-	})
+	});
 
-})
+});
+
+router.get("/api/appointments", (req,res) => {
+  Appointment.find({},(err,allAppointments) => {
+    res.json(allAppointments);
+  });
+});
+
+router.post("/api/appointmentreturned", (req,res) => {
+  console.log(req.body.accept);
+  Appointment.findOneAndUpdate({"_id": req.body.accept}, {$set: {accept: true}}, (err,allAppointments) => {
+    res.json(allAppointments);
+  });
+});
 
 router.get('/view-stylist/:id', function(req,res) {
 
@@ -63,7 +76,8 @@ router.post('/view-stylist/:id', ensureLogin.ensureLoggedIn("/login"), function(
       endTime   : date,
       stylist   : {"_id" : stylist._id},
       user      : {"_id" : userId},
-      completed : false
+      completed : false,
+      accept    : false
     });
 
     newApp.save((err)=> {
