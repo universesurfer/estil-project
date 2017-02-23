@@ -96,9 +96,9 @@ router.get('/view-stylist/:id/portfolio', function(req,res) {
 	});
 });
 
-router.get('/view-stylist/:id/booking', ensureLogin.ensureLoggedIn("/login"), (req, res)=>{
-  var stylistUsername, URLId = req.params.id;
-  res.render('private/booking', {stylistUsername});
+router.post('/view-stylist/:id/book', (req, res)=>{
+	console.log("sent");
+  res.redirect("/profile");
 });
 
 module.exports = router;
