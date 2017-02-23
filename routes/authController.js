@@ -92,7 +92,7 @@ authController.post("/stylist/signup", (req, res, next) => {
 			avatar      : " ",
 			services    : " ",
 			expertise   : ["Any"],
-			languages   : " ",
+			languages   : [" "],
 			description : " ",
 			price       : " ",
 			availability: " ",

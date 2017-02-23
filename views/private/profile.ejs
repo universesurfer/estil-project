@@ -18,7 +18,7 @@
   </a>
 </div>
 
-<%var name = user.firstName + " " + user.lastName %>
+<%var name = (user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1)) + " " + (user.lastName.charAt(0).toUpperCase() + user.lastName.slice(1)); %>
 
 <table>
   <tr>
@@ -31,19 +31,20 @@
 	</tr>
   <tr>
     <td>Appointments:</td>
-    <% appointments.forEach((app)=> {%>
-      <tr>
-      <td>When: <%=app.date.toDateString()%></td>
-      <td>At: <%=app.startTime.toLocaleTimeString()%></td>
-      <td>With: <%=app.stylist.username %></td>
-      <td>Completed:
-        <%if (app.completed === false) {%>
-          No
-        <%} else {%>
-          Yes
-          <%}%></td>
-      </tr>
-    <%});%>
+      <% appointments.forEach((app)=> {%>
+        <tr>
+        <td>When: <%=app.date.toDateString()%></td>
+        <td>At: <%=app.startTime.toLocaleTimeString()%></td>
+        <td>With: <%=app.stylist.username %></td>
+        <td>Confirmed:
+          <%if (app.accept === false) {%>
+            Booking Declined
+          <%} else {%>
+            Booking Confirmed
+            <%}%></td>
+        </tr>
+      <%});%>
+
   </tr>
   </table>
   <td>Reviews: </td>
@@ -62,6 +63,5 @@
     <% console.log("there is an appointment");%>
     <%} else {%>
       <p>You don't have any reviews to show</p>
-      <%console.log("No appointment"); %>
       <%}%>
   </ul>

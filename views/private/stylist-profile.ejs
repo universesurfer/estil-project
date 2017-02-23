@@ -76,8 +76,8 @@
       <%console.log(appointments[0].accept);%>
         <%if (app.accept === false) {%>
           <span class="acceptReject">
-          <input type="submit" id="acceptReq" name="acceptReq" class="confirmReq" value="Accept">
-          <input type="submit" id="requestReq" name="rejectReq" class="confirmReq" value="Decline">
+          <input type="submit" name="acceptReq" class="confirmReq acceptReq" value="Accept">
+          <input type="submit" name="rejectReq" class="confirmReq requestReq" value="Decline">
         </span>
         <p class="newBookingConfirmed hide">Booking confirmed.</p>
           <br><br>

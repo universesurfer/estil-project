@@ -12,12 +12,12 @@ $(document).ready(function() {
     $('.appointmentBox').toggleClass("hide");
   });
 
-  $('#rejectReq').on('click', function(event) {
+  $('.rejectReq').on('click', function(event) {
     console.log("hellow im rejecting you");
     $(event.target).closest('div').remove();
   });
 
-  $('#acceptReq').on('click', function(event) {
+  $('.acceptReq').on('click', function(event) {
     console.log("hellow im accepting you");
     $(event.target).closest('span').toggleClass('hide');
     $(event.target).closest('div').find('p').toggleClass('hide');

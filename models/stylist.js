@@ -12,7 +12,7 @@ const stylistSchema = new Schema({
   expertise   : { type: String,
     enum: ['Men', 'Women', 'Any'],
     default: ['Any'] },
-	languages		: String,
+	languages		: [String],
 	description : String,
   price       : String,
   availability: [String],

@@ -57,6 +57,7 @@ function showMapWithMyLocation(position) {
 
 					var firstName = response[stylistMapInfo]["firstName"];
 					var lastName = response[stylistMapInfo]["lastName"];
+          console.log("stylist find: ", response[stylistMapInfo]);
 
 					var stylistName = firstName + " " + lastName;
 
