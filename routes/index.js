@@ -5,8 +5,7 @@ const Picture = require('../models/picture.js');
 const ensureLogin = require("connect-ensure-login");
 var multer  = require('multer');
 var upload = multer({ dest: './public/uploads/' });
-
-
+const Appointment    = require('../models/appointment');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -29,6 +28,7 @@ router.post("/api/search", (req, res)=> {
 })
 
 router.get('/view-stylist/:id', function(req,res) {
+
 	var dotAt = req.params.id.indexOf(".");
 	var firstName = req.params.id.substring(0,dotAt);
 	var lastName = req.params.id.substring(dotAt+1);
@@ -37,6 +37,40 @@ router.get('/view-stylist/:id', function(req,res) {
 	//would create unique usernames in the future to use in the public profile URL
 	Stylist.findOne({"firstName":firstName, "lastName":lastName},(err,stylist) => {
 		var URLId = req.params.id;
+		res.render('stylist-public',{URLId, stylist});
+	});
+
+});
+
+router.post('/view-stylist/:id', ensureLogin.ensureLoggedIn("/login"), function(req,res) {
+	var dotAt = req.params.id.indexOf(".");
+	var firstName = req.params.id.substring(0,dotAt);
+	var lastName = req.params.id.substring(dotAt+1);
+  var userId = req.user.id;
+  console.log("userId: ", userId);
+  console.log("req.body: ", req.body);
+  let date = new Date(req.body.dateTime);
+  console.log("ISO date: ", date);
+	//searching by first and last name, will have a problem if two users have the exact same name,
+	//would create unique usernames in the future to use in the public profile URL
+	Stylist.findOne({"firstName":firstName, "lastName":lastName},(err,stylist) => {
+		var URLId = req.params.id;
+    console.log("stylistId: ",stylist._id);
+
+    let newApp = new Appointment({
+      date      : date,
+      startTime : date,
+      endTime   : date,
+      stylist   : {"_id" : stylist._id},
+      user      : {"_id" : userId},
+      completed : false
+    });
+
+    newApp.save((err)=> {
+      if (err){
+        console.log("error saving appointment");
+      }
+    });
 		res.render('stylist-public',{URLId, stylist});
 	});
 
@@ -57,9 +91,6 @@ router.get('/view-stylist/:id/portfolio', function(req,res) {
 	});
 });
 
-router.post('/view-stylist/:id/book', (req, res)=>{
-	console.log("sent");
-  res.redirect("/profile");
-});
+
 
 module.exports = router;
