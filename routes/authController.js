@@ -100,7 +100,7 @@ authController.post("/stylist/signup", (req, res, next) => {
 			distance		: 0,
 			geolocation : {
 			  type       : "Point",
-			  coordinates: [0,90]
+			  coordinates: [0,10]
 			},
 			location    : "",
       reviews     : []
