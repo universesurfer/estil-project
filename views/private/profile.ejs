@@ -34,19 +34,23 @@
 		</tr>
 	  <tr>
 	    <td>Appointments:</td>
-	    <% appointments.forEach((app)=> {%>
-	      <tr>
-	      <td>When: <%=app.date.toDateString()%></td>
-	      <td>At: <%=app.startTime.toLocaleTimeString()%></td>
-	      <td>With: <%=app.stylist.username %></td>
-	      <td>Completed:
-	        <%if (app.completed === false) {%>
-	          No
-	        <%} else {%>
-	          Yes
-	          <%}%></td>
-	      </tr>
-	    <%});%>
+			<% if (appointments.length == 0) {%>
+				<td>You have no appointments, why don't you <a href="/search">look for some?</a></td>
+			<%} else {
+		    	appointments.forEach((app)=> {%>
+		      <tr>
+		      <td>When: <%=app.date.toDateString()%></td>
+		      <td>At: <%=app.startTime.toLocaleTimeString()%></td>
+		      <td>With: <%=app.stylist.username %></td>
+		      <td>Completed:
+		        <%if (app.completed === false) {%>
+		          No
+		        <%} else {%>
+		          Yes
+		          <%}%></td>
+		      </tr>
+	    	<%});
+				}%>
 	  </tr>
 	  </table>
 	  <td>Reviews: </td>
