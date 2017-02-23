@@ -3,7 +3,7 @@
   "description": "",
   "main": "",
   "authors": [
-    "Jeff <jzinger100@gmail.com>"
+    "Tahira Farid <tahirafarid@hotmail.co.uk>"
   ],
   "license": "MIT",
   "homepage": "https://github.com/fejj182/estil-project",
@@ -15,7 +15,6 @@
     "tests"
   ],
   "dependencies": {
-    "eonasdan-bootstrap-datetimepicker": "^4.17.45",
-    "bootstrap": "^3.3.7"
-  }
+    "bootstrap": "^3.3.7",
+    "eonasdan-bootstrap-datetimepicker": "^4.17.45"
 }
