@@ -60,7 +60,7 @@
 	<br><br>
 	<button type="button" id="book">Book with <%=name%></button>
 
-	<form action="./<%=URLId%>/book" method="POST">
+	<form action="./<%=URLId%>" method="POST">
 		<div class="appointmentBox hide">
 				<label for="bookAppointment">Pick an appointment time</label>
 				<div class="container">
@@ -68,7 +68,7 @@
 			        <div class='col-sm-6'>
 			            <div class="form-group">
 			                <div class='input-group date' id='datetimepicker1'>
-			                    <input type='text' class="form-control" />
+			                    <input name="dateTime" type='text' class="form-control" />
 			                    <span class="input-group-addon">
 			                        <span class="glyphicon glyphicon-calendar"></span>
 			                    </span>
@@ -82,7 +82,7 @@
 			        </script>
 			    </div>
 			</div>
-			<textarea name="review" id="review" cols="30" rows="10" placeholder="Write any special requests here"></textarea>
+			<textarea name="bookingReq" id="bookingReq" cols="30" rows="10" placeholder="Write any special requests here"></textarea>
 			<input type="submit" value="Request an Appointment">
 		</div>
 	</form>
