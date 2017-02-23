@@ -6,6 +6,7 @@ const appointmentSchema = new Schema({
   startTime: Date,
   endTime  : Date,
   stylist  : {type: Schema.Types.ObjectId, ref: 'Stylist'},
+	stylistUsername : String,
   user     : {type: Schema.Types.ObjectId, ref: 'User'},
   completed: {type: Boolean, default: false}
 });

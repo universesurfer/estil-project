@@ -100,7 +100,9 @@ const appointments = [
     startTime: new Date().getTime(),
     endTime  : new Date().getTime(),
     stylist  : {_id : "58ad6d1460af79cc7ab22aca"},
+		stylistUsername : "harry@potter.co",
     user     : {_id : "58ac7365b2ba19ab38c51a5d"},
+		userUsername: "mika@yell.com",
     completed: true
   },
   {
@@ -108,9 +110,21 @@ const appointments = [
     startTime: new Date().getTime(),
     endTime  : new Date().getTime(),
     stylist  : {_id : "58ad6d1460af79cc7ab22aca"},
+		stylistUsername :	"hermione@granger.co.uk",
     user     : {_id :  "58ac73d5b2ba19ab38c51a5e"},
+		userUsername: "mika@yell.com",
     completed: false
   },
+	{
+		date     : new Date(),
+		startTime: new Date().getTime(),
+		endTime  : new Date().getTime(),
+		stylist  : {_id : "58ae09e867514d4060546501"},
+		stylistUsername : "hermione@granger.co.uk",
+		user     : {_id :  "58ac73d5b2ba19ab38c51a5e"},
+		userUsername: "cara@i.com",
+		completed: false
+	},
 ];
 
 Appointment.create(appointments, (err, docs)=> {
