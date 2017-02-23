@@ -11,7 +11,6 @@ const ensureLogin    = require("connect-ensure-login");
 const multer         = require('multer');
 var upload           = multer({ dest: './public/uploads/' });
 const mongoose = require('mongoose');
-const _ = require('underscore');
 
 
 authController.get('/signup', function(req, res, next) {
