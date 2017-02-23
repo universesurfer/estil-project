@@ -2,92 +2,95 @@
 	<link rel="stylesheet" href="/stylesheets/profiles.css">
 </head>
 
-<a href="/stylist/profile/portfolio">Stylist Portfolio</a>
-<br>
-<a href="/stylist/profile/edit">Edit Profile</a>
-<br>
-<a href="/logout">Logout</a>
-<br>
+<div class="pageView">
+	<a href="/stylist/profile/portfolio">Stylist Portfolio</a>
+	<br>
+	<a href="/stylist/profile/edit">Edit Profile</a>
+	<br>
+	<a href="/logout">Logout</a>
+	<br>
 
-<div class="col-lg-3 col-md-4 col-xs-6 thumb">
-  <a class="thumbnail" href="#">
-		<%if (picture){%>
-		<img class="img-responsive" src="<%=picture.pic_path%>" alt="">
-		<%} else {%>
-		<img class="img-responsive" src="/images/default-avatar.png" alt="">
-		<%}%>
-  </a>
+	<div class="col-lg-3 col-md-4 col-xs-6 thumb">
+	  <a class="thumbnail" href="#">
+			<%if (picture){%>
+			<img class="img-responsive" src="<%=picture.pic_path%>" alt="">
+			<%} else {%>
+			<img class="img-responsive" src="/images/default-avatar.png" alt="">
+			<%}%>
+	  </a>
+	</div>
+
+
+	<%var name = user.firstName + " " + user.lastName %>
+
+	<table>
+	  <tr>
+	    <td>Name</td>
+	    <td><%= name %></td>
+	  </tr>
+		<tr>
+	    <td>Services</td>
+			<%user.services.forEach(function(services){%>
+				<td><%=services%></td>
+			<%})%>
+	  </tr>
+		<tr>
+			<td>Expertise</td>
+			<td><%=user.expertise%></td>
+		</tr>
+		<tr>
+			<td>Languages</td>
+			<td><%=user.languages%></td>
+		</tr>
+		<tr>
+			<td>Description</td>
+			<td><%=user.description%></td>
+		</tr>
+		<tr>
+			<td>Price</td>
+			<td><%=user.price%></td>
+		</tr>
+		<tr>
+			<td>Availability</td>
+			<%user.availability.forEach(function(availability){%>
+				<td><%=availability%></td>
+			<%})%>
+		</tr>
+		<tr>
+			<td>Location</td>
+			<td><%=user.location%></td>
+		</tr>
+	</table>
+
+	<div>
+	  <tr>
+	    <td>Appointments:</td>
+	    <% appointments.forEach((app)=> {%>
+	      <% var userIs = app.user.firstName + app.user.lastName;%>
+	      <div class="appointment">
+	      <tr>
+	      <td>When: <%=app.date.toDateString()%></td>
+	      <td>At: <%=app.startTime.toLocaleTimeString()%></td>
+	      <td>With: <%=userIs %></td>
+	      <span class="appId hide"><%=app._id%></span>
+	      <td>Confirm Booking:</td>
+	      <%console.log(appointments[0].accept);%>
+	        <%if (app.accept === false) {%>
+	          <span class="acceptReject">
+	          <input type="submit" id="acceptReq" name="acceptReq" class="confirmReq" value="Accept">
+	          <input type="submit" id="requestReq" name="rejectReq" class="confirmReq" value="Decline">
+	        </span>
+	        <p class="newBookingConfirmed hide">Booking confirmed.</p>
+	          <br><br>
+	        <%} else {%>
+	          <p>Booking confirmed.</p>
+	          <%}%></td>
+	      </tr>
+	    </div>
+	    <%});%>
+	  </tr>
+	</div>
+
+	<script src="/javascripts/profile.js"></script>
+
 </div>
-
-
-<%var name = user.firstName + " " + user.lastName %>
-
-<table>
-  <tr>
-    <td>Name</td>
-    <td><%= name %></td>
-  </tr>
-	<tr>
-    <td>Services</td>
-		<%user.services.forEach(function(services){%>
-			<td><%=services%></td>
-		<%})%>
-  </tr>
-	<tr>
-		<td>Expertise</td>
-		<td><%=user.expertise%></td>
-	</tr>
-	<tr>
-		<td>Languages</td>
-		<td><%=user.languages%></td>
-	</tr>
-	<tr>
-		<td>Description</td>
-		<td><%=user.description%></td>
-	</tr>
-	<tr>
-		<td>Price</td>
-		<td><%=user.price%></td>
-	</tr>
-	<tr>
-		<td>Availability</td>
-		<%user.availability.forEach(function(availability){%>
-			<td><%=availability%></td>
-		<%})%>
-	</tr>
-	<tr>
-		<td>Location</td>
-		<td><%=user.location%></td>
-	</tr>
-</table>
-
-<div>
-  <tr>
-    <td>Appointments:</td>
-    <% appointments.forEach((app)=> {%>
-      <% var userIs = app.user.firstName + app.user.lastName;%>
-      <div class="appointment">
-      <tr>
-      <td>When: <%=app.date.toDateString()%></td>
-      <td>At: <%=app.startTime.toLocaleTimeString()%></td>
-      <td>With: <%=userIs %></td>
-      <span class="appId hide"><%=app._id%></span>
-      <td>Confirm Booking:</td>
-      <%console.log(appointments[0].accept);%>
-        <%if (app.accept === false) {%>
-          <span class="acceptReject">
-          <input type="submit" id="acceptReq" name="acceptReq" class="confirmReq" value="Accept">
-          <input type="submit" id="requestReq" name="rejectReq" class="confirmReq" value="Decline">
-        </span>
-        <p class="newBookingConfirmed hide">Booking confirmed.</p>
-          <br><br>
-        <%} else {%>
-          <p>Booking confirmed.</p>
-          <%}%></td>
-      </tr>
-    </div>
-    <%});%>
-  </tr>
-</div>
-
-<script src="/javascripts/profile.js"></script>

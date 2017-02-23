@@ -1,67 +1,71 @@
 <head>
 	<link rel="stylesheet" href="/stylesheets/profiles.css">
 </head>
-<a href="/profile/pictures">Pictures</a>
-<br>
-<a href="/profile/edit">Edit Profile</a>
-<br>
-<a href="/logout">Logout</a>
-<br>
 
-<div class="col-lg-3 col-md-4 col-xs-6 thumb">
-  <a class="thumbnail" href="#">
-    <% if (picture){%>
-    <img class="img-responsive" src="<%=picture.pic_path%>" alt="">
-    <%} else {%>
-    <img class="img-responsive" src="/images/default-avatar.png" alt="">
-    <%}%>
-  </a>
+<div class="pageView">
+	<a href="/profile/pictures">Pictures</a>
+	<br>
+	<a href="/profile/edit">Edit Profile</a>
+	<br>
+	<a href="/logout">Logout</a>
+	<br>
+
+	<div class="col-lg-3 col-md-4 col-xs-6 thumb">
+	  <a class="thumbnail" href="#">
+	    <% if (picture){%>
+	    <img class="img-responsive" src="<%=picture.pic_path%>" alt="">
+	    <%} else {%>
+	    <img class="img-responsive" src="/images/default-avatar.png" alt="">
+	    <%}%>
+	  </a>
+	</div>
+
+	<%var name = user.firstName + " " + user.lastName %>
+
+	<table>
+	  <tr>
+	    <td>Name</td>
+	    <td><%= name %></td>
+	  </tr>
+		<tr>
+			<td>Username</td>
+			<td><%=user.username%></td>
+		</tr>
+	  <tr>
+	    <td>Appointments:</td>
+	    <% appointments.forEach((app)=> {%>
+	      <tr>
+	      <td>When: <%=app.date.toDateString()%></td>
+	      <td>At: <%=app.startTime.toLocaleTimeString()%></td>
+	      <td>With: <%=app.stylist.username %></td>
+	      <td>Completed:
+	        <%if (app.completed === false) {%>
+	          No
+	        <%} else {%>
+	          Yes
+	          <%}%></td>
+	      </tr>
+	    <%});%>
+	  </tr>
+	  </table>
+	  <td>Reviews: </td>
+	  <% if (appointments[0]){%>
+	    <% for (var i = 0; i < appointments.length; i++){%>
+	     <% for (var j = 0; j < appointments[i].stylist.reviews.length; j++) {%>
+	       <% var appsRevs = appointments[i].stylist.reviews[j];%>
+	       <li><p>For stylist: <%=appointments[i].stylist.username%></p>
+	         <p><%=appsRevs.comment%></p>
+	         <p>Stars: <%=appsRevs.stars%></p>
+	         <% if( appsRevs.date !== undefined){%>
+	           <p>Date: <%= appsRevs.date.toDateString();%> </p></li>
+	         <%}%>
+	     <%}%>
+	   <%}%>
+	    <% console.log("there is an appointment");%>
+	    <%} else {%>
+	      <p>You don't have any reviews to show</p>
+	      <%console.log("No appointment"); %>
+	      <%}%>
+	  </ul>
+
 </div>
-
-<%var name = user.firstName + " " + user.lastName %>
-
-<table>
-  <tr>
-    <td>Name</td>
-    <td><%= name %></td>
-  </tr>
-	<tr>
-		<td>Username</td>
-		<td><%=user.username%></td>
-	</tr>
-  <tr>
-    <td>Appointments:</td>
-    <% appointments.forEach((app)=> {%>
-      <tr>
-      <td>When: <%=app.date.toDateString()%></td>
-      <td>At: <%=app.startTime.toLocaleTimeString()%></td>
-      <td>With: <%=app.stylist.username %></td>
-      <td>Completed:
-        <%if (app.completed === false) {%>
-          No
-        <%} else {%>
-          Yes
-          <%}%></td>
-      </tr>
-    <%});%>
-  </tr>
-  </table>
-  <td>Reviews: </td>
-  <% if (appointments[0]){%>
-    <% for (var i = 0; i < appointments.length; i++){%>
-     <% for (var j = 0; j < appointments[i].stylist.reviews.length; j++) {%>
-       <% var appsRevs = appointments[i].stylist.reviews[j];%>
-       <li><p>For stylist: <%=appointments[i].stylist.username%></p>
-         <p><%=appsRevs.comment%></p>
-         <p>Stars: <%=appsRevs.stars%></p>
-         <% if( appsRevs.date !== undefined){%>
-           <p>Date: <%= appsRevs.date.toDateString();%> </p></li>
-         <%}%>
-     <%}%>
-   <%}%>
-    <% console.log("there is an appointment");%>
-    <%} else {%>
-      <p>You don't have any reviews to show</p>
-      <%console.log("No appointment"); %>
-      <%}%>
-  </ul>
