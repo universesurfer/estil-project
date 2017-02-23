@@ -60,3 +60,34 @@
 		<td><%=user.location%></td>
 	</tr>
 </table>
+
+<div>
+  <tr>
+    <td>Appointments:</td>
+    <% appointments.forEach((app)=> {%>
+      <% var userIs = app.user.firstName + app.user.lastName;%>
+      <div class="appointment">
+      <tr>
+      <td>When: <%=app.date.toDateString()%></td>
+      <td>At: <%=app.startTime.toLocaleTimeString()%></td>
+      <td>With: <%=userIs %></td>
+      <span class="appId hide"><%=app._id%></span>
+      <td>Confirm Booking:</td>
+      <%console.log(appointments[0].accept);%>
+        <%if (app.accept === false) {%>
+          <span class="acceptReject">
+          <input type="submit" id="acceptReq" name="acceptReq" class="confirmReq" value="Accept">
+          <input type="submit" id="requestReq" name="rejectReq" class="confirmReq" value="Decline">
+        </span>
+        <p class="newBookingConfirmed hide">Booking confirmed.</p>
+          <br><br>
+        <%} else {%>
+          <p>Booking confirmed.</p>
+          <%}%></td>
+      </tr>
+    </div>
+    <%});%>
+  </tr>
+</div>
+
+<script src="/javascripts/profile.js"></script>
