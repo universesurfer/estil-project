@@ -2,64 +2,66 @@
 	<link rel="stylesheet" href="/stylesheets/profiles.css">
 </head>
 
-<a href="/stylist/profile/portfolio">Stylist Portfolio</a>
-<br>
-<a href="/stylist/profile/edit">Edit Profile</a>
-<br>
-<a href="/logout">Logout</a>
-<br>
+<div class="pageView">
+	<a href="/stylist/profile/portfolio">Stylist Portfolio</a>
+	<br>
+	<a href="/stylist/profile/edit">Edit Profile</a>
+	<br>
+	<a href="/logout">Logout</a>
+	<br>
 
-<div class="col-lg-3 col-md-4 col-xs-6 thumb">
-  <a class="thumbnail" href="#">
-		<%if (picture){%>
-		<img class="img-responsive" src="<%=picture.pic_path%>" alt="">
-		<%} else {%>
-		<img class="img-responsive" src="/images/default-avatar.png" alt="">
-		<%}%>
-  </a>
-</div>
+	<div class="col-lg-3 col-md-4 col-xs-6 thumb">
+	  <a class="thumbnail" href="#">
+			<%if (picture){%>
+			<img class="img-responsive" src="<%=picture.pic_path%>" alt="">
+			<%} else {%>
+			<img class="img-responsive" src="/images/default-avatar.png" alt="">
+			<%}%>
+	  </a>
+	</div>
 
 
-<%var name = user.firstName + " " + user.lastName %>
+  <%var name = (user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1)) + " " + (user.lastName.charAt(0).toUpperCase() + user.lastName.slice(1)); %>
 
-<table>
-  <tr>
-    <td>Name</td>
-    <td><%= name %></td>
-  </tr>
-	<tr>
-    <td>Services</td>
-		<%user.services.forEach(function(services){%>
-			<td><%=services%></td>
-		<%})%>
-  </tr>
-	<tr>
-		<td>Expertise</td>
-		<td><%=user.expertise%></td>
-	</tr>
-	<tr>
-		<td>Languages</td>
-		<td><%=user.languages%></td>
-	</tr>
-	<tr>
-		<td>Description</td>
-		<td><%=user.description%></td>
-	</tr>
-	<tr>
-		<td>Price</td>
-		<td><%=user.price%></td>
-	</tr>
-	<tr>
-		<td>Availability</td>
-		<%user.availability.forEach(function(availability){%>
-			<td><%=availability%></td>
-		<%})%>
-	</tr>
-	<tr>
-		<td>Location</td>
-		<td><%=user.location%></td>
-	</tr>
-</table>
+	<table>
+	  <tr>
+	    <td>Name</td>
+	    <td><%= name %></td>
+	  </tr>
+		<tr>
+	    <td>Services</td>
+			<%user.services.forEach(function(services){%>
+				<td><%=services%></td>
+			<%})%>
+	  </tr>
+		<tr>
+			<td>Expertise</td>
+			<td><%=user.expertise%></td>
+		</tr>
+		<tr>
+			<td>Languages</td>
+			<td><%=user.languages%></td>
+		</tr>
+		<tr>
+			<td>Description</td>
+			<td><%=user.description%></td>
+		</tr>
+		<tr>
+			<td>Price</td>
+			<td><%=user.price%></td>
+		</tr>
+		<tr>
+			<td>Availability</td>
+			<%user.availability.forEach(function(availability){%>
+				<td><%=availability%></td>
+			<%})%>
+		</tr>
+		<tr>
+			<td>Location</td>
+			<td><%=user.location%></td>
+		</tr>
+	</table>
+
 
 <div>
   <tr>
@@ -90,4 +92,7 @@
   </tr>
 </div>
 
-<script src="/javascripts/profile.js"></script>
+
+	<script src="/javascripts/profile.js"></script>
+
+</div>
