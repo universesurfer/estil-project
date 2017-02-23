@@ -28,45 +28,6 @@ router.post("/api/search", (req, res)=> {
 
 })
 
-router.get('/profile/pictures', ensureLogin.ensureLoggedIn("/login"), function(req,res) {
-	Picture.find({"user" : req.user.username},(err, pictures) => {
-		res.render('private/profile-pictures', {pictures})
-	})
-})
-
-router.post('/profile/pictures/upload', upload.single('file'), function(req, res){
-
-  pic = new Picture({
-    pic_path: `/uploads/${req.file.filename}`,
-    pic_name: req.file.originalname,
-		user: req.user.username
-  });
-
-  pic.save((err) => {
-      res.redirect('/profile/pictures');
-  });
-});
-
-router.get('/stylist/profile/portfolio', ensureLogin.ensureLoggedIn("/stylist/login"), function(req,res) {
-	Picture.find({"user" : req.user.username},(err, pictures) => {
-		res.render('private/stylist-portfolio', {pictures})
-	})
-})
-
-router.post('/stylist/profile/portfolio/upload', upload.single('file'), function(req, res){
-
-  pic = new Picture({
-    name: req.body.name,
-    pic_path: `/uploads/${req.file.filename}`,
-    pic_name: req.file.originalname,
-		user: req.user.username
-  });
-
-  pic.save((err) => {
-      res.redirect('/stylist/profile/portfolio');
-  });
-});
-
 router.get('/view-stylist/:id', function(req,res) {
 	var dotAt = req.params.id.indexOf(".");
 	var firstName = req.params.id.substring(0,dotAt);

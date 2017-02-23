@@ -39,8 +39,9 @@ app.set('view engine', 'ejs');
 
 
 var index = require('./routes/index');
-// var profile = require('./routes/profile');
 var authController = require('./routes/authController');
+var userProfile = require('./routes/userProfile');
+var stylistProfile = require('./routes/stylistProfile');
 
 app.use(session({
   secret: "passport-local-strategy",
@@ -102,8 +103,9 @@ passport.use('stylist-login', new LocalStrategy((username, password, next) => {
 }));
 
 app.use('/', index);
-// app.use('/', profile);
 app.use('/', authController);
+app.use('/', userProfile);
+app.use('/', stylistProfile);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
