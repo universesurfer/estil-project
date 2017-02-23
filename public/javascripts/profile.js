@@ -6,4 +6,10 @@ $(document).ready(function() {
     $('.reviewBox').toggleClass("hide");
   });
 
+	$('#book').on('click', function(event) {
+    // var stylistName = $(event.target).closest('li').find('p').text();
+    // $('#stylistName').attr('value', stylistName);
+    $('.appointmentBox').toggleClass("hide");
+  });
+
 });

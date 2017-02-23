@@ -25,6 +25,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, "bower_components")));
 
 
 app.use(expressLayouts);
@@ -33,8 +34,7 @@ app.set('layout', 'layouts/main-layout');
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-app.use(express.static('public'));
-app.use(express.static(path.join(__dirname, "bower_components")));
+
 
 // uncomment after placing your favicon in /public
 // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
