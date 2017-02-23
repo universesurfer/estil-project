@@ -1,6 +1,7 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://www.w3schools.com/lib/w3.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 </head>
 <body>
 
@@ -18,10 +19,14 @@
       <a href="/signup" class="w3-bar-item w3-button">Sign Up</a>
       <a href="/stylist/login" class="w3-bar-item w3-button">Stylist Login</a>
       <a href="/stylist/signup" class="w3-bar-item w3-button">Stylist Signup</a>
-      <%} else {%>
-        <a href="/logout" class="w3-bar-item w3-button">Logout</a>
-
-      <%}%>
+			<%} else {
+				if (user.role == "Stylist") {%>
+				<a href="/stylist/profile" class="w3-bar-item w3-button">Profile</a>
+				<%} else if (user.role == "User"){%>
+				<a href="/profile" class="w3-bar-item w3-button">Profile</a>
+				<%}%>
+				<a href="/logout" class="w3-bar-item w3-button">Logout</a>
+			<%}%>
   </div>
 <!--
   <nav class="w3-sidenav w3-white w3-animate-left w3-center w3-text-grey w3-collapse w3-top" style="z-index:3;width:300px;font-weight:bold" id="mySidenav"><br>
@@ -39,9 +44,14 @@
   <a href="/signup" class="w3-bar-item w3-button">Sign Up</a>
   <a href="/stylist/login" class="w3-bar-item w3-button">Stylist Login</a>
   <a href="/stylist/signup" class="w3-bar-item w3-button">Stylist Signup</a>
-  <%} else {%>
+  <%} else {
+		if (user.role == "Stylist") {%>
+		<a href="/stylist/profile" class="w3-bar-item w3-button">Profile</a>
+		<%} else if (user.role == "User"){%>
+		<a href="/profile" class="w3-bar-item w3-button">Profile</a>
+		<%}%>
     <a href="/logout" class="w3-bar-item w3-button">Logout</a>
-    <%}%>
+	<%}%>
 </div>
 </div>
 </header>

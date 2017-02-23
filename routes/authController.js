@@ -103,14 +103,7 @@ authController.post("/stylist/signup", (req, res, next) => {
 			  coordinates: [0,90]
 			},
 			location    : "",
-      reviews     : [
-        {
-            userId  : {type: Schema.Types.ObjectId, ref: 'User'},
-            name    : "",
-            comment : "",
-            stars   : 0,
-            date    : new Date()
-        }]
+      reviews     : []
     });
 
     newStylist.save((err) => {
