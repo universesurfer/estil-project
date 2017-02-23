@@ -77,9 +77,9 @@ router.get('/view-stylist/:id', function(req,res) {
 	Stylist.findOne({"firstName":firstName, "lastName":lastName},(err,stylist) => {
 		var URLId = req.params.id;
 		res.render('stylist-public',{URLId, stylist});
-	})
+	});
 
-})
+});
 
 router.get('/view-stylist/:id/portfolio', function(req,res) {
 	var dotAt = req.params.id.indexOf(".");
@@ -91,11 +91,14 @@ router.get('/view-stylist/:id/portfolio', function(req,res) {
 	Stylist.findOne({"firstName":firstName, "lastName":lastName},{"username": 1},(err,stylist) => {
 		stylistUsername = stylist.username;
 		Picture.find({"user" : stylistUsername}, (err, pictures) => {
-			res.render('stylist-public-portfolio', {URLId, pictures})
-		})
-	})
+			res.render('stylist-public-portfolio', {URLId, pictures});
+		});
+	});
+});
 
-})
-
+router.get('/view-stylist/:id/booking', ensureLogin.ensureLoggedIn("/login"), (req, res)=>{
+  var stylistUsername, URLId = req.params.id;
+  res.render('private/booking', {stylistUsername});
+});
 
 module.exports = router;

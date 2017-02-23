@@ -11,7 +11,6 @@ const ensureLogin    = require("connect-ensure-login");
 const multer         = require('multer');
 var upload           = multer({ dest: './public/uploads/' });
 const mongoose = require('mongoose');
-const _ = require('underscore');
 
 
 authController.get('/signup', function(req, res, next) {
@@ -145,7 +144,7 @@ authController.get("/profile", ensureLogin.ensureLoggedIn(), (req, res) => {
     if (err){
       console.log("Error finding photo");
     }
-    console.log(picture);
+    // console.log(picture);
     Appointment.find({"user": req.user._id })
       .populate('stylist', 'username reviews')
       .exec(function (err, appointments) {
