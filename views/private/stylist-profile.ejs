@@ -11,7 +11,11 @@
 
 <div class="col-lg-3 col-md-4 col-xs-6 thumb">
   <a class="thumbnail" href="#">
-    <img class="img-responsive" src="/images/default-avatar.png" alt="">
+		<%if (picture){%>
+		<img class="img-responsive" src="<%=picture.pic_path%>" alt="">
+		<%} else {%>
+		<img class="img-responsive" src="/images/default-avatar.png" alt="">
+		<%}%>
   </a>
 </div>
 
@@ -25,7 +29,9 @@
   </tr>
 	<tr>
     <td>Services</td>
-    <td><%=user.services%></td>
+		<%user.services.forEach(function(services){%>
+			<td><%=services%></td>
+		<%})%>
   </tr>
 	<tr>
 		<td>Expertise</td>
@@ -45,7 +51,9 @@
 	</tr>
 	<tr>
 		<td>Availability</td>
-		<td><%=user.availability%></td>
+		<%user.availability.forEach(function(availability){%>
+			<td><%=availability%></td>
+		<%})%>
 	</tr>
 	<tr>
 		<td>Location</td>

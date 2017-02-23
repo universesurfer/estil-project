@@ -1,17 +1,4 @@
-// Sets new option of dropdown
-
-$(".dropdown-menu li").click(function(){
-  var setText = $(this).text();
-  var thisButton = $(this).closest(".dropdown");
-  $(thisButton).find("button").html(setText);
-});
-
-var map;
-
-//generates initial map based on geolocation
-$(document).ready(function(){
-	getMyLocation();
-})
+var map, markers = [];
 
 function getMyLocation() {
   if (navigator.geolocation) {
@@ -51,15 +38,12 @@ function showMapWithMyLocation(position) {
 		url: "http://localhost:3000/api/search",
 		method: "POST",
 		success: function(response) {
-			var markers = [];
 
 			for (var stylistMapInfo in response) {
 				if (response.hasOwnProperty(stylistMapInfo)){
 
-					console.log(response[stylistMapInfo]);
-
-					var lat = response[stylistMapInfo]["coords"][1];
-					var lon = response[stylistMapInfo]["coords"][0];
+					var lat = response[stylistMapInfo]["geolocation"]["coordinates"][1];
+					var lon = response[stylistMapInfo]["geolocation"]["coordinates"][0];
 
 					var stylistMarker = {
 						lat: lat,
@@ -82,7 +66,7 @@ function showMapWithMyLocation(position) {
 						content: content
 					});
 
-					markers.push([addMarker,infoWindow]);
+					markers.push([addMarker,infoWindow,response[stylistMapInfo]]);
 
 				}
 			}
@@ -147,3 +131,72 @@ function runAutocomplete() {
 	});
 
 }
+
+//generates initial map based on geolocation
+$(document).ready(function(){
+	getMyLocation();
+
+	$(".dropdown-menu li").click(function(){
+
+		//dropdown functionality
+
+	  var setText = $(this).text();
+	  var thisButton = $(this).closest(".dropdown");
+	  $(thisButton).find("button").html(setText);
+
+
+		//filter functionality
+		//////////////////////
+
+		var dropDowns = $(".dropdown-toggle");
+
+		//collect active filters
+
+		var filters = [];
+
+		for (var i = 0; i < dropDowns.length; i++) {
+			if (dropDowns[i].innerHTML.indexOf("span class=") != -1) {
+				filters.push(" ");
+			}
+			else {
+				filters.push(dropDowns[i].innerHTML)
+			}
+		}
+
+		//collect every marker's criteria
+
+		allMarkersCriteria = [];
+
+		markers.forEach(function(marker){
+			var singleMarkerCriteria = {
+			price: marker[2].price,
+			availability: marker[2].availability,
+			mobile: marker[2].mobile,
+			services: marker[2].services,
+			expertise: marker[2].expertise,
+			marker: marker
+			};
+			allMarkersCriteria.push(singleMarkerCriteria);
+		})
+
+		//loop through all markers to test criteria
+		//to modify filters only! change the conditions below, one for each category
+
+		allMarkersCriteria.forEach(function(marker){
+			console.log(marker);
+			console.log(marker["services"], filters[3]);
+			if (filters[0] != " " && filters[0] != marker["price"] ||
+				(filters[1] != " " && marker["availability"].indexOf(filters[1]) == -1 && filters[1] != "Every Day") ||
+				(filters[2] != " " && filters[2] != marker["mobile"] && marker["mobile"] != "Both")||
+				(filters[3] != " " && marker["services"].indexOf(filters[3]) == -1)||
+				(filters[4] != " " && filters[4] != marker["expertise"] && filters[4] != "Any" && marker["expertise"] != "Any")
+			) {
+				marker["marker"][0].setVisible(false);
+			}
+			else {
+				marker["marker"][0].setVisible(true);
+			}
+		})
+	});
+
+})

@@ -32,18 +32,93 @@
   <input type="text" name="lastName" value="<%=user.lastName%>">
   <label for="username">Username:</label>
   <input type="text" name="username" value="<%=user.username%>">
-  <label for="services">Services:</label>
-  <input type="text" name="services" value="<%=user.services%>">
+	<label for="services">Services:</label>
+	<label class="checkbox-inline services">
+		<% if (user.services.indexOf("Cut") != -1) {%>
+			<input type="checkbox" name="cut" value="Cut" checked>Cut
+		<%} else {%>
+			<input type="checkbox" name="cut" value="Cut">Cut
+		<%}%>
+			<input type="text" name="cutPrice" value="" placeholder="Average price">
+	</label>
+	<label class="checkbox-inline services">
+		<% if (user.services.indexOf("Blow Dry") != -1) {%>
+			<input type="checkbox" name="blowdry" value="Blow Dry" checked>Blow Dry
+		<%} else {%>
+			<input type="checkbox" name="blowdry" value="Blow Dry">Blow Dry
+		<%}%>
+			<input type="text" name="blowdryPrice" value="" placeholder="Average price">
+	</label>
+	<label class="checkbox-inline services">
+		<% if (user.services.indexOf("Color") != -1) {%>
+			<input type="checkbox" name="color" value="Color" checked>Color
+		<%} else {%>
+			<input type="checkbox" name="color" value="Color">Color
+		<%}%>
+			<input type="text" name="colorPrice" value="" placeholder="Average price">
+	</label>
+	<br>
   <label for="expertise">Expertise:</label>
   <input type="text" name="expertise" value="<%=user.expertise%>">
   <label for="description">Description:</label>
+	<br>
   <textarea type="text" name="description" value="<%=user.description%>"></textarea>
+	<br>
   <label for="languages">Languages:</label>
   <input type="text" name="languages" value="<%=user.languages%>">
   <label for="price">Price:</label>
   <input type="text" name="price" value="<%=user.price%>">
   <label for="availability">Availability:</label>
-  <input type="text" name="availability" value="<%=user.availability%>">
+	<label class="checkbox-inline availability">
+		<% if (user.availability.indexOf("Monday") != -1) {%>
+			<input type="checkbox" name="monday" value="Monday" checked>Monday
+		<%} else {%>
+			<input type="checkbox" name="monday" value="Monday">Monday
+		<%}%>
+	</label>
+	<label class="checkbox-inline availability">
+		<% if (user.availability.indexOf("Tuesday") != -1) {%>
+			<input type="checkbox" name="tuesday" value="Tuesday" checked>Tuesday
+		<%} else {%>
+			<input type="checkbox" name="tuesday" value="Tuesday">Tuesday
+		<%}%>
+	</label>
+	<label class="checkbox-inline availability">
+		<% if (user.availability.indexOf("Wednesday") != -1) {%>
+			<input type="checkbox" name="wednesday" value="Wednesday" checked>Wednesday
+		<%} else {%>
+			<input type="checkbox" name="wednesday" value="Wednesday">Wednesday
+		<%}%>
+	</label>
+	<label class="checkbox-inline availability">
+		<% if (user.availability.indexOf("Thursday") != -1) {%>
+			<input type="checkbox" name="thursday" value="Thursday" checked>Thursday
+		<%} else {%>
+			<input type="checkbox" name="thursday" value="Thursday">Thursday
+		<%}%>
+	</label>
+	<label class="checkbox-inline availability">
+		<% if (user.availability.indexOf("Friday") != -1) {%>
+			<input type="checkbox" name="friday" value="Friday" checked>Friday
+		<%} else {%>
+			<input type="checkbox" name="friday" value="Friday">Friday
+		<%}%>
+	</label>
+	<label class="checkbox-inline availability">
+		<% if (user.availability.indexOf("Saturday") != -1) {%>
+			<input type="checkbox" name="saturday" value="Saturday" checked>Saturday
+		<%} else {%>
+			<input type="checkbox" name="saturday" value="Saturday">Saturday
+		<%}%>
+	</label>
+	<label class="checkbox-inline availability">
+		<% if (user.availability.indexOf("Sunday") != -1) {%>
+			<input type="checkbox" name="sunday" value="Sunday" checked>Sunday
+		<%} else {%>
+			<input type="checkbox" name="sunday" value="Sunday">Sunday
+		<%}%>
+	</label>
+	<br>
   <label for="mobile">Home visits/Salon:</label>
   <input type="text" name="mobile" value="<%=user.mobile%>">
   <label for="location">Location:</label>

@@ -23,3 +23,12 @@
 .location {
 	margin-left: 10px;
 }
+
+.search {
+	display: inline-block;
+	margin-left: 20%;
+}
+
+h3 {
+	text-align: center;
+}

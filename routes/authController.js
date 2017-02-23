@@ -92,15 +92,16 @@ authController.post("/stylist/signup", (req, res, next) => {
 			date        : new Date(),
 			avatar      : " ",
 			services    : " ",
-			expertise   : ["Both"],
+			expertise   : ["Any"],
 			languages   : " ",
 			description : " ",
 			price       : " ",
 			availability: " ",
       mobile      : ["Both"],
+			distance		: 0,
 			geolocation : {
 			  type       : "Point",
-			  coordinates: [90,0]
+			  coordinates: [0,90]
 			},
 			location    : "",
       reviews     : []
@@ -164,7 +165,7 @@ authController.get("/stylist/profile", ensureLogin.ensureLoggedIn("/stylist/logi
     if (err){
       console.log("Error finding photo");
     }
-    res.render("private/stylist-profile", { user: req.user });
+    res.render("private/stylist-profile", { user: req.user, picture: picture});
   });
 });
 
@@ -249,11 +250,79 @@ authController.get("/stylist/profile/edit", ensureLogin.ensureLoggedIn("/stylist
 authController.post("/stylist/profile/edit", ensureLogin.ensureLoggedIn("/stylist/login"), (req, res, err) => {
 
   var userId = req.user._id;
+
+	//store main body of data from edit profile page
   var stylist = req.body;
 
+	//store locations in correct format
 	stylist.geolocation = {type:'Point', coordinates: [req.body.lon, req.body.lat]};
 	stylist.location = req.body.location;
 
+	//reformatting checklists
+	stylist.services = [];
+	stylist.availability = [];
+
+	function updateParam(bodyParam,property) {
+		if (req.body[bodyParam]) {
+			stylist[property].push(req.body[bodyParam])
+		}
+		delete stylist[bodyParam];
+	}
+
+	updateParam("cut","services");
+	updateParam("blowdry","services");
+	updateParam("color","services");
+	updateParam("monday","availability");
+	updateParam("tuesday","availability");
+	updateParam("wednesday","availability");
+	updateParam("thursday","availability");
+	updateParam("friday","availability");
+	updateParam("saturday","availability");
+	updateParam("sunday","availability");
+
+	//building price algorithms
+	stylist.priceList = [];
+
+	function buildPrice(bodyParam,property,multiplier) {
+		if (req.body[bodyParam]) {
+			var stylePriceIndex = Number(req.body[bodyParam]) * multiplier;
+			stylist[property].push(stylePriceIndex);
+		}
+		delete stylist[bodyParam];
+	}
+
+	buildPrice("cutPrice","priceList",4);
+	buildPrice("blowdryPrice","priceList",2.75);
+	buildPrice("colorPrice","priceList",1);
+
+	var numberOfPrices = stylist.priceList.length;
+
+	//if price information has been inputted by the stylist, then we can build a price using an algorithm, as below
+	if (numberOfPrices > 0) {
+		var total = 0;
+		for (var i = 0; i < numberOfPrices; i++){
+			total += stylist.priceList[i];
+		}
+		var stylistPriceIndex = total / numberOfPrices;
+
+		if (stylistPriceIndex < 50) {
+			stylist.price = "€";
+		}
+		else if (stylistPriceIndex >= 50 && stylistPriceIndex < 75) {
+			stylist.price = "€€";
+		}
+		else if (stylistPriceIndex >=75 ){
+			stylist.price = "€€€";
+		}
+	}
+
+
+
+
+
+	console.log(stylist["priceList"]);
+
+	//updating stylist info in DB
   Stylist.findOneAndUpdate({"_id": userId}, {$set: stylist}, (err)=> {
     if (err){console.log("error updating stylist");}
   });
