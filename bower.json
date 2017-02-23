@@ -1,0 +1,21 @@
+{
+  "name": "estilproject",
+  "description": "",
+  "main": "",
+  "authors": [
+    "Jeff <jzinger100@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/fejj182/estil-project",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "eonasdan-bootstrap-datetimepicker": "^4.17.45",
+    "bootstrap": "^3.3.7"
+  }
+}

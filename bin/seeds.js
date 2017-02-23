@@ -4,34 +4,34 @@ const Stylist      = require('../models/stylist');
 const Appointment  = require('../models/appointment');
 mongoose.connect('mongodb://localhost/estil');
 
-const users = [
-  {
-    firstName   : 'Cara',
-		lastName    : 'Delevigne',
-    username    : "cara@i.com",
-    password    : '1234',
-    role        : 'User',
-    avatar      : ' ',
-  },
-  {
-    firstName   : 'Tasha',
-		lastName    : 'Romasha',
-    username    : 'tasha@cool.com',
-    password    : '2345',
-    role        : 'User',
-    avatar      : ' ',
-  },
-  {
-    firstName   : 'Mika',
-		lastName    : 'Thasika',
-    username    : 'mika@yell.com',
-    password    : '3456',
-    role        : 'User',
-    avatar      : ' ',
-	}
-];
+// const users = [
+//   {
+//     firstName   : 'Cara',
+// 		lastName    : 'Delevigne',
+//     username    : "cara@i.com",
+//     password    : '1234',
+//     role        : 'User',
+//     avatar      : ' ',
+//   },
+//   {
+//     firstName   : 'Tasha',
+// 		lastName    : 'Romasha',
+//     username    : 'tasha@cool.com',
+//     password    : '2345',
+//     role        : 'User',
+//     avatar      : ' ',
+//   },
+//   {
+//     firstName   : 'Mika',
+// 		lastName    : 'Thasika',
+//     username    : 'mika@yell.com',
+//     password    : '3456',
+//     role        : 'User',
+//     avatar      : ' ',
+// 	}
+// ];
 
-const stylists=[{firstName:"Harry",lastName:"Potter",username:"harry@potter.co",password:"abcd",role:"Stylist",avatar:" ",services:["Blow Dry","Color"],expertise:"Men",languages:" ",description:" ",price:"€€€",availability:["Monday"],mobile:["Salon"],distance:0,geolocation:{type:"Point",coordinates:[2.189858,41.386333]},location:" ",reviews:[{name:" ",comment:" ",stars:1,date:new Date()}]},{firstName:"Hermione",lastName:"Granger",username:"hermione@granger.co.uk",password:"abcd",role:"Stylist",avatar:" ",services:["Cut","Blow Dry"],expertise:"Any",languages:" ",description:" ",price:"€€",availability:["Tuesday"],mobile:["Both"],distance:2,geolocation:{type:"Point",coordinates:[2.186015,41.388123]},location:" ",reviews:[{name:" ",comment:" ",stars:4,date:new Date()}]},{firstName:"Roger",lastName:"Rabbit",username:"roger@rabbit.co.uk",password:"abcd",role:"Stylist",avatar:" ",services:["Cut","Blow Dry","Color"],expertise:"Any",languages:" ",description:" ",price:"€€",availability:["Monday"],mobile:["Both"],distance:2,geolocation:{type:"Point",coordinates:[2.180722,41.390699]},location:" ",reviews:[{name:" ",comment:" ",stars:4,date:new Date()}]},{firstName:"Hard",lastName:"Worker",username:"go@far.co.uk",password:"abcd",role:"Stylist",avatar:" ",services:["Cut","Blow Dry","Color"],expertise:"Any",languages:" ",description:" ",price:"€",availability:["Monday","Friday","Saturday","Sunday"],mobile:["Both"],distance:5,geolocation:{type:"Point",coordinates:[2.197201,41.402385]},location:" ",reviews:[{name:" ",comment:" ",stars:4,date:new Date()}]}];
+// const stylists=[{firstName:"Harry",lastName:"Potter",username:"harry@potter.co",password:"abcd",role:"Stylist",avatar:" ",services:["Blow Dry","Color"],expertise:"Men",languages:" ",description:" ",price:"€€€",availability:["Monday"],mobile:["Salon"],distance:0,geolocation:{type:"Point",coordinates:[2.189858,41.386333]},location:" ",reviews:[{name:" ",comment:" ",stars:1,date:new Date()}]},{firstName:"Hermione",lastName:"Granger",username:"hermione@granger.co.uk",password:"abcd",role:"Stylist",avatar:" ",services:["Cut","Blow Dry"],expertise:"Any",languages:" ",description:" ",price:"€€",availability:["Tuesday"],mobile:["Both"],distance:2,geolocation:{type:"Point",coordinates:[2.186015,41.388123]},location:" ",reviews:[{name:" ",comment:" ",stars:4,date:new Date()}]},{firstName:"Roger",lastName:"Rabbit",username:"roger@rabbit.co.uk",password:"abcd",role:"Stylist",avatar:" ",services:["Cut","Blow Dry","Color"],expertise:"Any",languages:" ",description:" ",price:"€€",availability:["Monday"],mobile:["Both"],distance:2,geolocation:{type:"Point",coordinates:[2.180722,41.390699]},location:" ",reviews:[{name:" ",comment:" ",stars:4,date:new Date()}]},{firstName:"Hard",lastName:"Worker",username:"go@far.co.uk",password:"abcd",role:"Stylist",avatar:" ",services:["Cut","Blow Dry","Color"],expertise:"Any",languages:" ",description:" ",price:"€",availability:["Monday","Friday","Saturday","Sunday"],mobile:["Both"],distance:5,geolocation:{type:"Point",coordinates:[2.197201,41.402385]},location:" ",reviews:[{name:" ",comment:" ",stars:4,date:new Date()}]}];
 
 // const stylists = [
 //   {
@@ -99,10 +99,10 @@ const appointments = [
     date     : new Date(),
     startTime: new Date().getTime(),
     endTime  : new Date().getTime(),
-    stylist  : {_id : "58ad6d1460af79cc7ab22aca"},
+    stylist  : {_id : "58aec25922e7e31acf961f8c"},
 		stylistUsername : "harry@potter.co",
-    user     : {_id : "58ac7365b2ba19ab38c51a5d"},
-		userUsername: "mika@yell.com",
+    user     : {_id : "58aec27bc0f3671ab92dbb08"},
+		userUsername: "e",
     completed: true
   },
   {
@@ -138,22 +138,22 @@ Appointment.create(appointments, (err, docs)=> {
 });
 
 
-User.create(users, (err, docs)=> {
-  if (err){
-		throw(err);}
-
-  docs.forEach( (user)=>{
-		console.log(user.username);
-  })
-  mongoose.connection.close();
-});
-
-Stylist.create(stylists, (err, docs)=> {
-  if (err){
-		throw(err);}
-
-  docs.forEach( (stylist)=>{
-		console.log(stylist.username);
-  })
-  mongoose.connection.close();
-});
+// User.create(users, (err, docs)=> {
+//   if (err){
+// 		throw(err);}
+//
+//   docs.forEach( (user)=>{
+// 		console.log(user.username);
+//   })
+//   mongoose.connection.close();
+// });
+//
+// Stylist.create(stylists, (err, docs)=> {
+//   if (err){
+// 		throw(err);}
+//
+//   docs.forEach( (stylist)=>{
+// 		console.log(stylist.username);
+//   })
+//   mongoose.connection.close();
+// });

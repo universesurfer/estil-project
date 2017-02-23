@@ -1,53 +1,90 @@
 <head>
-	<link rel="stylesheet" href="/stylesheets/profiles.css">
+  <link rel="stylesheet" href="/stylesheets/profiles.css">
+  <script type="text/javascript" src="../jquery/dist/jquery.min.js"></script>
+  <script type="text/javascript" src="../moment/min/moment.min.js"></script>
+  <script type="text/javascript" src="../bootstrap/dist/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="../eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+  <link rel="stylesheet" href="../bootstrap/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="../eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
 </head>
-<a href="/search">Back to search</a>
-<br>
-<a href="./<%=URLId%>/portfolio">Stylist Portfolio</a>
-<br>
 
-<div class="col-lg-3 col-md-4 col-xs-6 thumb">
-  <a class="thumbnail" href="#">
-    <img class="img-responsive" src="/images/default-avatar.png" alt="">
-  </a>
-</div>
+<body>
+	<a href="/search">Back to search</a>
+	<br>
+	<a href="./<%=URLId%>/portfolio">Stylist Portfolio</a>
+	<br>
+
+	<div class="col-lg-3 col-md-4 col-xs-6 thumb">
+	  <a class="thumbnail" href="#">
+	    <img class="img-responsive" src="/images/default-avatar.png" alt="">
+	  </a>
+	</div>
 
 
-<%var name = stylist.firstName + " " + stylist.lastName %>
+	<%var name = stylist.firstName + " " + stylist.lastName %>
 
-<table>
-  <tr>
-    <td>Name</td>
-    <td><%= name %></td>
-  </tr>
-	<tr>
-    <td>Services</td>
-    <td><%=stylist.services%></td>
-  </tr>
-	<tr>
-		<td>Expertise</td>
-		<td><%=stylist.expertise%></td>
-	</tr>
-	<tr>
-		<td>Languages</td>
-		<td><%=stylist.languages%></td>
-	</tr>
-	<tr>
-		<td>Description</td>
-		<td><%=stylist.description%></td>
-	</tr>
-	<tr>
-		<td>Price</td>
-		<td><%=stylist.price%></td>
-	</tr>
-	<tr>
-		<td>Availability</td>
-		<td><%=stylist.availability%></td>
-	</tr>
-	<tr>
-		<td>Location</td>
-		<td><%=stylist.location%></td>
-	</tr>
-</table>
-<br><br>
-<a href="./<%=URLId%>/booking"><button type="button" id="book">Book with <%=name%></button></a>
+	<table>
+	  <tr>
+	    <td>Name</td>
+	    <td><%= name %></td>
+	  </tr>
+		<tr>
+	    <td>Services</td>
+	    <td><%=stylist.services%></td>
+	  </tr>
+		<tr>
+			<td>Expertise</td>
+			<td><%=stylist.expertise%></td>
+		</tr>
+		<tr>
+			<td>Languages</td>
+			<td><%=stylist.languages%></td>
+		</tr>
+		<tr>
+			<td>Description</td>
+			<td><%=stylist.description%></td>
+		</tr>
+		<tr>
+			<td>Price</td>
+			<td><%=stylist.price%></td>
+		</tr>
+		<tr>
+			<td>Availability</td>
+			<td><%=stylist.availability%></td>
+		</tr>
+		<tr>
+			<td>Location</td>
+			<td><%=stylist.location%></td>
+		</tr>
+	</table>
+	<br><br>
+	<button type="button" id="book">Book with <%=name%></button>
+
+	<div class="appointmentBox hide">
+			<label for="bookAppointment">Pick an appointment time</label>
+			<input id="book-appointment" type="datetime" name="bookAppointment">
+			<textarea name="review" id="review" cols="30" rows="10" placeholder="Write any special requests here"></textarea>
+	</div>
+
+		<div class="container">
+	    <div class="row">
+	        <div class='col-sm-6'>
+	            <div class="form-group">
+	                <div class='input-group date' id='datetimepicker1'>
+	                    <input type='text' class="form-control" />
+	                    <span class="input-group-addon">
+	                        <span class="glyphicon glyphicon-calendar"></span>
+	                    </span>
+	                </div>
+	            </div>
+	        </div>
+	        <script type="text/javascript">
+	            $(function () {
+	                $('#datetimepicker1').datetimepicker();
+	            });
+	        </script>
+	    </div>
+	</div>
+
+	<script src="/javascripts/profile.js"></script>
+</body>
