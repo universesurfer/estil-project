@@ -2,16 +2,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://www.w3schools.com/lib/w3.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-	<style>
-		.pageView {
-			width: 100%;
-			height: 100%;
-			background-image: url("/images/home-screen.png");
-			background-size: 85% auto;
-			background-repeat: no-repeat;
-			background-position: center 30%;
-		}
-	</style>
 
 </head>
 
@@ -22,25 +12,25 @@
 
 	<ul class="nav nav-pills navbar-nav">
 		<%if (typeof user == "undefined"){%>
-	  <li class="nav-item">
-	    <a class="nav-link" href="/login">Login</a>
+	  <li class="nav-item user-buttons">
+	    <a class="nav-link " href="/login">Login</a>
 	  </li>
-	  <li class="nav-item">
+	  <li class="nav-item user-buttons">
 	    <a class="nav-link" href="/signup">Sign Up</a>
 	  </li>
-	  <li class="nav-item">
+	  <li class="nav-item hide stylist-buttons">
 	    <a class="nav-link" href="/stylist/login">Stylist Login</a>
 	  </li>
-	  <li class="nav-item">
+	  <li class="nav-item hide stylist-buttons">
 	    <a class="nav-link" href="/stylist/signup">Stylist Signup</a>
 	  </li>
 		<%} else {
 			if (user.role == "Stylist") {%>
-				<li class="nav-item">
+				<li class="nav-item hide stylist-buttons">
 			    <a class="nav-link" href="/stylist/profile">Profile</a>
 			  </li>
 			<%} else if (user.role == "User"){%>
-				<li class="nav-item">
+				<li class="nav-item user-buttons">
 			    <a class="nav-link" href="/profile">Profile</a>
 			  </li>
 			<%}%>
@@ -50,5 +40,13 @@
 		<%}%>
 	</ul>
 
+	<button class="btn" id="are-you-a-stylist">Are you a stylist? Click here to sign up or log in</button>
 
+	<script type="text/javascript">
+		$("#are-you-a-stylist").on("click",function(){
+			$(".user-buttons").toggleClass("hide");
+			$(".stylist-buttons").toggleClass("hide");
+			// $("#are-you-a-stylist").html("Do you want your hair cut? Click here to sign up or log in");
+		})
+	</script>
 </div>
