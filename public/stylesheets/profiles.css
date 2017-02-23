@@ -9,3 +9,11 @@ td {
 input {
   display: block;
 }
+
+p {
+  display: inline-block;
+}
+
+.reviewBox {
+  display: none;
+}

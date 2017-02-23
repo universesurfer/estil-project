@@ -45,18 +45,19 @@
       </tr>
     <%});%>
   </tr>
-  <tr>
-    <td>Reviews:</td>
+  </table>
+    <ul>Reviews:
+
     <%console.log("arse: ", appointments[1].stylist.reviews[0].date.toDateString())%>
     <% for (var i = 0; i < appointments.length; i++){%>
       <% for (var j = 0; j < appointments[i].stylist.reviews.length; j++) {%>
         <% var appsRevs = appointments[i].stylist.reviews[j];%>
-          <td><%=appsRevs.comment%></td>
-          <td>Stars: <%=appsRevs.stars%></td>
+        <li><p>For stylist: <%=appointments[i].stylist.username%></p>
+          <p><%=appsRevs.comment%></p>
+          <p>Stars: <%=appsRevs.stars%></p>
           <% if( appsRevs.date !== undefined){%>
-            <td>Date: <%= appsRevs.date.toDateString();%> </td>
+            <p>Date: <%= appsRevs.date.toDateString();%> </p></li>
           <%}%>
       <%}%>
     <%}%>
-	</tr>
-</table>
+  </ul>

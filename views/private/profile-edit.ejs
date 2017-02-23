@@ -31,28 +31,29 @@
   <input type="text" name="username" value="<%=user.username%>">
   <div>
     <tr>
-      <td>Appointment:</td>
+      <dl>Appointments:
       <% appointments.forEach((app)=> {%>
-        <tr>
-          <td>When: <%=app.date.toDateString()%></td>
-          <td>At: <%=app.startTime.toLocaleTimeString()%></td>
-          <td>With: <a href="/view-stylist/<%=app.stylist.firstName%>.<%=app.stylist.lastName%>"><%=app.stylist.username %></td></a>
-        </tr>
-        <a href=#>Leave a review</a>
-        <br></br>
+          <li class="ls">When: <%=app.date.toDateString()%>
+          At: <%=app.startTime.toLocaleTimeString()%>
+          With: <a href="/view-stylist/<%=app.stylist.firstName%>.<%=app.stylist.lastName%>"><p class="usernameStyl"><%=app.stylist.username %></p></a>
+        <button type="button" class="review">Leave a review</button>
+        </li>
+      </dl>
         <%});%>
-        <br></br>
+    </div>
+    <div class="reviewBox">
         <label for="review">Leave a review for:</label>
-        <input type="text" name="stylistName" value="<%=appointments[0].stylist.username%>">
+        <input id="stylistName" type="text" name="stylistName">
         <label for="stars">Star Rating:</label>
         <input type="number" name="stars">
         <textarea name="review" id="review" cols="30" rows="10"></textarea>
-        <br>
-  </div>
+    </div>
+
 
 
   <br>
   <button type="submit">Update profile</button>
 </form>
 
+<script src="/javascripts/profile.js"></script>
 </body>
