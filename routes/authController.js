@@ -10,6 +10,8 @@ const passport       = require("passport");
 const ensureLogin    = require("connect-ensure-login");
 const multer         = require('multer');
 var upload           = multer({ dest: './public/uploads/' });
+const mongoose = require('mongoose');
+const _ = require('underscore');
 
 
 authController.get('/signup', function(req, res, next) {
@@ -104,6 +106,7 @@ authController.post("/stylist/signup", (req, res, next) => {
 			location    : "",
       reviews     : [
         {
+            userId  : {type: Schema.Types.ObjectId, ref: 'User'},
             name    : "",
             comment : "",
             stars   : 0,
@@ -145,17 +148,22 @@ authController.post("/stylist/login", passport.authenticate("stylist-login", {
 }));
 
 authController.get("/profile", ensureLogin.ensureLoggedIn(), (req, res) => {
-  Picture.findOne({"user": req.user.username, "profile": true}, (err, picture)=>{
+  Picture.findOne({"user": req.user.username, "profile": true}, {}, { sort: { 'created_at' : -1 } }, (err, picture)=>{
     if (err){
       console.log("Error finding photo");
     }
-  Appointment.findOne({"user": req.user._id}, (err, appointment)=>{
-    if (err){
-      console.log("Error finding appointment");
-    }
-    console.log("found app:" + appointment);
-    res.render("private/profile", { user: req.user, picture: picture, appointment: appointment });
-    });
+    console.log(picture);
+    Appointment.find({"user": req.user._id })
+      .populate('stylist', 'username reviews')
+      .exec(function (err, appointments) {
+        if (err) {
+          console.log(err);
+        } else {
+          // console.log('appointments', appointments);
+          // console.log('revs', appointments[0].stylist.reviews);
+          res.render("private/profile", { user: req.user, picture: picture, appointments: appointments});
+        }
+      });
   });
 });
 
@@ -167,27 +175,55 @@ authController.get("/stylist/profile", ensureLogin.ensureLoggedIn("/stylist/logi
 });
 
 authController.get("/profile/edit", ensureLogin.ensureLoggedIn(), (req, res) => {
-  Picture.findOne({"user": req.user.username, "profile": true}, (err, picture)=>{
-    if (err){console.log("Error finding photo");}
-    res.render("private/profile-edit", { user: req.user, picture: picture});
+  Picture.findOne({"user": req.user.username, "profile": true}, {}, { sort: { 'created_at' : -1 } }, (err, picture)=>{
+    if (err){
+      console.log("Error finding photo");
+    }
+    Appointment.find({"user": req.user._id })
+      .populate('stylist', 'username reviews firstName lastName')
+      .exec(function (err, appointments) {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log(appointments);
+          res.render("private/profile-edit", { user: req.user, picture: picture, appointments: appointments});
+        }
+    });
   });
 });
 
 authController.post("/profile/edit", ensureLogin.ensureLoggedIn(), (req, res, err) => {
 
   var userId = req.user._id;
-  var userUpdated = req.body;
-  console.log(userUpdated);
-  var review = req.body.review;
-  console.log(review);
-
+  var userUpdated = {
+    firstName : req.body.firstName,
+    lastName  : req.body.lastName,
+    username  : req.body.username
+  };
+  var review = {
+    userId  : {"_id" : req.user._id},
+    name    : req.user.firstName,
+    comment : req.body.review,
+    stars   : req.body.stars,
+    date    : new Date()
+  };
+  console.log("review: ",review);
   User.update({"_id": userId}, {$set: userUpdated}, (err, user)=> {
     if (err){console.log("error updating user");}
   });
-  User.update({"_id": userId}, {$push: {reviews: [review]}}, (err, user)=> {
+  Stylist.findOneAndUpdate({"username": req.body.stylistName },
+   {$push : {reviews: {
+     userId  : {"_id" : req.user._id},
+     name    : req.user.firstName,
+     comment : req.body.review,
+     stars   : req.body.stars,
+     date    : new Date()
+   }
+  }}, (err, user)=> {
     if (err){console.log("error updating user");}
-    res.redirect("/profile");
+
   });
+  res.redirect("/profile");
 });
 
 authController.post('/profile/photo-upload', upload.single('file'), function(req, res){

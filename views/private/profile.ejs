@@ -30,20 +30,34 @@
 		<td><%=user.username%></td>
 	</tr>
   <tr>
-    <td>Appointments</td>
-    <td><%=appointment.date%></td>
-    <td><%=appointment.startTime%></td>
-    <td><%=appointment.stylist%></td>
-
-  </tr>
-  <tr>
-		<td>Reviews</td>
-    <% if (user.reviews){%>
-    <% user.reviews.forEach((userRev)=>{%>
-		<td><%=userRev%></td>
+    <td>Appointments:</td>
+    <% appointments.forEach((app)=> {%>
+      <tr>
+      <td>When: <%=app.date.toDateString()%></td>
+      <td>At: <%=app.startTime.toLocaleTimeString()%></td>
+      <td>With: <%=app.stylist.username %></td>
+      <td>Completed:
+        <%if (app.completed === false) {%>
+          No
+        <%} else {%>
+          Yes
+          <%}%></td>
+      </tr>
     <%});%>
-    <%} else {%>
-    <td>You haven't left any reviews yet. <a href="/profile/edit">Add a review </a></td>
+  </tr>
+  </table>
+    <ul>Reviews:
+
+    <%console.log("arse: ", appointments[1].stylist.reviews[0].date.toDateString())%>
+    <% for (var i = 0; i < appointments.length; i++){%>
+      <% for (var j = 0; j < appointments[i].stylist.reviews.length; j++) {%>
+        <% var appsRevs = appointments[i].stylist.reviews[j];%>
+        <li><p>For stylist: <%=appointments[i].stylist.username%></p>
+          <p><%=appsRevs.comment%></p>
+          <p>Stars: <%=appsRevs.stars%></p>
+          <% if( appsRevs.date !== undefined){%>
+            <p>Date: <%= appsRevs.date.toDateString();%> </p></li>
+          <%}%>
+      <%}%>
     <%}%>
-	</tr>
-</table>
+  </ul>

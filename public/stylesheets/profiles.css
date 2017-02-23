@@ -12,4 +12,12 @@ input {
 
 #lat, #lon {
 	display: none;
+
+p {
+  display: inline-block;
+}
+
+.reviewBox {
+  display: none;
+
 }

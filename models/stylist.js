@@ -23,14 +23,14 @@ const stylistSchema = new Schema({
 	distance: Number,
   geolocation  : {type: {type: String}, coordinates: [Number]},
 	location: String,
-  reviews : [
-    {
+  reviews :
+    [{
+        userId  : {type: Schema.Types.ObjectId, ref: 'User'},
         name    : String,
         comment : String,
         stars   : Number,
         date    : Date
-    }
-  ]
+    }]
 });
 
 stylistSchema.index({geolocation: '2dsphere'});

@@ -55,6 +55,7 @@ const stylists=[{firstName:"Harry",lastName:"Potter",username:"harry@potter.co",
 //     location    : ' ',
 //     reviews : [
 //       {
+//         userId  : {"_id": "58ac73d5b2ba19ab38c51a5e"},
 //         name    : " ",
 //         comment : " ",
 //         stars   : 1,
@@ -83,6 +84,7 @@ const stylists=[{firstName:"Harry",lastName:"Potter",username:"harry@potter.co",
 //     location : ' ',
 //     reviews : [
 //       {
+//         userId  : {"_id": "58ac73d5b2ba19ab38c51a5e"},
 //         name    : " ",
 //         comment : " ",
 //         stars   : 4,
@@ -92,13 +94,12 @@ const stylists=[{firstName:"Harry",lastName:"Potter",username:"harry@potter.co",
 //   }
 // ];
 
-
 const appointments = [
   {
     date     : new Date(),
     startTime: new Date().getTime(),
     endTime  : new Date().getTime(),
-    stylist  : {_id : "58ac741e46a05babb522aa69"},
+    stylist  : {_id : "58ad6d1460af79cc7ab22aca"},
     user     : {_id : "58ac7365b2ba19ab38c51a5d"},
     completed: true
   },
@@ -106,7 +107,7 @@ const appointments = [
     date     : new Date(),
     startTime: new Date().getTime(),
     endTime  : new Date().getTime(),
-    stylist  : {_id : "58ac742846a05babb522aa6b"},
+    stylist  : {_id : "58ad6d1460af79cc7ab22aca"},
     user     : {_id :  "58ac73d5b2ba19ab38c51a5e"},
     completed: false
   },
