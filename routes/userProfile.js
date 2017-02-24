@@ -116,4 +116,17 @@ userProfile.get('/profile/pictures', ensureLogin.ensureLoggedIn("/login"), funct
 	})
 })
 
+userProfile.post('/profile/pictures/upload', upload.single('file'), function(req, res){
+
+  pic = new Picture({
+    pic_path: `/uploads/${req.file.filename}`,
+    pic_name: req.file.originalname,
+		user: req.user.username
+  });
+
+  pic.save((err) => {
+      res.redirect('/profile/edit');
+  });
+});
+
 module.exports = userProfile;
