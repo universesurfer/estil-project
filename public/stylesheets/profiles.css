@@ -1,5 +1,6 @@
 .categories{
 	width: 150px;
+	font-weight: bold;
 }
 
 /*.gallery .thumbnail{
@@ -14,6 +15,8 @@
     height: auto;
     display: block;
 }*/
+
+
 
 td {
 	font-size: 18px;
