@@ -171,7 +171,7 @@ h1 {
 /*-- responsive-design --*/
 @media(max-width:1366px){
 .mainw3-agileinfo {
-    width: 45%;
+    width: 50%;
 }
 }
 @media(max-width:1280px){
@@ -181,7 +181,7 @@ h1 {
 }
 @media(max-width:1080px){
 .mainw3-agileinfo {
-    width: 50%;
+    width: 55%;
 }
 h1 {
     font-size: 2.8em;
@@ -192,7 +192,7 @@ h1 {
 }
 @media(max-width:991px){
 .mainw3-agileinfo {
-    width: 53%;
+    width: 58%;
 }
 }
 @media(max-width:800px){
@@ -203,7 +203,7 @@ h1 {
     padding: 1.5em 0 0;
 }
 .mainw3-agileinfo {
-    width: 61%;
+    width: 66%;
 	margin: 2.5em auto;
 }
 .login-form input[type="text"], .login-form input[type="password"] {
@@ -215,7 +215,7 @@ h1 {
     padding: 2.2em;
 }
 .mainw3-agileinfo {
-    width: 65%;
+    width: 70%;
 }
 .login-form input[type="text"], .login-form input[type="password"] {
     margin: 0 0 1.5em;
@@ -229,12 +229,12 @@ h1 {
 }
 @media(max-width:667px){
 .mainw3-agileinfo {
-    width: 70%;
+    width: 75%;
 }
 }
 @media(max-width:600px){
 .mainw3-agileinfo {
-    width: 72%;
+    width: 77%;
 	margin: 2em auto;
 }
 h1 {
@@ -249,7 +249,7 @@ h1 {
     padding: 1.8em;
 }
 .mainw3-agileinfo {
-    width: 80%;
+    width: 85%;
     margin: 1.5em auto;
 }
 .login-form input[type="text"], .login-form input[type="password"] {
@@ -285,7 +285,7 @@ h1 {
 }
 @media(max-width:384px){
 .mainw3-agileinfo {
-    width: 84%;
+    width: 89%;
 }
 .login-form input[type="text"], .login-form input[type="password"] {
     width: 92%;
@@ -299,7 +299,7 @@ h1 {
     font-size: 1.5em;
 }
 .mainw3-agileinfo {
-    width: 87%;
+    width: 92%;
 }
 .login-form {
     padding: 1.5em;
