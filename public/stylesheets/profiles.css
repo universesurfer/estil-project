@@ -16,6 +16,13 @@
     display: block;
 }*/
 
+textarea {
+	margin-top: 1em;
+}
+
+input[type="text"] {
+	margin-bottom: 0.5em;
+}
 
 
 td {

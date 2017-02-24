@@ -52,7 +52,8 @@
 						<% if (appointments[0]){%>
 							<% for (var i = 0; i < appointments.length; i++){%>
 							 <% for (var j = 0; j < appointments[i].stylist.reviews.length; j++) {%>
-								 <% var appsRevs = appointments[i].stylist.reviews[j];%>
+								 <% var appsRevs = appointments[i].stylist.reviews[j];
+								 if(appointments[i].stylist.reviews[j].comment != " ") {%>
 								 <tr>
 								 <td class="categories">Reviews: </td>
 								 <td>For stylist: <%=appointments[i].stylist.username%><%=appsRevs.comment%></td>
@@ -61,11 +62,12 @@
 									 <td>Date: <%= appsRevs.date.toDateString();%></td>
 								 <%}%>
 								 </tr>
-							 <%}%>
+							 	<%}
+							 	}%>
 						 <%}%>
 							<% console.log("there is an appointment");%>
 							<%} else {%>
-								<td>Reviews: </td>
+								<td class="categories">Reviews: </td>
 								<td>You don't have any reviews to show</td>
 								<%console.log("No appointment"); %>
 								<%}%>
