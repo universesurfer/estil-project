@@ -21,6 +21,11 @@ authController.get('/stylist/signup', function(req, res, next) {
   res.render('auth/stylist-signup');
 });
 
+function validateEmail(email) {
+			var re = /\S+@\S+\.\S+/;
+			return re.test(email);
+}
+
 authController.post("/signup", (req, res, next) => {
 	var firstName = req.body.firstName;
 	var lastName = req.body.lastName;
@@ -31,6 +36,10 @@ authController.post("/signup", (req, res, next) => {
     res.render("auth/signup", { message: "Indicate email and password" });
     return;
   }
+
+	if (validateEmail(username) == false) {
+		res.render("auth/signup", { message: "Please input a valid email address" });
+	}
 
   User.findOne({ username }, "username", (err, user) => {
     if (user !== null) {
@@ -71,6 +80,10 @@ authController.post("/stylist/signup", (req, res, next) => {
     res.render("auth/stylist-signup", { message: "Indicate email and password" });
     return;
   }
+
+	if (validateEmail(username) == false) {
+		res.render("auth/stylist-signup", { message: "Please input a valid email address" });
+	}
 
   Stylist.findOne({ username }, "username", (err, user) => {
     if (user !== null) {
