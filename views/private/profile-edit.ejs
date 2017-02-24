@@ -2,11 +2,7 @@
 	<link rel="stylesheet" href="/stylesheets/profiles.css">
 </head>
 
-<div class"pageView">
-	<a href="/profile">Profile</a>
-	<br>
-	<a href="/logout">Logout</a>
-	<br>
+<div class="pageView">
 	<div class="col-lg-3 col-md-4 col-xs-6 thumb">
 	  <form action="/profile/photo-upload" method="POST" enctype="multipart/form-data">
 	    <a class="thumbnail" href="#">
@@ -49,11 +45,18 @@
 	        <textarea name="review" id="review" cols="30" rows="10"></textarea>
 	    </div>
 
-
-
 	  <br>
 	  <button type="submit">Update profile</button>
 	</form>
+
+	<ul class="nav nav-pills navbar-nav">
+		<li class="nav-item user-buttons">
+			<a href="/profile">Profile</a>
+		</li>
+		<li class="nav-item user-buttons">
+			<a href="/logout">Logout</a>
+		</li>
+	</ul>
 
 	<script src="/javascripts/profile.js"></script>
 </div>

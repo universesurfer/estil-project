@@ -2,12 +2,11 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<link rel='stylesheet' href='/stylesheets/auth.css'>
 	<link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.2.0/zxcvbn.js"></script>
 </head>
 
-<div class="pageView">
-	<p>User</p>
-	<div class="main-agileits">
-		<h1>Tiny Ui Login Form</h1>
+<div class="pageView loginSignup">
+	<div class="main-agileits">>
 		<div class="mainw3-agileinfo">
 			<!-- login form -->
 			<div class="login-form">
@@ -24,6 +23,8 @@
             <% if (typeof(message) != "undefined") { %>
               <div class="error-message"><%= message %></div>
             <% } %>
+						<meter max="4" id="password-strength-meter"></meter>
+						<p id="password-strength-text"></p>
 						<input type="submit" value="Sign Up">
 					</form>
 					<p class="account-message">
@@ -36,7 +37,7 @@
 	</div>
 	<!-- //main -->
 	<!-- copyright -->
-	<div class="w3copyright-agile">
+	<div class="w3copyright-agile hide">
 		<p>© 2017 Tiny Ui Login Form . All rights reserved | Design by <a href="http://w3layouts.com/" target="_blank">W3layouts</a></p>
 	</div>
 

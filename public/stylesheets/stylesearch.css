@@ -12,6 +12,7 @@
 .dropdown {
   display: inline-block;
   margin-left: 10px;
+	width: 8.5em;
 }
 
 #pac-input {
@@ -26,9 +27,13 @@
 
 .search {
 	display: inline-block;
-	margin-left: 20%;
 }
 
-h3 {
+.search button {
+	width: 8.5em;
+	text-align: left;
+}
+
+h2 {
 	text-align: center;
 }

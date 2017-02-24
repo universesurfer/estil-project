@@ -3,16 +3,12 @@
 </head>
 
 <div class="pageView">
-	<a href="/stylist/profile/portfolio">Stylist Portfolio</a>
-	<br>
-	<a href="/stylist/profile/edit">Edit Profile</a>
-	<br>
-	<a href="/logout">Logout</a>
-	<br>
 
 	<div id="profile-pic" class="col-lg-3 col-md-4 col-xs-6 thumb">
 	  <a class="thumbnail" href="#">
-			<%if (picture){%>
+			<% console.log(picture);
+
+			if (picture){%>
 			<img class="img-responsive" src="<%=picture.pic_path%>" alt="">
 			<%} else {%>
 			<img class="img-responsive" src="/images/default-avatar.png" alt="">
@@ -62,40 +58,46 @@
 		</tr>
 	</table>
 
+	<div>
+	  <tr>
+	    <td>Appointments:</td>
+	    <% appointments.forEach((app)=> {%>
+	      <% var userIs = app.user.firstName + app.user.lastName;%>
+	      <div class="appointment">
+	      <tr>
+	      <td>When: <%=app.date.toDateString()%></td>
+	      <td>At: <%=app.startTime.toLocaleTimeString()%></td>
+	      <td>With: <%=userIs %></td>
+	      <span class="appId hide"><%=app._id%></span>
+	      <td>Confirm Booking:</td>
+	      <%console.log(appointments[0].accept);%>
+	        <%if (app.accept === false) {%>
+	          <span class="acceptReject">
+	          <input type="submit" name="acceptReq" class="confirmReq acceptReq" value="Accept">
+	          <input type="submit" name="rejectReq" class="confirmReq requestReq" value="Decline">
+	        </span>
+	        <p class="newBookingConfirmed hide">Booking confirmed.</p>
+	          <br><br>
+	        <%} else {%>
+	          <p>Booking confirmed.</p>
+	          <%}%></td>
+	      </tr>
+	    </div>
+	    <%});%>
+	  </tr>
+	</div>
 
-<div>
-  <tr>
-    <td>Appointments:</td>
-    <% appointments.forEach((app)=> {%>
-      <%var name = (app.user.firstName.charAt(0).toUpperCase() + app.user.firstName.slice(1)) + " " + (app.user.lastName.charAt(0).toUpperCase() + app.user.lastName.slice(1)); %>
-      <div class="appointment">
-      <tr>
-      <td>When: <%=app.date.toDateString()%></td>
-      <td>At: <%=app.startTime.toLocaleTimeString()%></td>
-      <td>With: <%=name %></td>
-        <% if (app.request === 'function String() { [native code] }') {%>
-          <td>Client message: No message</td>
-        <%} else {%>
-        <td>Client message: <%=app.request%></td>
-        <%}%>
-        <span class="appId hide"><%=app._id%></span>
-        <td>Confirm Booking:</td>
-        <%console.log(appointments[0].accept);%>
-          <%if (app.accept === false) {%>
-            <span class="acceptReject">
-            <input type="submit" name="acceptReq" class="confirmReq acceptReq" value="Accept">
-            <input type="submit" name="rejectReq" class="confirmReq rejectReq" value="Decline">
-          </span>
-          <p class="newBookingConfirmed hide">Booking confirmed.</p>
-            <br><br>
-          <%} else {%>
-            <p>Booking confirmed.</p>
-          <%}%></td>
-      </tr>
-    </div>
-    <%});%>
-  </tr>
-</div>
+	<ul class="nav nav-pills navbar-nav">
+		<li class="nav-item user-buttons">
+			<a href="/stylist/profile/portfolio">Stylist Portfolio</a>
+		</li>
+		<li class="nav-item user-buttons">
+			<a href="/stylist/profile/edit">Edit Profile</a>
+		</li>
+		<li class="nav-item user-buttons">
+			<a href="/logout">Logout</a>
+		</li>
+	</ul>
 
 <div>
   <ul>Reviews for you left by clients:
