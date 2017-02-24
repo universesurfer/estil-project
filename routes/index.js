@@ -6,6 +6,8 @@ const ensureLogin = require("connect-ensure-login");
 var multer  = require('multer');
 var upload = multer({ dest: './public/uploads/' });
 const Appointment    = require('../models/appointment');
+const env            = require("dotenv").config();
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -13,7 +15,8 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/search', (req, res)=> {
-	res.render('search');
+
+	res.render('search' , {apiKey: process.env.GOOGLEMAPYAPI});
 });
 
 router.post("/api/search", (req, res)=> {
