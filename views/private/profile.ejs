@@ -5,7 +5,7 @@
 <div class="pageView">
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-lg-3 col-md-4 col-xs-6 thumb">
+			<div class="col-lg-3 col-md-4 col-xs-6 thumb profile-pic">
 				<a class="thumbnail" href="#">
 					<% if (picture){%>
 					<img class="img-responsive" src="<%=picture.pic_path%>" alt="">
@@ -15,7 +15,7 @@
 				</a>
 			</div>
 
-			<div class="col-lg-9 col-md-8 col-xs-6">
+			<div class="col-lg-5 col-md-8 col-xs-6">
 				<%var name = (user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1)) + " " + (user.lastName.charAt(0).toUpperCase() + user.lastName.slice(1)); %>
 
 				<table>
@@ -65,6 +65,7 @@
 						 <%}%>
 							<% console.log("there is an appointment");%>
 							<%} else {%>
+								<td>Reviews: </td>
 								<td>You don't have any reviews to show</td>
 								<%console.log("No appointment"); %>
 								<%}%>
@@ -73,13 +74,21 @@
 
 			</div>
 
+			<div class="col-lg-4 thumb" id="gallery">
+				<h3 class="text-center">Style Gallery</h3>
+				<% for (var i=0; i < pictures.length; i++) {%>
+					<div class="col-lg-4 col-md-4 col-xs-6 thumb">
+						<a class="thumbnail" href="#">
+							<img class="img-responsive" src="<%=pictures[i].pic_path%>" alt="">
+						</a>
+					</div>
+				<%}%>
+			</div>
+
 		</div>
 	</div>
 	<div class="row">
 		<ul class="nav nav-pills navbar-nav">
-			<li class="nav-item user-buttons">
-				<a href="/profile/pictures">Pictures</a>
-			</li>
 			<li class="nav-item user-buttons">
 				<a href="/profile/edit">Edit Profile</a>
 			</li>

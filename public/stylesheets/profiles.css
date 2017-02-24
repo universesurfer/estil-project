@@ -41,6 +41,10 @@ dl {
 	margin-top: 1em;
 }
 
-#profile-pic {
+#gallery h3 {
+	margin-bottom: 2em;
+}
 
+.profile-pic {
+	margin-top: 2em;
 }
