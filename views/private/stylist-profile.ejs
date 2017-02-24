@@ -3,116 +3,120 @@
 </head>
 
 <div class="pageView">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-lg-3 col-md-4 col-xs-6 thumb profile-pic">
+			  <a class="thumbnail" href="#">
+					<% if (picture){%>
+					<img class="img-responsive" src="<%=picture.pic_path%>" alt="">
+					<%} else {%>
+					<img class="img-responsive" src="/images/default-avatar.png" alt="">
+					<%}%>
+			  </a>
+			</div>
 
-	<div id="profile-pic" class="col-lg-3 col-md-4 col-xs-6 thumb">
-	  <a class="thumbnail" href="#">
-			<% console.log(picture);
 
-			if (picture){%>
-			<img class="img-responsive" src="<%=picture.pic_path%>" alt="">
-			<%} else {%>
-			<img class="img-responsive" src="/images/default-avatar.png" alt="">
-			<%}%>
-	  </a>
+			<div class="col-lg-5 col-md-8 col-xs-6">
+			  <%var name = (user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1)) + " " + (user.lastName.charAt(0).toUpperCase() + user.lastName.slice(1)); %>
+				<table>
+				  <tr>
+				    <td class="categories" >Name</td>
+				    <td><%= name %></td>
+				  </tr>
+					<tr>
+				    <td class="categories">Services</td>
+						<%user.services.forEach(function(services){%>
+							<td><%=services%></td>
+						<%})%>
+				  </tr>
+					<tr>
+						<td class="categories">Expertise</td>
+						<td><%=user.expertise%></td>
+					</tr>
+					<tr>
+						<td class="categories">Price</td>
+						<td><%=user.price%></td>
+					</tr>
+					<tr>
+						<td class="categories">Availability</td>
+						<%user.availability.forEach(function(availability){%>
+							<td><%=availability%></td>
+						<%})%>
+					</tr>
+					<tr>
+						<td class="categories">Location</td>
+						<td><%=user.location%></td>
+					</tr>
+				  <tr>
+				    <td class="categories">Appointments:</td>
+				    <% appointments.forEach((app)=> {%>
+				      <% var userIs = app.user.firstName + app.user.lastName;%>
+				      <div class="appointment">
+				      <tr>
+				      <td>When: <%=app.date.toDateString()%></td>
+				      <td>At: <%=app.startTime.toLocaleTimeString()%></td>
+				      <td>With: <%=userIs %></td>
+				      <span class="appId hide"><%=app._id%></span>
+				      <td>Confirm Booking:</td>
+				      <%console.log(appointments[0].accept);%>
+				        <%if (app.accept === false) {%>
+				          <span class="acceptReject">
+				          <input type="submit" name="acceptReq" class="confirmReq acceptReq" value="Accept">
+				          <input type="submit" name="rejectReq" class="confirmReq requestReq" value="Decline">
+				        </span>
+				        <p class="newBookingConfirmed hide">Booking confirmed.</p>
+				          <br><br>
+				        <%} else {%>
+				          <p>Booking confirmed.</p>
+				          <%}%></td>
+				      </tr>
+				    </div>
+				    <%});%>
+				  </tr>
+					<tr>
+						<td class="categories">Reviews left by clients:</td>
+					    <% stylistRev.forEach( (review)=> {%>
+					      <%if (stylistRev.length == 0) {%>
+					        <td>No Reviews have been left for you</td>
+					      <%} else {%>
+					        <td>Client : <%=review.name%>, Comments : <%=review.comment%>, Stars : <%=review.name%></td>
+					      <%}%>
+					  <%});%>
+					</tr>
+					</table>
+
+			</div>
+
+			<div class="col-lg-4 thumb gallery">
+				<h3 class="text-center">Style Gallery</h3>
+				<% for (var i=0; i < pictures.length; i++) {%>
+					<div class="col-lg-4 col-md-4 col-xs-6 thumb">
+						<a class="thumbnail" href="#">
+							<img class="img-responsive" src="<%=pictures[i].pic_path%>" alt="">
+						</a>
+					</div>
+				<%}%>
+			</div>
+
+
+		</div>
 	</div>
 
 
-  <%var name = (user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1)) + " " + (user.lastName.charAt(0).toUpperCase() + user.lastName.slice(1)); %>
 
-	<table>
-	  <tr>
-	    <td>Name</td>
-	    <td><%= name %></td>
-	  </tr>
-		<tr>
-	    <td>Services</td>
-			<%user.services.forEach(function(services){%>
-				<td><%=services%></td>
-			<%})%>
-	  </tr>
-		<tr>
-			<td>Expertise</td>
-			<td><%=user.expertise%></td>
-		</tr>
-		<tr>
-			<td>Languages</td>
-			<td><%=user.languages%></td>
-		</tr>
-		<tr>
-			<td>Description</td>
-			<td><%=user.description%></td>
-		</tr>
-		<tr>
-			<td>Price</td>
-			<td><%=user.price%></td>
-		</tr>
-		<tr>
-			<td>Availability</td>
-			<%user.availability.forEach(function(availability){%>
-				<td><%=availability%></td>
-			<%})%>
-		</tr>
-		<tr>
-			<td>Location</td>
-			<td><%=user.location%></td>
-		</tr>
-	</table>
-
-	<div>
-	  <tr>
-	    <td>Appointments:</td>
-	    <% appointments.forEach((app)=> {%>
-	      <% var userIs = app.user.firstName + app.user.lastName;%>
-	      <div class="appointment">
-	      <tr>
-	      <td>When: <%=app.date.toDateString()%></td>
-	      <td>At: <%=app.startTime.toLocaleTimeString()%></td>
-	      <td>With: <%=userIs %></td>
-	      <span class="appId hide"><%=app._id%></span>
-	      <td>Confirm Booking:</td>
-	      <%console.log(appointments[0].accept);%>
-	        <%if (app.accept === false) {%>
-	          <span class="acceptReject">
-	          <input type="submit" name="acceptReq" class="confirmReq acceptReq" value="Accept">
-	          <input type="submit" name="rejectReq" class="confirmReq requestReq" value="Decline">
-	        </span>
-	        <p class="newBookingConfirmed hide">Booking confirmed.</p>
-	          <br><br>
-	        <%} else {%>
-	          <p>Booking confirmed.</p>
-	          <%}%></td>
-	      </tr>
-	    </div>
-	    <%});%>
-	  </tr>
+	<div class="row">
+		<ul class="nav nav-pills navbar-nav">
+			<li class="nav-item user-buttons">
+				<a href="/stylist/profile/portfolio">Stylist Portfolio</a>
+			</li>
+			<li class="nav-item user-buttons">
+				<a href="/stylist/profile/edit">Edit Profile</a>
+			</li>
+			<li class="nav-item user-buttons">
+				<a href="/logout">Logout</a>
+			</li>
+		</ul>
 	</div>
-
-	<ul class="nav nav-pills navbar-nav">
-		<li class="nav-item user-buttons">
-			<a href="/stylist/profile/portfolio">Stylist Portfolio</a>
-		</li>
-		<li class="nav-item user-buttons">
-			<a href="/stylist/profile/edit">Edit Profile</a>
-		</li>
-		<li class="nav-item user-buttons">
-			<a href="/logout">Logout</a>
-		</li>
-	</ul>
-
-<div>
-  <ul>Reviews for you left by clients:
-    <% stylistRev.forEach( (review)=> {%>
-      <%if (stylistRev.length == 0) {%>
-        <li>No Reviews have been left for you</li>
-      <%} else {%>
-        <li>Client : <%=review.name%>, Comments : <%=review.comment%>, Stars : <%=review.name%></li>
-        <br>
-      <%}%>
-  <%});%>
-
-
-  </ul>
-</div>
 
 
 	<script src="/javascripts/profile.js"></script>

@@ -34,7 +34,10 @@ stylistProfile.get("/stylist/profile", ensureLogin.ensureLoggedIn("/stylist/logi
           } else {
             console.log('appointments', appointments);
             // console.log('user:', appointments[0].user);
-            res.render("private/stylist-profile", { user: req.user, picture, stylistRev, appointments});
+						Picture.find({"user" : req.user.username},(err, pictures) => {
+						res.render("private/stylist-profile", { user: req.user, pictures, picture, stylistRev, appointments});
+						})
+
           }
       });
     });
@@ -46,8 +49,12 @@ stylistProfile.get("/stylist/profile/edit", ensureLogin.ensureLoggedIn("/stylist
 
   Picture.findOne({"user": req.user.username, "profile": true}, {}, { sort: { 'created_at' : -1 } }, (err, picture)=>{
     if (err){console.log("Error finding photo");}
-    res.render("private/stylist-profile-edit", { user: req.user, picture: picture});
+		Picture.find({"user" : req.user.username},(err, pictures) => {
+			res.render("private/stylist-profile-edit", { user: req.user, pictures, picture: picture});
+		})
   });
+
+
 
 });
 
