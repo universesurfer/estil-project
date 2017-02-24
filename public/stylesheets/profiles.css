@@ -7,8 +7,9 @@ table {
 }
 
 td {
-	font-size: 20px;
+	font-size: 18px;
 	padding-bottom: 0.5em;
+	padding-right: 2em;
 }
 
 input {
@@ -18,6 +19,10 @@ input {
 
 p {
   display: inline-block;
+}
+
+dl {
+	margin-top: 2em;
 }
 
 .hide {
@@ -32,6 +37,10 @@ p {
   display: block;
 }
 
+#upload {
+	margin-top: 1em;
+}
+
 #profile-pic {
-  
+
 }
