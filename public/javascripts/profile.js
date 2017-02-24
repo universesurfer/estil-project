@@ -11,7 +11,7 @@ $(document).ready(function() {
   });
 
   $('.sendRequest').on('click', function(event) {
-    event.preventDefault();
+    // event.preventDefault();
     $('.bookingConfirmation').toggleClass("hide");
     $('.appointmentBox').toggleClass("hide");
 
