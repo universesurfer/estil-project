@@ -103,7 +103,8 @@ const appointments = [
     stylist  : {_id : "58aeaa84c9c2d527d0db47f2"},
     user     : {_id : "58aea2ef20b5ac2419eca716"},
     completed: true,
-    accept   : true
+    accept   : true,
+    request  : String
 
   },
   {
@@ -113,7 +114,8 @@ const appointments = [
     stylist  : {_id : "58aeab3fc9c2d527d0db47f3"},
     user     : {_id : "58ac73d5b2ba19ab38c51a5e"},
     completed: false,
-    accept   : false
+    accept   : false,
+    request  : String
 
   },
 	{
@@ -123,7 +125,8 @@ const appointments = [
 		stylist  : {_id : "58aeaa84c9c2d527d0db47f2"},
 		user     : {_id : "58ac73d5b2ba19ab38c51a5e"},
 		completed: false,
-    accept   : false
+    accept   : false,
+    request  : String
 	},
 ];
 

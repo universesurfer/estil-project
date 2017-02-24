@@ -33,6 +33,14 @@ router.get("/api/appointments", (req,res) => {
   });
 });
 
+router.post("/api/appointmentrejected", (req,res) => {
+  console.log(req.body.accept);
+  Appointment.findOneAndRemove({"_id": req.body.accept}, (err,allAppointments) => {
+    res.json(allAppointments);
+  });
+});
+
+
 router.post("/api/appointmentreturned", (req,res) => {
   console.log(req.body.accept);
   Appointment.findOneAndUpdate({"_id": req.body.accept}, {$set: {accept: true}}, (err,allAppointments) => {
@@ -77,7 +85,8 @@ router.post('/view-stylist/:id', ensureLogin.ensureLoggedIn("/login"), function(
       stylist   : {"_id" : stylist._id},
       user      : {"_id" : userId},
       completed : false,
-      accept    : false
+      accept    : false,
+      request   : req.body.bookingReq
     });
 
     newApp.save((err)=> {
