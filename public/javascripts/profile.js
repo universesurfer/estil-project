@@ -7,17 +7,14 @@ $(document).ready(function() {
   });
 
 	$('#book').on('click', function(event) {
-    // var stylistName = $(event.target).closest('li').find('p').text();
-    // $('#stylistName').attr('value', stylistName);
     $('.appointmentBox').toggleClass("hide");
   });
 
   $('.sendRequest').on('click', function(event) {
-    // var stylistName = $(event.target).closest('li').find('p').text();
-    // $('#stylistName').attr('value', stylistName);
-    console.log("sleepy head");
+    // event.preventDefault();
     $('.bookingConfirmation').toggleClass("hide");
     $('.appointmentBox').toggleClass("hide");
+
 
   });
 

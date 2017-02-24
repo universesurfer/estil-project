@@ -37,12 +37,12 @@
 								<td>When: <%=app.date.toDateString()%></td>
 								<td>At: <%=app.startTime.toLocaleTimeString()%></td>
 								<td>With: <%=app.stylist.username %></td>
-								<td>Completed:
-									<%if (app.completed === false) {%>
-										No
-									<%} else {%>
-										Yes
-										<%}%></td>
+                <td>Booking status:
+                  <%if (app.accept === false) {%>
+                    Pending confirmation
+                  <%} else {%>
+                    Confirmed
+                    <%}%></td>
 								</tr>
 							<%});
 							}%>
@@ -75,7 +75,6 @@
 
 		</div>
 	</div>
-
 	<div class="row">
 		<ul class="nav nav-pills navbar-nav">
 			<li class="nav-item user-buttons">

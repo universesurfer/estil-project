@@ -4,7 +4,7 @@
 
 <div class="pageView">
 
-	<div class="col-lg-3 col-md-4 col-xs-6 thumb">
+	<div id="profile-pic" class="col-lg-3 col-md-4 col-xs-6 thumb">
 	  <a class="thumbnail" href="#">
 			<% console.log(picture);
 
@@ -98,6 +98,21 @@
 			<a href="/logout">Logout</a>
 		</li>
 	</ul>
+
+<div>
+  <ul>Reviews for you left by clients:
+    <% stylistRev.forEach( (review)=> {%>
+      <%if (stylistRev.length == 0) {%>
+        <li>No Reviews have been left for you</li>
+      <%} else {%>
+        <li>Client : <%=review.name%>, Comments : <%=review.comment%>, Stars : <%=review.name%></li>
+        <br>
+      <%}%>
+  <%});%>
+
+
+  </ul>
+</div>
 
 
 	<script src="/javascripts/profile.js"></script>
