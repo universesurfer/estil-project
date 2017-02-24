@@ -2,8 +2,13 @@ table {
 	margin-top: 50px;
 }
 
-td {
+.categories{
 	width: 150px;
+}
+
+td {
+	font-size: 20px;
+	padding-bottom: 0.5em;
 }
 
 input {
