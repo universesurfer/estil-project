@@ -19,7 +19,9 @@ userProfile.get("/profile", ensureLogin.ensureLoggedIn(), (req, res) => {
     }
     // console.log(picture);
     Appointment.find({"user": req.user._id })
-      .populate('stylist', 'username reviews firstName lastName')
+      .populate({
+        path: 'stylist'
+      })
       .exec(function (err, appointments) {
         if (err) {
           console.log(err);
