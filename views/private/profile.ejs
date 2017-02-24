@@ -58,11 +58,11 @@
 
 
 	  <ul>Reviews:
-	  <% if (appointments[0]){%>
+	  <% if (appointments.length !== 0){%>
 	    <% for (var i = 0; i < appointments.length; i++){%>
 	     <% for (var j = 0; j < appointments[i].stylist.reviews.length; j++) {%>
 	       <% var appsRevs = appointments[i].stylist.reviews[j];%>
-           <% if (appsRevs.userId === user._id) {%>
+           <% if (JSON.stringify(appsRevs.userId) == JSON.stringify(user._id)) {%>
              <%var stylName = (appointments[i].stylist.firstName.charAt(0).toUpperCase() + appointments[i].stylist.firstName.slice(1)) + " " + (appointments[i].stylist.lastName.charAt(0).toUpperCase() + appointments[i].stylist.lastName.slice(1)); %>
     	       <li><p>For stylist: <%=stylName%></p>
     	         <p><%=appsRevs.comment%></p>

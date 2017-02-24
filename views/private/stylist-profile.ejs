@@ -97,6 +97,21 @@
   </tr>
 </div>
 
+<div>
+  <ul>Reviews for you left by clients:
+    <% stylistRev.forEach( (review)=> {%>
+      <%if (stylistRev.length == 0) {%>
+        <li>No Reviews have been left for you</li>
+      <%} else {%>
+        <li>Client : <%=review.name%>, Comments : <%=review.comment%>, Stars : <%=review.name%></li>
+        <br>
+      <%}%>
+  <%});%>
+
+
+  </ul>
+</div>
+
 
 	<script src="/javascripts/profile.js"></script>
 
