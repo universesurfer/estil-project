@@ -1,5 +1,11 @@
 <head>
   <link rel="stylesheet" href="/stylesheets/profiles.css">
+	<script type="text/javascript" src="../../jquery/dist/jquery.min.js"></script>
+  <script type="text/javascript" src="../../moment/min/moment.min.js"></script>
+  <script type="text/javascript" src="../../bootstrap/dist/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="../../eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+  <link rel="stylesheet" href="../../bootstrap/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="../../eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
 </head>
 
 <div class="pageView">
@@ -7,7 +13,7 @@
 		<div class="row">
 			<div class="col-lg-3 col-md-4 col-xs-6 thumb profile-pic">
 			  <a class="thumbnail" href="#">
-					<% if (picture){%>
+					<% if (picture){ console.log(picture)%>
 					<img class="img-responsive" src="<%=picture.pic_path%>" alt="">
 					<%} else {%>
 					<img class="img-responsive" src="/images/default-avatar.png" alt="">
@@ -45,7 +51,42 @@
 				</tr>
 			</table>
 			<br><br>
+
+			<button type="button" id="book">Book with <%=name%></button>
+
+			<form action="./<%=URLId%>" method="POST">
+				<div class="appointmentBox hide">
+						<label for="bookAppointment">Pick an appointment time</label>
+						<div class="container">
+					    <div class="row">
+					        <div class='col-sm-6'>
+					            <div class="form-group">
+					                <div class='input-group date' id='datetimepicker1'>
+					                    <input name="dateTime" type='text' class="form-control" />
+					                    <span class="input-group-addon">
+					                        <span class="glyphicon glyphicon-calendar"></span>
+					                    </span>
+					                </div>
+					            </div>
+					        </div>
+					        <script type="text/javascript">
+					            $(function () {
+					                $('#datetimepicker1').datetimepicker();
+					            });
+					        </script>
+					    </div>
+					</div>
+					<textarea name="bookingReq" id="bookingReq" cols="30" rows="10" placeholder="Write any special requests here"></textarea>
+					<button class="sendRequest" type="submit" value="Request an Appointment">Request an Appointment</button>
+				</div>
+			</form>
+		  <div class="bookingConfirmation hide">
+		      <p>You're booking request has been made. Pending stylist confirmation.
+		      </p>
+		  </div>
 		</div>
+
+
 
 		<div class="col-lg-5 thumb gallery">
 			<h3 class="text-center">Style Gallery</h3>
@@ -62,9 +103,6 @@
 	</div>
 	<div class="row">
 		<ul class="nav nav-pills navbar-nav">
-			<li class="nav-item user-buttons">
-				<a href="/login">Login</a>
-			</li>
 			<li class="nav-item user-buttons">
 				<a href="/search">Back to search</a>
 			</li>

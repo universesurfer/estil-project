@@ -59,9 +59,9 @@ router.get('/view-stylist/:id', function(req,res) {
 		//would create unique usernames in the future to use in the public profile URL
 	Stylist.findOne({"firstName":firstName, "lastName":lastName},(err,stylist) => {
 		Picture.findOne({"user":stylist.username, profile: "true"}, {}, { sort: { 'created_at' : -1 } }, (err, picture)=>{
-			console.log(picture);
 			var URLId = req.params.id;
 			Picture.find({"user" : stylist.username},(err, pictures) => {
+				console.log(pictures);
 				res.render('stylist-public', {URLId, stylist, pictures, picture})
 			})
 		});
