@@ -13,6 +13,9 @@ var upload           = multer({ dest: './public/uploads/' });
 const mongoose = require('mongoose');
 
 userProfile.get("/profile", ensureLogin.ensureLoggedIn(), (req, res) => {
+
+
+
   Picture.findOne({"user": req.user.username, "profile": true}, {}, { sort: { 'created_at' : -1 } }, (err, picture)=>{
     if (err){
       console.log("Error finding photo");
@@ -29,7 +32,9 @@ userProfile.get("/profile", ensureLogin.ensureLoggedIn(), (req, res) => {
           // console.log('appointments', appointments);
 					// console.log(appointments[0].stylist.reviews);
           // console.log('revs', appointments[0].stylist.reviews);
-          res.render("private/profile", { user: req.user, picture: picture, appointments: appointments});
+					Picture.find({"user" : req.user.username},(err, pictures) => {
+						res.render("private/profile", { user: req.user, pictures, picture: picture, appointments: appointments});
+					})
         }
       });
   });
@@ -46,7 +51,9 @@ userProfile.get("/profile/edit", ensureLogin.ensureLoggedIn(), (req, res) => {
         if (err) {
           console.log(err);
         } else {
-          res.render("private/profile-edit", { user: req.user, picture: picture, appointments: appointments});
+					Picture.find({"user" : req.user.username},(err, pictures) => {
+						res.render("private/profile-edit", { user: req.user, pictures, picture: picture, appointments: appointments});
+					})
         }
     });
   });
@@ -118,7 +125,7 @@ userProfile.post('/profile/pictures/upload', upload.single('file'), function(req
   });
 
   pic.save((err) => {
-      res.redirect('/profile/pictures');
+      res.redirect('/profile/edit');
   });
 });
 
