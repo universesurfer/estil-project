@@ -8,15 +8,15 @@ var mongoose         = require('mongoose');
 const expressLayouts = require('express-ejs-layouts');
 const User           = require("./models/user");
 const Stylist        = require("./models/stylist");
-
 const session        = require("express-session");
 const bcrypt         = require("bcrypt");
 const passport       = require("passport");
 const LocalStrategy  = require("passport-local").Strategy;
 const flash          = require("connect-flash");
 const multer         = require('multer');
+const env            = require("dotenv").config();
 
-mongoose.connect('mongodb://heroku_x01sjdml:1ue0b1b1llk7otin8uruk5fog2@ds157829.mlab.com:57829/heroku_x01sjdml');
+mongoose.connect(process.env.MONGODB_URI);
 
 var app = express();
 
