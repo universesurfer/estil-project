@@ -2,6 +2,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<link rel='stylesheet' href='/stylesheets/auth.css'>
 	<link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.2.0/zxcvbn.js"></script>
 </head>
 
 <div class="pageView">
@@ -24,6 +25,8 @@
             <% if (typeof(message) != "undefined") { %>
               <div class="error-message"><%= message %></div>
             <% } %>
+						<meter max="4" id="password-strength-meter"></meter>
+						<p id="password-strength-text"></p>
 						<input type="submit" value="Sign Up">
 					</form>
 					<p class="account-message">
