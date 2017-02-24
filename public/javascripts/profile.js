@@ -20,6 +20,7 @@ $(document).ready(function() {
 
   $('.rejectReq').on('click', function(event) {
     console.log("hellow im rejecting you");
+		console.log($(event.target).closest('span'));
     $(event.target).closest('div').remove();
 
     var appointmentCompleted = {};
@@ -66,16 +67,11 @@ $(document).ready(function() {
 
     runAjaxCalls();
 
-
-
-
-
-
-
   });
 
   $('.acceptReq').on('click', function(event) {
-    console.log("hellow im accepting you");
+    console.log("hello im accepting you");
+		console.log($(event.target).closest('span'));
     $(event.target).closest('span').toggleClass('hide');
     $(event.target).closest('div').find('p').toggleClass('hide');
 

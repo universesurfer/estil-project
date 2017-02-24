@@ -54,11 +54,17 @@ router.get('/view-stylist/:id', function(req,res) {
 	var firstName = req.params.id.substring(0,dotAt);
 	var lastName = req.params.id.substring(dotAt+1);
 
-	//searching by first and last name, will have a problem if two users have the exact same name,
-	//would create unique usernames in the future to use in the public profile URL
+
+		//searching by first and last name, will have a problem if two users have the exact same name,
+		//would create unique usernames in the future to use in the public profile URL
 	Stylist.findOne({"firstName":firstName, "lastName":lastName},(err,stylist) => {
-		var URLId = req.params.id;
-		res.render('stylist-public',{URLId, stylist});
+		Picture.findOne({"user":stylist.username, profile: "true"}, {}, { sort: { 'created_at' : -1 } }, (err, picture)=>{
+			console.log(picture);
+			var URLId = req.params.id;
+			Picture.find({"user" : stylist.username},(err, pictures) => {
+				res.render('stylist-public', {URLId, stylist, pictures, picture})
+			})
+		});
 	});
 
 });
