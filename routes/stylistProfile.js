@@ -176,7 +176,7 @@ stylistProfile.post('/stylist/profile/portfolio/upload', upload.single('file'), 
   });
 
   pic.save((err) => {
-      res.redirect('/stylist/profile/portfolio');
+      res.redirect('/stylist/profile/edit');
   });
 });
 
