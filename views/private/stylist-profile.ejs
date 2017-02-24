@@ -41,7 +41,7 @@
 						<td class="categories">Availability</td>
 						<td>
 							<%user.availability.forEach(function(availability){%>
-								<%=availability%>, 
+								<%=availability%>,
 							<%})%>
 						</td>
 					</tr>
@@ -65,15 +65,17 @@
 					      <td>Confirm Booking:</td>
 					      <%console.log(appointments[0].accept);%>
 					        <%if (app.accept === false) {%>
-					          <span class="acceptReject">
-					          <input type="submit" name="acceptReq" class="confirmReq acceptReq" value="Accept">
-					          <input type="submit" name="rejectReq" class="confirmReq requestReq" value="Decline">
+					        <span class="acceptReject">
+					          <td>
+											<input type="submit" name="acceptReq" class="confirmReq acceptReq" value="Accept">
+					          	<input type="submit" name="rejectReq" class="confirmReq requestReq" value="Decline">
+										</td>
 					        </span>
-					        <p class="newBookingConfirmed hide">Booking confirmed.</p>
+					        <td class="newBookingConfirmed hide">Booking confirmed.</td>
 					          <br><br>
 					        <%} else {%>
-					          <p>Booking confirmed.</p>
-					          <%}%></td>
+					          <td>Booking confirmed.</td>
+					          <%}%>
 					      </tr>
 					    </div>
 						<%  })
