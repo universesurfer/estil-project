@@ -19,7 +19,7 @@ userProfile.get("/profile", ensureLogin.ensureLoggedIn(), (req, res) => {
     }
     // console.log(picture);
     Appointment.find({"user": req.user._id })
-      .populate('stylist', 'username reviews')
+      .populate('stylist', 'username reviews firstName lastName')
       .exec(function (err, appointments) {
         if (err) {
           console.log(err);
@@ -44,7 +44,6 @@ userProfile.get("/profile/edit", ensureLogin.ensureLoggedIn(), (req, res) => {
         if (err) {
           console.log(err);
         } else {
-          console.log(appointments);
           res.render("private/profile-edit", { user: req.user, picture: picture, appointments: appointments});
         }
     });

@@ -9,7 +9,8 @@ const appointmentSchema = new Schema({
 	stylistUsername : String,
   user     : {type: Schema.Types.ObjectId, ref: 'User'},
   completed: {type: Boolean, default: false},
-  accept   : {type: Boolean, default: false}
+  accept   : {type: Boolean, default: false},
+  request  : String
 });
 
 const Appointment = mongoose.model('Appointment', appointmentSchema);

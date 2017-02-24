@@ -38,32 +38,39 @@
 				<td>You have no appointments, why don't you <a href="/search">look for some?</a></td>
 			<%} else {
 		    	appointments.forEach((app)=> {%>
+            <%var styleName = (app.stylist.firstName.charAt(0).toUpperCase() + app.stylist.firstName.slice(1)) + " " + (app.stylist.lastName.charAt(0).toUpperCase() + app.stylist.lastName.slice(1)); %>
 		      <tr>
 		      <td>When: <%=app.date.toDateString()%></td>
 		      <td>At: <%=app.startTime.toLocaleTimeString()%></td>
-		      <td>With: <%=app.stylist.username %></td>
-		      <td>Completed:
-		        <%if (app.completed === false) {%>
-		          No
+		      <td>With: <%=styleName %></td>
+		      <td>Booking status:
+		        <%if (app.accept === false) {%>
+		          Pending confirmation
 		        <%} else {%>
-		          Yes
+		          Confirmed
 		          <%}%></td>
 		      </tr>
 	    	<%});
 				}%>
 	  </tr>
 	  </table>
-	  <td>Reviews: </td>
+
+
+
+	  <ul>Reviews:
 	  <% if (appointments[0]){%>
 	    <% for (var i = 0; i < appointments.length; i++){%>
 	     <% for (var j = 0; j < appointments[i].stylist.reviews.length; j++) {%>
 	       <% var appsRevs = appointments[i].stylist.reviews[j];%>
-	       <li><p>For stylist: <%=appointments[i].stylist.username%></p>
-	         <p><%=appsRevs.comment%></p>
-	         <p>Stars: <%=appsRevs.stars%></p>
-	         <% if( appsRevs.date !== undefined){%>
-	           <p>Date: <%= appsRevs.date.toDateString();%> </p></li>
-	         <%}%>
+           <% if (appsRevs.userId === user._id) {%>
+             <%var stylName = (appointments[i].stylist.firstName.charAt(0).toUpperCase() + appointments[i].stylist.firstName.slice(1)) + " " + (appointments[i].stylist.lastName.charAt(0).toUpperCase() + appointments[i].stylist.lastName.slice(1)); %>
+    	       <li><p>For stylist: <%=stylName%></p>
+    	         <p><%=appsRevs.comment%></p>
+    	         <p>Stars: <%=appsRevs.stars%></p>
+    	         <% if( appsRevs.date !== undefined){%>
+    	           <p>Date: <%= appsRevs.date.toDateString();%> </p></li>
+  	         <%}%>
+           <%}%>
 	     <%}%>
 	   <%}%>
 	    <% console.log("there is an appointment");%>

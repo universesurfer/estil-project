@@ -67,24 +67,29 @@
   <tr>
     <td>Appointments:</td>
     <% appointments.forEach((app)=> {%>
-      <% var userIs = app.user.firstName + app.user.lastName;%>
+      <%var name = (app.user.firstName.charAt(0).toUpperCase() + app.user.firstName.slice(1)) + " " + (app.user.lastName.charAt(0).toUpperCase() + app.user.lastName.slice(1)); %>
       <div class="appointment">
       <tr>
       <td>When: <%=app.date.toDateString()%></td>
       <td>At: <%=app.startTime.toLocaleTimeString()%></td>
-      <td>With: <%=userIs %></td>
-      <span class="appId hide"><%=app._id%></span>
-      <td>Confirm Booking:</td>
-      <%console.log(appointments[0].accept);%>
-        <%if (app.accept === false) {%>
-          <span class="acceptReject">
-          <input type="submit" name="acceptReq" class="confirmReq acceptReq" value="Accept">
-          <input type="submit" name="rejectReq" class="confirmReq requestReq" value="Decline">
-        </span>
-        <p class="newBookingConfirmed hide">Booking confirmed.</p>
-          <br><br>
+      <td>With: <%=name %></td>
+        <% if (app.request === 'function String() { [native code] }') {%>
+          <td>Client message: No message</td>
         <%} else {%>
-          <p>Booking confirmed.</p>
+        <td>Client message: <%=app.request%></td>
+        <%}%>
+        <span class="appId hide"><%=app._id%></span>
+        <td>Confirm Booking:</td>
+        <%console.log(appointments[0].accept);%>
+          <%if (app.accept === false) {%>
+            <span class="acceptReject">
+            <input type="submit" name="acceptReq" class="confirmReq acceptReq" value="Accept">
+            <input type="submit" name="rejectReq" class="confirmReq rejectReq" value="Decline">
+          </span>
+          <p class="newBookingConfirmed hide">Booking confirmed.</p>
+            <br><br>
+          <%} else {%>
+            <p>Booking confirmed.</p>
           <%}%></td>
       </tr>
     </div>
