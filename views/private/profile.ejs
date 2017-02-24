@@ -18,62 +18,65 @@
 			<div class="col-lg-9 col-md-8 col-xs-6">
 				<%var name = (user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1)) + " " + (user.lastName.charAt(0).toUpperCase() + user.lastName.slice(1)); %>
 
-				<table>
-					<tr>
-						<td class="categories">Name</td>
-						<td><%= name %></td>
-					</tr>
-					<tr>
-						<td class="categories">Username</td>
-						<td><%=user.username%></td>
-					</tr>
-					<tr>
-						<td class="categories">Appointments:</td>
-						<% if (appointments.length == 0) {%>
-							<td>You have no appointments, why don't you <a href="/search">look for some?</a></td>
-						<%} else {
-								appointments.forEach((app)=> {%>
-								<tr>
-								<td>When:</td>
-								<td><%=app.date.toDateString()%> At: <%=app.startTime.toLocaleTimeString()%></td>
-								<td>With: <%=app.stylist.username %> </td>
+        <table>
+          <tr>
+            <td class="categories">Name</td>
+            <td><%= name %></td>
+          </tr>
+          <tr>
+            <td class="categories">Username</td>
+            <td><%=user.username%></td>
+          </tr>
+          <tr>
+            <td class="categories">Appointments:</td>
+            <% if (appointments.length == 0) {%>
+              <td>You have no appointments, why don't you <a href="/search">look for some?</a></td>
+            <%} else {
+                appointments.forEach((app)=> {%>
+                <tr>
+                <td>When:</td>
+                <td><%=app.date.toDateString()%> At: <%=app.startTime.toLocaleTimeString()%></td>
+                <td>With: <%=app.stylist.username %> </td>
                 <td>Booking status:
                   <%if (app.accept === false) {%>
                     Pending confirmation
                   <%} else {%>
                     Confirmed
                     <%}%></td>
-								</tr>
-							<%});
-							}%>
-					</tr>
-					<tr>
-						<% if (appointments[0]){%>
-							<% for (var i = 0; i < appointments.length; i++){%>
-							 <% for (var j = 0; j < appointments[i].stylist.reviews.length; j++) {%>
-								 <% var appsRevs = appointments[i].stylist.reviews[j];%>
-								 <tr>
-								 <td class="categories">Reviews: </td>
-								 <td>For stylist: <%=appointments[i].stylist.username%><%=appsRevs.comment%></td>
-								 <td>Stars: <%=appsRevs.stars%></td>
-								 <% if( appsRevs.date !== undefined){%>
-									 <td>Date: <%= appsRevs.date.toDateString();%></td>
-								 <%}%>
-								 </tr>
-							 <%}%>
-						 <%}%>
-							<% console.log("there is an appointment");%>
-							<%} else {%>
-								<td>You don't have any reviews to show</td>
-								<%console.log("No appointment"); %>
-								<%}%>
-					</tr>
-					</table>
-
+                </tr>
+              <%});
+              }%>
+          </tr>
+          <tr>
+            <% if (appointments[0]){%>
+              <% for (var i = 0; i < appointments.length; i++){%>
+               <% for (var j = 0; j < appointments[i].stylist.reviews.length; j++) {%>
+                 <% var appsRevs = appointments[i].stylist.reviews[j];%>
+               <tr class="reviewBox">
+                 <td class="categories">Review: </td>
+                 <td>For stylist: <%=appointments[i].stylist.username%><%=appsRevs.comment%></td>
+                 <td>Stars: <%=appsRevs.stars%></td>
+                 <% if( appsRevs.date !== undefined){%>
+                   <td>Date: <%= appsRevs.date.toDateString();%></td>
+                 <%}%>
+                 </tr>
+               <%}%>
+             <%}%>
+              <% console.log("there is an appointment");%>
+              <%} else {%>
+                <td>You don't have any reviews to show</td>
+                <%console.log("No appointment"); %>
+                <%}%>
+          </tr>
+          </table>
 			</div>
 
 		</div>
 	</div>
+
+
+
+
 	<div class="row">
 		<ul class="nav nav-pills navbar-nav">
 			<li class="nav-item user-buttons">
