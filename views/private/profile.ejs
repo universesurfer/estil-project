@@ -33,17 +33,17 @@
 							<td>You have no appointments, why don't you <a href="/search">look for some?</a></td>
 						<%} else {
 								appointments.forEach((app)=> {%>
-								<tr>
-								<td>When: <%=app.date.toDateString()%></td>
-								<td>At: <%=app.startTime.toLocaleTimeString()%></td>
-								<td>With: <%=app.stylist.username %></td>
-                <td>Booking status:
+								<ul>
+								<li><span style="font-weight: bold">When:</span><%=app.date.toDateString()%>
+								<span style="font-weight: bold">At: <%=app.startTime.toLocaleTimeString()%>
+								<span style="font-weight: bold">With: <%=app.stylist.username %>
+                <span style="font-weight: bold">Booking status:
                   <%if (app.accept === false) {%>
                     Pending confirmation
                   <%} else {%>
                     Confirmed
-                    <%}%></td>
-								</tr>
+                    <%}%></li>
+								</ul>
 							<%});
 							}%>
 					</tr>
