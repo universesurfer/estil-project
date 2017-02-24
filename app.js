@@ -16,7 +16,7 @@ const LocalStrategy  = require("passport-local").Strategy;
 const flash          = require("connect-flash");
 const multer         = require('multer');
 
-mongoose.connect('mongodb://localhost:27017/estil');
+mongoose.connect('mongodb://heroku_x01sjdml:1ue0b1b1llk7otin8uruk5fog2@ds157829.mlab.com:57829/heroku_x01sjdml');
 
 var app = express();
 
