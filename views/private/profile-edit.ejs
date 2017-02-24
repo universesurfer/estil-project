@@ -14,40 +14,41 @@
 	      <%}%>
 	    </a>
 	    <input type="file" name="file">
-	    <input type="submit" value="Upload">
+	    <input class="btn" id="upload" type="submit" value="Upload">
 	  </form>
 	</div>
 
-	<form action="/profile/edit" method="POST">
-	  <label for="firstName">First name:</label>
-	  <input type="text" name="firstName" value="<%=user.firstName%>">
-	  <label for="lastName">Last name:</label>
-	  <input type="text" name="lastName" value="<%=user.lastName%>">
-	  <label for="username">Username:</label>
-	  <input type="text" name="username" value="<%=user.username%>">
-	  <div>
-	    <tr>
-	      <dl>Appointments:
-	      <% appointments.forEach((app)=> {%>
-	          <li class="ls">When: <%=app.date.toDateString()%>
-	          At: <%=app.startTime.toLocaleTimeString()%>
-	          With: <a href="/view-stylist/<%=app.stylist.firstName%>.<%=app.stylist.lastName%>"><p class="usernameStyl"><%=app.stylist.username %></p></a>
-	        <button type="button" class="review">Leave a review</button>
-	        </li>
-	      </dl>
-	        <%});%>
-	    </div>
-	    <div class="reviewBox hide">
-	        <label for="review">Leave a review for:</label>
-	        <input id="stylistName" type="text" name="stylistName">
-	        <label for="stars">Star Rating:</label>
-	        <input type="number" name="stars">
-	        <textarea name="review" id="review" cols="30" rows="10"></textarea>
-	    </div>
+	<div class="col-lg-3 col-md-4 col-xs-6">
+		<form action="/profile/edit" method="POST">
+		  <label for="firstName">First name:</label>
+		  <input type="text" name="firstName" value="<%=user.firstName%>">
+		  <label for="lastName">Last name:</label>
+		  <input type="text" name="lastName" value="<%=user.lastName%>">
+		  <label for="username">Username:</label>
+		  <input type="text" name="username" value="<%=user.username%>">
+		  <div>
+		      <dl>Appointments:
+		      <% appointments.forEach((app)=> {%>
+		          <li class="ls">When: <%=app.date.toDateString()%>
+		          At: <%=app.startTime.toLocaleTimeString()%>
+		          With: <a href="/view-stylist/<%=app.stylist.firstName%>.<%=app.stylist.lastName%>"><p class="usernameStyl"><%=app.stylist.username %></p></a>
+		        <button type="button" class="review btn">Leave a review</button>
+		        </li>
+		      </dl>
+		        <%});%>
+		    </div>
+		    <div class="reviewBox hide">
+		        <label for="review">Leave a review for:</label>
+		        <input id="stylistName" type="text" name="stylistName">
+		        <label for="stars">Star Rating:</label>
+		        <input type="number" name="stars">
+		        <textarea name="review" id="review" cols="30" rows="10"></textarea>
+		    </div>
 
-	  <br>
-	  <button type="submit">Update profile</button>
-	</form>
+		  <br>
+		  <button class="btn" type="submit">Update profile</button>
+		</form>
+	</div>
 
 	<ul class="nav nav-pills navbar-nav">
 		<li class="nav-item user-buttons">
