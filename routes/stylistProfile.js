@@ -71,7 +71,7 @@ stylistProfile.post("/stylist/profile/edit", ensureLogin.ensureLoggedIn("/stylis
 	}
 
 	//store locations in correct format
-	if (req.body.location) {
+	if (req.body.location && req.body.lat && req.body.lon) {
 		stylist.geolocation = {type:'Point', coordinates: [req.body.lon, req.body.lat]};
 		stylist.location = req.body.location;
 	}
@@ -139,7 +139,7 @@ stylistProfile.post("/stylist/profile/edit", ensureLogin.ensureLoggedIn("/stylis
   Stylist.findOneAndUpdate({"_id": userId}, {$set: stylist}, (err,stylist)=> {
     if (err){
 			console.log("error updating stylist");
-			// console.log(err);
+			console.log(err);
 		}
   });
 
