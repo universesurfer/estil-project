@@ -62,20 +62,13 @@
 					      <td>At: <%=app.startTime.toLocaleTimeString()%></td>
 					      <td>With: <%=userIs %></td>
 					      <span class="appId hide"><%=app._id%></span>
-					      <td>Confirm Booking:</td>
-					      <%console.log(appointments[0].accept);%>
 					        <%if (app.accept === false) {%>
-					        <span class="acceptReject">
-					          <td>
+					          <td class="acceptReject">
 											<input type="submit" name="acceptReq" class="confirmReq acceptReq" value="Accept">
-					          	<input type="submit" name="rejectReq" class="confirmReq requestReq" value="Decline">
+					          	<input type="submit" name="rejectReq" class="confirmReq rejectReq" value="Decline">
 										</td>
-					        </span>
-					        <td class="newBookingConfirmed hide">Booking confirmed.</td>
-					          <br><br>
-					        <%} else {%>
-					          <td>Booking confirmed.</td>
-					          <%}%>
+					        	<td class="newBookingConfirmed hide">Booking confirmed.</td>
+									<%}%>
 					      </tr>
 					    </div>
 						<%  })

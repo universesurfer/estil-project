@@ -52,6 +52,11 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use(function(req, res, next) {
+  res.locals.user = req.user;
+  next();
+});
+
 passport.serializeUser((user, cb) => {
   cb(null, {id: user.id, role: user.role});
 });

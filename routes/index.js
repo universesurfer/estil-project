@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var Stylist = require('../models/stylist.js');
 const Picture = require('../models/picture.js');
+const passport       = require("passport");
 const ensureLogin = require("connect-ensure-login");
 var multer  = require('multer');
 var upload = multer({ dest: './public/uploads/' });
@@ -61,7 +62,7 @@ router.get('/view-stylist/:id', function(req,res) {
 		Picture.findOne({"user":stylist.username, profile: "true"}, {}, { sort: { 'created_at' : -1 } }, (err, picture)=>{
 			var URLId = req.params.id;
 			Picture.find({"user" : stylist.username},(err, pictures) => {
-				console.log(pictures);
+				//can't pass req.user here without doing an ensure login, need to save user details to local session
 				res.render('stylist-public', {URLId, stylist, pictures, picture})
 			})
 		});
@@ -70,14 +71,13 @@ router.get('/view-stylist/:id', function(req,res) {
 });
 
 router.post('/view-stylist/:id', ensureLogin.ensureLoggedIn("/login"), function(req,res) {
+
 	var dotAt = req.params.id.indexOf(".");
 	var firstName = req.params.id.substring(0,dotAt);
 	var lastName = req.params.id.substring(dotAt+1);
   var userId = req.user.id;
-  console.log("userId: ", userId);
-  console.log("req.body: ", req.body);
+
   let date = new Date(req.body.dateTime);
-  console.log("ISO date: ", date);
 	//searching by first and last name, will have a problem if two users have the exact same name,
 	//would create unique usernames in the future to use in the public profile URL
 	Stylist.findOne({"firstName":firstName, "lastName":lastName},(err,stylist) => {
@@ -100,7 +100,13 @@ router.post('/view-stylist/:id', ensureLogin.ensureLoggedIn("/login"), function(
         console.log("error saving appointment");
       }
     });
-		res.render('stylist-public',{URLId, stylist});
+		Picture.findOne({"user":stylist.username, profile: "true"}, {}, { sort: { 'created_at' : -1 } }, (err, picture)=>{
+			var URLId = req.params.id;
+			Picture.find({"user" : stylist.username},(err, pictures) => {
+				console.log(pictures);
+				res.render('stylist-public', {URLId, stylist, pictures, picture, message: "You're booking request has been made. Pending stylist confirmation."})
+			})
+		});
 	});
 
 });

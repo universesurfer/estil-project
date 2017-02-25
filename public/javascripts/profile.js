@@ -12,16 +12,14 @@ $(document).ready(function() {
 
   $('.sendRequest').on('click', function(event) {
     // event.preventDefault();
-    $('.bookingConfirmation').toggleClass("hide");
     $('.appointmentBox').toggleClass("hide");
-
 
   });
 
   $('.rejectReq').on('click', function(event) {
-    console.log("hellow im rejecting you");
-		console.log($(event.target).closest('span'));
-    $(event.target).closest('div').remove();
+		// $('.acceptReject').toggleClass('hide');
+
+		$(this).closest('tr').remove();
 
     var appointmentCompleted = {};
 
@@ -70,10 +68,8 @@ $(document).ready(function() {
   });
 
   $('.acceptReq').on('click', function(event) {
-    console.log("hello im accepting you");
-		console.log($(event.target).closest('span'));
-    $(event.target).closest('span').toggleClass('hide');
-    $(event.target).closest('div').find('p').toggleClass('hide');
+    $('.acceptReject').toggleClass('hide');
+		$('.newBookingConfirmed').toggleClass('hide');
 
     var appointmentCompleted = {};
 

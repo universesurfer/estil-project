@@ -13,7 +13,7 @@
 		<div class="row">
 			<div class="col-lg-3 col-md-4 col-xs-6 thumb profile-pic">
 			  <a class="thumbnail" href="#">
-					<% if (picture){ console.log(picture)%>
+					<% if (picture){%>
 					<img class="img-responsive" src="<%=picture.pic_path%>" alt="">
 					<%} else {%>
 					<img class="img-responsive" src="/images/default-avatar.png" alt="">
@@ -80,9 +80,10 @@
 					<button class="sendRequest" type="submit" value="Request an Appointment">Request an Appointment</button>
 				</div>
 			</form>
-		  <div class="bookingConfirmation hide">
-		      <p>You're booking request has been made. Pending stylist confirmation.
-		      </p>
+		  <div class="bookingConfirmation">
+				<% if (typeof message != "undefined"){%>
+		      <p><%=message%></p>
+				<%}%>
 		  </div>
 		</div>
 
@@ -103,6 +104,11 @@
 	</div>
 	<div class="row">
 		<ul class="nav nav-pills navbar-nav">
+			<% if (typeof user != "undefined") { console.log(user);%>
+				<li class="nav-item user-buttons">
+					<a href="/logout">Logout</a>
+				</li>
+			<%}%>
 			<li class="nav-item user-buttons">
 				<a href="/search">Back to search</a>
 			</li>
