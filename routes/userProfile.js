@@ -112,9 +112,9 @@ userProfile.post('/profile/photo-upload', upload.single('file'), function(req, r
 
 userProfile.get('/profile/pictures', ensureLogin.ensureLoggedIn("/login"), function(req,res) {
 	Picture.find({"user" : req.user.username},(err, pictures) => {
-		res.render('private/profile-pictures', {pictures})
-	})
-})
+		res.render('private/profile-pictures', {pictures});
+	});
+});
 
 userProfile.post('/profile/pictures/upload', upload.single('file'), function(req, res){
 

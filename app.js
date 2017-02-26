@@ -8,15 +8,15 @@ var mongoose         = require('mongoose');
 const expressLayouts = require('express-ejs-layouts');
 const User           = require("./models/user");
 const Stylist        = require("./models/stylist");
-
 const session        = require("express-session");
 const bcrypt         = require("bcrypt");
 const passport       = require("passport");
 const LocalStrategy  = require("passport-local").Strategy;
 const flash          = require("connect-flash");
 const multer         = require('multer');
+const env            = require("dotenv").config();
 
-mongoose.connect('mongodb://localhost:27017/estil');
+mongoose.connect(process.env.MONGODB_URI);
 
 var app = express();
 
