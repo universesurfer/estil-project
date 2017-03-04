@@ -11,6 +11,7 @@ const flash          = require("connect-flash");
 const multer         = require('multer');
 const env            = require("dotenv").config();
 
+
 mongoose.connect(process.env.MONGODB_URI);
 
 var app = express();
@@ -45,8 +46,6 @@ app.use(session({
 }));
 
 const passport = require('./helpers/passport.js');
-
-console.log(passport);
 
 app.use(passport.initialize());
 app.use(passport.session());

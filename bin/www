@@ -6,7 +6,10 @@
 
 var app = require('../app');
 var debug = require('debug')('estilproject:server');
-var http = require('http');
+// var http = require('http');
+
+const fs             = require('fs');
+const https          = require('https');
 
 /**
  * Get port from environment and store in Express.
@@ -19,7 +22,12 @@ app.set('port', port);
  * Create HTTP server.
  */
 
-var server = http.createServer(app);
+// var server = http.createServer(app);
+
+var server = https.createServer({
+     key: fs.readFileSync('key.pem'),
+     cert: fs.readFileSync('cert.pem')
+   }, app).listen(3000);
 
 /**
  * Listen on provided port, on all network interfaces.

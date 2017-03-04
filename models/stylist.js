@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema   = mongoose.Schema;
+const findOrCreate = require('mongoose-findorcreate');
 
 const stylistSchema = new Schema({
 	firstName   : {type: String, required: true},
@@ -33,6 +34,8 @@ const stylistSchema = new Schema({
     }]
 });
 
+
+stylistSchema.plugin(findOrCreate);
 stylistSchema.index({geolocation: '2dsphere'});
 stylistSchema.set('timestamps', true);
 

@@ -65,9 +65,9 @@ passport.use('pinterest', new PinterestStrategy({
         state: true
     },
     function(accessToken, refreshToken, profile, done) {
-        User.findOrCreate({ pinterestId: profile.id }, function (err, user) {
+      User.findOrCreate({ pinterestId: profile.id }, function (err, user) {
             return done(err, user);
-        });
+        })
     }
 ));
 
