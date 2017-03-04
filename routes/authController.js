@@ -152,6 +152,30 @@ authController.post("/stylist/login", passport.authenticate("stylist-login", {
   passReqToCallback: true
 }));
 
+authController.get('/auth/pinterest',
+    passport.authenticate('pinterest')
+);
+
+authController.get('/auth/pinterest/callback',
+    passport.authenticate('pinterest', { failureRedirect: '/login' }),
+    function(req, res) {
+        // Successful authentication, redirect home.
+        res.redirect('/profile');
+    }
+);
+
+// authController.get('/stylist/auth/pinterest',
+//     passport.authenticate('stylist-pinterest')
+// );
+//
+// authController.get('/stylist/auth/pinterest/callback',
+//     passport.authenticate('stylist-pinterest', { failureRedirect: '/login' }),
+//     function(req, res) {
+//         // Successful authentication, redirect home.
+//         res.redirect('/profile');
+//     }
+// );
+
 
 authController.get("/logout", (req, res) => {
   req.logout();
