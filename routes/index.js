@@ -9,6 +9,8 @@ var upload = multer({ dest: './public/uploads/' });
 const Appointment    = require('../models/appointment');
 const env            = require("dotenv").config();
 
+const Pinterest        = require("../models/pinterest");
+const User = require("../models/user");
 
 /* GET home page. */
 router.get('/', function(req, res, next) {

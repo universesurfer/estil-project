@@ -2,6 +2,8 @@ const mongoose     = require('mongoose');
 const User         = require('../models/user');
 const Stylist      = require('../models/stylist');
 const Appointment  = require('../models/appointment');
+const Pinterest  = require('../models/pinterest');
+
 mongoose.connect('mongodb://localhost/estil');
 
 const users = [
@@ -130,18 +132,17 @@ const appointments = [
 	},
 ];
 
-
-Appointment.create(appointments, (err, docs)=> {
-  if (err){
-		throw(err);}
-
-  docs.forEach( (appointment)=>{
-    console.log(appointment._id);
-  });
-  mongoose.connection.close();
-});
-
-
+const pinterests = [
+  {     pinterestId: '234234'
+        // username: 'test',
+        // bio: '',
+        // first_name: 'test',
+        // last_name: '',
+        // url: 'https://www.pinterest.com/test/',
+        // created_at: '2017-03-04T10:50:14',
+        // image: [{}]
+  }
+];
 
 User.create(users, (err, docs)=> {
   if (err){
@@ -160,5 +161,25 @@ Stylist.create(stylists, (err, docs)=> {
   docs.forEach( (stylist)=>{
 		console.log(stylist.username);
   })
+  mongoose.connection.close();
+});
+
+Appointment.create(appointments, (err, docs)=> {
+  if (err){
+		throw(err);}
+
+  docs.forEach( (appointment)=>{
+    console.log(appointment._id);
+  });
+  mongoose.connection.close();
+});
+
+Pinterest.create(pinterests, (err, docs)=> {
+  if (err){
+		throw(err);}
+
+  docs.forEach( (pinterest)=>{
+    console.log(pinterest._id);
+  });
   mongoose.connection.close();
 });

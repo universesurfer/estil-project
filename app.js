@@ -11,8 +11,7 @@ const flash          = require("connect-flash");
 const multer         = require('multer');
 const env            = require("dotenv").config();
 
-
-mongoose.connect(process.env.MONGODB_URI);
+mongoose.connect('mongodb://localhost/estil');
 
 var app = express();
 
@@ -40,7 +39,7 @@ var userProfile = require('./routes/userProfile');
 var stylistProfile = require('./routes/stylistProfile');
 
 app.use(session({
-  secret: "passport-local-strategy",
+  secret: "passport-strategies",
   resave: true,
   saveUninitialized: true
 }));

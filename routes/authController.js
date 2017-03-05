@@ -159,6 +159,7 @@ authController.get('/auth/pinterest',
 authController.get('/auth/pinterest/callback',
     passport.authenticate('pinterest', { failureRedirect: '/login' }),
     function(req, res) {
+      console.log("success");
         // Successful authentication, redirect home.
         res.redirect('/profile');
     }
