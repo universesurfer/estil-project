@@ -14,7 +14,14 @@ export class SessionService {
   }
 
   signup(user) {
+    this.getPrivateData();
     return this.http.post(`http://localhost:3000/signup`, user)
+      .map(res => res.json())
+      .catch(this.handleError);
+  }
+
+  signupStylist(stylist) {
+    return this.http.post(`http://localhost:3000/stylist/signup`, stylist)
       .map(res => res.json())
       .catch(this.handleError);
   }
@@ -38,7 +45,7 @@ export class SessionService {
   }
 
   getPrivateData() {
-    return this.http.get(`/private`)
+    return this.http.get(`/profile`)
       .map(res => res.json())
       .catch(this.handleError);
   }

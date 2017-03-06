@@ -10,12 +10,14 @@ import { SignupComponent } from './signup/signup.component';
 import { SessionService } from "./session.service";
 import { RouterModule } from "@angular/router";
 import { routes } from './app.routing';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

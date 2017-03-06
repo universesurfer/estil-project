@@ -2,24 +2,10 @@ var express          = require('express');
 const authController = express.Router();
 const User           = require("../models/user");
 const Stylist        = require("../models/stylist");
-const Picture        = require('../models/picture');
-const Appointment    = require('../models/appointment');
 const bcrypt         = require("bcrypt");
 const bcryptSalt     = 10;
 const passport       = require("passport");
-const ensureLogin    = require("connect-ensure-login");
-const multer         = require('multer');
-var upload           = multer({ dest: './public/uploads/' });
 const mongoose = require('mongoose');
-
-
-authController.get('/signup', function(req, res, next) {
-  res.render('auth/signup');
-});
-
-authController.get('/stylist/signup', function(req, res, next) {
-  res.render('auth/stylist-signup');
-});
 
 function validateEmail(email) {
 			var re = /\S+@\S+\.\S+/;
@@ -29,42 +15,45 @@ function validateEmail(email) {
 authController.post("/signup", (req, res, next) => {
 	var firstName = req.body.firstName;
 	var lastName = req.body.lastName;
-  var username = req.body.email;
+  var username = req.body.username;
   var password = req.body.password;
 
-  if (username === "" || password === "") {
-    res.render("auth/signup", { message: "Indicate email and password" });
+  if (!username || !password) {
+    res.status(400).json({ message: "Provide username and password" });
     return;
   }
 
 	if (validateEmail(username) == false) {
-		res.render("auth/signup", { message: "Please input a valid email address" });
+		res.status(400).json({ message: "Please input a valid email address" });
 	}
 
   User.findOne({ username }, "username", (err, user) => {
     if (user !== null) {
-      res.render("auth/signup", { message: "Email already in use" });
+      res.status(400).json({ message: "The username already exists" });
       return;
     }
-
     var salt     = bcrypt.genSaltSync(bcryptSalt);
     var hashPass = bcrypt.hashSync(password, salt);
-
 
     var newUser = User({
 			firstName,
 			lastName,
       username,
-      password: hashPass,
-			role: "User",
-			avatar: " "
+      password: hashPass
     });
 
     newUser.save((err) => {
       if (err) {
-        res.render("auth/signup", { message: "The username already exists" });
+        res.status(400).json({ message: "Something went wrong" });
       } else {
-        res.redirect("/login");
+        req.login(newUser, function(err) {
+          if (err) {
+            return res.status(500).json({
+              message: 'something went wrong :('
+            });
+          }
+          res.status(200).json(req.user);
+        });
       }
     });
   });
@@ -76,13 +65,13 @@ authController.post("/stylist/signup", (req, res, next) => {
   var username = req.body.email;
   var password = req.body.password;
 
-  if (username === "" || password === "") {
-    res.render("auth/stylist-signup", { message: "Indicate email and password" });
+  if (!username || !password) {
+    res.status(400).json({ message: "Provide username and password" });
     return;
   }
 
 	if (validateEmail(username) == false) {
-		res.render("auth/stylist-signup", { message: "Please input a valid email address" });
+		res.status(400).json({ message: "Please input a valid email address" });
 	}
 
   Stylist.findOne({ username }, "username", (err, user) => {
@@ -94,68 +83,65 @@ authController.post("/stylist/signup", (req, res, next) => {
     var salt     = bcrypt.genSaltSync(bcryptSalt);
     var hashPass = bcrypt.hashSync(password, salt);
 
-
     var newStylist = Stylist({
 			firstName,
 			lastName,
       username,
-      password    : hashPass,
-			role        : "Stylist",
-			date        : new Date(),
-			avatar      : " ",
-			services    : " ",
-			expertise   : ["Any"],
-			languages   : [" "],
-			description : " ",
-			price       : " ",
-			availability: " ",
-      mobile      : ["Both"],
-			distance		: 0,
-			geolocation : {
-			  type       : "Point",
-			  coordinates: [0,10]
-			},
+      password: hashPass,
 			location    : "",
-      reviews     : []
+      resume_path: String,
+      resume_name: String,
     });
 
     newStylist.save((err) => {
       if (err) {
-				console.log(err);
-        res.render("auth/stylist-signup", { message: "The username already exists" });
+        res.status(400).json({ message: "Something went wrong" });
       } else {
-        res.redirect("/stylist/profile");
+        req.login(newUser, function(err) {
+          if (err) {
+            return res.status(500).json({
+              message: 'something went wrong :('
+            });
+          }
+          res.status(200).json(req.user);
+        });
       }
     });
   });
 });
 
-authController.get("/login", (req, res, next) => {
-  res.render("auth/login", { "message": req.flash("error") });
+authController.post("/login", function(req, res, next) {
+  passport.authenticate('local', function(err, user, info) {
+    if (err) { return next(err); }
+    if (!user) { return res.status(401).json(info); }
+    req.login(user, function(err) {
+      if (err) {
+        return res.status(500).json({
+          message: 'something went wrong :('
+        });
+      }
+      res.status(200).json(req.user);
+    });
+  })(req, res, next);
 });
 
-authController.post("/login", passport.authenticate("user-login", {
-  successRedirect: "/profile",
-  failureRedirect: "/login",
-  failureFlash: true,
-  passReqToCallback: true
-}));
-
-authController.get("/stylist/login", (req, res, next) => {
-  res.render("auth/stylist-login", { "message": req.flash("error") });
-});
-
-authController.post("/stylist/login", passport.authenticate("stylist-login", {
-  successRedirect: "/stylist/profile",
-  failureRedirect: "/stylist/login",
-  failureFlash: true,
-  passReqToCallback: true
-}));
-
-
-authController.get("/logout", (req, res) => {
+authController.post("/logout", function(req, res) {
   req.logout();
-  res.redirect("/");
+  res.status(200).json({ message: 'Success' });
+});
+
+authController.get("/loggedin", function(req, res) {
+  if(req.isAuthenticated()) {
+    return res.status(200).json(req.user);
+  }
+  return res.status(403).json({ message: 'Unauthorized' });
+});
+
+authController.get("/profile", (req, res) => {
+  if(req.isAuthenticated()) {
+    return res.json({ message: 'This is a private message' });
+  }
+  return res.status(403).json({ message: 'Unauthorized' });
 });
 
 module.exports = authController;

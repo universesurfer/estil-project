@@ -5,7 +5,6 @@ var logger           = require('morgan');
 var cookieParser     = require('cookie-parser');
 var bodyParser       = require('body-parser');
 var mongoose         = require('mongoose');
-// const expressLayouts = require('express-ejs-layouts');
 const User           = require("./models/user");
 const Stylist        = require("./models/stylist");
 const session        = require("express-session");
@@ -19,13 +18,13 @@ var authController = require('./routes/authController');
 var userProfile = require('./routes/userProfile');
 var stylistProfile = require('./routes/stylistProfile');
 
-var corsOptions = {credentials: true, origin: 'http://localhost:4200'};
-app.options('*', cors(corsOptions));
-app.use(cors(corsOptions));
-
 mongoose.connect('mongodb://localhost/estil');
 
 var app = express();
+
+var corsOptions = {credentials: true, origin: 'http://localhost:4200'};
+app.options('*', cors(corsOptions));
+app.use(cors(corsOptions));
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -33,10 +32,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, "bower_components")));
-
-
-app.use(expressLayouts);
-app.set('layout', 'layouts/main-layout');
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');

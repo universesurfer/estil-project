@@ -9,14 +9,25 @@ import { SessionService } from "../session.service";
 })
 export class SignupComponent implements OnInit {
 
-  formInfo = {
+formInfo = {
     firstName: '',
-    lastName: '',
+    lastName:  '',
     username: '',
     password: '',
  };
 
+ formInfoStylist = {
+     firstName: '',
+     lastName:  '',
+     username: '',
+     password: '',
+     location : '',
+     resume : ''
+  };
+
+ stylistCheck: boolean = false;
  user: any;
+ stylist: any;
  error: string;
 
   constructor(
@@ -31,6 +42,14 @@ export class SignupComponent implements OnInit {
     this.session.signup(this.formInfo)
       .subscribe(
         (user) => this.user = user,
+        (err) => this.error = err
+      );
+  }
+
+  signUpStylist() {
+    this.session.signupStylist(this.formInfo)
+      .subscribe(
+        (stylist) => this.stylist = stylist,
         (err) => this.error = err
       );
   }
