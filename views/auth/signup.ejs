@@ -1,45 +1,20 @@
-<head>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-	<link rel='stylesheet' href='/stylesheets/auth.css'>
-	<link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.2.0/zxcvbn.js"></script>
-</head>
-
-<div class="pageView loginSignup">
-	<div class="main-agileits">>
-		<div class="mainw3-agileinfo">
-			<!-- login form -->
-			<div class="login-form">
-				<div class="login-agileits-top">
-					<form action="/signup" method="post">
-						<p>First Name </p>
-						<input id="input1" type="text" class="first-name" name="firstName" required=""/>
-						<p>Last Name </p>
-						<input id="input2" type="text" class="last-name" name="lastName" required=""/>
-						<p>Username </p>
-						<input id="input3" type="text" class="email" name="email" placeholder="Email Address" required=""/>
-						<p>Password</p>
-						<input id="input4" type="password" class="password" name="password" placeholder=".........." required=""/>
-            <% if (typeof(message) != "undefined") { %>
-              <div class="error-message"><%= message %></div>
-            <% } %>
-						<meter max="4" id="password-strength-meter"></meter>
-						<p id="password-strength-text"></p>
-						<input type="submit" value="Sign Up">
-					</form>
-					<p class="account-message">
-				    Do you already have an account? <a href="/login">Login</a>
-				  </p>
-				</div>
-
-			</div>
-		</div>
-	</div>
-	<!-- //main -->
-	<!-- copyright -->
-	<div class="w3copyright-agile hide">
-		<p>© 2017 Tiny Ui Login Form . All rights reserved | Design by <a href="http://w3layouts.com/" target="_blank">W3layouts</a></p>
-	</div>
-
-</div>
+<form action="/signup" method="post">
+	<p>First Name </p>
+	<input id="input1" type="text" class="first-name" name="firstName" required=""/>
+	<p>Last Name </p>
+	<input id="input2" type="text" class="last-name" name="lastName" required=""/>
+	<p>Username </p>
+	<input id="input3" type="text" class="email" name="email" placeholder="Email Address" required=""/>
+	<p>Password</p>
+	<input id="input4" type="password" class="password" name="password" placeholder=".........." required=""/>
+  <% if (typeof(message) != "undefined") { %>
+    <div class="error-message"><%= message %></div>
+  <% } %>
+	<meter max="4" id="password-strength-meter"></meter>
+	<p id="password-strength-text"></p>
+	<input type="submit" value="Sign Up">
+</form>
+<p class="account-message">
+  Do you already have an account? <a href="/login">Login</a>
+</p>
 <script src="/javascripts/signup.js"></script>
