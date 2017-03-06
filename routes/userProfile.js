@@ -12,30 +12,32 @@ const multer         = require('multer');
 var upload           = multer({ dest: './public/uploads/' });
 const mongoose = require('mongoose');
 
-userProfile.get("/profile", ensureLogin.ensureLoggedIn(), (req, res) => {
+userProfile.get("/profile", (req, res) => {
 
-  Picture.findOne({"user": req.user.username, "profile": true}, {}, { sort: { 'created_at' : -1 } }, (err, picture)=>{
-    if (err){
-      console.log("Error finding photo");
-    }
-    // console.log(picture);
-    Appointment.find({"user": req.user._id })
-      .populate({
-        path: 'stylist'
-      })
-      .exec(function (err, appointments) {
-        if (err) {
-          console.log(err);
-        } else {
-          // console.log('appointments', appointments);
-					// console.log(appointments[0].stylist.reviews);
-          // console.log('revs', appointments[0].stylist.reviews);
-					Picture.find({"user" : req.user.username},(err, pictures) => {
-						res.render("private/profile", { user: req.user, pictures, picture: picture, appointments: appointments});
-					})
-        }
-      });
-  });
+  // Picture.findOne({"user": req.user.username, "profile": true}, {}, { sort: { 'created_at' : -1 } }, (err, picture)=>{
+  //   if (err){
+  //     console.log("Error finding photo");
+  //   }
+  //   // console.log(picture);
+  //   Appointment.find({"user": req.user._id })
+  //     .populate({
+  //       path: 'stylist'
+  //     })
+  //     .exec(function (err, appointments) {
+  //       if (err) {
+  //         console.log(err);
+  //       } else {
+  //         // console.log('appointments', appointments);
+	// 				// console.log(appointments[0].stylist.reviews);
+  //         // console.log('revs', appointments[0].stylist.reviews);
+	// 				Picture.find({"user" : req.user.username},(err, pictures) => {
+	// 					res.render("private/profile", { user: req.user, pictures, picture: picture, appointments: appointments});
+	// 				})
+  //       }
+  //     });
+  // });
+  
+  res.send("hi")
 });
 
 userProfile.get("/profile/edit", ensureLogin.ensureLoggedIn(), (req, res) => {

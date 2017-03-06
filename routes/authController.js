@@ -152,9 +152,7 @@ authController.post("/stylist/login", passport.authenticate("stylist-login", {
   passReqToCallback: true
 }));
 
-authController.get('/auth/pinterest',
-    passport.authenticate('pinterest')
-);
+authController.get('/auth/pinterest', passport.authenticate('pinterest'));
 
 authController.get('/auth/pinterest/callback',
     passport.authenticate('pinterest', { failureRedirect: '/login' }),

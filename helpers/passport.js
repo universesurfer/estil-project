@@ -70,6 +70,7 @@ passport.use('pinterest', new PinterestStrategy({
   function(accessToken, refreshToken, profile, done) {
     Pinterest.findOrCreate({ pinterestId: profile.id }, function (err, user) {
       console.log(user);
+      console.log(accessToken);
       return done(err, user);
     });
   }
