@@ -9,6 +9,10 @@ import { LoginStylistComponent } from './login-stylist/login-stylist.component';
 import { SignupStylistComponent } from './signup-stylist/signup-stylist.component';
 import { SignupComponent } from './signup/signup.component';
 
+import { SessionService } from "./session.service";
+import { RouterModule } from "@angular/router";
+import { routes } from './app.routing';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,9 +24,10 @@ import { SignupComponent } from './signup/signup.component';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    RouterModule.forRoot(routes)
   ],
-  providers: [],
+  providers: [SessionService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
