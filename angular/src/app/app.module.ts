@@ -5,8 +5,6 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
-import { LoginStylistComponent } from './login-stylist/login-stylist.component';
-import { SignupStylistComponent } from './signup-stylist/signup-stylist.component';
 import { SignupComponent } from './signup/signup.component';
 
 import { SessionService } from "./session.service";
@@ -17,8 +15,6 @@ import { routes } from './app.routing';
   declarations: [
     AppComponent,
     LoginComponent,
-    LoginStylistComponent,
-    SignupStylistComponent,
     SignupComponent
   ],
   imports: [
