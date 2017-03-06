@@ -1,4 +1,4 @@
-<form (ngSubmit)="submitForm(ngForm)">
+<form>
 	<p>First Name </p>
 	<input type="text" name="firstName" [(ngModel)]="formInfo.firstName" required/>
 	<p>Last Name </p>
@@ -7,7 +7,7 @@
 	<input type="text" name="username" [(ngModel)]="formInfo.username" placeholder="Email Address" required/>
 	<p>Password</p>
 	<input type="password" name="password" [(ngModel)]="formInfo.password" placeholder=".........." required/>
-  <button type="submit">Sign Up</button>
+  <button (click)="signUp()">Sign Up</button>
 </form>
 
 <p class="account-message">
