@@ -10,19 +10,24 @@
 </div>
 
 <div class="col-lg-5 col-md-8 col-xs-6">
+  <div *ngIf="user">
+      <h2> {{ user.name }}&nbsp;</h2>
+      <h3> {{ user.username }} </h3>
+      <h3> {{ user.appointments }} </h3>
+  </div>
 	<!-- <%var name = (user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1)) + " " + (user.lastName.charAt(0).toUpperCase() + user.lastName.slice(1)); %> -->
 
-	<table>
+	<!-- <table>
 		<tr>
 			<td class="categories">Name:</td>
-			<!-- <td><%= name %></td> -->
+			<td><%= name %></td>
 		</tr>
 		<tr>
 			<td class="categories">Username:</td>
-			<!-- <td><%=user.username%></td> -->
+			<td><%=user.username%></td>
 		</tr>
 		<tr>
-			<td class="categories">Appointments:</td>
+			<td class="categories">Appointments:</td> -->
 			<!-- <% if (appointments.length == 0) {%>
 				<td>You have no appointments, why don't you <a href="/search">look for some?</a></td>
 			<%} else {
@@ -40,8 +45,8 @@
 					<!-- </tr> -->
 				<!-- <%});
 				}%> -->
-		</tr>
-		<tr>
+		<!-- </tr>
+		<tr> -->
 
 			<!-- <% if (appointments[0]){%>
 				<% for (var i = 0; i < appointments.length; i++){%>
@@ -65,8 +70,8 @@
 					<td>You don't have any reviews to show</td>
 					<%console.log("No appointment"); %>
 					<%}%> -->
-		</tr>
-		</table>
+		<!-- </tr>
+		</table> -->
 </div>
 
 <div class="col-lg-4 thumb gallery">

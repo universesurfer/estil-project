@@ -9,5 +9,6 @@ import { SessionService } from './session.service';
 export const routes: Routes = [
     { path: 'signup', component: SignupComponent },
     { path: 'login', component: LoginComponent },
-    { path: 'profile', component: ProfileComponent, canActivate: [SessionService]}
+    { path: 'profile', component: ProfileComponent, canActivate: [SessionService]},
+    { path: 'profile/edit', component: ProfileComponent, canActivate: [SessionService]}
 ];
