@@ -11,13 +11,17 @@ import { SessionService } from "./session.service";
 import { RouterModule } from "@angular/router";
 import { routes } from './app.routing';
 import { ProfileComponent } from './profile/profile.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { SearchComponent } from './search/search.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     SignupComponent,
-    ProfileComponent
+    ProfileComponent,
+    NavbarComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
