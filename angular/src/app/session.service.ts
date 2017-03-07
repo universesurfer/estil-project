@@ -25,6 +25,11 @@ export class SessionService implements CanActivate{
     }
   }
 
+  get(id) {
+    return this.http.get(`${this.BASE_URL}/profile/${id}`)
+      .map((res) => res.json());
+  }
+
   canActivate(): Observable<boolean> | Promise<boolean> | boolean {
     if (localStorage.getItem('token')) {
       // logged in so return true\
@@ -87,7 +92,6 @@ export class SessionService implements CanActivate{
   }
 
   login(user) {
-    console.log("adsfasfdsafdasfsadsdfasfdasafd")
     return this.http.post(`${this.BASE_URL}/login`, user)
         .map((response: Response) => {
             // login successful if there's a jwt token in the response
@@ -97,7 +101,6 @@ export class SessionService implements CanActivate{
               // set token property
               this.token = token;
               this.isAuth.emit(true);
-              console.log("inside login service");
               // store username and jwt token in local storage to keep user logged in between page refreshes
               localStorage.setItem('token', token );
               // return true to indicate successful login
