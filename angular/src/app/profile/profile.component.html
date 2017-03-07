@@ -1,3 +1,86 @@
-<p>
-  profile works!
-</p>
+<div class="col-lg-3 col-md-4 col-xs-6 thumb profile-pic">
+	<a class="thumbnail" href="#">
+    <img src="../assets/images/default-avatar.png">
+		<!-- <% if (picture){%>
+		<img class="img-responsive" src="<%=picture.pic_path%>" alt="">
+		<%} else {%>
+		<img class="img-responsive" src="/images/default-avatar.png" alt="">
+		<%}%> -->
+	</a>
+</div>
+
+<div class="col-lg-5 col-md-8 col-xs-6">
+  <div *ngIf="user">
+      <h2> {{ user.name }}&nbsp;</h2>
+      <h3> {{ user.username }} </h3>
+      <h3> {{ user.appointments }} </h3>
+  </div>
+	<!-- <%var name = (user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1)) + " " + (user.lastName.charAt(0).toUpperCase() + user.lastName.slice(1)); %> -->
+
+	<!-- <table>
+		<tr>
+			<td class="categories">Name:</td>
+			<td><%= name %></td>
+		</tr>
+		<tr>
+			<td class="categories">Username:</td>
+			<td><%=user.username%></td>
+		</tr>
+		<tr>
+			<td class="categories">Appointments:</td> -->
+			<!-- <% if (appointments.length == 0) {%>
+				<td>You have no appointments, why don't you <a href="/search">look for some?</a></td>
+			<%} else {
+					appointments.forEach((app)=> {%> -->
+					<!-- <tr> -->
+					<!-- <td class="categories">When:</td> -->
+					<!-- <td><%=app.date.toDateString()%> At: <%=app.startTime.toLocaleTimeString()%></td>
+					<td>With: <%=app.stylist.username %> </td>
+          <td>Booking status:
+            <%if (app.accept === false) {%>
+              Pending confirmation
+            <%} else {%>
+              Confirmed
+              <%}%></td> -->
+					<!-- </tr> -->
+				<!-- <%});
+				}%> -->
+		<!-- </tr>
+		<tr> -->
+
+			<!-- <% if (appointments[0]){%>
+				<% for (var i = 0; i < appointments.length; i++){%>
+				 <% for (var j = 0; j < appointments[i].stylist.reviews.length; j++) {%>
+					 <% var appsRevs = appointments[i].stylist.reviews[j];
+					 if(appointments[i].stylist.reviews[j].comment != " ") {%>
+					 <tr>
+					 <td class="categories">Reviews: </td>
+					 <td>For stylist: <%=appointments[i].stylist.username%><%=appsRevs.comment%></td>
+					 <td>Stars: <%=appsRevs.stars%></td>
+					 <% if( appsRevs.date !== undefined){%>
+						 <td>Date: <%= appsRevs.date.toDateString();%></td>
+					 <%}%>
+					 </tr>
+				 	<%}
+				 	}%>
+			 <%}%>
+				<% console.log("there is an appointment");%>
+				<%} else {%>
+					<td class="categories">Reviews: </td>
+					<td>You don't have any reviews to show</td>
+					<%console.log("No appointment"); %>
+					<%}%> -->
+		<!-- </tr>
+		</table> -->
+</div>
+
+<div class="col-lg-4 thumb gallery">
+	<h3 class="text-center">Style Gallery</h3>
+	<!-- <% for (var i=0; i < pictures.length; i++) {%>
+		<div class="col-lg-4 col-md-4 col-xs-6 thumb">
+			<a class="thumbnail" href="#">
+				<img class="img-responsive" src="<%=pictures[i].pic_path%>" alt="">
+			</a>
+		</div>
+	<%}%> -->
+</div>

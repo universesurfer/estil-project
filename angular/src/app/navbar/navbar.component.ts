@@ -18,7 +18,6 @@ export class NavbarComponent implements OnInit {
   ) {
     this.session.isAuth
         .subscribe((isAuth: boolean) => {
-          console.log("in navbar", isAuth);
         // user will be false if logged out
         // or user object if logged in.
           this.isAuth = isAuth;
