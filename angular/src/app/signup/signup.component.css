@@ -1,3 +1,20 @@
 input {
   display: block;
 }
+
+.component {
+  margin-top: 10%;
+}
+
+label, input, button {
+  margin-bottom: 2%;
+}
+
+input[type="checkbox"] {
+  display: inline;
+}
+
+button {
+  margin-top: 2%;
+  font-size: 20px;
+}
