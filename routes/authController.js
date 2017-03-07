@@ -1,11 +1,19 @@
-var express          = require('express');
+const express        = require('express');
 const authController = express.Router();
+
+const jwt 					 = require('jsonwebtoken');
+const jwtOptions 		 = require('../config/jwtOptions');
+
+const passport   		 = require("passport");
+const mongoose			 = require('mongoose');
+
+// Our user and stylist models
 const User           = require("../models/user");
 const Stylist        = require("../models/stylist");
+
+// Bcrypt let us encrypt passwords
 const bcrypt         = require("bcrypt");
 const bcryptSalt     = 10;
-const passport       = require("passport");
-const mongoose = require('mongoose');
 
 function validateEmail(email) {
 			var re = /\S+@\S+\.\S+/;
@@ -23,9 +31,9 @@ authController.post("/signup", (req, res, next) => {
     return;
   }
 
-	if (validateEmail(username) == false) {
-		res.status(400).json({ message: "Please input a valid email address" });
-	}
+	// if (validateEmail(username) == false) {
+	// 	res.status(400).json({ message: "Please input a valid email address" });
+	// }
 
   User.findOne({ username }, "username", (err, user) => {
     if (user !== null) {
@@ -42,18 +50,14 @@ authController.post("/signup", (req, res, next) => {
       password: hashPass
     });
 
-    newUser.save((err) => {
+    newUser.save((err, user) => {
       if (err) {
         res.status(400).json({ message: "Something went wrong" });
       } else {
-        req.login(newUser, function(err) {
-          if (err) {
-            return res.status(500).json({
-              message: 'something went wrong :('
-            });
-          }
-          res.status(200).json(req.user);
-        });
+				var payload = {id: user._id};
+        console.log('user', user);
+        var token = jwt.sign(payload, jwtOptions.secretOrKey);
+        res.status(200).json({message: "ok", token: token});
       }
     });
   });
@@ -74,8 +78,8 @@ authController.post("/stylist/signup", (req, res, next) => {
 		res.status(400).json({ message: "Please input a valid email address" });
 	}
 
-  Stylist.findOne({ username }, "username", (err, user) => {
-    if (user !== null) {
+  Stylist.findOne({ username }, "username", (err, stylist) => {
+    if (stylist !== null) {
       res.render("auth/stylist-signup", { message: "The email already exists" });
       return;
     }
@@ -93,55 +97,77 @@ authController.post("/stylist/signup", (req, res, next) => {
       resume_name: String,
     });
 
-    newStylist.save((err) => {
+		newStylist.save((err, stylist) => {
       if (err) {
         res.status(400).json({ message: "Something went wrong" });
       } else {
-        req.login(newUser, function(err) {
-          if (err) {
-            return res.status(500).json({
-              message: 'something went wrong :('
-            });
-          }
-          res.status(200).json(req.user);
-        });
+				var payload = {id: stylist._id};
+        console.log('user', user);
+        var token = jwt.sign(payload, jwtOptions.secretOrKey);
+        res.status(200).json({message: "ok", token: token});
       }
     });
   });
 });
 
-authController.post("/login", function(req, res, next) {
-  passport.authenticate('local', function(err, user, info) {
-    if (err) { return next(err); }
-    if (!user) { return res.status(401).json(info); }
-    req.login(user, function(err) {
-      if (err) {
-        return res.status(500).json({
-          message: 'something went wrong :('
-        });
-      }
-      res.status(200).json(req.user);
-    });
-  })(req, res, next);
-});
-
-authController.post("/logout", function(req, res) {
-  req.logout();
-  res.status(200).json({ message: 'Success' });
-});
-
-authController.get("/loggedin", function(req, res) {
-  if(req.isAuthenticated()) {
-    return res.status(200).json(req.user);
+authController.post("/login", function(req, res) {
+	if(req.body.username && req.body.password){
+    var username = req.body.username;
+    var password = req.body.password;
   }
-  return res.status(403).json({ message: 'Unauthorized' });
+
+  if (username === "" || password === "") {
+    res.status(401).json({message:"fill up the fields"});
+    return;
+  }
+
+  User.findOne({ "username": username }, (err, user)=> {
+
+  	if( ! user ){
+	    res.status(401).json({message:"no such user found"});
+	  } else {
+      bcrypt.compare(password, user.password, function(err, isMatch) {
+        console.log(isMatch);
+        if (!isMatch) {
+          res.status(401).json({message:"passwords did not match"});
+        } else {
+          var payload = {id: user._id};
+          var token = jwt.sign(payload, jwtOptions.secretOrKey);
+          res.json({message: "ok", token: token});
+        }
+      });
+    }
+  })
 });
 
-authController.get("/profile", (req, res) => {
-  if(req.isAuthenticated()) {
-    return res.json({ message: 'This is a private message' });
+authController.post("/stylist/login", function(req, res) {
+	if(req.body.username && req.body.password){
+    var username = req.body.username;
+    var password = req.body.password;
   }
-  return res.status(403).json({ message: 'Unauthorized' });
+
+  if (username === "" || password === "") {
+    res.status(401).json({message:"fill up the fields"});
+    return;
+  }
+
+  Stylist.findOne({ "username": username }, (err, user)=> {
+
+  	if( ! user ){
+	    res.status(401).json({message:"no such user found"});
+	  } else {
+      bcrypt.compare(password, user.password, function(err, isMatch) {
+        console.log(isMatch);
+        if (!isMatch) {
+          res.status(401).json({message:"passwords did not match"});
+        } else {
+          var payload = {id: user._id};
+          var token = jwt.sign(payload, jwtOptions.secretOrKey);
+          res.json({message: "ok", token: token});
+        }
+      });
+    }
+  })
 });
 
 module.exports = authController;

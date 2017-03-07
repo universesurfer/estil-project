@@ -17,12 +17,4 @@ export class AppComponent {
     private session: SessionService
   ) { }
 
-  logout() {
-    this.session.logout()
-      .subscribe(
-        () => this.user = null,
-        (err) => this.error = err
-      );
-  }
-
 }
