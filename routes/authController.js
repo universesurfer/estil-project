@@ -133,7 +133,7 @@ authController.post("/login", function(req, res) {
         } else {
           var payload = {id: user._id};
           var token = jwt.sign(payload, jwtOptions.secretOrKey);
-          res.json({message: "ok", token: token});
+          res.json({message: "ok", token: token, user: user});
         }
       });
     }
