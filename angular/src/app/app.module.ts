@@ -12,7 +12,7 @@ import { RouterModule } from "@angular/router";
 import { routes } from './app.routing';
 import { ProfileComponent } from './profile/profile.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { HomeComponent } from './home/home.component';
+import { SearchComponent } from './search/search.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +21,7 @@ import { HomeComponent } from './home/home.component';
     SignupComponent,
     ProfileComponent,
     NavbarComponent,
-    HomeComponent
+    SearchComponent
   ],
   imports: [
     BrowserModule,
