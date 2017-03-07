@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SessionService } from "../session.service";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -9,14 +10,14 @@ import { SessionService } from "../session.service";
 })
 export class SignupComponent implements OnInit {
 
-formInfo = {
+newUser = {
     firstName: '',
     lastName:  '',
     username: '',
     password: '',
  };
 
- formInfoStylist = {
+newStylist = {
      firstName: '',
      lastName:  '',
      username: '',
@@ -26,12 +27,11 @@ formInfo = {
   };
 
  stylistCheck: boolean = false;
- user: any;
- stylist: any;
  error: string;
 
   constructor(
-    private session: SessionService
+    private session: SessionService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -39,29 +39,36 @@ formInfo = {
   }
 
   signUp() {
-    this.session.signup(this.formInfo)
-      .subscribe(
-        (user) => this.user = user,
-        (err) => this.error = err
-      );
+
+    this.session.signup(this.newUser)
+      .subscribe(result => {
+          if (result === true) {
+              // login successful
+              console.log('result ok', result);
+              this.router.navigate(['/profile']);
+          } else {
+          		console.log('result ko', result);
+              // login failed
+              // this.error = 'Username or password is incorrect';
+          }
+      });
+
   }
 
   signUpStylist() {
-    this.session.signupStylist(this.formInfo)
-      .subscribe(
-        (stylist) => this.stylist = stylist,
-        (err) => this.error = err
-      );
-  }
 
-  errorCb(err) {
-  this.error = err;
-  this.user = null;
-  }
+    this.session.signup(this.newStylist)
+      .subscribe(result => {
+          if (result === true) {
+              // login successful
+              console.log('result ok', result);
+              this.router.navigate(['/profile']);
+          } else {
+          		console.log('result ko', result);
+              // login failed
+              // this.error = 'Username or password is incorrect';
+          }
+      });
 
-  successCb(user) {
-    this.user = user;
-    this.error = null;
   }
-
 }

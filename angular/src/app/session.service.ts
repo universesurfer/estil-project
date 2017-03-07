@@ -87,14 +87,17 @@ export class SessionService implements CanActivate{
   }
 
   login(user) {
+    console.log("adsfasfdsafdasfsadsdfasfdasafd")
     return this.http.post(`${this.BASE_URL}/login`, user)
         .map((response: Response) => {
             // login successful if there's a jwt token in the response
             let token = response.json() && response.json().token;
+
             if (token) {
               // set token property
               this.token = token;
               this.isAuth.emit(true);
+              console.log("inside login service");
               // store username and jwt token in local storage to keep user logged in between page refreshes
               localStorage.setItem('token', token );
               // return true to indicate successful login
