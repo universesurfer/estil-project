@@ -5,8 +5,10 @@ const stylistSchema = new Schema({
 	firstName   : {type: String, required: true},
   lastName    : {type: String, required: true},
   username    : {type: String, required: true},
-  password    : {type: String, required: true},
-  role        : {type: String, required: true},
+  password    : {type: String},
+  role        : {type: String, enum: ['Stylist', 'Admin'], default: 'Stylist'},
+	resume_path : String,
+	resume_name	: String,
   avatar      : String,
 	services 		: [String],
   expertise   : { type: String,
@@ -21,7 +23,7 @@ const stylistSchema = new Schema({
     default : ['Both']
 	},
 	distance: Number,
-  geolocation  : {type: {type: String}, coordinates: [Number]},
+  geolocation  : {type: {type: String}, coordinates: { type: [], index: '2dsphere' }},
 	location: String,
   reviews :
     [{

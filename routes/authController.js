@@ -1,25 +1,19 @@
-var express          = require('express');
+const express        = require('express');
 const authController = express.Router();
+
+const jwt 					 = require('jsonwebtoken');
+const jwtOptions 		 = require('../config/jwtOptions');
+
+const passport   		 = require("passport");
+const mongoose			 = require('mongoose');
+
+// Our user and stylist models
 const User           = require("../models/user");
 const Stylist        = require("../models/stylist");
-const Picture        = require('../models/picture');
-const Appointment    = require('../models/appointment');
+
+// Bcrypt let us encrypt passwords
 const bcrypt         = require("bcrypt");
 const bcryptSalt     = 10;
-const passport       = require("passport");
-const ensureLogin    = require("connect-ensure-login");
-const multer         = require('multer');
-var upload           = multer({ dest: './public/uploads/' });
-const mongoose = require('mongoose');
-
-
-authController.get('/signup', function(req, res, next) {
-  res.render('auth/signup');
-});
-
-authController.get('/stylist/signup', function(req, res, next) {
-  res.render('auth/stylist-signup');
-});
 
 function validateEmail(email) {
 			var re = /\S+@\S+\.\S+/;
@@ -29,42 +23,41 @@ function validateEmail(email) {
 authController.post("/signup", (req, res, next) => {
 	var firstName = req.body.firstName;
 	var lastName = req.body.lastName;
-  var username = req.body.email;
+  var username = req.body.username;
   var password = req.body.password;
 
-  if (username === "" || password === "") {
-    res.render("auth/signup", { message: "Indicate email and password" });
+  if (!username || !password) {
+    res.status(400).json({ message: "Provide username and password" });
     return;
   }
 
-	if (validateEmail(username) == false) {
-		res.render("auth/signup", { message: "Please input a valid email address" });
-	}
+	// if (validateEmail(username) == false) {
+	// 	res.status(400).json({ message: "Please input a valid email address" });
+	// }
 
   User.findOne({ username }, "username", (err, user) => {
     if (user !== null) {
-      res.render("auth/signup", { message: "Email already in use" });
+      res.status(400).json({ message: "The username already exists" });
       return;
     }
-
     var salt     = bcrypt.genSaltSync(bcryptSalt);
     var hashPass = bcrypt.hashSync(password, salt);
-
 
     var newUser = User({
 			firstName,
 			lastName,
       username,
-      password: hashPass,
-			role: "User",
-			avatar: " "
+      password: hashPass
     });
 
-    newUser.save((err) => {
+    newUser.save((err, user) => {
       if (err) {
-        res.render("auth/signup", { message: "The username already exists" });
+        res.status(400).json({ message: "Something went wrong" });
       } else {
-        res.redirect("/login");
+				var payload = {id: user._id};
+        console.log('user', user);
+        var token = jwt.sign(payload, jwtOptions.secretOrKey);
+        res.status(200).json({message: "ok", token: token});
       }
     });
   });
@@ -76,17 +69,17 @@ authController.post("/stylist/signup", (req, res, next) => {
   var username = req.body.email;
   var password = req.body.password;
 
-  if (username === "" || password === "") {
-    res.render("auth/stylist-signup", { message: "Indicate email and password" });
+  if (!username || !password) {
+    res.status(400).json({ message: "Provide username and password" });
     return;
   }
 
 	if (validateEmail(username) == false) {
-		res.render("auth/stylist-signup", { message: "Please input a valid email address" });
+		res.status(400).json({ message: "Please input a valid email address" });
 	}
 
-  Stylist.findOne({ username }, "username", (err, user) => {
-    if (user !== null) {
+  Stylist.findOne({ username }, "username", (err, stylist) => {
+    if (stylist !== null) {
       res.render("auth/stylist-signup", { message: "The email already exists" });
       return;
     }
@@ -94,68 +87,87 @@ authController.post("/stylist/signup", (req, res, next) => {
     var salt     = bcrypt.genSaltSync(bcryptSalt);
     var hashPass = bcrypt.hashSync(password, salt);
 
-
     var newStylist = Stylist({
 			firstName,
 			lastName,
       username,
-      password    : hashPass,
-			role        : "Stylist",
-			date        : new Date(),
-			avatar      : " ",
-			services    : " ",
-			expertise   : ["Any"],
-			languages   : [" "],
-			description : " ",
-			price       : " ",
-			availability: " ",
-      mobile      : ["Both"],
-			distance		: 0,
-			geolocation : {
-			  type       : "Point",
-			  coordinates: [0,10]
-			},
+      password: hashPass,
 			location    : "",
-      reviews     : []
+      resume_path: String,
+      resume_name: String,
     });
 
-    newStylist.save((err) => {
+		newStylist.save((err, stylist) => {
       if (err) {
-				console.log(err);
-        res.render("auth/stylist-signup", { message: "The username already exists" });
+        res.status(400).json({ message: "Something went wrong" });
       } else {
-        res.redirect("/stylist/profile");
+				var payload = {id: stylist._id};
+        console.log('user', user);
+        var token = jwt.sign(payload, jwtOptions.secretOrKey);
+        res.status(200).json({message: "ok", token: token});
       }
     });
   });
 });
 
-authController.get("/login", (req, res, next) => {
-  res.render("auth/login", { "message": req.flash("error") });
+authController.post("/login", function(req, res) {
+	if(req.body.username && req.body.password){
+    var username = req.body.username;
+    var password = req.body.password;
+  }
+
+  if (username === "" || password === "") {
+    res.status(401).json({message:"fill up the fields"});
+    return;
+  }
+
+  User.findOne({ "username": username }, (err, user)=> {
+
+  	if( ! user ){
+	    res.status(401).json({message:"no such user found"});
+	  } else {
+      bcrypt.compare(password, user.password, function(err, isMatch) {
+        console.log(isMatch);
+        if (!isMatch) {
+          res.status(401).json({message:"passwords did not match"});
+        } else {
+          var payload = {id: user._id};
+          var token = jwt.sign(payload, jwtOptions.secretOrKey);
+          res.json({message: "ok", token: token});
+        }
+      });
+    }
+  })
 });
 
-authController.post("/login", passport.authenticate("user-login", {
-  successRedirect: "/profile",
-  failureRedirect: "/login",
-  failureFlash: true,
-  passReqToCallback: true
-}));
+authController.post("/stylist/login", function(req, res) {
+	if(req.body.username && req.body.password){
+    var username = req.body.username;
+    var password = req.body.password;
+  }
 
-authController.get("/stylist/login", (req, res, next) => {
-  res.render("auth/stylist-login", { "message": req.flash("error") });
-});
+  if (username === "" || password === "") {
+    res.status(401).json({message:"fill up the fields"});
+    return;
+  }
 
-authController.post("/stylist/login", passport.authenticate("stylist-login", {
-  successRedirect: "/stylist/profile",
-  failureRedirect: "/stylist/login",
-  failureFlash: true,
-  passReqToCallback: true
-}));
+  Stylist.findOne({ "username": username }, (err, user)=> {
 
-
-authController.get("/logout", (req, res) => {
-  req.logout();
-  res.redirect("/");
+  	if( ! user ){
+	    res.status(401).json({message:"no such user found"});
+	  } else {
+      bcrypt.compare(password, user.password, function(err, isMatch) {
+        console.log(isMatch);
+        if (!isMatch) {
+          res.status(401).json({message:"passwords did not match"});
+        } else {
+          var payload = {id: user._id};
+          var token = jwt.sign(payload, jwtOptions.secretOrKey);
+          res.json({message: "ok", token: token});
+        }
+      });
+    }
+  })
 });
 
 module.exports = authController;

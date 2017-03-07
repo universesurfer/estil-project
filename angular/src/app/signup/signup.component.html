@@ -1,0 +1,55 @@
+<form *ngIf="stylistCheck == false">
+
+  <label for="firstName">
+    First Name
+  </label>
+	<input type="text" name="firstName" [(ngModel)]="formInfo.firstName" required/>
+  <label for="lastName">
+    Last Name
+  </label>
+	<input type="text" name="lastName" [(ngModel)]="formInfo.lastName" required/>
+  <label for="username">
+    Email
+  </label>
+	<input type="text" name="username" [(ngModel)]="formInfo.username" placeholder="Email Address" required/>
+	<label for="password">
+    Password
+  </label>
+	<input type="password" name="password" [(ngModel)]="formInfo.password" placeholder=".........." required/>
+  <button (click)="signUp()">Sign Up</button>
+</form>
+
+<form *ngIf="stylistCheck">
+  <label for="firstName">
+    First Name
+  </label>
+	<input type="text" name="firstName" [(ngModel)]="formInfoStylist.firstName" required/>
+  <label for="lastName">
+    Last Name
+  </label>
+	<input type="text" name="lastName" [(ngModel)]="formInfoStylist.lastName" required/>
+  <label for="username">
+    Email
+  </label>
+	<input type="text" name="username" [(ngModel)]="formInfoStylist.username" placeholder="Email Address" required/>
+  <label for="city">
+    City
+  </label>
+  <label for="password">
+    Password
+  </label>
+	<input type="password" name="password" [(ngModel)]="formInfo.password" placeholder=".........." required/>
+	<input type="text" name="location" [(ngModel)]="formInfoStylist.location" required/>
+  <label for="resume">
+    Resume/Portfolio
+  </label>
+  <input type="file" name="resume" [(ngModel)]="formInfoStylist.resume" placeholder=".........." required/>
+  <button (click)="signUpStylist()">Apply to join</button>
+</form>
+
+<label for="resume">Are you a stylist? Check here</label>
+<input type="checkbox" [(ngModel)]="stylistCheck">
+
+<p class="account-message">
+  Do you already have an account? <a href="/login">Login</a>
+</p>

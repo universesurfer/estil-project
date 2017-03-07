@@ -1,0 +1,9 @@
+<h1>
+  {{title}}
+</h1>
+
+<a *ngIf="!isAuth"[routerLink]="['signup']">Signup</a>
+<a *ngIf="!isAuth" [routerLink]="['login']">Login</a>
+<a *ngIf="isAuth" (click)="logout()">Logout</a>
+
+<router-outlet></router-outlet>
