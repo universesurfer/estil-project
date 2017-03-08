@@ -1,15 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { SessionService } from "../session.service";
+import { SearchService } from "../search.service";
 import { Router } from '@angular/router';
 
 declare var google: any;
 declare var map: any;
+declare var markers: any;
 
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
-  styleUrls: ['./search.component.css']
+  styleUrls: ['./search.component.css'],
+  providers: [SearchService]
 })
 export class SearchComponent implements OnInit {
 
@@ -18,12 +20,11 @@ export class SearchComponent implements OnInit {
   BASE_URL: string = 'http://localhost:3000';
 
   constructor(
-    private session: SessionService,
+    private searchService: SearchService,
     private router: Router
   ) { }
 
   ngOnInit() {
-    console.log("SearcgComponetn");
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(this.showMapWithMyLocation.bind(this));
     } else {
@@ -55,15 +56,14 @@ export class SearchComponent implements OnInit {
 
     // takes input and performs autocomplete
   	var mapInput = document.getElementById('pac-input');
+
   	var newArea = new google.maps.places.Autocomplete(mapInput);
-  	var type = "Area Changed";
   	newArea.bindTo('bounds', map);
   	map.controls[google.maps.ControlPosition.TOP_LEFT].push(mapInput);
 
-  	var infowindow = new google.maps.InfoWindow();
 
   	google.maps.event.addListener(newArea, 'place_changed', function() {
-  		infowindow.close();
+
   		var place = newArea.getPlace();
   		if (!place.geometry) {
   			return;
@@ -78,16 +78,16 @@ export class SearchComponent implements OnInit {
 
   	});
 
-;    //AUTOCOMPLETE END
+   //AUTOCOMPLETE END
 
 
-    this.session.getMarkers()
+    this.searchService.getMarkers()
       .subscribe((response) =>
-      this.response = this.createMarkers(response, map));
+      this.response = this.createMarkers(response, map, newArea));
 
   }
 
-  createMarkers(response, map){
+  createMarkers(response, map, newArea){
 
   var markers = [];
     for (var stylistMapInfo in response) {
@@ -126,6 +126,9 @@ export class SearchComponent implements OnInit {
     	google.maps.event.addListener(marker[0], 'click', function() {
     		marker[1].open(map, marker[0]);
     	});
+      google.maps.event.addListener(newArea, 'place_changed', function() {
+        marker[1].close();
+      });
     });
 
   }
