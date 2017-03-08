@@ -3,9 +3,9 @@
        <label for="price">Price</label>
        <select id="price" class="dropdown form-control" (change)="onChange($event.target.value)">
              <option>Add filter</option>
-             <option value="$">$</option>
-             <option value="$$">$$</option>
-             <option value="$$$">$$$</option>
+             <option value="€">€</option>
+             <option value="€€">€€</option>
+             <option value="€€€">€€€</option>
        </select>
      </div>
      <div class="col-xs-2">
@@ -25,8 +25,8 @@
        <label for="where">Where</label>
        <select id="where" class="dropdown form-control" (change)="onChange($event.target.value)">
              <option>Add filter</option>
-             <option value="My place">My place</option>
-             <option value="Their place">Their place</option>
+             <option value="Home visit">My place</option>
+             <option value="Salon">Their place</option>
        </select>
      </div>
      <div class="col-xs-2">
@@ -42,8 +42,8 @@
        <label for="gender">Gender</label>
        <select id="gender" class="dropdown form-control" (change)="onChange($event.target.value)">
              <option>Add filter</option>
-             <option value="Women only">Women only</option>
-             <option value="Exam">Exam</option>
+             <option value="Women">Women only</option>
+             <option value="Men">Men only</option>
        </select>
      </div>
 </div>
