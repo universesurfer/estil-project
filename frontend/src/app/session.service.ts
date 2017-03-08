@@ -36,7 +36,8 @@ export class SessionService implements CanActivate{
 
   edit(user) {
       this.userId = localStorage.getItem('userId');
-      return this.http.put(`${this.BASE_URL}/profile/${user.id}`, user)
+      console.log(this.userId)
+      return this.http.put(`${this.BASE_URL}/profile/${this.userId}`, user)
         .map((res) => res.json())
         .catch(this.handleError);
     }
