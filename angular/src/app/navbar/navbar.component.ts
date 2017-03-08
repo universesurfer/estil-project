@@ -6,8 +6,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css'],
-  providers: [SessionService]
+  styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
   isAuth: boolean;
@@ -22,15 +21,17 @@ export class NavbarComponent implements OnInit {
         // or user object if logged in.
           this.isAuth = isAuth;
         });
-  }
-
-  ngOnInit() {
       if (this.session.token != null) {
         this.isAuth = true;
       } else {
         this.isAuth = false;
       }
-    }
+
+  }
+
+  ngOnInit() {
+  }
+
 
   logout() {
   	this.session.logout();
