@@ -10,6 +10,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 })
 export class ProfileComponent implements OnInit {
   user: any;
+  userCheck: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -27,6 +28,14 @@ export class ProfileComponent implements OnInit {
       .subscribe((response) => {
         this.user = response;
       });
+  }
+
+  userCheckUpdate() {
+    if (this.userCheck != true) {
+        this.userCheck = true;
+    } else {
+      this.userCheck = false;
+    }
   }
 
 }

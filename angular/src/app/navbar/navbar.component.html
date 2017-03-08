@@ -19,7 +19,7 @@
 
         <li *ngIf="!isAuth"><a [routerLink]="['login']">Login</a></li>
         <li *ngIf="!isAuth"><a [routerLink]="['signup']">Signup</a></li>
-        <li *ngIf="isAuth"><a [routerLink]="['profile/edit']">Update</a><li>
+        <li *ngIf="isAuth"><a [routerLink]="['profile']">Profile</a><li>
         <li *ngIf="isAuth"><a [routerLink]="['']" (click)="logout()">Logout</a></li>
         <li><a [routerLink]="['search']">Search</a></li>
 

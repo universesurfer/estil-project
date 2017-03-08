@@ -34,6 +34,13 @@ export class SessionService implements CanActivate{
       .catch(this.handleError);
   }
 
+  edit(user) {
+    console.log('he');
+    return this.http.put(`${this.BASE_URL}/profile/${user.id}`, user)
+      .map((res) => res.json())
+      .catch(this.handleError);
+  }
+
   canActivate(): Observable<boolean> | Promise<boolean> | boolean {
     if (localStorage.getItem('token')) {
       // logged in so return true\

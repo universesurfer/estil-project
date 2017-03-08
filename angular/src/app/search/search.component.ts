@@ -34,7 +34,6 @@ export class SearchComponent implements OnInit {
   }
 
   showMapWithMyLocation(position) {
-    console.log("showMapLocation");
     //The latitude and longitude values obtained from HTML 5 API.
     var latitude = position.coords.latitude;
     var longitude = position.coords.longitude;

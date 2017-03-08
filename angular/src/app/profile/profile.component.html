@@ -6,11 +6,25 @@
 </div>
 
 <div class="col-lg-5 col-md-8 col-xs-6">
-  <div *ngIf="user">
-    <p> Email: {{ user.username }} </p>
-    <p> First Name: {{ user.firstName }}  </p>
-    <p> Last Name: {{ user.lastName }} </p>
-  </div>
+  <form *ngIf="userCheck == false">
+    <div *ngIf="user">
+      <p> Email: {{ user.username }} </p>
+      <p> First Name: {{ user.firstName }}  </p>
+      <p> Last Name: {{ user.lastName }} </p>
+    </div>
+  </form>
+  <form *ngIf="userCheck">
+    <div *ngIf="user">
+      <label for="firstName">Email:</label>
+      <input type="text" name="username" value="{{ user.username }}"><br>
+      <label for="lastName">First Name:</label>
+      <input type="text" name="firstName" value="{{ user.firstName }}"><br>
+      <label for="username">Last Name:</label>
+      <input type="text" name="lastName" value="{{ user.lastName }}"><br>
+      <button class="btn btn-info" (click)="edit()">Update</button>
+    </div>
+  </form><br><br>
+<button class="btn btn-primary" (click)="userCheckUpdate()">Edit Userprofile</button>
 </div>
 
 <div class="col-lg-4 thumb gallery">
