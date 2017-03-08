@@ -125,4 +125,13 @@ export class SessionService implements CanActivate{
       .map(res => res.json())
       .catch(this.handleError);
   }
+
+  getMarkers() {
+    console.log("in service");
+    console.log(this);
+    return this.http.get(`${this.BASE_URL}/api/search`)
+      .map(res => res.json())
+      .catch(this.handleError);
+  }
+
 }
