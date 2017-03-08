@@ -27,25 +27,25 @@ router.get('/profile/:id', (req, res) => {
     });
 });
 
-// router.put('/profile/:id', (req, res) => {
-//   if(!mongoose.Types.ObjectId.isValid(req.params.id)) {
-//     return res.status(400).json({ message: 'Specified id is not valid' });
-//   }
-//
-//   User.findByIdAndUpdate(req.params.id, {
-//     firstName: req.body.firstName,
-//     lastName: req.body.lastName,
-//     username: req.body.username
-//   }, (err) => {
-//     if (err) {
-//       return res.send(err);
-//     }
-//
-//     return res.json({
-//       message: 'User updated successfully'
-//     });
-//   });
-// })
+router.put('/profile/:id', (req, res) => {
+  if(!mongoose.Types.ObjectId.isValid(req.params.id)) {
+    return res.status(400).json({ message: 'Specified id is not valid' });
+  }
+
+  User.findByIdAndUpdate(req.params.id, {
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    username: req.body.username
+  }, (err) => {
+    if (err) {
+      return res.send(err);
+    }
+
+    return res.json({
+      message: 'User updated successfully'
+    });
+  });
+})
 
 
 module.exports = router;
