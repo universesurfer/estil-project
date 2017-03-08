@@ -2,6 +2,18 @@ var express = require('express');
 var router = express.Router();
 const mongoose			 = require('mongoose');
 const User           = require("../models/user");
+var Stylist = require('../models/stylist.js');
+
+router.get("/api/search", (req, res)=> {
+	Stylist.find({}, (err, allStylists) => {
+		mapInfo = {};
+		allStylists.forEach(function(stylist, index){
+			mapInfo["prop" + index] = stylist;
+		});
+		res.json(mapInfo);
+	});
+
+});
 
 router.get('/profile/:id', (req, res) => {
   if(!mongoose.Types.ObjectId.isValid(req.params.id)) {
@@ -34,5 +46,6 @@ router.get('/profile/:id', (req, res) => {
 //     });
 //   });
 // })
+
 
 module.exports = router;

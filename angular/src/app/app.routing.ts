@@ -8,9 +8,9 @@ import { SearchComponent } from './search/search.component';
 import { SessionService } from './session.service';
 
 export const routes: Routes = [
-    { path: 'signup', component: SignupComponent },
-    { path: 'login', component: LoginComponent },
+    { path: 'signup', component: SignupComponent},
+    { path: 'login', component: LoginComponent},
     { path: 'profile', component: ProfileComponent, canActivate: [SessionService]},
-    { path: 'search', component: SearchComponent, canActivate: [SessionService]},
+    { path: 'search', component: SearchComponent},
     { path: 'profile/edit', component: ProfileComponent, canActivate: [SessionService]}
 ];

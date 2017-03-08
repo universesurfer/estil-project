@@ -49,10 +49,6 @@ export class SessionService implements CanActivate{
     return this.token != null ? true : false;
   }
 
-  handleError(e) {
-    return Observable.throw(e.json().message);
-  }
-
   signup(user) {
   	return this.http.post(`${this.BASE_URL}/signup`, user)
   		.map((response) => response.json())
@@ -134,4 +130,9 @@ export class SessionService implements CanActivate{
       .map(res => res.json())
       .catch(this.handleError);
   }
+
+  handleError(e) {
+    return Observable.throw(e.json().message);
+  }
+
 }
