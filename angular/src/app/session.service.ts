@@ -25,9 +25,13 @@ export class SessionService implements CanActivate{
     }
   }
 
-  get(id) {
-    return this.http.get(`${this.BASE_URL}/profile/${id}`)
-      .map((res) => res.json());
+  userId : string;
+
+  get() {
+    this.userId = localStorage.getItem('userId');
+    return this.http.get(`${this.BASE_URL}/profile/${this.userId}`)
+      .map((res) => res.json())
+      .catch(this.handleError);
   }
 
   canActivate(): Observable<boolean> | Promise<boolean> | boolean {
@@ -55,6 +59,7 @@ export class SessionService implements CanActivate{
           this.token = token;
           // store username and jwt token in local storage to keep user logged in between page refreshes
           localStorage.setItem('token', token );
+          localStorage.setItem('user._id', user._id);
           this.isAuth.emit(true);
           // return true to indicate successful login
           return true;
@@ -76,6 +81,7 @@ export class SessionService implements CanActivate{
           this.token = token;
           // store username and jwt token in local storage to keep user logged in between page refreshes
           localStorage.setItem('token', token );
+          localStorage.setItem('stylist._id', stylist._id);
           this.isAuth.emit(true);
           // return true to indicate successful login
           return true;
@@ -99,6 +105,8 @@ export class SessionService implements CanActivate{
               this.isAuth.emit(true);
               // store username and jwt token in local storage to keep user logged in between page refreshes
               localStorage.setItem('token', token );
+              localStorage.setItem('userId', response.json().user._id);
+              this.router.navigate(['/profile']);
               // return true to indicate successful login
               return true;
             } else {
@@ -113,6 +121,7 @@ export class SessionService implements CanActivate{
       this.token = null;
       this.isAuth.emit(false);
       localStorage.removeItem('token');
+      localStorage.removeItem('userId');
       this.router.navigate(['/login']);
   }
 

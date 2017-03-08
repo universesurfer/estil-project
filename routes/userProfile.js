@@ -14,8 +14,6 @@ const mongoose = require('mongoose');
 
 userProfile.get("/profile", ensureLogin.ensureLoggedIn(), (req, res) => {
 
-
-
   Picture.findOne({"user": req.user.username, "profile": true}, {}, { sort: { 'created_at' : -1 } }, (err, picture)=>{
     if (err){
       console.log("Error finding photo");

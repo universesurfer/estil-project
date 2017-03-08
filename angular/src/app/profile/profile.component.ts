@@ -17,17 +17,15 @@ export class ProfileComponent implements OnInit {
     private session: SessionService) { }
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
+  	this.route.params.subscribe(params => {
       this.getUserDetails(params['id']);
     });
-    // this.username = this.session.user.name,
-    // this.secret   = this.session.user.secret;
   }
 
   getUserDetails(id) {
-    this.session.get(id)
-      .subscribe((user) => {
-        this.user = user;
+    this.session.get()
+      .subscribe((response) => {
+        this.user = response;
       });
   }
 
