@@ -30,7 +30,8 @@ export class SessionService implements CanActivate{
   get() {
     this.userId = localStorage.getItem('userId');
     return this.http.get(`${this.BASE_URL}/profile/${this.userId}`)
-      .map((res) => res.json());
+      .map((res) => res.json())
+      .catch(this.handleError);
   }
 
   canActivate(): Observable<boolean> | Promise<boolean> | boolean {
@@ -124,6 +125,7 @@ export class SessionService implements CanActivate{
       this.token = null;
       this.isAuth.emit(false);
       localStorage.removeItem('token');
+      localStorage.removeItem('userId');
       this.router.navigate(['/login']);
   }
 
