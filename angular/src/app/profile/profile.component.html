@@ -6,12 +6,11 @@
 </div>
 
 <div class="col-lg-5 col-md-8 col-xs-6">
-<div *ngIf="user">
-  <p> Email: {{ user.username }} </p>
-  <p> First Name: {{ user.firstName }}  </p>
-  <p> Last Name: {{ user.lastName }} </p>
-</div>
-  <!-- <h3> First Name: {{ user.firstName }} </h3>  -->
+  <div *ngIf="user">
+    <p> Email: {{ user.username }} </p>
+    <p> First Name: {{ user.firstName }}  </p>
+    <p> Last Name: {{ user.lastName }} </p>
+  </div>
 </div>
 
 <div class="col-lg-4 thumb gallery">
