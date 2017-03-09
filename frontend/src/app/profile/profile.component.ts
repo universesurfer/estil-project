@@ -39,15 +39,12 @@ export class ProfileComponent implements OnInit {
   }
 
   edit() {
+    console.log("inside profile_component");
     this.session.edit(this.user)
       .subscribe(result => {
-        console.log(result);
-        console.log(this.user);
           if (result === true) {
-            // login successful
             this.router.navigate(['/profile']);
      			} else {
-            // login failed
             this.error = 'User cannot be updated';
           }
       });
