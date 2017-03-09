@@ -45,7 +45,6 @@ newStylist = {
     this.session.signup(this.newUser)
       .subscribe(result => {
           if (result) {
-              // signup successful
               console.log('result ok', result);
               this.router.navigate(['/login']);
               this.toastr.success('You have been registered, please log in');
