@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { SessionService } from "./../session.service";
 import { Router, ActivatedRoute } from "@angular/router";
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 @Component({
   selector: 'app-profile',
@@ -15,7 +16,8 @@ export class ProfileComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private session: SessionService) { }
+    private session: SessionService,
+    private toastr: ToastsManager ) {}
 
   ngOnInit() {
   	this.route.params.subscribe(params => {
@@ -41,10 +43,11 @@ export class ProfileComponent implements OnInit {
   edit() {
     this.session.edit(this.user)
       .subscribe(result => {
-          if (result === true) {
+          if (result) {
             this.router.navigate(['/profile']);
+            this.toastr.success('User updated');
      			} else {
-            this.error = 'User cannot be updated';
+            this.toastr.error('Something went wrong');
           }
       });
   }

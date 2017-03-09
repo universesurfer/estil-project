@@ -53,10 +53,8 @@ export class SessionService implements CanActivate{
 
   canActivate(): Observable<boolean> | Promise<boolean> | boolean {
     if (localStorage.getItem('token')) {
-      // logged in so return true\
       return true;
     }
-    // not logged in so redirect to login page
     this.router.navigate(['/login']);
     this.isAuth.emit(true);
     return false;

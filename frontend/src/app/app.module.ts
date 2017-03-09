@@ -13,7 +13,8 @@ import { routes } from './app.routing';
 import { ProfileComponent } from './profile/profile.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SearchComponent } from './search/search.component';
-import {DropdownModule} from "ngx-dropdown";
+import {DropdownModule} from 'ngx-dropdown';
+import {ToastModule} from 'ng2-toastr/ng2-toastr';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import {DropdownModule} from "ngx-dropdown";
     FormsModule,
     HttpModule,
     RouterModule.forRoot(routes),
-    DropdownModule
+    DropdownModule,
+    ToastModule.forRoot()
   ],
   providers: [SessionService],
   bootstrap: [AppComponent]
