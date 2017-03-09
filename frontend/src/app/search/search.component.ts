@@ -18,6 +18,7 @@ export class SearchComponent implements OnInit {
 
   markers: any;
   stylists: any;
+  list: boolean = false;
 
   BASE_URL: string = 'http://localhost:3000';
 
@@ -27,11 +28,26 @@ export class SearchComponent implements OnInit {
   ) { }
 
   shrinkMap(){
-    document.getElementById("map").style.display = "none";
+    document.getElementById("col-map").style.display = "none";
+    this.list = true;
+
+    var tableRows = document.getElementsByTagName("tr");
+    for (var i = 0; i < tableRows.length; i++) {
+      tableRows[i].style.backgroundColor = "white";
+    }
+    event.srcElement.parentElement.style.backgroundColor = "#e5f7ff";
+    // event.target.style.backgroundColor = "lightgrey";
+
   }
 
   growMap(){
-    document.getElementById("map").style.display = "block";
+    document.getElementById("col-map").style.display = "block";
+    this.list = false;
+
+    var tableRows = document.getElementsByTagName("tr");
+    for (var i = 0; i < tableRows.length; i++) {
+      tableRows[i].style.backgroundColor = "white";
+    }
   }
 
   ngOnInit() {
@@ -72,6 +88,7 @@ export class SearchComponent implements OnInit {
   	map.controls[google.maps.ControlPosition.TOP_LEFT].push(mapInput);
 
     setTimeout(function(){
+
       mapInput.style.opacity = "1";
     },1000);
 
@@ -99,6 +116,7 @@ export class SearchComponent implements OnInit {
     this.searchService.getMarkers()
       .subscribe((response) => {
       this.stylists = this.createMarkers(response, map, newArea);
+      document.getElementById("table-headers").classList.remove("hidden");
     })
 
   }

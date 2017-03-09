@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row first-row">
      <div class="col-xs-2">
        <label for="price">Price</label>
        <select id="price" class="dropdown form-control" (change)="onChange($event.target.value)">
@@ -46,26 +46,23 @@
              <option value="Men">Men only</option>
        </select>
      </div>
-     <div class="col-xs-2">
-       <a (click)="shrinkMap()" [routerLink]="['list']">List</a>
-       <a (click)="growMap()" [routerLink]="['search']">Map</a>
-     </div>
 </div>
 
 <div class="row">
-  <div class="col-xs-6">
+  <div class="col-xs-6" id="col-map">
     <input type="text" id="pac-input" name="search" placeholder="Choose your location">
     <div id="map"></div>
   </div>
 
   <div class="col-xs-6">
+    <button (click)="growMap()" *ngIf="list" class="btn" id="backToMap">Back to Map</button>
     <table id="listOfStylists">
-      <tr>
+      <tr id="table-headers" class="hidden">
         <th>Name</th>
         <th>Location</th>
      </tr>
       <tr *ngFor="let stylist of stylists">
-        <td>{{ stylist.firstName }} {{stylist.lastName}}</td>
+        <td class="stylist-name" (click)="shrinkMap()">{{ stylist.firstName }} {{stylist.lastName}}</td>
         <td>{{ stylist.location }}</td>
         <td><button class="btn">Message</button></td>
         <td><button class="btn">Book</button></td>
