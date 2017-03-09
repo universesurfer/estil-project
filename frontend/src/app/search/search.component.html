@@ -46,12 +46,32 @@
              <option value="Men">Men only</option>
        </select>
      </div>
+     <div class="col-xs-2">
+       <a (click)="shrinkMap()" [routerLink]="['list']">List</a>
+       <a (click)="growMap()" [routerLink]="['search']">Map</a>
+     </div>
 </div>
 
 <div class="row">
-  <input type="text" id="pac-input" name="search" placeholder="Choose your location">
-  <div id="map"></div>
+  <div class="col-xs-6">
+    <input type="text" id="pac-input" name="search" placeholder="Choose your location">
+    <div id="map"></div>
+  </div>
+
+  <div class="col-xs-6">
+    <table id="listOfStylists">
+      <tr>
+        <th>Name</th>
+        <th>Location</th>
+     </tr>
+      <tr *ngFor="let stylist of stylists">
+        <td>{{ stylist.firstName }} {{stylist.lastName}}</td>
+        <td>{{ stylist.location }}</td>
+        <td><button class="btn">Message</button></td>
+        <td><button class="btn">Book</button></td>
+      </tr>
+    </table>
+  </div>
 </div>
 
-
-<p>{{response}}</p>
+<router-outlet></router-outlet>

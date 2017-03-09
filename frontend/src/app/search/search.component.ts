@@ -17,7 +17,7 @@ declare var markers: any;
 export class SearchComponent implements OnInit {
 
   markers: any;
-  response: any;
+  stylists: any;
 
   BASE_URL: string = 'http://localhost:3000';
 
@@ -25,6 +25,14 @@ export class SearchComponent implements OnInit {
     private searchService: SearchService,
     private router: Router
   ) { }
+
+  shrinkMap(){
+    document.getElementById("map").style.display = "none";
+  }
+
+  growMap(){
+    document.getElementById("map").style.display = "block";
+  }
 
   ngOnInit() {
     if (navigator.geolocation) {
@@ -89,8 +97,9 @@ export class SearchComponent implements OnInit {
 
 
     this.searchService.getMarkers()
-      .subscribe((response) =>
-      this.response = this.createMarkers(response, map, newArea));
+      .subscribe((response) => {
+      this.stylists = this.createMarkers(response, map, newArea);
+    })
 
   }
 
@@ -138,7 +147,15 @@ export class SearchComponent implements OnInit {
       });
     });
 
-    this.markers = markers;
+    var stylists = [];
+
+    for (var props in response) {
+      stylists.push(response[props]);
+    }
+
+    console.log(stylists);
+
+    return stylists;
 
   }
 
