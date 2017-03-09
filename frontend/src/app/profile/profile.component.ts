@@ -39,7 +39,6 @@ export class ProfileComponent implements OnInit {
   }
 
   edit() {
-    console.log("inside profile_component");
     this.session.edit(this.user)
       .subscribe(result => {
           if (result === true) {

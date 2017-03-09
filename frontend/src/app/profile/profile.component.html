@@ -16,11 +16,11 @@
   <form *ngIf="userCheck">
     <div *ngIf="user">
       <label for="firstName">Email:</label>
-      <input type="text" name="username" value="{{ user.username }}"><br>
+      <input type="text" name="username" value="{{ user.username }}" [(ngModel)]="user.username"><br>
       <label for="lastName">First Name:</label>
-      <input type="text" name="firstName" value="{{ user.firstName }}"><br>
+      <input type="text" name="firstName" value="{{ user.firstName }}" [(ngModel)]="user.firstName"><br>
       <label for="username">Last Name:</label>
-      <input type="text" name="lastName" value="{{ user.lastName }}"><br>
+      <input type="text" name="lastName" value="{{ user.lastName }}" [(ngModel)]="user.lastName"><br>
       <button class="btn btn-info" (click)="edit()">Update</button>
     </div>
   </form><br><br>
