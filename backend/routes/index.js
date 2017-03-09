@@ -27,25 +27,42 @@ router.get('/profile/:id', (req, res) => {
     });
 });
 
-// router.put('/profile/:id', (req, res) => {
-//   if(!mongoose.Types.ObjectId.isValid(req.params.id)) {
-//     return res.status(400).json({ message: 'Specified id is not valid' });
-//   }
-//
-//   User.findByIdAndUpdate(req.params.id, {
-//     firstName: req.body.firstName,
-//     lastName: req.body.lastName,
-//     username: req.body.username
-//   }, (err) => {
-//     if (err) {
-//       return res.send(err);
-//     }
-//
-//     return res.json({
-//       message: 'User updated successfully'
-//     });
-//   });
-// })
+router.put('/profile/:id', (req, res) => {
+  if(!mongoose.Types.ObjectId.isValid(req.params.id)) {
+    return res.status(400).json({ message: 'Specified id is not valid' });
+  }
+
+  User.findById({"_id" : req.params.id}, {
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    username: req.body.username
+  }, (err,user) => {
+    if (err) {
+      return res.send(err);
+    }
+    return res.json({
+      message: 'User updated successfully'
+    });
+  });
+
+	// var userUpdated = {
+	// 	firstName: req.body.firstName,
+  //   lastName: req.body.lastName,
+  //   username: req.body.username
+	// }
+	//
+	// console.log('here1');
+	//
+	// User.update({"_id": req.params.id}, {$set: userUpdated}, (err, user)=> {
+  //   if (err){return res.send(err);}
+	// 	console.log(user);
+	// 	return res.json({
+	//       message: 'User updated'
+	//     });
+  // });
+
+
+})
 
 
 module.exports = router;

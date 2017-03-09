@@ -34,6 +34,24 @@ export class SessionService implements CanActivate{
       .catch(this.handleError);
   }
 
+  edit(user) {
+    this.userId = localStorage.getItem('userId');
+    console.log("inside session_service");
+    return this.http.put(`${this.BASE_URL}/profile/${this.userId}`, user)
+      .map((res) => res.json())
+      .catch(this.handleError);
+  }
+
+  getPrivateData() {
+    return this.http.get(`/profile`)
+      .map(res => res.json())
+      .catch(this.handleError);
+  }
+
+  handleError(e) {
+    return Observable.throw(e.json().message);
+  }
+
   canActivate(): Observable<boolean> | Promise<boolean> | boolean {
     if (localStorage.getItem('token')) {
       // logged in so return true\
@@ -123,16 +141,6 @@ export class SessionService implements CanActivate{
       localStorage.removeItem('token');
       localStorage.removeItem('userId');
       this.router.navigate(['/login']);
-  }
 
-  getPrivateData() {
-    return this.http.get(`/profile`)
-      .map(res => res.json())
-      .catch(this.handleError);
-  }
-
-  handleError(e) {
-    return Observable.throw(e.json().message);
-  }
-
+   }
 }

@@ -11,6 +11,5 @@ export const routes: Routes = [
     { path: 'signup', component: SignupComponent},
     { path: 'login', component: LoginComponent},
     { path: 'profile', component: ProfileComponent, canActivate: [SessionService]},
-    { path: 'search', component: SearchComponent},
-    { path: 'profile/edit', component: ProfileComponent, canActivate: [SessionService]}
+    { path: 'search', component: SearchComponent}
 ];
