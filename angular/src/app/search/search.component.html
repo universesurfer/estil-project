@@ -1,4 +1,57 @@
-<div id="map"></div>
-<input type="text" id="pac-input" name="search" placeholder="Choose your location">
+<div class="row">
+     <div class="col-xs-2">
+       <label for="price">Price</label>
+       <select id="price" class="dropdown form-control" (change)="onChange($event.target.value)">
+             <option>Add filter</option>
+             <option value="€">€</option>
+             <option value="€€">€€</option>
+             <option value="€€€">€€€</option>
+       </select>
+     </div>
+     <div class="col-xs-2">
+       <label for="day">Day</label>
+       <select id="day" class="dropdown form-control" (change)="onChange($event.target.value)">
+             <option>Add filter</option>
+             <option value="Monday">Monday</option>
+             <option value="Tuesday">Tuesday</option>
+             <option value="Wednesday">Wednesday</option>
+             <option value="Thursday">Thursday</option>
+             <option value="Friday">Friday</option>
+             <option value="Saturday">Saturday</option>
+             <option value="Sunday">Sunday</option>
+       </select>
+     </div>
+     <div class="col-xs-2">
+       <label for="where">Where</label>
+       <select id="where" class="dropdown form-control" (change)="onChange($event.target.value)">
+             <option>Add filter</option>
+             <option value="Home visit">My place</option>
+             <option value="Salon">Their place</option>
+       </select>
+     </div>
+     <div class="col-xs-2">
+       <label for="style">Style</label>
+       <select id="style" class="dropdown form-control" (change)="onChange($event.target.value)">
+             <option>Add filter</option>
+             <option value="Cut">Cut</option>
+             <option value="Blow Dry">Blow Dry</option>
+             <option value="Color">Color</option>
+       </select>
+     </div>
+     <div class="col-xs-2">
+       <label for="gender">Gender</label>
+       <select id="gender" class="dropdown form-control" (change)="onChange($event.target.value)">
+             <option>Add filter</option>
+             <option value="Women">Women only</option>
+             <option value="Men">Men only</option>
+       </select>
+     </div>
+</div>
+
+<div class="row">
+  <input type="text" id="pac-input" name="search" placeholder="Choose your location">
+  <div id="map"></div>
+</div>
+
 
 <p>{{response}}</p>
