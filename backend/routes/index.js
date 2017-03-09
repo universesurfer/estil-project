@@ -44,24 +44,6 @@ router.put('/profile/:id', (req, res) => {
       message: 'User updated successfully'
     });
   });
-
-	// var userUpdated = {
-	// 	firstName: req.body.firstName,
-  //   lastName: req.body.lastName,
-  //   username: req.body.username
-	// }
-	//
-	// console.log('here1');
-	//
-	// User.update({"_id": req.params.id}, {$set: userUpdated}, (err, user)=> {
-  //   if (err){return res.send(err);}
-	// 	console.log(user);
-	// 	return res.json({
-	//       message: 'User updated'
-	//     });
-  // });
-
-
 })
 
 
