@@ -16,7 +16,6 @@ export class SessionService implements CanActivate{
     private router: Router,
     private http: Http
   ) {
-    // set token if saved in local storage
     this.token = localStorage.getItem('token');
     if (this.token != null) {
       this.isAuth.emit(true);
@@ -76,7 +75,7 @@ export class SessionService implements CanActivate{
           localStorage.setItem('token', token );
           localStorage.setItem('user._id', user._id);
           this.isAuth.emit(true);
-          // return true to indicate successful login
+          this.router.navigate(['/profile']);
           return true;
         } else {
           // return false to indicate failed login
