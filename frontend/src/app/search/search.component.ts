@@ -60,7 +60,6 @@ export class SearchComponent implements OnInit {
   }
 
   showMapWithMyLocation(position) {
-    console.log("showMapLocation");
     //The latitude and longitude values obtained from HTML 5 API.
     var latitude = position.coords.latitude;
     var longitude = position.coords.longitude;
@@ -165,13 +164,13 @@ export class SearchComponent implements OnInit {
       });
     });
 
+    this.markers = markers;
+
     var stylists = [];
 
     for (var props in response) {
       stylists.push(response[props]);
     }
-
-    console.log(stylists);
 
     return stylists;
 
@@ -193,6 +192,7 @@ export class SearchComponent implements OnInit {
 		}
 
     var allMarkersCriteria = [];
+
 
 		this.markers.forEach(function(marker){
 			var singleMarkerCriteria = {

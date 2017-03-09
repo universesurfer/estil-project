@@ -14,6 +14,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SearchComponent } from './search/search.component';
 import { DropdownModule } from "ngx-dropdown";
+import { CustomFormsModule } from 'ng2-validation';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { DropdownModule } from "ngx-dropdown";
     FormsModule,
     HttpModule,
     RouterModule.forRoot(routes),
-    DropdownModule
+    DropdownModule,
+    CustomFormsModule
   ],
   providers: [SessionService],
   bootstrap: [AppComponent]

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SessionService } from "../session.service";
 import { Router } from '@angular/router';
+import { CustomFormsModule } from 'ng2-validation';
 
 @Component({
   selector: 'app-signup',

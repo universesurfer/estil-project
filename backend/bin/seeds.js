@@ -33,25 +33,25 @@ const users = [
 
 const stylists = [
   {
-    firstName   : 'Harry',
-		lastName    : 'Potter',
-    username    : 'harry@potter.co',
+    firstName   : 'Rodolfo',
+		lastName    : 'Oscar',
+    username    : 'rodolfo@oscar.com',
     password    : 'abcd',
     role        : 'Stylist',
     avatar			: ' ',
-		services		: ['Blow Dry','Color'],
+		services		: ['Blow Dry','Color','Cut'],
 		expertise		: "Men",
-		languages		: " ",
+		languages		: ["English","Spanish","Catalan"],
 		description	: " ",
 		price				: "€€€",
-		availability: ["Monday"],
-		mobile			: ["Salon"],
-		distance 		: 0,
+		availability: ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+		mobile			: ["Salon","Home"],
+		distance 		: 5,
 		geolocation	: {
 			type: "Point",
-			coordinates: [2.189858,41.386333]
+			coordinates: [2.191064,41.397737]
 		},
-    location    : 'Barcelona',
+    location    : 'Razzmatazz, Barcelona',
     reviews : [
       {
         name    : " ",
@@ -62,88 +62,117 @@ const stylists = [
     ]
   },
   {
-    firstName   : 'Hermione',
-		lastName    : 'Granger',
-    username    : 'hermione@granger.co.uk',
+    firstName   : 'Angelino',
+		lastName    : 'Torsten',
+    username    : 'angelino@torsten.com',
     password    : 'abcd',
     role        : 'Stylist',
-		avatar			: ' ',
-		services		: ['Cut','Blow Dry'],
-		expertise   : "Any",
-		languages   : " ",
-		description : " ",
-		price       : "€€",
-		availability: ["Tuesday"],
-		mobile      : ["Both"],
-		distance 		: 2,
-		geolocation : {
-			type       : "Point",
-			coordinates: [2.186015,41.388123]
+    avatar			: ' ',
+		services		: ['Blow Dry','Cut'],
+		expertise		: "Men",
+		languages		: ["Catalan"],
+		description	: " ",
+		price				: "€€€",
+		availability: ["Monday","Tuesday","Saturday","Sunday"],
+		mobile			: ["Salon","Home"],
+		distance 		: 5,
+		geolocation	: {
+			type: "Point",
+			coordinates: [2.189949,41.396160]
 		},
-    location : 'Madrid',
+    location    : "L'Ovella Negra, Barcelona",
     reviews : [
       {
         name    : " ",
         comment : " ",
-        stars   : 4,
+        stars   : 1,
         date    : new Date()
       }
     ]
   },
-	{
-    firstName   : 'Roger',
-		lastName    : 'Rabbit',
-    username    : 'roger@rabbit.co.uk',
+  {
+    firstName   : 'Breixo',
+		lastName    : 'Aramis',
+    username    : 'breixo@aramis.co.uk',
     password    : 'abcd',
     role        : 'Stylist',
 		avatar			: ' ',
-		services		: ['Cut','Blow Dry','Color'],
+		services		: ['Blow Dry','Color'],
 		expertise   : "Any",
-		languages   : " ",
-		description : " ",
-		price       : "€€",
-		availability: ["Monday"],
-		mobile      : ["Both"],
-		distance 		: 2,
-		geolocation : {
-			type       : "Point",
-			coordinates: [2.180722, 41.390699]
-		},
-    location : 'Sevilla',
-    reviews : [
-      {
-        name    : " ",
-        comment : " ",
-        stars   : 4,
-        date    : new Date()
-      }
-    ]
-  },
-	{
-    firstName   : 'Hard',
-		lastName    : 'Worker',
-    username    : 'go@far.co.uk',
-    password    : 'abcd',
-    role        : 'Stylist',
-		avatar			: ' ',
-		services		: ['Cut','Blow Dry','Color'],
-		expertise   : "Any",
-		languages   : " ",
+		languages   : ["English"],
 		description : " ",
 		price       : "€",
 		availability: ["Monday", "Friday", "Saturday", "Sunday"],
 		mobile      : ["Both"],
-		distance		: 5,
+		distance		: 2.5,
 		geolocation : {
 			type       : "Point",
-			coordinates: [2.197201, 41.402385]
+			coordinates: [2.197695, 41.399427]
 		},
-    location : 'Valencia',
+    location : 'Llacuna, Barcelona',
     reviews : [
       {
         name    : " ",
         comment : " ",
         stars   : 4,
+        date    : new Date()
+      }
+    ]
+  },
+  {
+    firstName   : 'Clemente',
+		lastName    : 'Galo',
+    username    : 'clemente@galo.com',
+    password    : 'abcd',
+    role        : 'Stylist',
+    avatar			: ' ',
+		services		: ['Blow Dry','Color'],
+		expertise		: "Men",
+		languages		: ["Spanish","Catalan"],
+		description	: " ",
+		price				: "€€",
+		availability: ["Wednesday","Thursday","Friday","Saturday","Sunday"],
+		mobile			: ["Salon","Home"],
+		distance 		: 7.5,
+		geolocation	: {
+			type: "Point",
+			coordinates: [2.179456,41.400538]
+		},
+    location    : 'Monumental, Barcelona',
+    reviews : [
+      {
+        name    : " ",
+        comment : " ",
+        stars   : 1,
+        date    : new Date()
+      }
+    ]
+  },
+  {
+    firstName   : 'Fran',
+		lastName    : 'Pablo',
+    username    : 'fran@pablo.com',
+    password    : 'abcd',
+    role        : 'Stylist',
+    avatar			: ' ',
+		services		: ['Blow Dry','Color','Cut'],
+		expertise		: "Men",
+		languages		: ["English","Spanish","Catalan"],
+		description	: " ",
+		price				: "€€€",
+		availability: ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+		mobile			: ["Salon","Home"],
+		distance 		: 2.5,
+		geolocation	: {
+			type: "Point",
+			coordinates: [2.187524,41.402260]
+		},
+    location    : 'Glories, Barcelona',
+    reviews : [
+      {
+        name    : " ",
+        comment : " ",
+        stars   : 1,
         date    : new Date()
       }
     ]
@@ -183,7 +212,7 @@ const appointments = [
 		completed: false,
     accept   : false,
     request  : String
-	},
+	}
 ];
 
 
