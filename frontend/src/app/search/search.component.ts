@@ -124,10 +124,10 @@ export class SearchComponent implements OnInit {
 
   var markers = [];
     for (var stylistMapInfo in response) {
-    	if (response.hasOwnProperty(stylistMapInfo)){
+    	if (response.hasOwnProperty(stylistMapInfo) && typeof response[stylistMapInfo]["geolocation"] != "undefined"){
 
-    		var lat = response[stylistMapInfo]["geolocation"]["coordinates"][1];
-    		var lon = response[stylistMapInfo]["geolocation"]["coordinates"][0];
+      	var lat = response[stylistMapInfo]["geolocation"]["coordinates"][1];
+      	var lon = response[stylistMapInfo]["geolocation"]["coordinates"][0];
 
     		var stylistMarker = {
     			lat: lat,
@@ -168,8 +168,10 @@ export class SearchComponent implements OnInit {
 
     var stylists = [];
 
-    for (var props in response) {
-      stylists.push(response[props]);
+    for (var stylistInfo in response) {
+      if (typeof response[stylistInfo]["geolocation"] != "undefined"){
+        stylists.push(response[stylistInfo]);
+      }
     }
 
     return stylists;
