@@ -238,6 +238,7 @@ User.create(users, (err, docs)=> {
   mongoose.connection.close();
 });
 
+Stylist.index({ location: '2dsphere' });
 Stylist.create(stylists, (err, docs)=> {
   if (err){
 		throw(err);}

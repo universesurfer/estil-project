@@ -91,8 +91,6 @@ export class SearchComponent implements OnInit {
       mapInput.style.opacity = "1";
     },1000);
 
-
-
   	google.maps.event.addListener(newArea, 'place_changed', function() {
 
   		var place = newArea.getPlace();
@@ -107,16 +105,19 @@ export class SearchComponent implements OnInit {
   			map.setZoom(17);
   		}
 
-  	});
+      this.searchService.getStylistList([place.geometry.location.lng(),place.geometry.location.lat()])
+        .subscribe((response) => {
+      })
+
+  	}.bind(this));
 
    //AUTOCOMPLETE END
 
-
-    this.searchService.getMarkers()
-      .subscribe((response) => {
-      this.stylists = this.createMarkers(response, map, newArea);
-      document.getElementById("table-headers").classList.remove("hidden");
-    })
+   this.searchService.getMarkers()
+     .subscribe((response) => {
+     this.stylists = this.createMarkers(response, map, newArea);
+     document.getElementById("table-headers").classList.remove("hidden");
+   })
 
   }
 
