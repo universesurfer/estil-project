@@ -54,6 +54,7 @@ export class ProfileComponent implements OnInit {
     this.session.edit(this.user)
       .subscribe(result => {
           if (result) {
+            console.log(this.user);
             // this.router.navigate(['/profile']);
             this.toastr.success('User updated');
      			} else {

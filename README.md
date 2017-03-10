@@ -1,6 +1,6 @@
 # estil-project
 
-This repo shall display a app which shall help ....
+this repo shall display a app which shall help ....
 ---
 
 ## Motivation
