@@ -65,69 +65,43 @@ export class SessionService implements CanActivate{
 
   signup(user) {
   	return this.http.post(`${this.BASE_URL}/signup`, user)
-  		.map((response) => response.json())
-  		.map((response) => {
-  			let token = response.token;
-  			if (token) {
-          // set token property
-          this.token = token;
-          // store username and jwt token in local storage to keep user logged in between page refreshes
-          localStorage.setItem('token', token );
-          localStorage.setItem('user._id', user._id);
-          this.isAuth.emit(true);
-          this.router.navigate(['/profile']);
-          return true;
-        } else {
-          // return false to indicate failed login
-          return false;
-        }
-  		})
-  		.catch((err) => Observable.throw(err));
+    .map((response) => {
+      response.json();
+      return true;
+    })
+    .catch((err) => Observable.throw(err));
   }
 
   signupStylist(stylist) {
   	return this.http.post(`${this.BASE_URL}/stylist/signup`, stylist)
-  		.map((response) => response.json())
   		.map((response) => {
-  			let token = response.token;
-  			if (token) {
-          // set token property
-          this.token = token;
-          // store username and jwt token in local storage to keep user logged in between page refreshes
-          localStorage.setItem('token', token );
-          localStorage.setItem('stylist._id', stylist._id);
-          this.isAuth.emit(true);
-          // return true to indicate successful login
-          return true;
-        } else {
-          // return false to indicate failed login
-          return false;
-        }
-  		})
+        response.json();
+        return true;
+      })
   		.catch((err) => Observable.throw(err));
   }
 
   login(user) {
     return this.http.post(`${this.BASE_URL}/login`, user)
-        .map((response: Response) => {
-            // login successful if there's a jwt token in the response
-            let token = response.json() && response.json().token;
+      .map((response: Response) => {
+          // login successful if there's a jwt token in the response
+          let token = response.json() && response.json().token;
 
-            if (token) {
-              // set token property
-              this.token = token;
-              this.isAuth.emit(true);
-              // store username and jwt token in local storage to keep user logged in between page refreshes
-              localStorage.setItem('token', token );
-              localStorage.setItem('userId', response.json().user._id);
-              this.router.navigate(['/profile']);
-              // return true to indicate successful login
-              return true;
-            } else {
-              // return false to indicate failed login
-              return false;
-            }
-        });
+          if (token) {
+            // set token property
+            this.token = token;
+            this.isAuth.emit(true);
+            // store username and jwt token in local storage to keep user logged in between page refreshes
+            localStorage.setItem('token', token );
+            localStorage.setItem('userId', response.json().user._id);
+            this.router.navigate(['/profile']);
+            // return true to indicate successful login
+            return true;
+          } else {
+            // return false to indicate failed login
+            return false;
+          }
+      });
   }
 
   logout() {

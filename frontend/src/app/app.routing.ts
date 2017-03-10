@@ -4,7 +4,6 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SearchComponent } from './search/search.component';
-import { ListComponent } from './search-list/search-list.component';
 
 import { SessionService } from './session.service';
 

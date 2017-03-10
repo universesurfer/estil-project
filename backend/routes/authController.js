@@ -66,21 +66,23 @@ authController.post("/signup", (req, res, next) => {
 authController.post("/stylist/signup", (req, res, next) => {
 	var firstName = req.body.firstName;
 	var lastName = req.body.lastName;
-  var username = req.body.email;
+  var username = req.body.username;
   var password = req.body.password;
+	var location = req.body.location;
 
   if (!username || !password) {
     res.status(400).json({ message: "Provide username and password" });
     return;
   }
 
-	if (validateEmail(username) == false) {
-		res.status(400).json({ message: "Please input a valid email address" });
-	}
+	// if (validateEmail(username) == false) {
+	// 	res.status(400).json({ message: "Please input a valid email address" });
+	// 	return;
+	// }
 
   Stylist.findOne({ username }, "username", (err, stylist) => {
     if (stylist !== null) {
-      res.render("auth/stylist-signup", { message: "The email already exists" });
+			res.status(400).json({ message: "The email already exists" });
       return;
     }
 
@@ -92,9 +94,9 @@ authController.post("/stylist/signup", (req, res, next) => {
 			lastName,
       username,
       password: hashPass,
-			location    : "",
-      resume_path: String,
-      resume_name: String,
+			location,
+      resume_path: "",
+      resume_name: "",
     });
 
 		newStylist.save((err, stylist) => {
@@ -102,7 +104,7 @@ authController.post("/stylist/signup", (req, res, next) => {
         res.status(400).json({ message: "Something went wrong" });
       } else {
 				var payload = {id: stylist._id};
-        console.log('user', user);
+        console.log('stylist', stylist);
         var token = jwt.sign(payload, jwtOptions.secretOrKey);
         res.status(200).json({message: "ok", token: token});
       }
