@@ -4,6 +4,12 @@ const mongoose			 = require('mongoose');
 const User           = require("../models/user");
 var Stylist = require('../models/stylist.js');
 
+
+router.get('/', function(req, res, next) {
+  res.send('Backend of Estil');
+});
+
+
 router.get("/api/search", (req, res)=> {
 	Stylist.find({}, (err, allStylists) => {
 		mapInfo = {};
