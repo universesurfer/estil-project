@@ -42,7 +42,7 @@ newStylist = {
 
     this.session.signup(this.newUser)
       .subscribe(result => {
-          if (result === true) {
+          if (result) {
               // login successful
               console.log('result ok', result);
               this.router.navigate(['/profile']);
