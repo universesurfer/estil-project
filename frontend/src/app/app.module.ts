@@ -15,7 +15,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { SearchComponent } from './search/search.component';
 import { DropdownModule } from "ngx-dropdown";
 import { CustomFormsModule } from 'ng2-validation';
-import {ToastModule} from 'ng2-toastr/ng2-toastr';
+import { ToastModule } from 'ng2-toastr/ng2-toastr';
 
 @NgModule({
   declarations: [
@@ -32,7 +32,7 @@ import {ToastModule} from 'ng2-toastr/ng2-toastr';
     HttpModule,
     RouterModule.forRoot(routes),
     DropdownModule,
-    CustomFormsModule
+    CustomFormsModule,
     ToastModule.forRoot()
   ],
   providers: [SessionService],

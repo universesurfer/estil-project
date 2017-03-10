@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { SessionService } from "../session.service";
 import { Router } from '@angular/router';
 import { CustomFormsModule } from 'ng2-validation';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+
 
 @Component({
   selector: 'app-signup',
@@ -22,8 +24,8 @@ newStylist = {
      lastName:  '',
      username: '',
      password: '',
-     location : '',
-     resume : ''
+     location : ''
+    //  resume : ''
   };
 
  stylistCheck: boolean = false;
@@ -31,7 +33,8 @@ newStylist = {
 
   constructor(
     private session: SessionService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastsManager
   ) { }
 
   ngOnInit() {
@@ -39,36 +42,32 @@ newStylist = {
   }
 
   signUp() {
-
     this.session.signup(this.newUser)
       .subscribe(result => {
-          if (result === true) {
-              // login successful
-              console.log('result ok', result);
-              this.router.navigate(['/profile']);
+          if (result) {
+              // signup successful
+              this.router.navigate(['/login']);
+              this.toastr.success('You have been registered, please log in');
           } else {
-          		console.log('result ko', result);
+              this.toastr.error('Something went wrong, please try again');
               // login failed
               // this.error = 'Username or password is incorrect';
           }
       });
-
   }
 
   signUpStylist() {
-
-    this.session.signup(this.newStylist)
+    this.session.signupStylist(this.newStylist)
       .subscribe(result => {
-          if (result === true) {
-              // login successful
-              console.log('result ok', result);
-              this.router.navigate(['/profile']);
+          if (result) {
+              // signup successful
+              this.router.navigate(['/login']);
+              this.toastr.success('You have been registered as a Stylist, please log in');
           } else {
-          		console.log('result ko', result);
+              this.toastr.error('Something went wrong, please try again');
               // login failed
               // this.error = 'Username or password is incorrect';
           }
       });
-
   }
 }
