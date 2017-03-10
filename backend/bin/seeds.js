@@ -47,6 +47,7 @@ const stylists = [
 		availability: ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
 		mobile			: ["Salon","Home"],
 		distance 		: 5,
+    marker      : {},
 		geolocation	: {
 			type: "Point",
 			coordinates: [2.191064,41.397737]
@@ -76,6 +77,7 @@ const stylists = [
 		availability: ["Monday","Tuesday","Saturday","Sunday"],
 		mobile			: ["Salon","Home"],
 		distance 		: 5,
+    marker      : {},
 		geolocation	: {
 			type: "Point",
 			coordinates: [2.189949,41.396160]
@@ -105,6 +107,7 @@ const stylists = [
 		availability: ["Monday", "Friday", "Saturday", "Sunday"],
 		mobile      : ["Both"],
 		distance		: 2.5,
+    marker      : {},
 		geolocation : {
 			type       : "Point",
 			coordinates: [2.197695, 41.399427]
@@ -134,6 +137,7 @@ const stylists = [
 		availability: ["Wednesday","Thursday","Friday","Saturday","Sunday"],
 		mobile			: ["Salon","Home"],
 		distance 		: 7.5,
+    marker      : {},
 		geolocation	: {
 			type: "Point",
 			coordinates: [2.179456,41.400538]
@@ -163,6 +167,7 @@ const stylists = [
 		availability: ["Monday","Tuesday","Wednesday","Thursday","Friday"],
 		mobile			: ["Salon","Home"],
 		distance 		: 2.5,
+    marker      : {},
 		geolocation	: {
 			type: "Point",
 			coordinates: [2.187524,41.402260]
@@ -238,7 +243,6 @@ User.create(users, (err, docs)=> {
   mongoose.connection.close();
 });
 
-Stylist.index({ location: '2dsphere' });
 Stylist.create(stylists, (err, docs)=> {
   if (err){
 		throw(err);}
