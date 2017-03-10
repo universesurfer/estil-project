@@ -32,7 +32,7 @@ import {ToastModule} from 'ng2-toastr/ng2-toastr';
     HttpModule,
     RouterModule.forRoot(routes),
     DropdownModule,
-    CustomFormsModule
+    CustomFormsModule,
     ToastModule.forRoot()
   ],
   providers: [SessionService],
