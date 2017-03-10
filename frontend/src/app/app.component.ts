@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ViewContainerRef } from '@angular/core';
 import { SessionService } from "./session.service";
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +15,9 @@ export class AppComponent {
   error: string;
 
   constructor(
-    private session: SessionService
-  ) { }
-
+    private session: SessionService,
+    public toastr: ToastsManager,
+    vRef: ViewContainerRef) {
+    this.toastr.setRootViewContainerRef(vRef)
+  }
 }
