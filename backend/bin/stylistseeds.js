@@ -18,7 +18,7 @@ const stylists = [
 			type: "Point",
 			coordinates: [2.189858,41.386333]
 		},
-    location    : ' ',
+    location    : 'Barcelona',
     reviews : [
       {
         name    : " ",
@@ -47,7 +47,7 @@ const stylists = [
 			type       : "Point",
 			coordinates: [2.186015,41.388123]
 		},
-    location : ' ',
+    location : 'Madrid',
     reviews : [
       {
         name    : " ",
@@ -76,7 +76,7 @@ const stylists = [
 			type       : "Point",
 			coordinates: [2.180722, 41.390699]
 		},
-    location : ' ',
+    location : 'Sevilla',
     reviews : [
       {
         name    : " ",
@@ -105,7 +105,7 @@ const stylists = [
 			type       : "Point",
 			coordinates: [2.197201, 41.402385]
 		},
-    location : ' ',
+    location : 'Valencia',
     reviews : [
       {
         name    : " ",

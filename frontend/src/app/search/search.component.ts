@@ -17,7 +17,8 @@ declare var markers: any;
 export class SearchComponent implements OnInit {
 
   markers: any;
-  response: any;
+  stylists: any;
+  list: boolean = false;
 
   BASE_URL: string = 'http://localhost:3000';
 
@@ -25,6 +26,29 @@ export class SearchComponent implements OnInit {
     private searchService: SearchService,
     private router: Router
   ) { }
+
+  shrinkMap(){
+    document.getElementById("col-map").style.display = "none";
+    this.list = true;
+
+    var tableRows = document.getElementsByTagName("tr");
+    for (var i = 0; i < tableRows.length; i++) {
+      tableRows[i].style.backgroundColor = "white";
+    }
+    event.srcElement.parentElement.style.backgroundColor = "#e5f7ff";
+    // event.target.style.backgroundColor = "lightgrey";
+
+  }
+
+  growMap(){
+    document.getElementById("col-map").style.display = "block";
+    this.list = false;
+
+    var tableRows = document.getElementsByTagName("tr");
+    for (var i = 0; i < tableRows.length; i++) {
+      tableRows[i].style.backgroundColor = "white";
+    }
+  }
 
   ngOnInit() {
     if (navigator.geolocation) {
@@ -36,7 +60,6 @@ export class SearchComponent implements OnInit {
   }
 
   showMapWithMyLocation(position) {
-    console.log("showMapLocation");
     //The latitude and longitude values obtained from HTML 5 API.
     var latitude = position.coords.latitude;
     var longitude = position.coords.longitude;
@@ -64,6 +87,7 @@ export class SearchComponent implements OnInit {
   	map.controls[google.maps.ControlPosition.TOP_LEFT].push(mapInput);
 
     setTimeout(function(){
+
       mapInput.style.opacity = "1";
     },1000);
 
@@ -89,8 +113,10 @@ export class SearchComponent implements OnInit {
 
 
     this.searchService.getMarkers()
-      .subscribe((response) =>
-      this.response = this.createMarkers(response, map, newArea));
+      .subscribe((response) => {
+      this.stylists = this.createMarkers(response, map, newArea);
+      document.getElementById("table-headers").classList.remove("hidden");
+    })
 
   }
 
@@ -140,6 +166,14 @@ export class SearchComponent implements OnInit {
 
     this.markers = markers;
 
+    var stylists = [];
+
+    for (var props in response) {
+      stylists.push(response[props]);
+    }
+
+    return stylists;
+
   }
 
   onChange(change){
@@ -158,6 +192,7 @@ export class SearchComponent implements OnInit {
 		}
 
     var allMarkersCriteria = [];
+
 
 		this.markers.forEach(function(marker){
 			var singleMarkerCriteria = {

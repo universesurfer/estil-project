@@ -13,7 +13,8 @@ import { routes } from './app.routing';
 import { ProfileComponent } from './profile/profile.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SearchComponent } from './search/search.component';
-import {DropdownModule} from 'ngx-dropdown';
+import { DropdownModule } from "ngx-dropdown";
+import { CustomFormsModule } from 'ng2-validation';
 import {ToastModule} from 'ng2-toastr/ng2-toastr';
 
 @NgModule({
@@ -23,7 +24,7 @@ import {ToastModule} from 'ng2-toastr/ng2-toastr';
     SignupComponent,
     ProfileComponent,
     NavbarComponent,
-    SearchComponent
+    SearchComponent,
   ],
   imports: [
     BrowserModule,
@@ -31,6 +32,7 @@ import {ToastModule} from 'ng2-toastr/ng2-toastr';
     HttpModule,
     RouterModule.forRoot(routes),
     DropdownModule,
+    CustomFormsModule
     ToastModule.forRoot()
   ],
   providers: [SessionService],

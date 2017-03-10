@@ -13,7 +13,7 @@
       <label for="username">
         Email
       </label>
-    	<input type="text" name="username" [(ngModel)]="newUser.username" placeholder="Email Address" required/>
+    	<input type="email" name="username" [(ngModel)]="newUser.username" placeholder="Email Address" required email/>
     	<label for="password">
         Password
       </label>
@@ -33,13 +33,13 @@
       <label for="username">
         Email
       </label>
-    	<input type="text" name="username" [(ngModel)]="newStylist.username" placeholder="Email Address" required/>
+    	<input type="text" name="username" [(ngModel)]="newStylist.username" placeholder="Email Address" required email/>
       <label for="password">
         Password
       </label>
     	<input type="password" name="password" [(ngModel)]="newStylist.password" placeholder=".........." required/>
       <label for="location">
-        Resume/Portfolio
+        Location
       </label>
       <input type="text" name="location" [(ngModel)]="newStylist.location" required/>
       <label for="resume">
