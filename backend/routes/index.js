@@ -16,29 +16,15 @@ router.get("/api/search", (req, res)=> {
 });
 
 router.post("/api/list-by-location", (req, res)=> {
-
-	console.log(req.body);
-
-Stylist.where('geolocation')
-	.near({ center: { coordinates: req.body, type: 'Point' }, maxDistance: 2000 })
-	.find({},(error, stylists) => {
-	if (error) {
-		res.status(500).json({message: error});
-	} else {
-		console.log(stylists);
-		// res.status(200).json(restaurants);
-	}
-});
-	// console.log(list);
-
-	Stylist.find({}, (err, allStylists) => {
-		mapInfo = {};
-		allStylists.forEach(function(stylist, index){
-			mapInfo["prop" + index] = stylist;
-		});
-		res.json(mapInfo);
+	Stylist.where('geolocation')
+		.near({ center: { coordinates: req.body, type: 'Point' }, maxDistance: 1000 })
+		.find({},(error, stylists) => {
+		if (error) {
+			res.status(500).json({message: error});
+		} else {
+			res.json(stylists);
+		}
 	});
-
 });
 
 router.get('/profile/:id', (req, res) => {

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { SearchService } from "../search.service";
 import { Router } from '@angular/router';
 import { DropdownModule } from "ngx-dropdown";
+import { NgZone } from '@angular/core';
+
 
 declare var google: any;
 declare var map: any;
@@ -24,7 +26,8 @@ export class SearchComponent implements OnInit {
 
   constructor(
     private searchService: SearchService,
-    private router: Router
+    private router: Router,
+    private zone: NgZone
   ) { }
 
   shrinkMap(){
@@ -107,6 +110,18 @@ export class SearchComponent implements OnInit {
 
       this.searchService.getStylistList([place.geometry.location.lng(),place.geometry.location.lat()])
         .subscribe((response) => {
+          this.zone.run(() => {
+            var stylists = [];
+
+            for (var stylistInfo in response) {
+              if (typeof response[stylistInfo]["geolocation"] != "undefined"){
+                stylists.push(response[stylistInfo]);
+              }
+            }
+            this.stylists = response;
+
+            console.log(this.stylists);
+          });
       })
 
   	}.bind(this));
