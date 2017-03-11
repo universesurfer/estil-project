@@ -106,8 +106,9 @@ export class SearchComponent implements OnInit {
   			map.setZoom(17);
   		}
 
-      this.searchService.getStylistList([place.geometry.location.lng(),place.geometry.location.lat()])
+      this.searchService.listByLocation([place.geometry.location.lng(),place.geometry.location.lat()])
         .subscribe((response) => {
+          console.log(response);
           this.zone.run(() => {
             var stylists = [];
 
@@ -116,7 +117,6 @@ export class SearchComponent implements OnInit {
                 stylists.push(response[stylistInfo]);
               }
             }
-
             this.stylists = this.createMarkers(stylists, map, newArea);
           });
       })

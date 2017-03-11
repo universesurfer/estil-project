@@ -20,15 +20,20 @@ router.post("/api/search", (req, res)=> {
 
 
 router.post("/api/list-by-location", (req, res)=> {
-	Stylist.where('geolocation')
-		.near({ center: { coordinates: req.body, type: 'Point' }, maxDistance: 1000 })
-		.find({},(error, stylists) => {
-		if (error) {
-			res.status(500).json({message: error});
-		} else {
-			res.json(stylists);
-		}
-	});
+	Stylist
+		// .where('geolocation')
+		// .near({ center: { coordinates: req.body, type: 'Point' }, maxDistance: 1000 })
+		.geoNear( req.body,
+			{ spherical : true,
+			 	maxDistance: 0.00015678896,  //1km divided by 6378 to convert into radians
+				distanceMultiplier: 6378.1
+			}, function(err, results, stats) {
+		    if (err) {
+		        console.log(err);
+		    } else {
+					res.json(results);
+		    }
+		})
 });
 
 router.get('/profile/:id', (req, res) => {

@@ -13,7 +13,7 @@ export class SearchService {
   private http: Http
   ) {}
 
-  getStylistList(location) {
+  listByLocation(location) {
     return this.http.post(`${this.BASE_URL}/api/list-by-location`,location)
       .map(res => res.json())
       .catch(this.handleError);
