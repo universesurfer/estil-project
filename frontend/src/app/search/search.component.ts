@@ -19,6 +19,7 @@ export class SearchComponent implements OnInit {
   markers: any;
   stylists: any;
   list: boolean = false;
+  distance: number = 10;
 
   BASE_URL: string = 'http://localhost:3000';
 
@@ -108,11 +109,10 @@ export class SearchComponent implements OnInit {
 
       this.searchService.search([place.geometry.location.lng(),place.geometry.location.lat()])
         .subscribe((response) => {
-          console.log(response);
           this.zone.run(() => {
             var stylistData = {};
             response.forEach(function(stylist,index){
-              stylist.obj.distanceFromLocation = stylist.dis.toFixed(2) + "km";
+              stylist.obj.distanceFromLocation = Number(stylist.dis.toFixed(2));
               stylistData["stylist" + index] = stylist.obj;
             })
             this.stylists = this.createMarkers(stylistData, map, newArea);
@@ -125,15 +125,17 @@ export class SearchComponent implements OnInit {
 
    this.searchService.search([myPosition.lng,myPosition.lat])
      .subscribe((response) => {
-      //  this.zone.run(() => {
+       this.zone.run(() => {
          var stylistData = {};
          response.forEach(function(stylist,index){
-           stylist.obj.distanceFromLocation = stylist.dis.toFixed(2) + "km";
+           stylist.obj.distanceFromLocation = Number(stylist.dis.toFixed(2));
            stylistData["stylist" + index] = stylist.obj;
          })
          this.stylists = this.createMarkers(stylistData, map, newArea);
+
+         console.log(this.stylists);
          document.getElementById("table-headers").classList.remove("hidden");
-      // });
+      });
    })
 
   }
@@ -205,7 +207,7 @@ export class SearchComponent implements OnInit {
     var dropDowns = document.getElementsByTagName("select");
     var filters = [];
 
-    for (var i = 0; i < dropDowns.length; i++) {
+    for (var i = 0; i < dropDowns.length - 1; i++) {
 			if (dropDowns[i].value != "Add filter") {
 				filters.push(dropDowns[i].value);
 			}

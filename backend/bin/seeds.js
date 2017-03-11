@@ -181,6 +181,66 @@ const stylists = [
         date    : new Date()
       }
     ]
+  },
+  {
+    firstName   : 'Lucas',
+		lastName    : 'Paco',
+    username    : 'lucas@paco.com',
+    password    : 'abcd',
+    role        : 'Stylist',
+    avatar			: ' ',
+		services		: ['Blow Dry','Color','Cut'],
+		expertise		: "Men",
+		languages		: ["English","Spanish","Catalan"],
+		description	: " ",
+		price				: "€€€",
+		availability: ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+		mobile			: ["Salon","Home"],
+		distance 		: 5,
+    marker      : {},
+		geolocation	: {
+			type: "Point",
+			coordinates: [2.189858,41.386333]
+		},
+    location    : 'Barcelona Zoo, Barcelona',
+    reviews : [
+      {
+        name    : " ",
+        comment : " ",
+        stars   : 1,
+        date    : new Date()
+      }
+    ]
+  },
+  {
+    firstName   : 'Antonio',
+		lastName    : 'Leandro',
+    username    : 'antonio@leandro.com',
+    password    : 'abcd',
+    role        : 'Stylist',
+    avatar			: ' ',
+		services		: ['Blow Dry','Color','Cut'],
+		expertise		: "Men",
+		languages		: ["English","Spanish","Catalan"],
+		description	: " ",
+		price				: "€€€",
+		availability: ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+		mobile			: ["Salon","Home"],
+		distance 		: 10,
+    marker      : {},
+		geolocation	: {
+			type: "Point",
+			coordinates: [2.226342,41.410678]
+		},
+    location    : 'Parc del Forum, Barcelona',
+    reviews : [
+      {
+        name    : " ",
+        comment : " ",
+        stars   : 1,
+        date    : new Date()
+      }
+    ]
   }
 ];
 

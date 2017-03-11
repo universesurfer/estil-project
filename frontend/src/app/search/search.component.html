@@ -46,6 +46,14 @@
              <option value="Men">Men only</option>
        </select>
      </div>
+     <div class="col-xs-2">
+       <label for="distance">Distance</label>
+       <select id="distance" class="dropdown form-control" [(ngModel)]="distance">
+             <option value=10>Add filter</option>
+             <option value=2>2km</option>
+             <option value=5>5km</option>
+       </select>
+     </div>
 </div>
 
 <div class="row">
@@ -62,10 +70,10 @@
         <th>Location</th>
       </tr>
       <tr *ngFor="let stylist of stylists">
-        <ng-container *ngIf="stylist.marker.visible">
+        <ng-container *ngIf="stylist.marker.visible && stylist.distanceFromLocation < distance">
           <td class="stylist-name" (click)="shrinkMap()">{{ stylist.firstName }} {{stylist.lastName}}</td>
           <td>{{ stylist.location }}</td>
-          <td>{{ stylist.distanceFromLocation}}</td>
+          <td>{{ stylist.distanceFromLocation}}km</td>
           <td><button class="btn">Message</button></td>
           <td><button class="btn">Book</button></td>
         </ng-container>

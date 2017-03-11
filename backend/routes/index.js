@@ -7,7 +7,7 @@ var Stylist = require('../models/stylist.js');
 router.post("/api/search", (req, res)=> {
 	Stylist.geoNear( req.body,
 		{ spherical : true,
-		 	maxDistance: 0.00015678896,		//1km is 1/6378
+		 	maxDistance: 0.0015678896,		//1km is 1/6378
 			distanceMultiplier: 6378.1
 		}, function(err, results, stats) {
 	    if (err) {
