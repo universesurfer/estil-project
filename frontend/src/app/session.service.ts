@@ -9,6 +9,8 @@ import { Observable } from 'rxjs/Rx';
 export class SessionService implements CanActivate{
   public token: string;
   isAuth: EventEmitter<any> = new EventEmitter();
+  userId : string;
+  stylistId : string;
 
   BASE_URL: string = 'http://localhost:3000';
 
@@ -23,8 +25,6 @@ export class SessionService implements CanActivate{
       this.isAuth.emit(false);
     }
   }
-
-  userId : string;
 
   get() {
     this.userId = localStorage.getItem('userId');
