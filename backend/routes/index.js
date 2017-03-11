@@ -7,7 +7,7 @@ var Stylist = require('../models/stylist.js');
 router.post("/api/search", (req, res)=> {
 	Stylist.geoNear( req.body,
 		{ spherical : true,
-		 	maxDistance: 50,
+		 	maxDistance: 0.00015678896,		//1km is 1/6378
 			distanceMultiplier: 6378.1
 		}, function(err, results, stats) {
 	    if (err) {
@@ -16,24 +16,6 @@ router.post("/api/search", (req, res)=> {
 				res.json(results);
 	    }
 	})
-});
-
-
-router.post("/api/list-by-location", (req, res)=> {
-	Stylist
-		// .where('geolocation')
-		// .near({ center: { coordinates: req.body, type: 'Point' }, maxDistance: 1000 })
-		.geoNear( req.body,
-			{ spherical : true,
-			 	maxDistance: 0.00015678896,  //1km divided by 6378 to convert into radians
-				distanceMultiplier: 6378.1
-			}, function(err, results, stats) {
-		    if (err) {
-		        console.log(err);
-		    } else {
-					res.json(results);
-		    }
-		})
 });
 
 router.get('/profile/:id', (req, res) => {

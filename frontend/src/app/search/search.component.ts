@@ -106,18 +106,16 @@ export class SearchComponent implements OnInit {
   			map.setZoom(17);
   		}
 
-      this.searchService.listByLocation([place.geometry.location.lng(),place.geometry.location.lat()])
+      this.searchService.search([place.geometry.location.lng(),place.geometry.location.lat()])
         .subscribe((response) => {
           console.log(response);
           this.zone.run(() => {
-            var stylists = [];
-
-            for (var stylistInfo in response) {
-              if (typeof response[stylistInfo]["geolocation"] != "undefined"){
-                stylists.push(response[stylistInfo]);
-              }
-            }
-            this.stylists = this.createMarkers(stylists, map, newArea);
+            var stylistData = {};
+            response.forEach(function(stylist,index){
+              stylist.obj.distanceFromLocation = stylist.dis.toFixed(2) + "km";
+              stylistData["stylist" + index] = stylist.obj;
+            })
+            this.stylists = this.createMarkers(stylistData, map, newArea);
           });
       })
 
