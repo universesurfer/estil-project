@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { SearchService } from "../search.service";
 import { Router } from '@angular/router';
 import { DropdownModule } from "ngx-dropdown";
+import { NgZone } from '@angular/core';
 
 declare var google: any;
 declare var map: any;
 declare var markers: any;
-
 
 @Component({
   selector: 'app-search',
@@ -19,12 +19,14 @@ export class SearchComponent implements OnInit {
   markers: any;
   stylists: any;
   list: boolean = false;
+  distance: number = 10;
 
   BASE_URL: string = 'http://localhost:3000';
 
   constructor(
     private searchService: SearchService,
-    private router: Router
+    private router: Router,
+    private zone: NgZone
   ) { }
 
   shrinkMap(){
@@ -91,8 +93,6 @@ export class SearchComponent implements OnInit {
       mapInput.style.opacity = "1";
     },1000);
 
-
-
   	google.maps.event.addListener(newArea, 'place_changed', function() {
 
   		var place = newArea.getPlace();
@@ -107,16 +107,36 @@ export class SearchComponent implements OnInit {
   			map.setZoom(17);
   		}
 
-  	});
+      this.searchService.search([place.geometry.location.lng(),place.geometry.location.lat()])
+        .subscribe((response) => {
+          this.zone.run(() => {
+            var stylistData = {};
+            response.forEach(function(stylist,index){
+              stylist.obj.distanceFromLocation = Number(stylist.dis.toFixed(2));
+              stylistData["stylist" + index] = stylist.obj;
+            })
+            this.stylists = this.createMarkers(stylistData, map, newArea);
+          });
+      })
+
+  	}.bind(this));
 
    //AUTOCOMPLETE END
 
+   this.searchService.search([myPosition.lng,myPosition.lat])
+     .subscribe((response) => {
+       this.zone.run(() => {
+         var stylistData = {};
+         response.forEach(function(stylist,index){
+           stylist.obj.distanceFromLocation = Number(stylist.dis.toFixed(2));
+           stylistData["stylist" + index] = stylist.obj;
+         })
+         this.stylists = this.createMarkers(stylistData, map, newArea);
 
-    this.searchService.getMarkers()
-      .subscribe((response) => {
-      this.stylists = this.createMarkers(response, map, newArea);
-      document.getElementById("table-headers").classList.remove("hidden");
-    })
+         console.log(this.stylists);
+         document.getElementById("table-headers").classList.remove("hidden");
+      });
+   })
 
   }
 
@@ -164,15 +184,19 @@ export class SearchComponent implements OnInit {
       });
     });
 
-    this.markers = markers;
 
     var stylists = [];
-
     for (var stylistInfo in response) {
       if (typeof response[stylistInfo]["geolocation"] != "undefined"){
         stylists.push(response[stylistInfo]);
       }
     }
+
+    //adding a marker to each stylist object
+
+    markers.forEach(function(marker,index){
+      stylists[index].marker = marker[0];
+		})
 
     return stylists;
 
@@ -181,10 +205,9 @@ export class SearchComponent implements OnInit {
   onChange(change){
 
     var dropDowns = document.getElementsByTagName("select");
-
     var filters = [];
 
-    for (var i = 0; i < dropDowns.length; i++) {
+    for (var i = 0; i < dropDowns.length - 1; i++) {
 			if (dropDowns[i].value != "Add filter") {
 				filters.push(dropDowns[i].value);
 			}
@@ -193,40 +216,22 @@ export class SearchComponent implements OnInit {
 			}
 		}
 
-    var allMarkersCriteria = [];
+    //comparing the object property against the active filter
 
-
-		this.markers.forEach(function(marker){
-			var singleMarkerCriteria = {
-			price: marker[2].price,
-			availability: marker[2].availability,
-			mobile: marker[2].mobile,
-			services: marker[2].services,
-			expertise: marker[2].expertise,
-			marker: marker
-			};
-			allMarkersCriteria.push(singleMarkerCriteria);
-		})
-
-
-		//loop through all markers to test criteria
-		//to modify filters only! change the conditions below, one for each category
-
-		allMarkersCriteria.forEach(function(marker){
-			console.log(marker, filters);
-      console.log(filters[2], marker["mobile"]);
+		this.stylists.forEach(function(marker){
 			if (filters[0] != " " && filters[0] != marker["price"] ||
 				(filters[1] != " " && marker["availability"].indexOf(filters[1]) == -1) ||
 				(filters[2] != " " && filters[2] != marker["mobile"] && marker["mobile"] != "Both") ||
 				(filters[3] != " " && marker["services"].indexOf(filters[3]) == -1)||
 				(filters[4] != " " && filters[4] != marker["expertise"] && marker["expertise"] != "Any")
 			) {
-				marker["marker"][0].setVisible(false);
+				marker["marker"].setVisible(false);
 			}
 			else {
-				marker["marker"][0].setVisible(true);
+				marker["marker"].setVisible(true);
 			}
 		})
+
   }
 
 }

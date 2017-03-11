@@ -17,8 +17,9 @@ const stylistSchema = new Schema({
   price       : String,
   availability: [String],
   mobile      : [String],
-	distance: Number,
-    geolocation  : {type: {type: String}, coordinates: { type: []}},
+	distance		: Number,
+	marker			: {String},
+  geolocation  : {type: {type: String}, coordinates: { type: []}},
 	location: String,
   reviews :
     [{

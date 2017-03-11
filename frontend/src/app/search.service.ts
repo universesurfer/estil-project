@@ -13,8 +13,8 @@ export class SearchService {
   private http: Http
   ) {}
 
-  getMarkers() {
-    return this.http.get(`${this.BASE_URL}/api/search`)
+  search(location) {
+    return this.http.post(`${this.BASE_URL}/api/search`,location)
       .map(res => res.json())
       .catch(this.handleError);
   }

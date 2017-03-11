@@ -10,15 +10,18 @@ router.get('/', function(req, res, next) {
 });
 
 
-router.get("/api/search", (req, res)=> {
-	Stylist.find({}, (err, allStylists) => {
-		mapInfo = {};
-		allStylists.forEach(function(stylist, index){
-			mapInfo["prop" + index] = stylist;
-		});
-		res.json(mapInfo);
-	});
-
+router.post("/api/search", (req, res)=> {
+	Stylist.geoNear( req.body,
+		{ spherical : true,
+		 	maxDistance: 0.0015678896,		//1km is 1/6378
+			distanceMultiplier: 6378.1
+		}, function(err, results, stats) {
+	    if (err) {
+	        console.log(err);
+	    } else {
+				res.json(results);
+	    }
+	})
 });
 
 router.get('/profile/:id', (req, res) => {
