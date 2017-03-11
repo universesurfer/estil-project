@@ -14,7 +14,14 @@ export class LoginComponent implements OnInit {
     password: ''
   };
 
+  stylist = {
+    username: '',
+    password: ''
+  };
+
+  stylistCheck: boolean = false;
   error: string;
+  userCheck: boolean = false;
 
   constructor(
     private session: SessionService,
@@ -28,6 +35,19 @@ export class LoginComponent implements OnInit {
     this.session.login(this.user)
       .subscribe(result => {
           if (result === true) {
+            // login successful
+            this.router.navigate(['/profile']);
+     			} else {
+            // login failed
+            this.error = 'Username or password is incorrect';
+          }
+      });
+  }
+
+  logInStylist() {
+    this.session.loginStylist(this.stylist)
+      .subscribe(result => {
+          if (result == true) {
             // login successful
             this.router.navigate(['/profile']);
 
