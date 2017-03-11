@@ -37,7 +37,7 @@ export class SearchComponent implements OnInit {
     for (var i = 0; i < tableRows.length; i++) {
       tableRows[i].style.backgroundColor = "white";
     }
-    event.srcElement.parentElement.style.backgroundColor = "#e5f7ff";
+    event.srcElement.parentElement.parentElement.style.backgroundColor = "#e5f7ff";
     // event.target.style.backgroundColor = "lightgrey";
 
   }

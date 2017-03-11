@@ -11,7 +11,7 @@
      <div class="col-xs-2">
        <label for="day">Day</label>
        <select id="day" class="dropdown form-control" (change)="onChange($event.target.value)">
-             <option>Add filter</option>
+             <option>Today</option>
              <option value="Monday">Monday</option>
              <option value="Tuesday">Tuesday</option>
              <option value="Wednesday">Wednesday</option>
@@ -22,17 +22,17 @@
        </select>
      </div>
      <div class="col-xs-2">
-       <label for="where">Where</label>
+       <label for="where">Home visit?</label>
        <select id="where" class="dropdown form-control" (change)="onChange($event.target.value)">
-             <option>Add filter</option>
+             <option>Don't mind</option>
              <option value="Home visit">My place</option>
              <option value="Salon">Their place</option>
        </select>
      </div>
      <div class="col-xs-2">
-       <label for="style">Style</label>
+       <label for="style">Service</label>
        <select id="style" class="dropdown form-control" (change)="onChange($event.target.value)">
-             <option>Add filter</option>
+             <option>Any</option>
              <option value="Cut">Cut</option>
              <option value="Blow Dry">Blow Dry</option>
              <option value="Color">Color</option>
@@ -41,7 +41,7 @@
      <div class="col-xs-2">
        <label for="gender">Gender</label>
        <select id="gender" class="dropdown form-control" (change)="onChange($event.target.value)">
-             <option>Add filter</option>
+             <option>Unisex</option>
              <option value="Women">Women only</option>
              <option value="Men">Men only</option>
        </select>
@@ -66,16 +66,17 @@
     <button (click)="growMap()" *ngIf="list" class="btn" id="backToMap">Back to Map</button>
     <table id="listOfStylists">
       <tr id="table-headers" class="hidden">
+        <th id="profile-header">Profile</th>
         <th>Name</th>
         <th>Location</th>
+        <th>Distance</th>
       </tr>
       <tr *ngFor="let stylist of stylists">
         <ng-container *ngIf="stylist.marker.visible && stylist.distanceFromLocation < distance">
-          <td class="stylist-name" (click)="shrinkMap()">{{ stylist.firstName }} {{stylist.lastName}}</td>
+          <td><i (click)="shrinkMap()" class="fa fa-user" aria-hidden="true"></i></td>
+          <td class="stylist-name">{{ stylist.firstName }} {{stylist.lastName}}</td>
           <td>{{ stylist.location }}</td>
           <td>{{ stylist.distanceFromLocation}}km</td>
-          <td><button class="btn">Message</button></td>
-          <td><button class="btn">Book</button></td>
         </ng-container>
       </tr>
     </table>
