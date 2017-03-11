@@ -46,9 +46,11 @@ newStylist = {
       .subscribe(result => {
           if (result) {
               // signup successful
+              console.log('result ok', result);
               this.router.navigate(['/login']);
               this.toastr.success('You have been registered, please log in');
           } else {
+                console.log('result ko', result);
               this.toastr.error('Something went wrong, please try again');
               // login failed
               // this.error = 'Username or password is incorrect';
@@ -57,12 +59,13 @@ newStylist = {
   }
 
   signUpStylist() {
+    console.log('hey');
     this.session.signupStylist(this.newStylist)
       .subscribe(result => {
           if (result) {
               // signup successful
               this.router.navigate(['/login']);
-              this.toastr.success('You have been registered as a Stylist, please log in');
+              this.toastr.success('You have been registered, please log in');
           } else {
               this.toastr.error('Something went wrong, please try again');
               // login failed
