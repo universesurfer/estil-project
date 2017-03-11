@@ -14,14 +14,13 @@ export class SearchService {
   ) {}
 
   getStylistList(location) {
-    console.log(location)
     return this.http.post(`${this.BASE_URL}/api/list-by-location`,location)
       .map(res => res.json())
       .catch(this.handleError);
   }
 
-  getMarkers() {
-    return this.http.get(`${this.BASE_URL}/api/search`)
+  search(location) {
+    return this.http.post(`${this.BASE_URL}/api/search`,location)
       .map(res => res.json())
       .catch(this.handleError);
   }

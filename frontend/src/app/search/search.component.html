@@ -60,12 +60,15 @@
       <tr id="table-headers" class="hidden">
         <th>Name</th>
         <th>Location</th>
-     </tr>
+      </tr>
       <tr *ngFor="let stylist of stylists">
-        <td class="stylist-name" (click)="shrinkMap()">{{ stylist.firstName }} {{stylist.lastName}}</td>
-        <td>{{ stylist.location }}</td>
-        <td><button class="btn">Message</button></td>
-        <td><button class="btn">Book</button></td>
+        <ng-container *ngIf="stylist.marker.visible">
+          <td class="stylist-name" (click)="shrinkMap()">{{ stylist.firstName }} {{stylist.lastName}}</td>
+          <td>{{ stylist.location }}</td>
+          <td>{{ stylist.distanceFromLocation}}</td>
+          <td><button class="btn">Message</button></td>
+          <td><button class="btn">Book</button></td>
+        </ng-container>
       </tr>
     </table>
   </div>
