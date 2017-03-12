@@ -153,19 +153,18 @@ authController.post("/stylist/login", function(req, res) {
     return;
   }
 
-  Stylist.findOne({ "username": username }, (err, user)=> {
+  Stylist.findOne({ "username": username }, (err, stylist)=> {
 
-  	if( ! user ){
-	    res.status(401).json({message:"no such user found"});
+  	if( ! stylist ){
+	    res.status(401).json({message:"no such stylist found"});
 	  } else {
-      bcrypt.compare(password, user.password, function(err, isMatch) {
-        console.log(isMatch);
+      bcrypt.compare(password, stylist.password, function(err, isMatch) {
         if (!isMatch) {
           res.status(401).json({message:"passwords did not match"});
         } else {
-          var payload = {id: user._id};
+          var payload = {id: stylist._id};
           var token = jwt.sign(payload, jwtOptions.secretOrKey);
-          res.json({message: "ok", token: token});
+          res.json({message: "ok", token: token, stylist: stylist});
         }
       });
     }
