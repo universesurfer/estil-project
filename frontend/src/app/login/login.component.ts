@@ -11,13 +11,17 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   user = {
     username: '',
-    password: ''
+    password: '',
+    role: "user"
   };
 
   stylist = {
     username: '',
-    password: ''
+    password: '',
+    role: "stylist"
   };
+
+  webUser = {};
 
   stylistCheck: boolean = false;
   error: string;
@@ -31,26 +35,19 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  logIn() {
-    this.session.login(this.user)
+  logIn(webUser) {
+    if (webUser.role == "user") {
+      this.webUser = this.user;
+    }
+    else if (webUser.role == "stylist") {
+        this.webUser = this.stylist;
+    }
+
+    this.session.login(this.webUser)
       .subscribe(result => {
           if (result === true) {
             // login successful
             this.router.navigate(['/profile']);
-     			} else {
-            // login failed
-            this.error = 'Username or password is incorrect';
-          }
-      });
-  }
-
-  logInStylist() {
-    this.session.loginStylist(this.stylist)
-      .subscribe(result => {
-          if (result == true) {
-            // login successful
-            this.router.navigate(['/profile']);
-
      			} else {
             // login failed
             this.error = 'Username or password is incorrect';
