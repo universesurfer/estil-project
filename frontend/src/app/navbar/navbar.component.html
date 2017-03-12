@@ -20,8 +20,10 @@
         <li *ngIf="!isAuth"><a [routerLink]="['home']">Home</a></li>
         <li *ngIf="!isAuth"><a [routerLink]="['login']">Login</a></li>
         <!-- <li *ngIf="!isAuth"><a [routerLink]="['signup']">Signup</a></li> -->
-        <li *ngIf="isAuth"><a [routerLink]="['']" (click)="logout()">Logout</a></li>
+        <li *ngIf="isAuth"><a [routerLink]="['/profile']">Profile</a></li>
         <li><a [routerLink]="['search']">Search</a></li>
+        <li *ngIf="isAuth"><a [routerLink]="['']" (click)="logout()">Logout</a></li>
+        <p>{{url}}</p>
 
       </ul>
     </div><!-- /.navbar-collapse -->

@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class NavbarComponent implements OnInit {
   isAuth: boolean;
   home: boolean;
+  url: string;
 
   constructor(
   	private session: SessionService,
@@ -37,6 +38,7 @@ export class NavbarComponent implements OnInit {
     } else {
       this.home = false;
     }
+
   }
 
 
