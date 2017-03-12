@@ -173,7 +173,6 @@ export class SearchComponent implements OnInit {
          })
          this.stylists = this.createMarkers(stylistData, map, newArea);
 
-         console.log(this.stylists);
          document.getElementById("table-headers").classList.remove("hidden");
       });
    })
@@ -248,13 +247,15 @@ export class SearchComponent implements OnInit {
     var filters = [];
 
     for (var i = 0; i < dropDowns.length - 1; i++) {
-			if (dropDowns[i].value != "Add filter") {
+			if (dropDowns[i].selectedIndex != 0) {
 				filters.push(dropDowns[i].value);
 			}
 			else {
 				filters.push(" ");
 			}
 		}
+
+    console.log(this.stylists);
 
     //comparing the object property against the active filter
 
@@ -265,6 +266,7 @@ export class SearchComponent implements OnInit {
 				(filters[3] != " " && marker["services"].indexOf(filters[3]) == -1)||
 				(filters[4] != " " && filters[4] != marker["expertise"] && marker["expertise"] != "Any")
 			) {
+        console.log(filters,marker);
 				marker["marker"].setVisible(false);
 			}
 			else {
