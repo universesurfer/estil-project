@@ -12,8 +12,8 @@ export class ProfileComponent implements OnInit {
   user: any;
   userCheck: boolean = false;
   error: string;
-  // stylistCheck: boolean = false;
-  // stylist: any;
+  stylist: any;
+  stylistCheck: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -25,12 +25,36 @@ export class ProfileComponent implements OnInit {
   	this.route.params.subscribe(params => {
       this.getUserDetails(params['id']);
     });
+    // this.route.params.subscribe(params => {
+    //   this.getStylistDetails(params['id']);
+    // });
   }
 
+
+  // getUserDetails(id) {
+  //     this.session.get()
+  //       .subscribe((response) => {
+  //         // if (response.role === 'User') {
+  //         // console.log(response.role);
+  //         this.user = response;
+  //       // } else {
+  //       //   console.log(response.role);
+  //       //   this.stylist = response;
+  //       // }
+  //           // console.log(this.user);
+  //       });
+  //   }
   getUserDetails(id) {
     this.session.get()
       .subscribe((response) => {
         this.user = response;
+      });
+  }
+
+  getStylistDetails(id) {
+    this.session.getStylist()
+      .subscribe((response) => {
+        this.stylist = response;
       });
   }
 

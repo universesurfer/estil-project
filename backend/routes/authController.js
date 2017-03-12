@@ -126,7 +126,22 @@ authController.post("/login", function(req, res) {
   User.findOne({ "username": username }, (err, user)=> {
 
   	if( ! user ){
-	    res.status(401).json({message:"no such user found"});
+			Stylist.findOne({ "username": username }, (err, stylist)=> {
+
+		  	if( ! stylist ){
+			    res.status(401).json({message:"no such user found"});
+			  } else {
+		      bcrypt.compare(password, stylist.password, function(err, isMatch) {
+		        if (!isMatch) {
+		          res.status(401).json({message:"passwords did not match"});
+		        } else {
+		          var payload = {id: user._id};
+		          var token = jwt.sign(payload, jwtOptions.secretOrKey);
+		          res.json({message: "ok", token: token, stylist: stylist});
+		        }
+		      });
+		    }
+		  })
 	  } else {
       bcrypt.compare(password, user.password, function(err, isMatch) {
         console.log(isMatch);

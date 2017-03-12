@@ -33,6 +33,18 @@ router.get('/profile/:id', (req, res) => {
     });
 });
 
+router.get('/profile/stylist/:id', (req, res) => {
+  if(!mongoose.Types.ObjectId.isValid(req.params.id)) {
+    return res.status(400).json({ message: 'Specified id is not valid' });
+  }
+  Stylist.findById(req.params.id, (err, user) => {
+      if (err) {
+        return res.send(err);
+      }
+      return res.json(user);
+    });
+});
+
 router.put('/profile/:id', (req, res) => {
   if(!mongoose.Types.ObjectId.isValid(req.params.id)) {
     return res.status(400).json({ message: 'Specified id is not valid' });
