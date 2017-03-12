@@ -1,3 +1,6 @@
+<div class="row search">
+  <h2>What's your location? <input type="text" id="pac-input" name="search" placeholder="type here..."></h2>
+</div>
 <div class="row first-row">
      <div class="col-xs-2">
        <label for="price">Price</label>
@@ -58,29 +61,28 @@
 
 <div class="row">
   <div class="col-xs-6" id="col-map">
-    <input type="text" id="pac-input" name="search" placeholder="Choose your location">
     <div id="map"></div>
   </div>
 
   <div class="col-xs-6">
-    <button (click)="growMap()" *ngIf="list" class="btn" id="backToMap">Back to Map</button>
-    <table id="listOfStylists">
-      <tr id="table-headers" class="hidden">
-        <th id="profile-header">Profile</th>
-        <th>Name</th>
-        <th>Location</th>
-        <th>Distance</th>
-      </tr>
-      <tr *ngFor="let stylist of stylists">
-        <ng-container *ngIf="stylist.marker.visible && stylist.distanceFromLocation < distance">
-          <td><i (click)="shrinkMap()" class="fa fa-user" aria-hidden="true"></i></td>
-          <td class="stylist-name">{{ stylist.firstName }} {{stylist.lastName}}</td>
-          <td>{{ stylist.location }}</td>
-          <td>{{ stylist.distanceFromLocation}}km</td>
-        </ng-container>
-      </tr>
-    </table>
-  </div>
+  <button (click)="growMap()" *ngIf="list" class="btn" id="backToMap">Back to Map</button>
+  <table class="table-striped" id="listOfStylists">
+    <tr id="table-headers" class="hidden">
+      <th id="profile-header">Profile</th>
+      <th>Name</th>
+      <th>Location</th>
+      <th>Distance</th>
+    </tr>
+    <tr *ngFor="let stylist of stylists">
+      <ng-container *ngIf="stylist.marker.visible && stylist.distanceFromLocation < distance">
+        <td><i (click)="shrinkMap()" class="fa fa-user" aria-hidden="true"></i></td>
+        <td class="stylist-name">{{ stylist.firstName }} {{stylist.lastName}}</td>
+        <td>{{ stylist.location }}</td>
+        <td>{{ stylist.distanceFromLocation}}km</td>
+      </ng-container>
+    </tr>
+  </table>
+</div>
 </div>
 
 <router-outlet></router-outlet>

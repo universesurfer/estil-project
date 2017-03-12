@@ -16,6 +16,8 @@ declare var markers: any;
 })
 export class SearchComponent implements OnInit {
 
+  myLocationMarker: any;
+  myLocationInfoWindow: any;
   markers: any;
   stylists: any;
   list: boolean = false;
@@ -35,10 +37,14 @@ export class SearchComponent implements OnInit {
 
     var tableRows = document.getElementsByTagName("tr");
     for (var i = 0; i < tableRows.length; i++) {
-      tableRows[i].style.backgroundColor = "white";
+      if (i % 2 == 0) {
+        tableRows[i].style.backgroundColor = "white";
+      }
+      else {
+        tableRows[i].style.backgroundColor = "#f8f8f8";
+      }
     }
-    event.srcElement.parentElement.parentElement.style.backgroundColor = "#e5f7ff";
-    // event.target.style.backgroundColor = "lightgrey";
+    event.srcElement.parentElement.parentElement.style.backgroundColor = "#b2e7ff";
 
   }
 
@@ -48,7 +54,12 @@ export class SearchComponent implements OnInit {
 
     var tableRows = document.getElementsByTagName("tr");
     for (var i = 0; i < tableRows.length; i++) {
-      tableRows[i].style.backgroundColor = "white";
+      if (i % 2 == 0) {
+        tableRows[i].style.backgroundColor = "white";
+      }
+      else {
+        tableRows[i].style.backgroundColor = "#f8f8f8";
+      }
     }
   }
 
@@ -79,6 +90,21 @@ export class SearchComponent implements OnInit {
   		}
   	);
 
+    //SET CURRENT LOCATION MARKER
+
+   this.myLocationMarker = new google.maps.Marker({
+     position: myPosition,
+     map: map
+   });
+
+   this.myLocationMarker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png')
+
+   this.myLocationInfoWindow = new google.maps.InfoWindow({
+     content: "You are here"
+   });
+
+   this.myLocationInfoWindow.open(map,this.myLocationMarker);
+
     //AUTOCOMPLETE
 
     // takes input and performs autocomplete
@@ -86,7 +112,6 @@ export class SearchComponent implements OnInit {
 
   	var newArea = new google.maps.places.Autocomplete(mapInput);
   	newArea.bindTo('bounds', map);
-  	map.controls[google.maps.ControlPosition.TOP_LEFT].push(mapInput);
 
     setTimeout(function(){
 
@@ -106,6 +131,21 @@ export class SearchComponent implements OnInit {
   			map.setCenter(place.geometry.location);
   			map.setZoom(17);
   		}
+
+      //"YOU ARE HERE" MARKER CHANGES ON NEW LOCATION
+
+     this.myLocationInfoWindow.close();
+     this.myLocationMarker.setMap(null);
+
+     this.myLocationMarker = new google.maps.Marker({
+       position: {"lat":place.geometry.location.lat(),"lng":place.geometry.location.lng()},
+       map: map,
+     });
+     this.myLocationMarker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png')
+
+     this.myLocationInfoWindow.open(map,this.myLocationMarker);
+
+     //
 
       this.searchService.search([place.geometry.location.lng(),place.geometry.location.lat()])
         .subscribe((response) => {
