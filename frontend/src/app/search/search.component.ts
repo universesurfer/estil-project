@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { SearchService } from "../search.service";
 import { Router } from '@angular/router';
 import { DropdownModule } from "ngx-dropdown";
+import { NgZone } from '@angular/core';
 
 declare var google: any;
 declare var map: any;
 declare var markers: any;
-
 
 @Component({
   selector: 'app-search',
@@ -16,15 +16,19 @@ declare var markers: any;
 })
 export class SearchComponent implements OnInit {
 
+  myLocationMarker: any;
+  myLocationInfoWindow: any;
   markers: any;
   stylists: any;
   list: boolean = false;
+  distance: number = 10;
 
   BASE_URL: string = 'http://localhost:3000';
 
   constructor(
     private searchService: SearchService,
-    private router: Router
+    private router: Router,
+    private zone: NgZone
   ) { }
 
   shrinkMap(){
@@ -33,10 +37,14 @@ export class SearchComponent implements OnInit {
 
     var tableRows = document.getElementsByTagName("tr");
     for (var i = 0; i < tableRows.length; i++) {
-      tableRows[i].style.backgroundColor = "white";
+      if (i % 2 == 0) {
+        tableRows[i].style.backgroundColor = "white";
+      }
+      else {
+        tableRows[i].style.backgroundColor = "#f8f8f8";
+      }
     }
-    event.srcElement.parentElement.style.backgroundColor = "#e5f7ff";
-    // event.target.style.backgroundColor = "lightgrey";
+    event.srcElement.parentElement.parentElement.style.backgroundColor = "#b2e7ff";
 
   }
 
@@ -46,7 +54,12 @@ export class SearchComponent implements OnInit {
 
     var tableRows = document.getElementsByTagName("tr");
     for (var i = 0; i < tableRows.length; i++) {
-      tableRows[i].style.backgroundColor = "white";
+      if (i % 2 == 0) {
+        tableRows[i].style.backgroundColor = "white";
+      }
+      else {
+        tableRows[i].style.backgroundColor = "#f8f8f8";
+      }
     }
   }
 
@@ -77,6 +90,21 @@ export class SearchComponent implements OnInit {
   		}
   	);
 
+    //SET CURRENT LOCATION MARKER
+
+   this.myLocationMarker = new google.maps.Marker({
+     position: myPosition,
+     map: map
+   });
+
+   this.myLocationMarker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png')
+
+   this.myLocationInfoWindow = new google.maps.InfoWindow({
+     content: "You are here"
+   });
+
+   this.myLocationInfoWindow.open(map,this.myLocationMarker);
+
     //AUTOCOMPLETE
 
     // takes input and performs autocomplete
@@ -84,14 +112,11 @@ export class SearchComponent implements OnInit {
 
   	var newArea = new google.maps.places.Autocomplete(mapInput);
   	newArea.bindTo('bounds', map);
-  	map.controls[google.maps.ControlPosition.TOP_LEFT].push(mapInput);
 
     setTimeout(function(){
 
       mapInput.style.opacity = "1";
     },1000);
-
-
 
   	google.maps.event.addListener(newArea, 'place_changed', function() {
 
@@ -107,16 +132,50 @@ export class SearchComponent implements OnInit {
   			map.setZoom(17);
   		}
 
-  	});
+      //"YOU ARE HERE" MARKER CHANGES ON NEW LOCATION
+
+     this.myLocationInfoWindow.close();
+     this.myLocationMarker.setMap(null);
+
+     this.myLocationMarker = new google.maps.Marker({
+       position: {"lat":place.geometry.location.lat(),"lng":place.geometry.location.lng()},
+       map: map,
+     });
+     this.myLocationMarker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png')
+
+     this.myLocationInfoWindow.open(map,this.myLocationMarker);
+
+     //
+
+      this.searchService.search([place.geometry.location.lng(),place.geometry.location.lat()])
+        .subscribe((response) => {
+          this.zone.run(() => {
+            var stylistData = {};
+            response.forEach(function(stylist,index){
+              stylist.obj.distanceFromLocation = Number(stylist.dis.toFixed(2));
+              stylistData["stylist" + index] = stylist.obj;
+            })
+            this.stylists = this.createMarkers(stylistData, map, newArea);
+          });
+      })
+
+  	}.bind(this));
 
    //AUTOCOMPLETE END
 
+   this.searchService.search([myPosition.lng,myPosition.lat])
+     .subscribe((response) => {
+       this.zone.run(() => {
+         var stylistData = {};
+         response.forEach(function(stylist,index){
+           stylist.obj.distanceFromLocation = Number(stylist.dis.toFixed(2));
+           stylistData["stylist" + index] = stylist.obj;
+         })
+         this.stylists = this.createMarkers(stylistData, map, newArea);
 
-    this.searchService.getMarkers()
-      .subscribe((response) => {
-      this.stylists = this.createMarkers(response, map, newArea);
-      document.getElementById("table-headers").classList.remove("hidden");
-    })
+         document.getElementById("table-headers").classList.remove("hidden");
+      });
+   })
 
   }
 
@@ -164,15 +223,19 @@ export class SearchComponent implements OnInit {
       });
     });
 
-    this.markers = markers;
 
     var stylists = [];
-
     for (var stylistInfo in response) {
       if (typeof response[stylistInfo]["geolocation"] != "undefined"){
         stylists.push(response[stylistInfo]);
       }
     }
+
+    //adding a marker to each stylist object
+
+    markers.forEach(function(marker,index){
+      stylists[index].marker = marker[0];
+		})
 
     return stylists;
 
@@ -181,11 +244,10 @@ export class SearchComponent implements OnInit {
   onChange(change){
 
     var dropDowns = document.getElementsByTagName("select");
-
     var filters = [];
 
-    for (var i = 0; i < dropDowns.length; i++) {
-			if (dropDowns[i].value != "Add filter") {
+    for (var i = 0; i < dropDowns.length - 1; i++) {
+			if (dropDowns[i].selectedIndex != 0) {
 				filters.push(dropDowns[i].value);
 			}
 			else {
@@ -193,40 +255,22 @@ export class SearchComponent implements OnInit {
 			}
 		}
 
-    var allMarkersCriteria = [];
+    //comparing the object property against the active filter
 
-
-		this.markers.forEach(function(marker){
-			var singleMarkerCriteria = {
-			price: marker[2].price,
-			availability: marker[2].availability,
-			mobile: marker[2].mobile,
-			services: marker[2].services,
-			expertise: marker[2].expertise,
-			marker: marker
-			};
-			allMarkersCriteria.push(singleMarkerCriteria);
-		})
-
-
-		//loop through all markers to test criteria
-		//to modify filters only! change the conditions below, one for each category
-
-		allMarkersCriteria.forEach(function(marker){
-			console.log(marker, filters);
-      console.log(filters[2], marker["mobile"]);
+		this.stylists.forEach(function(marker){
 			if (filters[0] != " " && filters[0] != marker["price"] ||
 				(filters[1] != " " && marker["availability"].indexOf(filters[1]) == -1) ||
 				(filters[2] != " " && filters[2] != marker["mobile"] && marker["mobile"] != "Both") ||
 				(filters[3] != " " && marker["services"].indexOf(filters[3]) == -1)||
 				(filters[4] != " " && filters[4] != marker["expertise"] && marker["expertise"] != "Any")
 			) {
-				marker["marker"][0].setVisible(false);
+				marker["marker"].setVisible(false);
 			}
 			else {
-				marker["marker"][0].setVisible(true);
+				marker["marker"].setVisible(true);
 			}
 		})
+
   }
 
 }

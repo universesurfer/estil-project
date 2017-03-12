@@ -10,22 +10,33 @@ router.get('/', function(req, res, next) {
 });
 
 
-router.get("/api/search", (req, res)=> {
-	Stylist.find({}, (err, allStylists) => {
-		mapInfo = {};
-		allStylists.forEach(function(stylist, index){
-			mapInfo["prop" + index] = stylist;
-		});
-		res.json(mapInfo);
-	});
-
+router.post("/api/search", (req, res)=> {
+	Stylist.geoNear( req.body,
+		{ spherical : true,
+		 	maxDistance: 0.0015678896,		//1km is 1/6378
+			distanceMultiplier: 6378.1
+		}, function(err, results, stats) {
+	    if (err) {
+	        console.log(err);
+	    } else {
+				res.json(results);
+	    }
+	})
 });
 
-router.get('/profile/:id', (req, res) => {
+router.get('/profile/:role/:id', (req, res) => {
   if(!mongoose.Types.ObjectId.isValid(req.params.id)) {
     return res.status(400).json({ message: 'Specified id is not valid' });
   }
-  User.findById(req.params.id, (err, user) => {
+
+  if (req.params.role == "user") {
+    var MongooseCollection = User;
+  }
+  else if (req.params.role == "stylist") {
+    var MongooseCollection = Stylist;
+  }
+
+  MongooseCollection.findById(req.params.id, (err, user) => {
       if (err) {
         return res.send(err);
       }
@@ -33,24 +44,19 @@ router.get('/profile/:id', (req, res) => {
     });
 });
 
-router.get('/profile/stylist/:id', (req, res) => {
-  if(!mongoose.Types.ObjectId.isValid(req.params.id)) {
-    return res.status(400).json({ message: 'Specified id is not valid' });
-  }
-  Stylist.findById(req.params.id, (err, user) => {
-      if (err) {
-        return res.send(err);
-      }
-      return res.json(user);
-    });
-});
-
-router.put('/profile/:id', (req, res) => {
+router.put('/profile/:role/:id', (req, res) => {
   if(!mongoose.Types.ObjectId.isValid(req.params.id)) {
     return res.status(400).json({ message: 'Specified id is not valid' });
   };
 
-  User.findByIdAndUpdate(req.params.id, {
+  if (req.params.role == "user") {
+    var MongooseCollection = User;
+  }
+  else if (req.params.role == "stylist") {
+    var MongooseCollection = Stylist;
+  }
+
+  MongooseCollection.findByIdAndUpdate(req.params.id, {
     firstName: req.body.firstName,
     lastName: req.body.lastName,
     username: req.body.username
