@@ -26,6 +26,9 @@ export class ProfileComponent implements OnInit {
   	this.route.params.subscribe(params => {
       this.getUserDetails(params['id']);
     });
+
+    this.session.url = this.router.url;
+    this.session.checkHome();
   }
 
   getUserDetails(id) {

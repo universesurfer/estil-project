@@ -38,7 +38,8 @@ newStylist = {
   ) { }
 
   ngOnInit() {
-
+    this.session.url = this.router.url;
+    this.session.checkHome();
   }
 
   signUp() {

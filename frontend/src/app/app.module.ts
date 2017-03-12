@@ -16,6 +16,7 @@ import { SearchComponent } from './search/search.component';
 import { DropdownModule } from "ngx-dropdown";
 import { CustomFormsModule } from 'ng2-validation';
 import { ToastModule } from 'ng2-toastr/ng2-toastr';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { ToastModule } from 'ng2-toastr/ng2-toastr';
     ProfileComponent,
     NavbarComponent,
     SearchComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,

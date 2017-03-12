@@ -1,12 +1,22 @@
 input {
   display: block;
+  font-size: 18px;
+}
+
+input[type="checkbox"] {
+  display: inline;
 }
 
 .component {
-  margin-top: 10%;
+  margin-top: 5%;
+}
+
+.col1 {
+  margin-top: 5%;
 }
 
 label, input, button {
+  font-size: 18px;
   margin-bottom: 2%;
 }
 

@@ -1,5 +1,5 @@
 <div class="component">
-  <div class='col-xs-6'>
+  <div class='col-xs-4 col-xs-offset-1 col1'>
     <form *ngIf="stylistCheck == false">
       <label for="username">
         Email
@@ -14,25 +14,25 @@
 
     <form *ngIf="stylistCheck">
       <label for="username">
-        Stylist Email
+        Email
       </label>
     	<input type="text" name="username" [(ngModel)]="stylist.username" placeholder="Email Address" required email/>
       <label for="password">
-        Stylist Password
+        Password
       </label>
     	<input type="password" name="password" [(ngModel)]="stylist.password" placeholder=".........." required/>
-      <button class="btn btn-info" (click)="logIn(stylist)">Log in as Stylist</button>
+      <button class="btn btn-info" (click)="logIn(stylist)">Stylist Log in</button>
     </form>
 
     <label for="resume">Are you a stylist? Check here</label>
     <input type="checkbox" [(ngModel)]="stylistCheck">
 
     <p class="account-message">
-      Don't have an account yet? <a href="/signup">Sign up</a>
+      Don't have an account yet? <a [routerLink]="['/signup']">Sign up</a>
     </p>
   </div>
 
   <div class='col-xs-6'>
-    <img src="../assets/images/home-screen.png" width="90%" height="auto" alt="">
+    <img src="../assets/images/home-screen.png" width="100%" height="auto" alt="">
   </div>
 </div>

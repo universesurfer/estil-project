@@ -2,7 +2,7 @@ import { Injectable, EventEmitter } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import { Router, CanActivate } from '@angular/router';
+import { Router, CanActivate} from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 
 @Injectable()
@@ -12,18 +12,29 @@ export class SessionService implements CanActivate{
   id : string;
   role: string;
   stylistId : string;
+  home: EventEmitter<any> = new EventEmitter();
+  public url: string;
 
   BASE_URL: string = 'http://localhost:3000';
 
   constructor(
     private router: Router,
-    private http: Http
+    private http: Http,
   ) {
     this.token = localStorage.getItem('token');
     if (this.token != null) {
       this.isAuth.emit(true);
     } else {
       this.isAuth.emit(false);
+    }
+
+  }
+
+  checkHome(){
+    if (this.url == "/home") {
+      this.home.emit(true);
+    } else {
+      this.home.emit(false);
     }
   }
 
