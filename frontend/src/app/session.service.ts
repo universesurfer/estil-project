@@ -10,6 +10,7 @@ export class SessionService implements CanActivate{
   public token: string;
   isAuth: EventEmitter<any> = new EventEmitter();
   userId : string;
+  role: string;
   stylistId : string;
 
   BASE_URL: string = 'http://localhost:3000';
@@ -27,16 +28,18 @@ export class SessionService implements CanActivate{
   }
 
   get() {
-    this.userId = localStorage.getItem('userId');
-    console.log(this.userId);
-    return this.http.get(`${this.BASE_URL}/profile/${this.userId}`)
+    this.userId = localStorage.getItem('id');
+    this.role = localStorage.getItem('role');
+
+    return this.http.get(`${this.BASE_URL}/profile/${this.role}/${this.userId}`)
       .map((res) => res.json())
       .catch(this.handleError);
   }
 
   edit(user) {
-    this.userId = localStorage.getItem('userId');
-    return this.http.put(`${this.BASE_URL}/profile/${this.userId}`, user)
+    this.userId = localStorage.getItem('id');
+
+    return this.http.put(`${this.BASE_URL}/profile/${this.role}/${this.userId}`, user)
       .map((res) => res.json())
       .catch(this.handleError);
   }
@@ -82,8 +85,8 @@ export class SessionService implements CanActivate{
   		.catch((err) => Observable.throw(err));
   }
 
-  login(user) {
-    return this.http.post(`${this.BASE_URL}/login`, user)
+  login(webUser) {
+    return this.http.post(`${this.BASE_URL}/login`, webUser)
       .map((response: Response) => {
           // login successful if there's a jwt token in the response
           let token = response.json() && response.json().token;
@@ -94,7 +97,8 @@ export class SessionService implements CanActivate{
             this.isAuth.emit(true);
             // store username and jwt token in local storage to keep user logged in between page refreshes
             localStorage.setItem('token', token );
-            localStorage.setItem('userId', response.json().user._id);
+            localStorage.setItem('id', response.json().user._id);
+            localStorage.setItem('role', response.json().role);
             this.router.navigate(['/profile']);
             // return true to indicate successful login
             return true;
@@ -104,28 +108,6 @@ export class SessionService implements CanActivate{
           }
       });
   }
-
-  loginStylist(stylist) {
-  return this.http.post(`${this.BASE_URL}/stylist/login`, stylist)
-    .map((response: Response) => {
-        // login successful if there's a jwt token in the response
-        let token = response.json() && response.json().token;
-        if (token) {
-          // set token property
-          this.token = token;
-          this.isAuth.emit(true);
-          // store username and jwt token in local storage to keep user logged in between page refreshes
-          localStorage.setItem('token', token );
-          localStorage.setItem('stylistId', response.json().stylist._id);
-          this.router.navigate(['/profile']);
-          // return true to indicate successful login
-          return true;
-        } else {
-          // return false to indicate failed login
-          return false;
-        }
-    });
-}
 
   logout() {
       // clear token remove user from local storage to log user out

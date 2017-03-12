@@ -9,7 +9,7 @@
         Password
       </label>
     	<input type="password" name="password" [(ngModel)]="user.password" placeholder=".........." required/>
-      <button class="btn btn-info" (click)="logIn()">Log in</button>
+      <button class="btn btn-info" (click)="logIn(user)">Log in</button>
     </form>
 
     <form *ngIf="stylistCheck">
@@ -21,7 +21,7 @@
         Stylist Password
       </label>
     	<input type="password" name="password" [(ngModel)]="stylist.password" placeholder=".........." required/>
-      <button class="btn btn-info" (click)="logInStylist()">Log in as Stylist</button>
+      <button class="btn btn-info" (click)="logIn(stylist)">Log in as Stylist</button>
     </form>
 
     <label for="resume">Are you a stylist? Check here</label>

@@ -255,8 +255,6 @@ export class SearchComponent implements OnInit {
 			}
 		}
 
-    console.log(this.stylists);
-
     //comparing the object property against the active filter
 
 		this.stylists.forEach(function(marker){
@@ -266,7 +264,6 @@ export class SearchComponent implements OnInit {
 				(filters[3] != " " && marker["services"].indexOf(filters[3]) == -1)||
 				(filters[4] != " " && filters[4] != marker["expertise"] && marker["expertise"] != "Any")
 			) {
-        console.log(filters,marker);
 				marker["marker"].setVisible(false);
 			}
 			else {

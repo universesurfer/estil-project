@@ -12,8 +12,6 @@ export class ProfileComponent implements OnInit {
   user: any;
   userCheck: boolean = false;
   error: string;
-  // stylistCheck: boolean = false;
-  // stylist: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -41,14 +39,6 @@ export class ProfileComponent implements OnInit {
       this.userCheck = false;
     }
   }
-
-  // stylistCheckUpdate() {
-  //   if (this.stylistCheck != true) {
-  //       this.stylistCheck = true;
-  //   } else {
-  //     this.stylistCheck = false;
-  //   }
-  // }
 
   edit() {
     this.session.edit(this.user)

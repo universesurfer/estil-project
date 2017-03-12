@@ -123,7 +123,14 @@ authController.post("/login", function(req, res) {
     return;
   }
 
-  User.findOne({ "username": username }, (err, user)=> {
+	if (req.body.role == "user") {
+		var MongooseCollection = User;
+	}
+	else if (req.body.role == "stylist") {
+		var MongooseCollection = Stylist;
+	}
+
+  MongooseCollection.findOne({ "username": username }, (err, user)=> {
 
   	if( ! user ){
 	    res.status(401).json({message:"no such user found"});
@@ -135,36 +142,7 @@ authController.post("/login", function(req, res) {
         } else {
           var payload = {id: user._id};
           var token = jwt.sign(payload, jwtOptions.secretOrKey);
-          res.json({message: "ok", token: token, user: user});
-        }
-      });
-    }
-  })
-});
-
-authController.post("/stylist/login", function(req, res) {
-	if(req.body.username && req.body.password){
-    var username = req.body.username;
-    var password = req.body.password;
-  }
-
-  if (username === "" || password === "") {
-    res.status(401).json({message:"fill up the fields"});
-    return;
-  }
-
-  Stylist.findOne({ "username": username }, (err, stylist)=> {
-
-  	if( ! stylist ){
-	    res.status(401).json({message:"no such stylist found"});
-	  } else {
-      bcrypt.compare(password, stylist.password, function(err, isMatch) {
-        if (!isMatch) {
-          res.status(401).json({message:"passwords did not match"});
-        } else {
-          var payload = {id: stylist._id};
-          var token = jwt.sign(payload, jwtOptions.secretOrKey);
-          res.json({message: "ok", token: token, stylist: stylist});
+          res.json({message: "ok", token: token, user: user, role: req.body.role});
         }
       });
     }
