@@ -9,8 +9,8 @@ import { Observable } from 'rxjs/Rx';
 export class SessionService implements CanActivate{
   public token: string;
   isAuth: EventEmitter<any> = new EventEmitter();
-  userId : string;
-  stylistId : string;
+  id : string;
+
 
   BASE_URL: string = 'http://localhost:3000';
 
@@ -27,15 +27,22 @@ export class SessionService implements CanActivate{
   }
 
   get() {
-    this.userId = localStorage.getItem('userId');
-    return this.http.get(`${this.BASE_URL}/profile/${this.userId}`)
+    this.id = localStorage.getItem('id');
+    return this.http.get(`${this.BASE_URL}/profile/${this.id}`)
+      .map((res) => res.json())
+      .catch(this.handleError);
+  }
+
+  getStylist() {
+    this.id = localStorage.getItem('id');
+    return this.http.get(`${this.BASE_URL}/profile/${this.id}`)
       .map((res) => res.json())
       .catch(this.handleError);
   }
 
   edit(user) {
-    this.userId = localStorage.getItem('userId');
-    return this.http.put(`${this.BASE_URL}/profile/${this.userId}`, user)
+    this.id = localStorage.getItem('id');
+    return this.http.put(`${this.BASE_URL}/profile/${this.id}`, user)
       .map((res) => res.json())
       .catch(this.handleError);
   }
@@ -93,7 +100,7 @@ export class SessionService implements CanActivate{
             this.isAuth.emit(true);
             // store username and jwt token in local storage to keep user logged in between page refreshes
             localStorage.setItem('token', token );
-            localStorage.setItem('userId', response.json().user._id);
+            localStorage.setItem('id', response.json().user._id);
             this.router.navigate(['/profile']);
             // return true to indicate successful login
             return true;
@@ -115,7 +122,7 @@ export class SessionService implements CanActivate{
             this.isAuth.emit(true);
             // store username and jwt token in local storage to keep user logged in between page refreshes
             localStorage.setItem('token', token );
-            localStorage.setItem('stylistId', response.json().stylist._id);
+            localStorage.setItem('id', response.json().stylist._id);
             this.router.navigate(['/profile']);
             // return true to indicate successful login
             return true;
