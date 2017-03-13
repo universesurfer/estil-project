@@ -10,15 +10,17 @@
     <p> Email: {{ stylist.username }} </p>
     <p> First Name: {{ stylist.firstName }}  </p>
     <p> Last Name: {{ stylist.lastName }} </p>
+		<button class="btn btn-primary" (click)="profileToggle()">Edit profile</button>
   </div>
-  <form *ngIf="userCheck == false">
+  <form *ngIf="editCheck == false">
     <div *ngIf="user">
       <p> Email: {{ user.username }} </p>
       <p> First Name: {{ user.firstName }}  </p>
       <p> Last Name: {{ user.lastName }} </p>
+			<button class="btn btn-primary" (click)="profileToggle()">Edit profile</button>
     </div>
   </form>
-  <form *ngIf="userCheck">
+  <form *ngIf="editCheck">
     <div *ngIf="user">
       <label for="username">Email:</label>
       <input type="text" name="username" value="{{ user.username }}" [(ngModel)]="user.username"><br>
@@ -26,10 +28,9 @@
       <input type="text" name="firstName" value="{{ user.firstName }}" [(ngModel)]="user.firstName"><br>
       <label for="lastName">Last Name:</label>
       <input type="text" name="lastName" value="{{ user.lastName }}" [(ngModel)]="user.lastName"><br>
-      <button class="btn btn-info" (click)="edit()">Update</button>
+      <button class="btn btn-info" (click)="profileToggle()">Update</button>
     </div>
   </form><br><br>
-<button class="btn btn-primary" (click)="userCheckUpdate()">Edit Userprofile</button>
 </div>
 
 <div class="col-lg-4 thumb gallery">

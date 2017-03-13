@@ -10,10 +10,8 @@ import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 })
 export class ProfileComponent implements OnInit {
   user: any;
-  userCheck: boolean = false;
+  editCheck: boolean = false;
   error: string;
-  stylist: any;
-  stylistCheck: boolean = false;
 
 
   constructor(
@@ -38,24 +36,23 @@ export class ProfileComponent implements OnInit {
       });
   }
 
-  userCheckUpdate() {
-    if (this.userCheck != true) {
-        this.userCheck = true;
-    } else {
-      this.userCheck = false;
-    }
-  }
+  profileToggle() {
 
-  edit() {
-    this.session.edit(this.user)
-      .subscribe(result => {
-          if (result) {
-            // this.router.navigate(['/profile']);
-            this.toastr.success('User updated');
-     			} else {
-            this.toastr.error('Something went wrong');
-          }
-      });
+    if(this.editCheck != true) {
+      this.editCheck = true;
+    } else {
+      this.editCheck = false;
+      this.session.edit(this.user)
+        .subscribe(result => {
+            if (result) {
+              // this.router.navigate(['/profile']);
+              this.toastr.success('User updated');
+       			} else {
+              this.toastr.error('Something went wrong');
+            }
+        });
+    }
+
   }
 
 }
