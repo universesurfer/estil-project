@@ -101,4 +101,42 @@ export class ProfileComponent implements OnInit {
     }.bind(this));
   }
 
+  here(){
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(this.showMapWithMyLocation.bind(this));
+    } else {
+      alert('Oops, no geolocation support');
+    }
+  }
+  showMapWithMyLocation(position) {
+
+    this.zone.run(() => {
+      this.user.lng = position.coords.longitude;
+      this.user.lat = position.coords.latitude;
+
+      var myLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+
+      console.log(myLocation);
+
+      var geocoder = new google.maps.Geocoder;
+
+      var that = this;
+
+      geocoder.geocode({'location': {"lat":position.coords.latitude, "lng":position.coords.longitude}}, function(results, status) {
+        console.log(results[0]["formatted_address"]);
+        that.user.location = results[0]["formatted_address"];
+
+        that.session.edit(this.user)
+          .subscribe(result => {
+              if (result) {
+                // this.router.navigate(['/profile']);
+                that.toastr.success('Location updated');
+              } else {
+                that.toastr.error('Something went wrong');
+              }
+          });
+      });
+    })
+  }
+
 }
