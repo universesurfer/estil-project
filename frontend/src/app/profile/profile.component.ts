@@ -93,4 +93,8 @@ export class ProfileComponent implements OnInit {
    location.reload();
  }
 
+ request(){
+   console.log("request triggered");
+ }
+
 }

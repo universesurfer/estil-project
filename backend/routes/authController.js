@@ -140,7 +140,6 @@ authController.post("/login", function(req, res) {
 	    res.status(401).json({message:"no such user found"});
 	  } else {
       bcrypt.compare(password, user.password, function(err, isMatch) {
-        console.log(isMatch);
         if (!isMatch) {
           res.status(401).json({message:"passwords did not match"});
         } else {
