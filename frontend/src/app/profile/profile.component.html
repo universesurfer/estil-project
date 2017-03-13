@@ -1,8 +1,13 @@
 <div class="col-lg-3 col-md-4 col-xs-6 thumb profile-pic">
-	<a class="thumbnail" href="#">
-    <img src="../assets/images/default-avatar.png">
-	</a>
-  <p> will contain user photo </p>
+  <form>
+    <div class="form-group">
+      <a class="thumbnail" href="#">
+        <img src="../assets/images/default-avatar.png">
+      </a>
+      <input type="file" class="form-control" name="avatar" ng2FileSelect [uploader]="uploader">
+    </div>
+    <button type="submit" class="btn btn-primary" (click)="addAvatar()">Add new avatar</button>
+  </form>
 </div>
 
 <div class="col-lg-5 col-md-8 col-xs-6">
@@ -10,14 +15,14 @@
     <p> Email: {{ stylist.username }} </p>
     <p> First Name: {{ stylist.firstName }}  </p>
     <p> Last Name: {{ stylist.lastName }} </p>
-		<button class="btn btn-primary" (click)="profileToggle()">Edit profile</button>
+    <button class="btn btn-primary" (click)="profileToggle()">Edit profile</button>
   </div>
   <form *ngIf="editCheck == false">
     <div *ngIf="user">
       <p> Email: {{ user.username }} </p>
       <p> First Name: {{ user.firstName }}  </p>
       <p> Last Name: {{ user.lastName }} </p>
-			<button class="btn btn-primary" (click)="profileToggle()">Edit profile</button>
+      <button class="btn btn-primary" (click)="profileToggle()">Edit profile</button>
     </div>
   </form>
   <form *ngIf="editCheck">
@@ -34,6 +39,6 @@
 </div>
 
 <div class="col-lg-4 thumb gallery">
-	<h3 class="text-center">Style Gallery</h3>
- <p> will contain pinterest photos </p>
+  <h3 class="text-center">Style Gallery</h3>
+  <p> will contain pinterest photos </p>
 </div>
