@@ -87,11 +87,8 @@ router.post('/profile/:role/:id', upload.single('file'), (req, res, next) => {
 
   MongooseCollection.findByIdAndUpdate(id, image, (err, user)=>{
     if (err) {
-      console.log("error, could not update User-Avatar");
       next(err)
     } else {
-
-      console.log("Worked out fine");
       res.json(user);
     }
   });

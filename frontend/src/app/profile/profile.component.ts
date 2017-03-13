@@ -48,21 +48,18 @@ export class ProfileComponent implements OnInit {
 
 
       this.uploader.onSuccessItem = (item, response) => {
-        console.log('Success', response)
-        console.log(item)
         return this.http.post(`${this.BASE_URL}/profile/${this.role}/${this.id}`, item)
-          .map((res) => res.json())
-          .catch(this.handleError);
+        .map((response) => {
+          response.json();
+        })
+        .catch((err) => Observable.throw(err));
       };
+
 
       this.uploader.onErrorItem = (item, response, status, headers) => {
         console.log('Error', response)
       };
 
-  }
-
-  handleError(e) {
-    return Observable.throw(e.json().message);
   }
 
   getUserDetails(id) {
@@ -80,7 +77,6 @@ export class ProfileComponent implements OnInit {
       this.session.edit(this.user)
         .subscribe(result => {
             if (result) {
-              // this.router.navigate(['/profile']);
               this.toastr.success('User updated');
        			} else {
               this.toastr.error('Something went wrong');
@@ -94,6 +90,7 @@ export class ProfileComponent implements OnInit {
    this.uploader.onBuildItemForm = (item, form) => {
    };
    this.uploader.uploadAll();
+   location.reload();
  }
 
 }

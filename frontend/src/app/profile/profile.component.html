@@ -24,6 +24,7 @@
     <p> Email: {{ stylist.username }} </p>
     <p> First Name: {{ stylist.firstName }}  </p>
     <p> Last Name: {{ stylist.lastName }} </p>
+    <p> Location: {{ stylist.role }} </p>
     <button class="btn btn-primary" (click)="profileToggle()">Edit profile</button>
   </div>
   <form *ngIf="editCheck == false">
