@@ -2,11 +2,17 @@
   <form>
     <div class="form-group">
       <div *ngIf="user">
-        <img [src]="user.avatar" />
+        <div *ngIf="!user.avatar">
+          <a class="thumbnail" href="#">
+            <img src="../assets/images/default-avatar.png">
+          </a>
+        </div>
+        <div *ngIf="user.avatar">
+          <a class="thumbnail" href="#">
+            <img [src]="user.avatar" />
+          </a>
+        </div>
       </div>
-      <a class="thumbnail" href="#">
-        <img src="../assets/images/default-avatar.png">
-      </a>
       <input type="file" class="form-control" name="avatar" ng2FileSelect [uploader]="uploader">
     </div>
     <button type="submit" class="btn btn-primary" (click)="addAvatar()">Add new avatar</button>
