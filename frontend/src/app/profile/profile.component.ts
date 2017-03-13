@@ -40,6 +40,7 @@ export class ProfileComponent implements OnInit {
     // update session url
     this.session.url = this.router.url;
     this.session.checkHome();
+
   }
 
   ngAfterViewInit(){
@@ -76,13 +77,12 @@ export class ProfileComponent implements OnInit {
   updateLocationEventListener() {
 
     var stylistLocation = document.getElementById('location');
-    var stylistPlace = new google.maps.places.Autocomplete(stylistLocation);
+    console.log(stylistLocation);
+    var stylistPlace = new google["maps"].places.Autocomplete(stylistLocation);
 
-    var googleEventListener = google.maps.event.addListener(stylistPlace, 'place_changed', function() {
+    google["maps"].event.addListener(stylistPlace, 'place_changed', function() {
       this.zone.run(() => {
       	var place = stylistPlace.getPlace();
-        console.log("place",place);
-
       	this.user.lng = place.geometry.location.lng();
       	this.user.lat = place.geometry.location.lat();
       	this.user.location = place.formatted_address;
