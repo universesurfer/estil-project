@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer, ElementRef } from '@angular/core';
 import { SessionService } from "../session.service";
 import { Router } from '@angular/router';
 import { CustomFormsModule } from 'ng2-validation';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
+declare var google: any;
 
 @Component({
   selector: 'app-signup',
@@ -34,7 +35,9 @@ newStylist = {
   constructor(
     private session: SessionService,
     private router: Router,
-    private toastr: ToastsManager
+    private toastr: ToastsManager,
+    public renderer: Renderer,
+    public el: ElementRef
   ) { }
 
   ngOnInit() {
@@ -74,4 +77,32 @@ newStylist = {
           }
       });
   }
+
+  // ngAfterViewInit() {
+  //   // const hostElem = this.el.nativeElement;
+  //   // console.log(hostElem.children);
+  //   // console.log(hostElem.parentNode);
+  //
+  //  console.log(this.el.nativeElement.querySelector('#stylist-location'));
+  // }
+  //
+  // updateLocationEventListener() {
+  //   // console.log(this);
+  //   // var stylistLocation = this.elementRef.nativeElement.value;
+  //
+  //   console.log(this.el.nativeElement);
+  //
+  //   const hostElem = this.el.nativeElement.querySelector('#stylist-location');
+  //   console.log(hostElem);
+  //
+  //   var stylistPlace = new google.maps.places.Autocomplete(hostElem);
+  //
+  //   google.maps.event.addListener(stylistPlace, 'place_changed', function() {
+  //   	var place = stylistPlace.getPlace();
+  //   	this.user.lng = place.geometry.location.lng();
+  //   	this.user.lat = place.geometry.location.lat();
+  //   	this.user.location = place.formatted_address;
+  //
+  //   }.bind(this));
+  // }
 }

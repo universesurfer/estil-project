@@ -33,9 +33,9 @@
 				<p> Email: {{ user.username }} </p>
 				<p> First Name: {{ user.firstName }}  </p>
 				<p> Last Name: {{ user.lastName }} </p>
-				<!-- <p> Location: {{user.location}}</p> -->
-				<!-- <p> Longitude: {{user.lng}}</p>
-				<p> Latitude: {{user.lat}}</p> -->
+				<p> Location: {{ user.location }}</p>
+				<p> Longitude: {{user.lng}}</p>
+				<p> Latitude: {{user.lat}}</p>
 				<button class="btn btn-primary" (click)="profileToggle()">Edit profile</button>
 			</div>
 		</form>
@@ -50,8 +50,8 @@
 				<button class="btn btn-info" (click)="profileToggle()">Update</button>
 			</div>
 		</form>
+		<input type="text" id="location">
 	</ng-container>
-	<input type="text" name="location" id="location"><br>
 </div>
 
 <div class="col-lg-4 thumb gallery">

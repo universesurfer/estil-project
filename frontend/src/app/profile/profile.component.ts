@@ -1,7 +1,8 @@
-import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, ViewContainerRef, ElementRef } from '@angular/core';
 import { SessionService } from "./../session.service";
 import { Router, ActivatedRoute } from "@angular/router";
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { NgZone } from '@angular/core';
 
 declare var google: any;
 
@@ -21,16 +22,17 @@ export class ProfileComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private session: SessionService,
-    private toastr: ToastsManager ) {}
+    private toastr: ToastsManager,
+    public el: ElementRef,
+    private zone: NgZone
+  ) {}
 
   ngOnInit() {
-
+    console.log("google", google);
     //subscribe webuser id
   	this.route.params.subscribe(params => {
       this.getUserDetails(params['id']);
     });
-
-    this.updateLocationEventListener();
 
     //assign role for use in html
     this.role = localStorage.getItem('role');
@@ -38,6 +40,10 @@ export class ProfileComponent implements OnInit {
     // update session url
     this.session.url = this.router.url;
     this.session.checkHome();
+  }
+
+  ngAfterViewInit(){
+    this.updateLocationEventListener();
   }
 
   getUserDetails(id) {
@@ -68,15 +74,19 @@ export class ProfileComponent implements OnInit {
   }
 
   updateLocationEventListener() {
+
     var stylistLocation = document.getElementById('location');
-    console.log(stylistLocation);
     var stylistPlace = new google.maps.places.Autocomplete(stylistLocation);
 
-    google.maps.event.addListener(stylistPlace, 'place_changed', function() {
-    	var place = stylistPlace.getPlace();
-    	this.user.lng = place.geometry.location.lng();
-    	this.user.lat = place.geometry.location.lat();
-    	this.user.location = place.formatted_address;
+    var googleEventListener = google.maps.event.addListener(stylistPlace, 'place_changed', function() {
+      this.zone.run(() => {
+      	var place = stylistPlace.getPlace();
+        console.log("place",place);
+
+      	this.user.lng = place.geometry.location.lng();
+      	this.user.lat = place.geometry.location.lat();
+      	this.user.location = place.formatted_address;
+      })
 
       this.session.edit(this.user)
         .subscribe(result => {
