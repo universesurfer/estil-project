@@ -18,8 +18,7 @@
 		<form *ngIf="!editCheck">
 	    <div *ngIf="user">
 	      <p> Email: {{ user.username }} </p>
-	      <p> First Name: {{ user.firstName }}  </p>
-	      <p> Last Name: {{ user.lastName }} </p>
+	      <p> Name: {{ user.firstName }} {{ user.lastName }} </p>
 				<button class="btn btn-primary" (click)="profileToggle()">Edit profile</button>
 	    </div>
 	  </form>
@@ -39,8 +38,7 @@
 		<form *ngIf="!editCheck">
 			<div *ngIf="user">
 				<p> Email: {{ user.username }} </p>
-				<p> First Name: {{ user.firstName }}  </p>
-				<p> Last Name: {{ user.lastName }} </p>
+				<p> Name: {{ user.firstName }} {{ user.lastName }} </p>
 				<p> Location: {{ user.location }}</p>
 				<button class="btn btn-primary" (click)="profileToggle()">Edit profile</button>
 			</div>
@@ -53,6 +51,14 @@
 				<input type="text" name="firstName" value="{{ user.firstName }}" [(ngModel)]="user.firstName"><br>
 				<label for="lastName">Last Name:</label>
 				<input type="text" name="lastName" value="{{ user.lastName }}" [(ngModel)]="user.lastName"><br>
+				<label for="availability">Availability</label>
+					<label><input type="checkbox" value="Monday">M</label>
+					<label><input type="checkbox" value="Tuesday">T</label>
+					<label><input type="checkbox" value="Wednesday">W</label>
+					<label><input type="checkbox" value="Thursday">T</label>
+					<label><input type="checkbox" value="Friday">F</label>
+					<label><input type="checkbox" value="Saturday">S</label>
+					<label><input type="checkbox" value="Sunday">S</label>
 				<button class="btn btn-info" (click)="profileToggle()">Update</button>
 			</div>
 		</form>
