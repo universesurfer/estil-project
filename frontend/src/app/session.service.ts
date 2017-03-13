@@ -47,32 +47,6 @@ export class SessionService implements CanActivate{
       .catch(this.handleError);
   }
 
-  // uploadPicture() {
-  //   this.id = localStorage.getItem('id');
-  //   this.role = localStorage.getItem('role');
-  //   this.uploader = new FileUploader({
-  //      url:`${this.BASE_URL}/${this.role}/${this.id}`
-  //    });
-  //
-  //    this.uploader.onSuccessItem = (item, response) => {
-  //      console.log(item);
-  //      console.log('Success', response)
-  //     //  this.router.navigate(['profile', this.role, this.id]);
-  //      return this.http.post(`${this.BASE_URL}/profile/${this.role}/${this.id}`, item)
-  //      .map((response) => {
-  //        response.json();
-  //        this.router.navigate(['profile']);
-  //        return true;
-  //      })
-  //      .catch((err) => Observable.throw(err));
-  //
-  //    };
-  //
-  //    this.uploader.onErrorItem = (item, response, status, headers) => {
-  //      console.log('Error', response)
-  //    };
-  // }
-
   edit(user) {
     this.id = localStorage.getItem('id');
     return this.http.put(`${this.BASE_URL}/profile/${this.role}/${this.id}`, user)

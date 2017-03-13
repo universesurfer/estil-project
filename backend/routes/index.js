@@ -71,9 +71,8 @@ router.put('/profile/:role/:id', (req, res) => {
   });
 })
 
-router.post('/profile/:role/:id', upload.single('avatar'), (req, res, next) => {
+router.post('/profile/:role/:id', upload.single('file'), (req, res, next) => {
   var id = req.params.id;
-  console.log('inside the router.post')
 
   if (req.params.role == "user") {
     var MongooseCollection = User;
@@ -82,11 +81,11 @@ router.post('/profile/:role/:id', upload.single('avatar'), (req, res, next) => {
     var MongooseCollection = Stylist;
   }
 
-  let userToUpdate = {
-    image:  `http://localhost:3000/public/uploads/${req.file.filename}`
+  let image = {
+    avatar: `http://localhost:3000/public/uploads/${req.file.filename}`
   };
 
-  MongooseCollection.findByIdAndUpdate(id, userToUpdate, (err, user)=>{
+  MongooseCollection.findByIdAndUpdate(id, image, (err, user)=>{
     if (err) {
       console.log("error, could not update User-Avatar");
       next(err)

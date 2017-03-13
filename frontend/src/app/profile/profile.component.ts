@@ -3,6 +3,9 @@ import { SessionService } from "./../session.service";
 import { Router, ActivatedRoute } from "@angular/router";
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { FileUploader } from 'ng2-file-upload';
+import 'rxjs/add/operator/map';
+import { Http } from '@angular/http';
+import { Observable } from 'rxjs/Rx';
 
 @Component({
   selector: 'app-profile',
@@ -23,7 +26,8 @@ export class ProfileComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private session: SessionService,
-    private toastr: ToastsManager ) {
+    private toastr: ToastsManager,
+    private http: Http ) {
     }
 
   ngOnInit() {
@@ -45,13 +49,20 @@ export class ProfileComponent implements OnInit {
 
       this.uploader.onSuccessItem = (item, response) => {
         console.log('Success', response)
-        this.router.navigate(['profile', this.role, this.id]);
+        console.log(item)
+        return this.http.post(`${this.BASE_URL}/profile/${this.role}/${this.id}`, item)
+          .map((res) => res.json())
+          .catch(this.handleError);
       };
 
       this.uploader.onErrorItem = (item, response, status, headers) => {
         console.log('Error', response)
       };
 
+  }
+
+  handleError(e) {
+    return Observable.throw(e.json().message);
   }
 
   getUserDetails(id) {
