@@ -82,7 +82,7 @@ router.post('/profile/:role/:id', upload.single('file'), (req, res, next) => {
   }
 
   let image = {
-    avatar: `http://localhost:3000/public/uploads/${req.file.filename}`
+    avatar: `http://localhost:3000/uploads/${req.file.filename}`
   };
 
   MongooseCollection.findByIdAndUpdate(id, image, (err, user)=>{
