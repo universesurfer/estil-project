@@ -50,24 +50,36 @@ router.put('/profile/:role/:id', (req, res) => {
   };
 
   if (req.params.role == "user") {
-    var MongooseCollection = User;
+    User.findByIdAndUpdate(req.params.id, {
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      username: req.body.username
+    }, (err,user) => {
+      if (err) {
+        return res.send(err);
+      }
+      return res.json({
+        message: 'User updated successfully'
+      });
+    });
   }
   else if (req.params.role == "stylist") {
-    var MongooseCollection = Stylist;
+    Stylist.findByIdAndUpdate(req.params.id, {
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      username: req.body.username,
+      location: req.body.location
+    }, (err,user) => {
+      if (err) {
+        return res.send(err);
+      }
+      return res.json({
+        message: 'User updated successfully'
+      });
+    });
   }
 
-  MongooseCollection.findByIdAndUpdate(req.params.id, {
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    username: req.body.username
-  }, (err,user) => {
-    if (err) {
-      return res.send(err);
-    }
-    return res.json({
-      message: 'User updated successfully'
-    });
-  });
+
 })
 
 

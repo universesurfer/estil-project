@@ -3,6 +3,8 @@ import { SessionService } from "./../session.service";
 import { Router, ActivatedRoute } from "@angular/router";
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
+declare var google: any;
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -10,6 +12,7 @@ import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 })
 export class ProfileComponent implements OnInit {
   user: any;
+  role: any;
   editCheck: boolean = false;
   error: string;
 
@@ -21,10 +24,18 @@ export class ProfileComponent implements OnInit {
     private toastr: ToastsManager ) {}
 
   ngOnInit() {
+
+    //subscribe webuser id
   	this.route.params.subscribe(params => {
       this.getUserDetails(params['id']);
     });
 
+    this.updateLocationEventListener();
+
+    //assign role for use in html
+    this.role = localStorage.getItem('role');
+
+    // update session url
     this.session.url = this.router.url;
     this.session.checkHome();
   }
@@ -33,6 +44,7 @@ export class ProfileComponent implements OnInit {
     this.session.get()
       .subscribe((response) => {
         this.user = response;
+        console.log(this.user);
       });
   }
 
@@ -53,6 +65,30 @@ export class ProfileComponent implements OnInit {
         });
     }
 
+  }
+
+  updateLocationEventListener() {
+    var stylistLocation = document.getElementById('location');
+    console.log(stylistLocation);
+    var stylistPlace = new google.maps.places.Autocomplete(stylistLocation);
+
+    google.maps.event.addListener(stylistPlace, 'place_changed', function() {
+    	var place = stylistPlace.getPlace();
+    	this.user.lng = place.geometry.location.lng();
+    	this.user.lat = place.geometry.location.lat();
+    	this.user.location = place.formatted_address;
+
+      this.session.edit(this.user)
+        .subscribe(result => {
+            if (result) {
+              // this.router.navigate(['/profile']);
+              this.toastr.success('Location updated');
+       			} else {
+              this.toastr.error('Something went wrong');
+            }
+        });
+
+    }.bind(this));
   }
 
 }
