@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewContainerRef, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewContainerRef, ElementRef} from '@angular/core';
 import { SessionService } from "./../session.service";
 import { Router, ActivatedRoute } from "@angular/router";
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
@@ -36,14 +36,13 @@ export class ProfileComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log("google", google);
+    // console.log("google", google);
     //subscribe webuser id
+
+
   	this.route.params.subscribe(params => {
       this.getUserDetails(params['id']);
     });
-
-    //assign role for use in html
-    this.role = localStorage.getItem('role');
 
     // update session url
     this.session.url = this.router.url;
@@ -57,24 +56,24 @@ export class ProfileComponent implements OnInit {
         // authToken: `JWT ${this.session.token}`
       });
 
+    this.uploader.onSuccessItem = (item, response) => {
+      return this.http.post(`${this.BASE_URL}/profile/${this.role}/${this.id}`, item)
+      .map((response) => {
+        response.json();
+      })
+      .catch((err) => Observable.throw(err));
+    };
 
-      this.uploader.onSuccessItem = (item, response) => {
-        return this.http.post(`${this.BASE_URL}/profile/${this.role}/${this.id}`, item)
-        .map((response) => {
-          response.json();
-        })
-        .catch((err) => Observable.throw(err));
-      };
-
-
-      this.uploader.onErrorItem = (item, response, status, headers) => {
-        console.log('Error', response)
-      };
+    this.uploader.onErrorItem = (item, response, status, headers) => {
+      console.log('Error', response)
+    };
 
   }
 
   ngAfterViewInit(){
-    this.updateLocationEventListener();
+    if (this.role == 'stylist') {
+      this.updateLocationEventListener();
+    }
   }
 
   getUserDetails(id) {
@@ -164,7 +163,7 @@ export class ProfileComponent implements OnInit {
         console.log(results[0]["formatted_address"]);
         that.user.location = results[0]["formatted_address"];
 
-        that.session.edit(this.user)
+        that.session.edit(that.user)
           .subscribe(result => {
               if (result) {
                 // this.router.navigate(['/profile']);

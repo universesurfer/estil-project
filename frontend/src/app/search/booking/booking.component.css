@@ -1,0 +1,15 @@
+button, input[type="date"] {
+  display: block
+}
+
+button {
+  margin-top: 10%;
+  margin-bottom: 3%;
+}
+input[type="date"] {
+  margin-bottom: 3%;
+}
+
+button, input[type="date"], select:first-of-type {
+  margin-left: 15%;
+}
