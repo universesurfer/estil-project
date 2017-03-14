@@ -1,26 +1,26 @@
-<button class="btn btn-success">Make an appointment</button>
-<input type="date" value="{{today}}">
-<select name="" id="">
-  <option value="">1</option>
-  <option value="">2</option>
-  <option value="">3</option>
-  <option value="">4</option>
-  <option value="">5</option>
-  <option value="">6</option>
-  <option value="">7</option>
-  <option value="">8</option>
-  <option value="">9</option>
-  <option value="">10</option>
-  <option value="">11</option>
-  <option value="" selected="selected">12</option>
+<button class="btn btn-success" (click)="makeAppointment()">Make an appointment</button>
+<input type="date" [(ngModel)]="date">
+<select name="" id="" [(ngModel)]="hour">
+  <option value="1">1</option>
+  <option value="2">2</option>
+  <option value="3">3</option>
+  <option value="4">4</option>
+  <option value="5">5</option>
+  <option value="6">6</option>
+  <option value="7">7</option>
+  <option value="8">8</option>
+  <option value="9">9</option>
+  <option value="10">10</option>
+  <option value="11">11</option>
+  <option value="12">12</option>
 </select>
-<select name="" id="">
-  <option value="" selected="selected">00</option>
-  <option value="">15</option>
-  <option value="">30</option>
-  <option value="">45</option>
+<select name="" id="" [(ngModel)]="minute">
+  <option value="00">00</option>
+  <option value="15">15</option>
+  <option value="30">30</option>
+  <option value="45">45</option>
 </select>
-<select name="" id="">
-  <option value="">AM</option>
-  <option value="" selected="selected">PM</option>
+<select name="" id="" [(ngModel)]="ampm">
+  <option value="am">am</option>
+  <option value="pm">pm</option>
 </select>

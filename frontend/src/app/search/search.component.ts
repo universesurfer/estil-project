@@ -23,6 +23,7 @@ export class SearchComponent implements OnInit {
   stylists: any;
   list: boolean = false;
   distance: number = 10;
+  stylist: any;
 
   BASE_URL: string = 'http://localhost:3000';
 
@@ -33,7 +34,7 @@ export class SearchComponent implements OnInit {
     private zone: NgZone
   ) { }
 
-  shrinkMap(){
+  shrinkMap(stylist){
     document.getElementById("col-map").style.display = "none";
     this.list = true;
 
@@ -47,6 +48,8 @@ export class SearchComponent implements OnInit {
       }
     }
     event.srcElement.parentElement.parentElement.style.backgroundColor = "#b2e7ff";
+
+    this.stylist = stylist;
 
   }
 
