@@ -2,22 +2,24 @@ import { Injectable, EventEmitter } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import { Router, CanActivate } from '@angular/router';
+import { Router, CanActivate} from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 
 @Injectable()
 export class SessionService implements CanActivate{
   public token: string;
   isAuth: EventEmitter<any> = new EventEmitter();
-  userId : string;
+  id : string;
   role: string;
   stylistId : string;
+  home: EventEmitter<any> = new EventEmitter();
+  public url: string;
 
   BASE_URL: string = 'http://localhost:3000';
 
   constructor(
     private router: Router,
-    private http: Http
+    private http: Http,
   ) {
     this.token = localStorage.getItem('token');
     if (this.token != null) {
@@ -25,21 +27,29 @@ export class SessionService implements CanActivate{
     } else {
       this.isAuth.emit(false);
     }
+
+  }
+
+  checkHome(){
+    if (this.url == "/home") {
+      this.home.emit(true);
+    } else {
+      this.home.emit(false);
+    }
   }
 
   get() {
-    this.userId = localStorage.getItem('id');
+    this.id = localStorage.getItem('id');
     this.role = localStorage.getItem('role');
 
-    return this.http.get(`${this.BASE_URL}/profile/${this.role}/${this.userId}`)
+    return this.http.get(`${this.BASE_URL}/profile/${this.role}/${this.id}`)
       .map((res) => res.json())
       .catch(this.handleError);
   }
 
   edit(user) {
-    this.userId = localStorage.getItem('id');
-
-    return this.http.put(`${this.BASE_URL}/profile/${this.role}/${this.userId}`, user)
+    this.id = localStorage.getItem('id');
+    return this.http.put(`${this.BASE_URL}/profile/${this.role}/${this.id}`, user)
       .map((res) => res.json())
       .catch(this.handleError);
   }
@@ -55,9 +65,12 @@ export class SessionService implements CanActivate{
   }
 
   canActivate(): Observable<boolean> | Promise<boolean> | boolean {
+    console.log("canActivate")
     if (localStorage.getItem('token')) {
+      console.log("true")
       return true;
     }
+    console.log("false")
     this.router.navigate(['/login']);
     this.isAuth.emit(true);
     return false;

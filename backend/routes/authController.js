@@ -130,7 +130,7 @@ authController.post("/login", function(req, res) {
 		var MongooseCollection = Stylist;
 	}
 
-  MongooseCollection.findOne({ "username": username }, (err, user)=> {
+	MongooseCollection.findOne({ "username": username }, (err, user)=> {
 
   	if( ! user ){
 	    res.status(401).json({message:"no such user found"});

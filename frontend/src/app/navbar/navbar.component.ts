@@ -10,6 +10,8 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
   isAuth: boolean;
+  home: boolean;
+  url: string;
 
   constructor(
   	private session: SessionService,
@@ -27,9 +29,22 @@ export class NavbarComponent implements OnInit {
         this.isAuth = false;
       }
 
+    this.session.home
+      .subscribe((home: boolean) => {
+        this.home = home;
+      })
+    if (this.session.url == "/home") {
+      this.home = true;
+    } else {
+      this.home = false;
+    }
+
   }
 
+
+
   ngOnInit() {
+
   }
 
 

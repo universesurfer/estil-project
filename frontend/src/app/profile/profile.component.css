@@ -1,0 +1,22 @@
+#location {
+  font-size: 18px;
+}
+
+.update-location {
+  margin-top: 15%;
+}
+
+.update-location input {
+  display: block;
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+
+.update-location p, .update-location button {
+  display: inline;
+  margin: 0 2%;
+}
+
+.update-location button {
+  font-size: 17px;
+}

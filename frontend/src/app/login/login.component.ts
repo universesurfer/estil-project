@@ -33,6 +33,9 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.session.url = this.router.url;
+    this.session.checkHome();
+    console.log(this.session.url);
   }
 
   logIn(webUser) {

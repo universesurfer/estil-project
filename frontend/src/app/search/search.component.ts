@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SearchService } from "../search.service";
+import { SessionService } from "../session.service";
 import { Router } from '@angular/router';
 import { DropdownModule } from "ngx-dropdown";
 import { NgZone } from '@angular/core';
@@ -27,6 +28,7 @@ export class SearchComponent implements OnInit {
 
   constructor(
     private searchService: SearchService,
+    private session: SessionService,
     private router: Router,
     private zone: NgZone
   ) { }
@@ -69,6 +71,9 @@ export class SearchComponent implements OnInit {
     } else {
       alert('Oops, no geolocation support');
     }
+
+    this.session.url = this.router.url;
+    this.session.checkHome();
 
   }
 
@@ -261,7 +266,7 @@ export class SearchComponent implements OnInit {
 			if (filters[0] != " " && filters[0] != marker["price"] ||
 				(filters[1] != " " && marker["availability"].indexOf(filters[1]) == -1) ||
 				(filters[2] != " " && filters[2] != marker["mobile"] && marker["mobile"] != "Both") ||
-				(filters[3] != " " && marker["services"].indexOf(filters[3]) == -1)||
+				(filters[3] != " " && marker["languages"].indexOf(filters[3]) == -1)||
 				(filters[4] != " " && filters[4] != marker["expertise"] && marker["expertise"] != "Any")
 			) {
 				marker["marker"].setVisible(false);
