@@ -19,6 +19,16 @@ export class SearchService {
       .catch(this.handleError);
   }
 
+  sendAppointment(appointmentData) {
+    console.log("service",appointmentData);
+    return this.http.post(`${this.BASE_URL}/api/appointment`, appointmentData)
+      .map((response) => {
+        console.log("response");
+        response.json();
+      })
+      .catch((err) => Observable.throw(err));
+  }
+
   handleError(e) {
     return Observable.throw(e.json().message);
   }

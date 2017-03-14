@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Http } from '@angular/http';
+import { SearchService } from "../../search.service";
 
 
 @Component({
@@ -19,7 +19,7 @@ export class BookingComponent implements OnInit {
   BASE_URL: string = 'http://localhost:3000';
 
   constructor(
-    private http: Http
+    private searchService: SearchService
   ) { }
 
   ngOnInit() {
@@ -47,16 +47,19 @@ export class BookingComponent implements OnInit {
     console.log(this.date, requestTime);
     console.log(this.userId);
 
+    var stylistName = this.stylist.firstName + " " + this.stylist.lastName;
+
     var appointmentData = {
-      stylistId: this.stylist._id,
-      userId : this.userId,
-      appointmentDate: this.date,
-      appointmentTime: requestTime
+      stylist: this.stylist._id,
+      stylistName: stylistName,
+      user: this.userId,
+      date: this.date,
+      startTime: requestTime
     }
 
     console.log(appointmentData);
 
-    return this.http.post(`{this.BASE_URL}/api/appointment`, appointmentData);
+    this.searchService.sendAppointment(appointmentData);
   }
 
 }
