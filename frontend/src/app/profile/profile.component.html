@@ -17,12 +17,14 @@
     </div>
     <button type="submit" class="btn btn-primary" (click)="addAvatar()">Add new avatar</button>
   </form>
+  <ng-container *ngIf="role == 'stylist'">
   	<div class="update-location">
 		<h4>Update your location fast!</h4>
 		<input type="text" id="location" placeholder="Type here">
 		<p>or click</p>
 		<button class="btn btn-success" (click)="here()">Here I am!</button>
-	</div>
+	  </div>
+  </ng-container>
 </div>
 
 <div class="col-lg-5 col-md-8 col-xs-6">
@@ -52,11 +54,8 @@
 				<p> Email: {{ user.username }} </p>
 				<p> Name: {{ user.firstName }} {{ user.lastName }} </p>
 				<p> Location: {{ user.location }}</p>
-				<button class="btn btn-primary" (click)="profileToggle()">Edit profile</button>
-         <!-- <div *ngIf="user.role = Stylist"> -->
-      <!-- <button class="btn btn-info" (click)="request()">request an appointment</button> -->
-
-      <!-- </div> -->
+				<button class="btn btn-primary" (click)="profileToggle()">Edit profile</button><hr>
+        <button class="btn btn-info" (click)="request()">request an appointment</button>
 			</div>
 		</form>
 		<form *ngIf="editCheck">
