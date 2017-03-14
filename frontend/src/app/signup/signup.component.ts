@@ -77,31 +77,4 @@ newStylist = {
       });
   }
 
-  // ngAfterViewInit() {
-  //   // const hostElem = this.el.nativeElement;
-  //   // console.log(hostElem.children);
-  //   // console.log(hostElem.parentNode);
-  //
-  //  console.log(this.el.nativeElement.querySelector('#stylist-location'));
-  // }
-  //
-  // updateLocationEventListener() {
-  //   // console.log(this);
-  //   // var stylistLocation = this.elementRef.nativeElement.value;
-  //
-  //   console.log(this.el.nativeElement);
-  //
-  //   const hostElem = this.el.nativeElement.querySelector('#stylist-location');
-  //   console.log(hostElem);
-  //
-  //   var stylistPlace = new google.maps.places.Autocomplete(hostElem);
-  //
-  //   google.maps.event.addListener(stylistPlace, 'place_changed', function() {
-  //   	var place = stylistPlace.getPlace();
-  //   	this.user.lng = place.geometry.location.lng();
-  //   	this.user.lat = place.geometry.location.lat();
-  //   	this.user.location = place.formatted_address;
-  //
-  //   }.bind(this));
-  // }
 }

@@ -17,7 +17,6 @@ declare var google: any;
 })
 export class ProfileComponent implements OnInit {
   user: any;
-  role: any;
   editCheck: boolean = false;
   error: string;
   id: string;
@@ -113,7 +112,7 @@ export class ProfileComponent implements OnInit {
  request(){
    console.log("request triggered");
  }
-  
+
   updateLocationEventListener() {
 
     var stylistLocation = document.getElementById('location');
