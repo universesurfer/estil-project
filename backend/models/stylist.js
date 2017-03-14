@@ -19,7 +19,7 @@ const stylistSchema = new Schema({
   mobile      : [String],
 	distance		: Number,
 	marker			: {String},
-  geolocation  : {type: {type: String}, coordinates: { type: []}},
+  geolocation  : {type: {type: String}, coordinates: { type: [], index: '2dsphere'}},
 	location: String,
   reviews :
     [{
@@ -31,7 +31,7 @@ const stylistSchema = new Schema({
     }]
 });
 
-stylistSchema.index({geolocation: '2dsphere'});
+// stylistSchema.index({geolocation: '2dsphere'});
 stylistSchema.set('timestamps', true);
 
 const Stylist = mongoose.model('Stylist', stylistSchema);
