@@ -12,6 +12,7 @@ router.get('/', function(req, res, next) {
 
 
 router.post("/api/search", (req, res)=> {
+
 	Stylist.geoNear( req.body,
 		{ spherical : true,
 		 	maxDistance: 0.0015678896,		//1km is 1/6378
@@ -85,6 +86,7 @@ router.put('/profile/:role/:id', (req, res) => {
 })
 
 router.post('/profile/:role/:id', upload.single('file'), (req, res, next) => {
+
   var id = req.params.id;
 
   if (req.params.role == "user") {
@@ -93,6 +95,8 @@ router.post('/profile/:role/:id', upload.single('file'), (req, res, next) => {
   else if (req.params.role == "stylist") {
     var MongooseCollection = Stylist;
   }
+
+  console.log(req.file.filename);
 
   let image = {
     avatar: `http://localhost:3000/uploads/${req.file.filename}`
