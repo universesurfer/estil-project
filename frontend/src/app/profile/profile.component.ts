@@ -81,7 +81,6 @@ export class ProfileComponent implements OnInit {
     this.session.get()
       .subscribe((response) => {
         this.user = response;
-        console.log(this.user);
       });
   }
 
