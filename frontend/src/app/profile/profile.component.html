@@ -17,38 +17,69 @@
     </div>
     <button type="submit" class="btn btn-primary" (click)="addAvatar()">Add new avatar</button>
   </form>
+  	<div class="update-location">
+		<h4>Update your location fast!</h4>
+		<input type="text" id="location" placeholder="Type here">
+		<p>or click</p>
+		<button class="btn btn-success" (click)="here()">Here I am!</button>
+	</div>
 </div>
 
 <div class="col-lg-5 col-md-8 col-xs-6">
-  <!-- <div *ngIf="stylist">
-    <p> Email: {{ stylist.username }} </p>
-    <p> First Name: {{ stylist.firstName }}  </p>
-    <p> Last Name: {{ stylist.lastName }} </p>
-    <button class="btn btn-primary" (click)="profileToggle()">Edit profile</button>
-  </div> -->
-  <form *ngIf="editCheck == false">
-    <div *ngIf="user">
-      <p> Email: {{ user.username }} </p>
-      <p> First Name: {{ user.firstName }}  </p>
-      <p> Last Name: {{ user.lastName }} </p>
-      <button class="btn btn-primary" (click)="profileToggle()">Edit profile</button>
-      <!-- <div *ngIf="user.role = Stylist"> -->
+  <ng-container *ngIf="role == 'user'">
+		<form *ngIf="!editCheck">
+	    <div *ngIf="user">
+	      <p> Email: {{ user.username }} </p>
+	      <p> Name: {{ user.firstName }} {{ user.lastName }} </p>
+				<button class="btn btn-primary" (click)="profileToggle()">Edit profile</button>
+	    </div>
+	  </form>
+	  <form *ngIf="editCheck">
+	    <div *ngIf="user">
+	      <label for="username">Email:</label>
+	      <input type="text" name="username" value="{{ user.username }}" [(ngModel)]="user.username"><br>
+	      <label for="firstName">First Name:</label>
+	      <input type="text" name="firstName" value="{{ user.firstName }}" [(ngModel)]="user.firstName"><br>
+	      <label for="lastName">Last Name:</label>
+	      <input type="text" name="lastName" value="{{ user.lastName }}" [(ngModel)]="user.lastName"><br>
+	      <button class="btn btn-info" (click)="profileToggle()">Update</button>
+	    </div>
+	  </form>
+	</ng-container>
+	<ng-container *ngIf="role == 'stylist'">
+		<form *ngIf="!editCheck">
+			<div *ngIf="user">
+				<p> Email: {{ user.username }} </p>
+				<p> Name: {{ user.firstName }} {{ user.lastName }} </p>
+				<p> Location: {{ user.location }}</p>
+				<button class="btn btn-primary" (click)="profileToggle()">Edit profile</button>
+         <!-- <div *ngIf="user.role = Stylist"> -->
       <!-- <button class="btn btn-info" (click)="request()">request an appointment</button> -->
 
       <!-- </div> -->
-    </div>
-  </form>
-  <form *ngIf="editCheck">
-    <div *ngIf="user">
-      <label for="username">Email:</label>
-      <input type="text" name="username" value="{{ user.username }}" [(ngModel)]="user.username"><br>
-      <label for="firstName">First Name:</label>
-      <input type="text" name="firstName" value="{{ user.firstName }}" [(ngModel)]="user.firstName"><br>
-      <label for="lastName">Last Name:</label>
-      <input type="text" name="lastName" value="{{ user.lastName }}" [(ngModel)]="user.lastName"><br>
-      <button class="btn btn-info" (click)="profileToggle()">Update</button>
-    </div>
-  </form><br><br>
+			</div>
+		</form>
+		<form *ngIf="editCheck">
+			<div *ngIf="user">
+				<label for="username">Email:</label>
+				<input type="text" name="username" value="{{ user.username }}" [(ngModel)]="user.username"><br>
+				<label for="firstName">First Name:</label>
+				<input type="text" name="firstName" value="{{ user.firstName }}" [(ngModel)]="user.firstName"><br>
+				<label for="lastName">Last Name:</label>
+				<input type="text" name="lastName" value="{{ user.lastName }}" [(ngModel)]="user.lastName"><br>
+				<label for="availability">Availability</label>
+					<label><input type="checkbox" value="Monday">M</label>
+					<label><input type="checkbox" value="Tuesday">T</label>
+					<label><input type="checkbox" value="Wednesday">W</label>
+					<label><input type="checkbox" value="Thursday">T</label>
+					<label><input type="checkbox" value="Friday">F</label>
+					<label><input type="checkbox" value="Saturday">S</label>
+					<label><input type="checkbox" value="Sunday">S</label>
+				<button class="btn btn-info" (click)="profileToggle()">Update</button>
+			</div>
+		</form>
+	</ng-container>
+
 </div>
 
 
