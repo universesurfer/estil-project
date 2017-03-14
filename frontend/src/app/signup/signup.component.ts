@@ -17,7 +17,7 @@ newUser = {
     firstName: '',
     lastName:  '',
     username: '',
-    password: '',
+    password: ''
  };
 
 newStylist = {
@@ -63,7 +63,6 @@ newStylist = {
   }
 
   signUpStylist() {
-    console.log('hey');
     this.session.signupStylist(this.newStylist)
       .subscribe(result => {
           if (result) {

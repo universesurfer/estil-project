@@ -17,7 +17,8 @@ import { routes } from './app.routing';
 import { DropdownModule } from "ngx-dropdown";
 import { CustomFormsModule } from 'ng2-validation';
 import { ToastModule } from 'ng2-toastr/ng2-toastr';
-
+import { HomeComponent } from './home/home.component';
+import { FileSelectDirective } from "ng2-file-upload";
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { ToastModule } from 'ng2-toastr/ng2-toastr';
     NavbarComponent,
     SearchComponent,
     HomeComponent,
+    FileSelectDirective,
   ],
   imports: [
     BrowserModule,

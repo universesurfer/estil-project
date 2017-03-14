@@ -3,6 +3,7 @@ var router           = express.Router();
 const mongoose			 = require('mongoose');
 const User           = require("../models/user");
 const Stylist        = require('../models/stylist');
+const upload         = require('../config/multer');
 
 
 router.get('/', function(req, res, next) {
@@ -83,6 +84,30 @@ router.put('/profile/:role/:id', (req, res) => {
 
 
 })
+
+router.post('/profile/:role/:id', upload.single('file'), (req, res, next) => {
+  var id = req.params.id;
+
+  if (req.params.role == "user") {
+    var MongooseCollection = User;
+  }
+  else if (req.params.role == "stylist") {
+    var MongooseCollection = Stylist;
+  }
+
+  let image = {
+    avatar: `http://localhost:3000/uploads/${req.file.filename}`
+  };
+
+  MongooseCollection.findByIdAndUpdate(id, image, (err, user)=>{
+    if (err) {
+      next(err)
+    } else {
+      res.json(user);
+    }
+  });
+});
+
 
 
 module.exports = router;

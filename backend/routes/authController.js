@@ -25,6 +25,7 @@ authController.post("/signup", (req, res, next) => {
 	var lastName = req.body.lastName;
   var username = req.body.username;
   var password = req.body.password;
+	var avatar = '';
 
   if (!username || !password) {
     res.status(400).json({ message: "Provide username and password" });
@@ -47,7 +48,8 @@ authController.post("/signup", (req, res, next) => {
 			firstName,
 			lastName,
       username,
-      password: hashPass
+      password: hashPass,
+			avatar,
     });
 
     newUser.save((err, user) => {
@@ -69,6 +71,7 @@ authController.post("/stylist/signup", (req, res, next) => {
   var username = req.body.username;
   var password = req.body.password;
 	var location = req.body.location;
+	var avatar = '';
 
   if (!username || !password) {
     res.status(400).json({ message: "Provide username and password" });
@@ -97,6 +100,7 @@ authController.post("/stylist/signup", (req, res, next) => {
 			location,
       resume_path: "",
       resume_name: "",
+			avatar,
     });
 
 		newStylist.save((err, stylist) => {
@@ -136,7 +140,6 @@ authController.post("/login", function(req, res) {
 	    res.status(401).json({message:"no such user found"});
 	  } else {
       bcrypt.compare(password, user.password, function(err, isMatch) {
-        console.log(isMatch);
         if (!isMatch) {
           res.status(401).json({message:"passwords did not match"});
         } else {

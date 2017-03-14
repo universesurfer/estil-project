@@ -2,6 +2,10 @@ import { Component, OnInit, ViewContainerRef, ElementRef } from '@angular/core';
 import { SessionService } from "./../session.service";
 import { Router, ActivatedRoute } from "@angular/router";
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { FileUploader } from 'ng2-file-upload';
+import 'rxjs/add/operator/map';
+import { Http } from '@angular/http';
+import { Observable } from 'rxjs/Rx';
 import { NgZone } from '@angular/core';
 
 declare var google: any;
@@ -16,13 +20,18 @@ export class ProfileComponent implements OnInit {
   role: any;
   editCheck: boolean = false;
   error: string;
+  id: string;
+  role: string;
+  uploader: FileUploader;
 
+  BASE_URL: string = 'http://localhost:3000';
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private session: SessionService,
     private toastr: ToastsManager,
+    private http: Http,
     public el: ElementRef,
     private zone: NgZone
   ) {}
@@ -41,6 +50,28 @@ export class ProfileComponent implements OnInit {
     this.session.url = this.router.url;
     this.session.checkHome();
 
+    this.id = localStorage.getItem('id');
+    this.role = localStorage.getItem('role');
+
+    this.uploader = new FileUploader({
+        url:`${this.BASE_URL}/profile/${this.role}/${this.id}`
+        // authToken: `JWT ${this.session.token}`
+      });
+
+
+      this.uploader.onSuccessItem = (item, response) => {
+        return this.http.post(`${this.BASE_URL}/profile/${this.role}/${this.id}`, item)
+        .map((response) => {
+          response.json();
+        })
+        .catch((err) => Observable.throw(err));
+      };
+
+
+      this.uploader.onErrorItem = (item, response, status, headers) => {
+        console.log('Error', response)
+      };
+
   }
 
   ngAfterViewInit(){
@@ -56,7 +87,6 @@ export class ProfileComponent implements OnInit {
   }
 
   profileToggle() {
-
     if(this.editCheck != true) {
       this.editCheck = true;
     } else {
@@ -64,7 +94,6 @@ export class ProfileComponent implements OnInit {
       this.session.edit(this.user)
         .subscribe(result => {
             if (result) {
-              // this.router.navigate(['/profile']);
               this.toastr.success('User updated');
        			} else {
               this.toastr.error('Something went wrong');
@@ -74,6 +103,17 @@ export class ProfileComponent implements OnInit {
 
   }
 
+ addAvatar(){
+   this.uploader.onBuildItemForm = (item, form) => {
+   };
+   this.uploader.uploadAll();
+   location.reload();
+ }
+
+ request(){
+   console.log("request triggered");
+ }
+  
   updateLocationEventListener() {
 
     var stylistLocation = document.getElementById('location');
