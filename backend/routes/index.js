@@ -70,8 +70,7 @@ router.put('/profile/:role/:id', (req, res) => {
       lastName: req.body.lastName,
       username: req.body.username,
       location: req.body.location,
-      lat: req.body.lat,
-      lng: req.body.lng
+      geolocation  : {type: "Point", coordinates: [req.body.lng,req.body.lat]}
     }, (err,user) => {
       if (err) {
         return res.send(err);
