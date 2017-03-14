@@ -4,6 +4,7 @@ import { SessionService } from "../session.service";
 import { Router } from '@angular/router';
 import { DropdownModule } from "ngx-dropdown";
 import { NgZone } from '@angular/core';
+import { SearchBookingComponent } from '../search-booking/search-booking.component';
 
 declare var google: any;
 declare var map: any;
@@ -173,6 +174,7 @@ export class SearchComponent implements OnInit {
 
    this.searchService.search([myPosition.lng,myPosition.lat])
      .subscribe((response) => {
+       console.log(response);
        this.zone.run(() => {
          var stylistData = {};
          response.forEach(function(stylist,index){

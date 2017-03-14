@@ -1,12 +1,13 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { SearchService } from "../../search.service";
+import { SearchService } from "../search.service";
 
 @Component({
-  selector: 'app-booking',
-  templateUrl: './booking.component.html',
-  styleUrls: ['./booking.component.css']
+  selector: 'app-search-booking',
+  templateUrl: './search-booking.component.html',
+  styleUrls: ['./search-booking.component.css'],
+  providers: [SearchService]
 })
-export class BookingComponent implements OnInit {
+export class SearchBookingComponent implements OnInit {
 @Input() stylist: any;
 
   date: string;
@@ -14,6 +15,9 @@ export class BookingComponent implements OnInit {
   minute: string = "00";
   ampm: string = "pm";
   userId: any;
+  appointmentData: any;
+  stylistName: any;
+  requestTime: any;
 
   BASE_URL: string = 'http://localhost:3000';
 
@@ -42,23 +46,29 @@ export class BookingComponent implements OnInit {
   }
 
   makeAppointment(){
-    var requestTime = this.hour + ":" + this.minute + this.ampm;
-    console.log(this.date, requestTime);
+    this.requestTime = this.hour + ":" + this.minute + this.ampm;
+    console.log(this.date, this.requestTime);
     console.log(this.userId);
 
-    var stylistName = this.stylist.firstName + " " + this.stylist.lastName;
+    this.stylistName = this.stylist.firstName + " " + this.stylist.lastName;
 
-    var appointmentData = {
+    this.appointmentData = {
       stylist: this.stylist._id,
-      stylistName: stylistName,
+      stylistName: this.stylistName,
       user: this.userId,
       date: this.date,
-      startTime: requestTime
+      startTime: this.requestTime
     }
 
-    console.log(appointmentData);
+    console.log(this.appointmentData);
 
-    this.searchService.sendAppointment(appointmentData);
+    console.log(this.searchService);
+
+    this.searchService.sendAppointment(this.appointmentData)
+      .subscribe((response) => {
+        console.log(response);
+
+    })
   }
 
 }

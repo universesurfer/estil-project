@@ -14,19 +14,23 @@ export class SearchService {
   ) {}
 
   search(location) {
-    return this.http.post(`${this.BASE_URL}/api/search`,location)
-      .map(res => res.json())
+    var locationObject = {"location" : location}
+    console.log(locationObject);
+    return this.http.post(`${this.BASE_URL}/api/search`,locationObject)
+      .map(res =>
+        res.json()
+)
       .catch(this.handleError);
   }
 
   sendAppointment(appointmentData) {
     console.log("service",appointmentData);
-    return this.http.post(`${this.BASE_URL}/api/appointment`, appointmentData)
-      .map((response) => {
-        console.log("response");
-        response.json();
-      })
-      .catch((err) => Observable.throw(err));
+    var appointmentObject = appointmentData;
+    return this.http.post(`${this.BASE_URL}/api/appointment`, appointmentObject)
+      .map(response =>
+        response.json()
+      )
+      .catch(this.handleError);
   }
 
   handleError(e) {
