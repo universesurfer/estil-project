@@ -68,6 +68,10 @@
 				<p> Email: {{ user.username }} </p>
 				<p> Name: {{ user.firstName }} {{ user.lastName }} </p>
 				<p> Location: {{ user.location }}</p>
+        <p> Price: {{ user.price }}</p>
+        <p> Languages: {{ user.languages }}</p>
+        <p> Services: {{ user.services }}</p>
+        <p> Expertise: {{ user.expertise }}</p>
 				<button class="btn btn-primary" (click)="profileToggle()">Edit profile</button><hr>
         <table style="width: 100%">
           <tr>
@@ -100,7 +104,23 @@
 					<label><input type="checkbox" value="Thursday">T</label>
 					<label><input type="checkbox" value="Friday">F</label>
 					<label><input type="checkbox" value="Saturday">S</label>
-					<label><input type="checkbox" value="Sunday">S</label>
+					<label><input type="checkbox" value="Sunday">S</label><br>
+        <label for="price">Price</label>
+          <label><input type="checkbox" value="€">€</label>
+          <label><input type="checkbox" value="€€">€€</label>
+          <label><input type="checkbox" value="€€€">€€€</label><br>
+        <label for="languages">Languages</label>
+          <label><input type="checkbox" value="Catalan">Catalan</label>
+          <label><input type="checkbox" value="Spanish">Spanish</label>
+          <label><input type="checkbox" value="English">English</label><br>
+        <label for="services">Services</label>
+          <label><input type="checkbox" value="Blow Dry">Blow Dry</label>
+          <label><input type="checkbox" value="Color">Color</label>
+          <label><input type="checkbox" value="Cut">Cut</label><br>
+        <label for="expertise">Expertise</label>
+          <label><input type="checkbox" value="Men">Men</label>
+          <label><input type="checkbox" value="Women">Women</label>
+          <label><input type="checkbox" value="Unisex">Unisex</label><br>
 				<button class="btn btn-info" (click)="profileToggle()">Update</button>
 			</div>
 		</form>

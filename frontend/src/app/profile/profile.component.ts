@@ -94,8 +94,8 @@ export class ProfileComponent implements OnInit {
             }
         });
     }
-
   }
+
 
  addAvatar(){
    this.uploader.onBuildItemForm = (item, form) => {
