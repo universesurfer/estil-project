@@ -24,6 +24,10 @@ export class ProfileComponent implements OnInit {
   uploader: FileUploader;
   appointments: any;
   days: any = {};
+  price: string;
+  langs: any = {};
+  servs: any = {};
+
 
   BASE_URL: string = 'http://localhost:3000';
 
@@ -88,11 +92,22 @@ export class ProfileComponent implements OnInit {
     } else {
 
       this.user.availability= [];
-      console.log(this.days);
       for (var day in this.days) {
-        console.log(day);
         this.user.availability.push(day);
       }
+
+      this.user.languages= [];
+      for (var lang in this.langs) {
+        this.user.languages.push(lang);
+      }
+
+      this.user.services= [];
+      for (var serv in this.servs) {
+        this.user.services.push(serv);
+      }
+
+      // this.user.price = this.price;
+      console.log(this.user);
 
       this.editCheck = false;
       this.session.edit(this.user)

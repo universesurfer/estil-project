@@ -72,7 +72,6 @@
         <p> Price: {{ user.price }}</p>
         <p> Languages: {{ user.languages }}</p>
         <p> Services: {{ user.services }}</p>
-        <p> Expertise: {{ user.expertise }}</p>
 				<button class="btn btn-primary" (click)="profileToggle()">Edit profile</button><hr>
         <table style="width: 100%">
           <tr>
@@ -107,26 +106,20 @@
 					<label><input type="checkbox" name="Saturday" [(ngModel)]="days.Saturday">S</label>
 					<label><input type="checkbox" name="Sunday" [(ngModel)]="days.Sunday">S</label><br>
         <label class="category" for="price">Price</label>
-          <select name=" " id="">
+          <select name="price" [(ngModel)]="user.price" id="">
             <option value="€">€</option>
             <option value="€€">€€</option>
             <option value="€€€">€€€</option>
           </select>
           <br>
         <label class="category" for="languages">Languages</label>
-          <label><input type="checkbox" value="Catalan">Catalan</label>
-          <label><input type="checkbox" value="Spanish">Spanish</label>
-          <label><input type="checkbox" value="English">English</label><br>
+          <label><input type="checkbox" name="Catalan" [(ngModel)]="langs.Catalan">Catalan</label>
+          <label><input type="checkbox" name="Spanish" [(ngModel)]="langs.Spanish">Spanish</label>
+          <label><input type="checkbox" name="English" [(ngModel)]="langs.English">English</label><br>
         <label class="category" for="services">Services</label>
-          <label><input type="checkbox" value="Blow Dry">Blow Dry</label>
-          <label><input type="checkbox" value="Color">Color</label>
-          <label><input type="checkbox" value="Cut">Cut</label><br>
-        <label class="category" for="expertise">Expertise</label>
-        <select name=" " id="">
-          <option value="Unisex">Unisex</option>
-          <option value="Men">Men</option>
-          <option value="Women">Women</option>
-        </select>
+          <label><input type="checkbox" name="Blowdry" [(ngModel)]="servs.Blowdry">Blow Dry</label>
+          <label><input type="checkbox" name="Color" [(ngModel)]="servs.Color">Color</label>
+          <label><input type="checkbox" name="Cut" [(ngModel)]="servs.Cut">Cut</label><br>
         <br>
 				<button class="btn btn-info" (click)="profileToggle()">Update</button>
 			</div>

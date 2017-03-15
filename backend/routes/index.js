@@ -135,17 +135,16 @@ router.put('/profile/:role/:id', (req, res) => {
     }
 
     else {
-      console.log(req.body.availability);
+      console.log(req.body.price);
 
       Stylist.findByIdAndUpdate(req.params.id, {
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       username: req.body.username,
       availability: req.body.availability,
-      // price: ,
-      // languages: ,
-      // services: ,
-      // expertise: ,
+      price: req.body.price,
+      languages: req.body.languages,
+      services: req.body.services,
       }, (err,user) => {
         if (err) {
           return res.send(err);
