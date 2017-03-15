@@ -33,7 +33,21 @@
 	    <div *ngIf="user">
 	      <p> Email: {{ user.username }} </p>
 	      <p> Name: {{ user.firstName }} {{ user.lastName }} </p>
-				<button class="btn btn-primary" (click)="profileToggle()">Edit profile</button>
+				<button class="btn btn-primary" (click)="profileToggle()">Edit profile</button><hr>
+        <table style="width: 100%">
+          <tr>
+            <th>Stylist</th>
+            <th>Date</th>
+            <th>Time</th>
+          </tr>
+          <ng-container *ngFor="let appointment of appointments">
+            <tr>
+              <td>{{appointment.stylistName}}</td>
+              <td>{{appointment.date | date}}</td>
+              <td>{{appointment.startTime}}</td>
+            </tr>
+          </ng-container>
+        </table>
 	    </div>
 	  </form>
 	  <form *ngIf="editCheck">
@@ -55,7 +69,7 @@
 				<p> Name: {{ user.firstName }} {{ user.lastName }} </p>
 				<p> Location: {{ user.location }}</p>
 				<button class="btn btn-primary" (click)="profileToggle()">Edit profile</button><hr>
-        <table id="appointments" style="width: 100%">
+        <table style="width: 100%">
           <tr>
             <th>Customer</th>
             <th>Date</th>
