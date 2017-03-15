@@ -13,30 +13,37 @@ router.get('/', function(req, res, next) {
 
 
 router.post("/api/appointment", (req,res) => {
-  console.log("api/appointment");
-  let newAppointment = new Appointment({
-    stylist: req.body.stylist,
-    user: req.body.user,
-    date: req.body.date,
-    startTime: req.body.startTime
-  });
 
-  console.log(newAppointment);
+  User.findById(req.body.user, (err,user) => {
+    let userName = user.firstName + " " + user.lastName;
 
-  newAppointment.save((err)=> {
-    if (err){
-      console.log("error saving appointment");
-    }
-    else {
-      console.log("test");
-      res.json({"message": "appointment saved"});
-    }
-  });
+    let newAppointment = new Appointment({
+      stylist: req.body.stylist,
+      stylistName: req.body.stylistName,
+      user: req.body.user,
+      userName: userName,
+      date: req.body.date,
+      startTime: req.body.startTime
+    });
+
+    console.log(newAppointment);
+
+    newAppointment.save((err)=> {
+      if (err){
+        console.log("error saving appointment");
+      }
+      else {
+        console.log("test");
+        res.json({"message": "appointment saved"});
+      }
+    });
+  })
+
 })
 
 router.post("/api/search", (req, res)=> {
 
-  console.log(req.body.location);
+  // console.log(req.body.location);
 
 	Stylist.geoNear(
     // {type: "Point", coordinates: req.body.location},
@@ -69,11 +76,19 @@ router.get('/profile/:role/:id', (req, res) => {
   }
 
   MongooseCollection.findById(req.params.id, (err, user) => {
-      if (err) {
-        return res.send(err);
-      }
-      return res.json(user);
-    });
+    if (err) {
+      return res.send(err);
+    }
+    if (req.params.role == "stylist"){
+      Appointment.find({"stylist": user._id}, (err, app) => {
+        res.json({user,app});
+      })
+    }
+    else {
+      console.log("test2");
+      res.json(user);
+    }
+  });
 });
 
 router.put('/profile/:role/:id', (req, res) => {
