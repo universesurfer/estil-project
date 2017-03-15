@@ -21,14 +21,7 @@ const stylistSchema = new Schema({
 	marker			: {String},
   geolocation  : {type: {type: String}, coordinates: { type: [], index: '2dsphere'}},
 	location: String,
-  reviews :
-    [{
-        userId  : {type: Schema.Types.ObjectId, ref: 'User'},
-        name    : String,
-        comment : String,
-        stars   : Number,
-        date    : Date
-    }]
+	pictures: [String]
 });
 
 // stylistSchema.index({geolocation: '2dsphere'});

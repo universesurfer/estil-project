@@ -22,6 +22,7 @@ export class ProfileComponent implements OnInit {
   id: string;
   role: string;
   uploader: FileUploader;
+  uploader2: FileUploader;
   appointments: any;
   days: any = {};
   price: string;
@@ -58,11 +59,11 @@ export class ProfileComponent implements OnInit {
       });
 
     this.uploader.onSuccessItem = (item, response) => {
-      return this.http.post(`${this.BASE_URL}/profile/${this.role}/${this.id}`, item)
-      .map((response) => {
-        response.json();
-      })
-      .catch((err) => Observable.throw(err));
+      this.session.get()
+        .subscribe((response) => {
+          this.user = response.user;
+          this.appointments = response.app;
+        });
     };
 
     this.uploader.onErrorItem = (item, response, status, headers) => {
@@ -122,13 +123,9 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-
- addAvatar(){
-   this.uploader.onBuildItemForm = (item, form) => {
-   };
-   this.uploader.uploadAll();
-   location.reload();
- }
+   addAvatar(){
+     this.uploader.uploadAll()
+   }
 
   updateLocationEventListener() {
 

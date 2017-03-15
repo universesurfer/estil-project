@@ -170,6 +170,8 @@ router.post('/profile/:role/:id', upload.single('file'), (req, res, next) => {
     var MongooseCollection = Stylist;
   }
 
+  console.log(req.file);
+
   let image = {
     avatar: `http://localhost:3000/uploads/${req.file.filename}`
   };
@@ -178,6 +180,7 @@ router.post('/profile/:role/:id', upload.single('file'), (req, res, next) => {
     if (err) {
       next(err)
     } else {
+      console.log("response", user);
       res.json(user);
     }
   });
