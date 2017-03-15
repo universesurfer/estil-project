@@ -118,6 +118,10 @@ router.put('/profile/:role/:id', (req, res) => {
       lastName: req.body.lastName,
       username: req.body.username,
       location: req.body.location,
+      // price: ,
+      // languages: ,
+      // services: ,
+      // expertise: ,
       geolocation  : {type: "Point", coordinates: [req.body.lng,req.body.lat]}
     }, (err,user) => {
       if (err) {
