@@ -145,6 +145,7 @@ router.put('/profile/:role/:id', (req, res) => {
       price: req.body.price,
       languages: req.body.languages,
       services: req.body.services,
+      board: req.body.board
       }, (err,user) => {
         if (err) {
           return res.send(err);

@@ -21,7 +21,8 @@ const stylistSchema = new Schema({
 	marker			: {String},
   geolocation  : {type: {type: String}, coordinates: { type: [], index: '2dsphere'}},
 	location: String,
-	pictures: [String]
+	pictures: [String],
+	board: String
 });
 
 // stylistSchema.index({geolocation: '2dsphere'});

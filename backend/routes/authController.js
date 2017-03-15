@@ -26,6 +26,7 @@ authController.post("/signup", (req, res, next) => {
   var username = req.body.username;
   var password = req.body.password;
 	var avatar = '';
+	var board = '';
 
   if (!username || !password) {
     res.status(400).json({ message: "Provide username and password" });
@@ -50,6 +51,7 @@ authController.post("/signup", (req, res, next) => {
       username,
       password: hashPass,
 			avatar,
+			board
     });
 
     newUser.save((err, user) => {
@@ -72,6 +74,7 @@ authController.post("/stylist/signup", (req, res, next) => {
   var password = req.body.password;
 	var location = req.body.location;
 	var avatar = '';
+	var board = '';
 
   if (!username || !password) {
     res.status(400).json({ message: "Provide username and password" });
@@ -101,6 +104,7 @@ authController.post("/stylist/signup", (req, res, next) => {
       resume_path: "",
       resume_name: "",
 			avatar,
+			board
     });
 
 		newStylist.save((err, stylist) => {
