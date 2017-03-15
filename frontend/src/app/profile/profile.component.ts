@@ -23,6 +23,7 @@ export class ProfileComponent implements OnInit {
   role: string;
   uploader: FileUploader;
   appointments: any;
+  days: any = {};
 
   BASE_URL: string = 'http://localhost:3000';
 
@@ -81,9 +82,13 @@ export class ProfileComponent implements OnInit {
   }
 
   profileToggle() {
+
     if(this.editCheck != true) {
       this.editCheck = true;
     } else {
+
+      console.log(this.days);
+
       this.editCheck = false;
       this.session.edit(this.user)
         .subscribe(result => {

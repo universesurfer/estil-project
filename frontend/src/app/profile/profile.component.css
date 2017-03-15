@@ -20,3 +20,12 @@
 .update-location button {
   font-size: 17px;
 }
+
+select {
+  display: inline-block;;
+}
+
+.category {
+  width: 25%;
+  margin-bottom: 3%;
+}
