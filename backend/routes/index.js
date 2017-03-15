@@ -72,24 +72,30 @@ router.get('/profile/:role/:id', (req, res) => {
   }
 
   MongooseCollection.findById(req.params.id, (err, user) => {
-      if (err) {
-        return res.send(err);
-      } else {
-        if (req.params.role == "stylist")
-        {
-          Appointment.find({"stylist": user._id}, (err , app) => {
-            if (err) {
-              return res.send(err);
-            }
-            else {
-            return res.json({user, app});
-            }
+    if (err) {
+      return res.send(err);
+    } else {
+      if (req.params.role == "stylist") {
+        Appointment.find({"stylist": user._id}, (err , app) => {
+          if (err) {
+            return res.send(err);
+          }
+          else {
+          return res.json({user, app});
+          }
         })
-      } else {
-         return res.json({user});
+      } else if (req.params.role == "user"){
+        Appointment.find({"user": user._id}, (err , app) => {
+          if (err) {
+            return res.send(err);
+          }
+          else {
+          return res.json({user, app});
+          }
+        })
+        }
       }
-    }
-  })
+    })
 });
 
 
