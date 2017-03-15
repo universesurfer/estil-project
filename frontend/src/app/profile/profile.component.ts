@@ -22,6 +22,7 @@ export class ProfileComponent implements OnInit {
   id: string;
   role: string;
   uploader: FileUploader;
+  uploader2: FileUploader;
   appointments: any;
   days: any = {};
 
