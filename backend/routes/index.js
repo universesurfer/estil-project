@@ -3,6 +3,7 @@ var router           = express.Router();
 const mongoose			 = require('mongoose');
 const User           = require("../models/user");
 const Stylist        = require('../models/stylist');
+const Appointment    = require('../models/appointment');
 const upload         = require('../config/multer');
 
 
@@ -11,8 +12,39 @@ router.get('/', function(req, res, next) {
 });
 
 
+router.post("/api/appointment", (req,res) => {
+
+  User.findById(req.body.user, (err,user) => {
+    let userName = user.firstName + " " + user.lastName;
+
+    let newAppointment = new Appointment({
+      stylist: req.body.stylist,
+      stylistName: req.body.stylistName,
+      user: req.body.user,
+      userName: userName,
+      date: req.body.date,
+      startTime: req.body.startTime
+    });
+
+    console.log(newAppointment);
+
+    newAppointment.save((err)=> {
+      if (err){
+        console.log("error saving appointment");
+      }
+      else {
+        console.log("test");
+        res.json({"message": "appointment saved"});
+      }
+    });
+  })
+
+})
+
 router.post("/api/search", (req, res)=> {
-	Stylist.geoNear( req.body,
+	Stylist.geoNear(
+    // {type: "Point", coordinates: req.body.location},
+    req.body.location,
 		{ spherical : true,
 		 	maxDistance: 0.0015678896,		//1km is 1/6378
 			distanceMultiplier: 6378.1
@@ -20,10 +52,12 @@ router.post("/api/search", (req, res)=> {
 	    if (err) {
 	        console.log(err);
 	    } else {
+        console.log("results",results);
 				res.json(results);
 	    }
 	})
 });
+
 
 router.get('/profile/:role/:id', (req, res) => {
   if(!mongoose.Types.ObjectId.isValid(req.params.id)) {
@@ -38,12 +72,32 @@ router.get('/profile/:role/:id', (req, res) => {
   }
 
   MongooseCollection.findById(req.params.id, (err, user) => {
-      if (err) {
-        return res.send(err);
+    if (err) {
+      return res.send(err);
+    } else {
+      if (req.params.role == "stylist") {
+        Appointment.find({"stylist": user._id}, (err , app) => {
+          if (err) {
+            return res.send(err);
+          }
+          else {
+          return res.json({user, app});
+          }
+        })
+      } else if (req.params.role == "user"){
+        Appointment.find({"user": user._id}, (err , app) => {
+          if (err) {
+            return res.send(err);
+          }
+          else {
+          return res.json({user, app});
+          }
+        })
+        }
       }
-      return res.json(user);
-    });
+    })
 });
+
 
 router.put('/profile/:role/:id', (req, res) => {
   if(!mongoose.Types.ObjectId.isValid(req.params.id)) {
@@ -65,26 +119,49 @@ router.put('/profile/:role/:id', (req, res) => {
     });
   }
   else if (req.params.role == "stylist") {
-    Stylist.findByIdAndUpdate(req.params.id, {
+
+    if (req.body.lng != null && req.body.lat != null) {
+      Stylist.findByIdAndUpdate(req.params.id, {
+        location: req.body.location,
+        geolocation  : {type: "Point", coordinates: [req.body.lng,req.body.lat]}
+      }, (err,user) => {
+        if (err) {
+          return res.send(err);
+        }
+        return res.json({
+          message: 'User updated successfully'
+        });
+      });
+    }
+
+    else {
+      console.log(req.body.availability);
+
+      Stylist.findByIdAndUpdate(req.params.id, {
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       username: req.body.username,
-      location: req.body.location,
-      geolocation  : {type: "Point", coordinates: [req.body.lng,req.body.lat]}
-    }, (err,user) => {
-      if (err) {
-        return res.send(err);
-      }
-      return res.json({
-        message: 'User updated successfully'
+      availability: req.body.availability,
+      // price: ,
+      // languages: ,
+      // services: ,
+      // expertise: ,
+      }, (err,user) => {
+        if (err) {
+          return res.send(err);
+        }
+        return res.json({
+          message: 'User updated successfully'
+        });
       });
-    });
+    }
+
   }
-
-
 })
 
+
 router.post('/profile/:role/:id', upload.single('file'), (req, res, next) => {
+
   var id = req.params.id;
 
   if (req.params.role == "user") {

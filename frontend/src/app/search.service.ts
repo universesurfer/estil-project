@@ -14,8 +14,20 @@ export class SearchService {
   ) {}
 
   search(location) {
-    return this.http.post(`${this.BASE_URL}/api/search`,location)
-      .map(res => res.json())
+    var locationObject = {"location" : location}
+    console.log(locationObject);
+    return this.http.post(`${this.BASE_URL}/api/search`,locationObject)
+      .map(res =>
+        res.json()
+      )
+      .catch(this.handleError);
+  }
+
+  sendAppointment(appointmentData) {
+    return this.http.post(`${this.BASE_URL}/api/appointment`, appointmentData)
+      .map(res =>
+        res.json()
+      )
       .catch(this.handleError);
   }
 

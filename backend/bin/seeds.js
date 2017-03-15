@@ -254,7 +254,6 @@ const appointments = [
     user     : {_id : "58aea2ef20b5ac2419eca716"},
     completed: true,
     accept   : true,
-    request  : String
 
   },
   {
@@ -265,7 +264,6 @@ const appointments = [
     user     : {_id : "58ac73d5b2ba19ab38c51a5e"},
     completed: false,
     accept   : false,
-    request  : String
 
   },
 	{
@@ -276,7 +274,6 @@ const appointments = [
 		user     : {_id : "58ac73d5b2ba19ab38c51a5e"},
 		completed: false,
     accept   : false,
-    request  : String
 	}
 ];
 

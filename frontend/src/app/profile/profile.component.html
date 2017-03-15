@@ -17,12 +17,14 @@
     </div>
     <button type="submit" class="btn btn-primary" (click)="addAvatar()">Add new avatar</button>
   </form>
+  <ng-container *ngIf="role == 'stylist'">
   	<div class="update-location">
 		<h4>Update your location fast!</h4>
 		<input type="text" id="location" placeholder="Type here">
 		<p>or click</p>
 		<button class="btn btn-success" (click)="here()">Here I am!</button>
-	</div>
+	  </div>
+  </ng-container>
 </div>
 
 <div class="col-lg-5 col-md-8 col-xs-6">
@@ -31,7 +33,21 @@
 	    <div *ngIf="user">
 	      <p> Email: {{ user.username }} </p>
 	      <p> Name: {{ user.firstName }} {{ user.lastName }} </p>
-				<button class="btn btn-primary" (click)="profileToggle()">Edit profile</button>
+				<button class="btn btn-primary" (click)="profileToggle()">Edit profile</button><hr>
+        <table style="width: 100%">
+          <tr>
+            <th>Stylist</th>
+            <th>Date</th>
+            <th>Time</th>
+          </tr>
+          <ng-container *ngFor="let appointment of appointments">
+            <tr>
+              <td>{{appointment.stylistName}}</td>
+              <td>{{appointment.date | date}}</td>
+              <td>{{appointment.startTime}}</td>
+            </tr>
+          </ng-container>
+        </table>
 	    </div>
 	  </form>
 	  <form *ngIf="editCheck">
@@ -52,36 +68,72 @@
 				<p> Email: {{ user.username }} </p>
 				<p> Name: {{ user.firstName }} {{ user.lastName }} </p>
 				<p> Location: {{ user.location }}</p>
-				<button class="btn btn-primary" (click)="profileToggle()">Edit profile</button>
-         <!-- <div *ngIf="user.role = Stylist"> -->
-      <!-- <button class="btn btn-info" (click)="request()">request an appointment</button> -->
-
-      <!-- </div> -->
+        <p> Availability: {{ user.availability }}</p>
+        <p> Price: {{ user.price }}</p>
+        <p> Languages: {{ user.languages }}</p>
+        <p> Services: {{ user.services }}</p>
+        <p> Expertise: {{ user.expertise }}</p>
+				<button class="btn btn-primary" (click)="profileToggle()">Edit profile</button><hr>
+        <table style="width: 100%">
+          <tr>
+            <th>Customer</th>
+            <th>Date</th>
+            <th>Time</th>
+          </tr>
+          <ng-container *ngFor="let appointment of appointments">
+            <tr>
+              <td>{{appointment.userName}}</td>
+              <td>{{appointment.date | date}}</td>
+              <td>{{appointment.startTime}}</td>
+            </tr>
+          </ng-container>
+        </table>
 			</div>
 		</form>
 		<form *ngIf="editCheck">
 			<div *ngIf="user">
-				<label for="username">Email:</label>
+				<label class="category" for="username">Email:</label>
 				<input type="text" name="username" value="{{ user.username }}" [(ngModel)]="user.username"><br>
-				<label for="firstName">First Name:</label>
+				<label class="category" for="firstName">First Name:</label>
 				<input type="text" name="firstName" value="{{ user.firstName }}" [(ngModel)]="user.firstName"><br>
-				<label for="lastName">Last Name:</label>
+				<label class="category" for="lastName">Last Name:</label>
 				<input type="text" name="lastName" value="{{ user.lastName }}" [(ngModel)]="user.lastName"><br>
-				<label for="availability">Availability</label>
-					<label><input type="checkbox" value="Monday">M</label>
-					<label><input type="checkbox" value="Tuesday">T</label>
-					<label><input type="checkbox" value="Wednesday">W</label>
-					<label><input type="checkbox" value="Thursday">T</label>
-					<label><input type="checkbox" value="Friday">F</label>
-					<label><input type="checkbox" value="Saturday">S</label>
-					<label><input type="checkbox" value="Sunday">S</label>
+				<label class="category" for="availability">Availability</label>
+					<label><input type="checkbox" name="Monday" [(ngModel)]="days.Monday">M</label>
+					<label><input type="checkbox" name="Tuesday" [(ngModel)]="days.Tuesday">T</label>
+					<label><input type="checkbox" name="Wednesday" [(ngModel)]="days.Wednesday">W</label>
+					<label><input type="checkbox" name="Thursday" [(ngModel)]="days.Thursday">T</label>
+					<label><input type="checkbox" name="Friday" [(ngModel)]="days.Friday">F</label>
+					<label><input type="checkbox" name="Saturday" [(ngModel)]="days.Saturday">S</label>
+					<label><input type="checkbox" name="Sunday" [(ngModel)]="days.Sunday">S</label><br>
+        <label class="category" for="price">Price</label>
+          <select name=" " id="">
+            <option value="€">€</option>
+            <option value="€€">€€</option>
+            <option value="€€€">€€€</option>
+          </select>
+          <br>
+        <label class="category" for="languages">Languages</label>
+          <label><input type="checkbox" value="Catalan">Catalan</label>
+          <label><input type="checkbox" value="Spanish">Spanish</label>
+          <label><input type="checkbox" value="English">English</label><br>
+        <label class="category" for="services">Services</label>
+          <label><input type="checkbox" value="Blow Dry">Blow Dry</label>
+          <label><input type="checkbox" value="Color">Color</label>
+          <label><input type="checkbox" value="Cut">Cut</label><br>
+        <label class="category" for="expertise">Expertise</label>
+        <select name=" " id="">
+          <option value="Unisex">Unisex</option>
+          <option value="Men">Men</option>
+          <option value="Women">Women</option>
+        </select>
+        <br>
 				<button class="btn btn-info" (click)="profileToggle()">Update</button>
 			</div>
 		</form>
 	</ng-container>
 
 </div>
-
 
 <div class="col-lg-4 thumb gallery">
   <h3 class="text-center">Style Gallery</h3>

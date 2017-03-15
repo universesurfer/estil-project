@@ -65,24 +65,27 @@
   </div>
 
   <div class="col-xs-6">
-  <button (click)="growMap()" *ngIf="list" class="btn" id="backToMap">Back to Map</button>
-  <table class="table-striped" id="listOfStylists">
-    <tr id="table-headers" class="hidden">
-      <th id="profile-header">Profile</th>
-      <th>Name</th>
-      <th>Location</th>
-      <th>Distance</th>
-    </tr>
-    <tr *ngFor="let stylist of stylists">
-      <ng-container *ngIf="stylist.marker.visible && stylist.distanceFromLocation < distance">
-        <td><i (click)="shrinkMap()" class="fa fa-user" aria-hidden="true"></i></td>
-        <td class="stylist-name">{{ stylist.firstName }} {{stylist.lastName}}</td>
-        <td>{{ stylist.location }}</td>
-        <td>{{ stylist.distanceFromLocation}}km</td>
-      </ng-container>
-    </tr>
-  </table>
-</div>
+    <button (click)="growMap()" *ngIf="list" class="btn" id="backToMap">Back to Map</button>
+    <table class="table-striped" id="listOfStylists">
+      <tr id="table-headers" class="hidden">
+        <th id="profile-header">Profile</th>
+        <th>Name</th>
+        <th>Location</th>
+        <th>Distance</th>
+      </tr>
+      <tr *ngFor="let stylist of stylists">
+        <ng-container *ngIf="stylist.marker.visible && stylist.distanceFromLocation < distance">
+          <td><i (click)="shrinkMap(stylist)" class="fa fa-user" aria-hidden="true"></i></td>
+          <td class="stylist-name">{{ stylist.firstName }} {{stylist.lastName}}</td>
+          <td>{{ stylist.location }}</td>
+          <td>{{ stylist.distanceFromLocation}}km</td>
+        </ng-container>
+      </tr>
+    </table>
+  </div>
+  <div class="col-xs-6" *ngIf="this.list">
+    <app-booking [stylist]="stylist"></app-booking>
+  </div>
 </div>
 
 <router-outlet></router-outlet>

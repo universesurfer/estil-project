@@ -4,6 +4,7 @@ import { SessionService } from "../session.service";
 import { Router } from '@angular/router';
 import { DropdownModule } from "ngx-dropdown";
 import { NgZone } from '@angular/core';
+import { BookingComponent } from './booking/booking.component';
 
 declare var google: any;
 declare var map: any;
@@ -23,6 +24,7 @@ export class SearchComponent implements OnInit {
   stylists: any;
   list: boolean = false;
   distance: number = 10;
+  stylist: any;
 
   BASE_URL: string = 'http://localhost:3000';
 
@@ -33,7 +35,7 @@ export class SearchComponent implements OnInit {
     private zone: NgZone
   ) { }
 
-  shrinkMap(){
+  shrinkMap(stylist){
     document.getElementById("col-map").style.display = "none";
     this.list = true;
 
@@ -47,6 +49,8 @@ export class SearchComponent implements OnInit {
       }
     }
     event.srcElement.parentElement.parentElement.style.backgroundColor = "#b2e7ff";
+
+    this.stylist = stylist;
 
   }
 
@@ -170,6 +174,7 @@ export class SearchComponent implements OnInit {
 
    this.searchService.search([myPosition.lng,myPosition.lat])
      .subscribe((response) => {
+       console.log(response);
        this.zone.run(() => {
          var stylistData = {};
          response.forEach(function(stylist,index){
