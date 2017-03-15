@@ -22,6 +22,7 @@ export class ProfileComponent implements OnInit {
   id: string;
   role: string;
   uploader: FileUploader;
+  appointments: any;
 
   BASE_URL: string = 'http://localhost:3000';
 
@@ -36,10 +37,6 @@ export class ProfileComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // console.log("google", google);
-    //subscribe webuser id
-
-
   	this.route.params.subscribe(params => {
       this.getUserDetails(params['id']);
     });
@@ -53,7 +50,6 @@ export class ProfileComponent implements OnInit {
 
     this.uploader = new FileUploader({
         url:`${this.BASE_URL}/profile/${this.role}/${this.id}`
-        // authToken: `JWT ${this.session.token}`
       });
 
     this.uploader.onSuccessItem = (item, response) => {
@@ -79,7 +75,10 @@ export class ProfileComponent implements OnInit {
   getUserDetails(id) {
     this.session.get()
       .subscribe((response) => {
-        this.user = response;
+        this.user = response.user;
+        this.appointments = response.app;
+        console.log(this.user);
+        console.log(this.appointments);
       });
   }
 
@@ -114,7 +113,6 @@ export class ProfileComponent implements OnInit {
   updateLocationEventListener() {
 
     var stylistLocation = document.getElementById('location');
-    console.log(stylistLocation);
     var stylistPlace = new google["maps"].places.Autocomplete(stylistLocation);
 
     google["maps"].event.addListener(stylistPlace, 'place_changed', function() {
@@ -152,8 +150,6 @@ export class ProfileComponent implements OnInit {
       this.user.lat = position.coords.latitude;
 
       var myLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-
-      console.log(myLocation);
 
       var geocoder = new google.maps.Geocoder;
 

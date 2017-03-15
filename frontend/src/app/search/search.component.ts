@@ -4,7 +4,7 @@ import { SessionService } from "../session.service";
 import { Router } from '@angular/router';
 import { DropdownModule } from "ngx-dropdown";
 import { NgZone } from '@angular/core';
-import { SearchBookingComponent } from '../search-booking/search-booking.component';
+import { BookingComponent } from './booking/booking.component';
 
 declare var google: any;
 declare var map: any;

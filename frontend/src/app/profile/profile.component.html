@@ -55,7 +55,7 @@
 				<p> Name: {{ user.firstName }} {{ user.lastName }} </p>
 				<p> Location: {{ user.location }}</p>
 				<button class="btn btn-primary" (click)="profileToggle()">Edit profile</button><hr>
-        <button class="btn btn-info" (click)="request()">request an appointment</button>
+        <button class="btn btn-info" (click)="request()">request an appointment</button><hr>
 			</div>
 		</form>
 		<form *ngIf="editCheck">

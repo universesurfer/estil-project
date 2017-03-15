@@ -13,15 +13,12 @@ router.get('/', function(req, res, next) {
 
 
 router.post("/api/appointment", (req,res) => {
-  console.log("api/appointment");
   let newAppointment = new Appointment({
     stylist: req.body.stylist,
     user: req.body.user,
     date: req.body.date,
     startTime: req.body.startTime
   });
-
-  console.log(newAppointment);
 
   newAppointment.save((err)=> {
     if (err){
@@ -34,10 +31,8 @@ router.post("/api/appointment", (req,res) => {
   });
 })
 
+
 router.post("/api/search", (req, res)=> {
-
-  console.log(req.body.location);
-
 	Stylist.geoNear(
     // {type: "Point", coordinates: req.body.location},
     req.body.location,
@@ -55,7 +50,6 @@ router.post("/api/search", (req, res)=> {
 });
 
 
-
 router.get('/profile/:role/:id', (req, res) => {
   if(!mongoose.Types.ObjectId.isValid(req.params.id)) {
     return res.status(400).json({ message: 'Specified id is not valid' });
@@ -71,10 +65,24 @@ router.get('/profile/:role/:id', (req, res) => {
   MongooseCollection.findById(req.params.id, (err, user) => {
       if (err) {
         return res.send(err);
+      } else {
+        if (req.params.role == "stylist")
+        {
+          Appointment.find({"stylist": user._id}, (err , app) => {
+            if (err) {
+              return res.send(err);
+            }
+            else {
+            return res.json({user, app});
+            }
+        })
+      } else {
+         return res.json({user});
       }
-      return res.json(user);
-    });
+    }
+  })
 });
+
 
 router.put('/profile/:role/:id', (req, res) => {
   if(!mongoose.Types.ObjectId.isValid(req.params.id)) {
@@ -111,9 +119,8 @@ router.put('/profile/:role/:id', (req, res) => {
       });
     });
   }
-
-
 })
+
 
 router.post('/profile/:role/:id', upload.single('file'), (req, res, next) => {
 
@@ -125,8 +132,6 @@ router.post('/profile/:role/:id', upload.single('file'), (req, res, next) => {
   else if (req.params.role == "stylist") {
     var MongooseCollection = Stylist;
   }
-
-  console.log(req.file.filename);
 
   let image = {
     avatar: `http://localhost:3000/uploads/${req.file.filename}`
