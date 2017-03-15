@@ -97,6 +97,7 @@ export class ProfileComponent implements OnInit {
       this.editCheck = false;
       this.session.edit(this.user)
         .subscribe(result => {
+          console.log(result);
             if (result) {
               this.toastr.success('User updated');
        			} else {

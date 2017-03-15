@@ -119,24 +119,43 @@ router.put('/profile/:role/:id', (req, res) => {
     });
   }
   else if (req.params.role == "stylist") {
-    Stylist.findByIdAndUpdate(req.params.id, {
+
+    if (req.body.lng != null && req.body.lat != null) {
+      Stylist.findByIdAndUpdate(req.params.id, {
+        location: req.body.location,
+        geolocation  : {type: "Point", coordinates: [req.body.lng,req.body.lat]}
+      }, (err,user) => {
+        if (err) {
+          return res.send(err);
+        }
+        return res.json({
+          message: 'User updated successfully'
+        });
+      });
+    }
+
+    else {
+      console.log(req.body.availability);
+
+      Stylist.findByIdAndUpdate(req.params.id, {
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       username: req.body.username,
-      location: req.body.location,
+      availability: req.body.availability,
       // price: ,
       // languages: ,
       // services: ,
       // expertise: ,
-      geolocation  : {type: "Point", coordinates: [req.body.lng,req.body.lat]}
-    }, (err,user) => {
-      if (err) {
-        return res.send(err);
-      }
-      return res.json({
-        message: 'User updated successfully'
+      }, (err,user) => {
+        if (err) {
+          return res.send(err);
+        }
+        return res.json({
+          message: 'User updated successfully'
+        });
       });
-    });
+    }
+
   }
 })
 
