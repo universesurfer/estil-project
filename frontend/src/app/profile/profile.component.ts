@@ -87,7 +87,12 @@ export class ProfileComponent implements OnInit {
       this.editCheck = true;
     } else {
 
+      this.user.availability= [];
       console.log(this.days);
+      for (var day in this.days) {
+        console.log(day);
+        this.user.availability.push(day);
+      }
 
       this.editCheck = false;
       this.session.edit(this.user)
