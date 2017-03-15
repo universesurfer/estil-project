@@ -3,6 +3,7 @@ var router           = express.Router();
 const mongoose			 = require('mongoose');
 const User           = require("../models/user");
 const Stylist        = require('../models/stylist');
+const Appointment    = require('../models/appointment');
 const upload         = require('../config/multer');
 
 
@@ -11,9 +12,35 @@ router.get('/', function(req, res, next) {
 });
 
 
+router.post("/api/appointment", (req,res) => {
+  console.log("api/appointment");
+  let newAppointment = new Appointment({
+    stylist: req.body.stylist,
+    user: req.body.user,
+    date: req.body.date,
+    startTime: req.body.startTime
+  });
+
+  console.log(newAppointment);
+
+  newAppointment.save((err)=> {
+    if (err){
+      console.log("error saving appointment");
+    }
+    else {
+      console.log("test");
+      res.json({"message": "appointment saved"});
+    }
+  });
+})
+
 router.post("/api/search", (req, res)=> {
 
-	Stylist.geoNear( req.body,
+  console.log(req.body.location);
+
+	Stylist.geoNear(
+    // {type: "Point", coordinates: req.body.location},
+    req.body.location,
 		{ spherical : true,
 		 	maxDistance: 0.0015678896,		//1km is 1/6378
 			distanceMultiplier: 6378.1
@@ -21,10 +48,13 @@ router.post("/api/search", (req, res)=> {
 	    if (err) {
 	        console.log(err);
 	    } else {
+        console.log("results",results);
 				res.json(results);
 	    }
 	})
 });
+
+
 
 router.get('/profile/:role/:id', (req, res) => {
   if(!mongoose.Types.ObjectId.isValid(req.params.id)) {

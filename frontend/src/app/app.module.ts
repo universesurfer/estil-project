@@ -11,7 +11,6 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { SearchComponent } from './search/search.component';
 import { ProfileComponent } from './profile/profile.component';
 import { BookingComponent } from './search/booking/booking.component';
-import { SearchBookingComponent } from './search-booking/search-booking.component';
 
 import { SessionService } from "./session.service";
 import { SearchService } from "./search.service";
@@ -34,8 +33,7 @@ import { FileSelectDirective } from "ng2-file-upload";
     SearchComponent,
     HomeComponent,
     FileSelectDirective,
-    BookingComponent,
-    SearchBookingComponent,
+    BookingComponent
   ],
   imports: [
     BrowserModule,

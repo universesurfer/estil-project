@@ -58,7 +58,11 @@ export class BookingComponent implements OnInit {
 
     console.log(appointmentData);
 
-    this.searchService.sendAppointment(appointmentData);
+    this.searchService.sendAppointment(appointmentData)
+      .subscribe((response) => {
+        console.log(response);
+
+    })
   }
 
 }
