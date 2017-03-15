@@ -37,10 +37,6 @@ export class ProfileComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // console.log("google", google);
-    //subscribe webuser id
-
-
   	this.route.params.subscribe(params => {
       this.getUserDetails(params['id']);
     });
@@ -54,7 +50,6 @@ export class ProfileComponent implements OnInit {
 
     this.uploader = new FileUploader({
         url:`${this.BASE_URL}/profile/${this.role}/${this.id}`
-        // authToken: `JWT ${this.session.token}`
       });
 
     this.uploader.onSuccessItem = (item, response) => {
@@ -80,7 +75,6 @@ export class ProfileComponent implements OnInit {
   getUserDetails(id) {
     this.session.get()
       .subscribe((response) => {
-        console.log(response);
         this.user = response.user;
         this.appointments = response.app;
       });
@@ -150,8 +144,6 @@ export class ProfileComponent implements OnInit {
       this.user.lat = position.coords.latitude;
 
       var myLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-
-      console.log(myLocation);
 
       var geocoder = new google.maps.Geocoder;
 
