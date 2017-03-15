@@ -22,6 +22,7 @@ export class ProfileComponent implements OnInit {
   id: string;
   role: string;
   uploader: FileUploader;
+  appointments: any;
 
   BASE_URL: string = 'http://localhost:3000';
 
@@ -79,7 +80,9 @@ export class ProfileComponent implements OnInit {
   getUserDetails(id) {
     this.session.get()
       .subscribe((response) => {
-        this.user = response;
+        console.log(response);
+        this.user = response.user;
+        this.appointments = response.app;
       });
   }
 
@@ -107,14 +110,9 @@ export class ProfileComponent implements OnInit {
    location.reload();
  }
 
- request(){
-   console.log("request triggered");
- }
-
   updateLocationEventListener() {
 
     var stylistLocation = document.getElementById('location');
-    console.log(stylistLocation);
     var stylistPlace = new google["maps"].places.Autocomplete(stylistLocation);
 
     google["maps"].event.addListener(stylistPlace, 'place_changed', function() {

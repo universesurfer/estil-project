@@ -55,7 +55,20 @@
 				<p> Name: {{ user.firstName }} {{ user.lastName }} </p>
 				<p> Location: {{ user.location }}</p>
 				<button class="btn btn-primary" (click)="profileToggle()">Edit profile</button><hr>
-        <button class="btn btn-info" (click)="request()">request an appointment</button>
+        <table id="appointments" style="width: 100%">
+          <tr>
+            <th>Customer</th>
+            <th>Date</th>
+            <th>Time</th>
+          </tr>
+          <ng-container *ngFor="let appointment of appointments">
+            <tr>
+              <td>{{appointment.userName}}</td>
+              <td>{{appointment.date | date}}</td>
+              <td>{{appointment.startTime}}</td>
+            </tr>
+          </ng-container>
+        </table>
 			</div>
 		</form>
 		<form *ngIf="editCheck">
@@ -80,7 +93,6 @@
 	</ng-container>
 
 </div>
-
 
 <div class="col-lg-4 thumb gallery">
   <h3 class="text-center">Style Gallery</h3>
