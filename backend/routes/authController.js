@@ -141,11 +141,11 @@ authController.post("/login", function(req, res) {
 	MongooseCollection.findOne({ "username": username }, (err, user)=> {
 
   	if( ! user ){
-	    res.status(401).json({message:"no such user found"});
+	    res.json({message:"no such user found"});
 	  } else {
       bcrypt.compare(password, user.password, function(err, isMatch) {
         if (!isMatch) {
-          res.status(401).json({message:"passwords did not match"});
+          res.json({message:"passwords did not match"});
         } else {
           var payload = {id: user._id};
           var token = jwt.sign(payload, jwtOptions.secretOrKey);
