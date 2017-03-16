@@ -56,10 +56,6 @@
 	    <div *ngIf="user">
 	      <label for="username">Email:</label>
 	      <input type="text" name="username" value="{{ user.username }}" [(ngModel)]="user.username"><br>
-	      <label for="firstName">First Name:</label>
-	      <input type="text" name="firstName" value="{{ user.firstName }}" [(ngModel)]="user.firstName"><br>
-	      <label for="lastName">Last Name:</label>
-	      <input type="text" name="lastName" value="{{ user.lastName }}" [(ngModel)]="user.lastName"><br>
 	      <button class="btn btn-info" (click)="profileToggle()">Update</button>
 	    </div>
 	  </form>
@@ -122,9 +118,9 @@
           <label><input type="checkbox" name="Spanish" [(ngModel)]="langs.Spanish">Spanish</label>
           <label><input type="checkbox" name="English" [(ngModel)]="langs.English">English</label><br>
         <label class="category" for="services">Services</label>
-          <label><input type="checkbox" name="Blowdry" [(ngModel)]="servs.Blowdry">Blow Dry</label>
-          <label><input type="checkbox" name="Color" [(ngModel)]="servs.Color">Color</label>
-          <label><input type="checkbox" name="Cut" [(ngModel)]="servs.Cut">Cut</label><br>
+          <label><input type="checkbox" name="Unisex" [(ngModel)]="servs.Unisex">Unisex</label>
+          <label><input type="checkbox" name="Men" [(ngModel)]="servs.Men">Men</label>
+          <label><input type="checkbox" name="Women" [(ngModel)]="servs.Women">Women</label><br>
         <br>
 				<button class="btn btn-info" (click)="profileToggle()">Update</button>
 			</div>

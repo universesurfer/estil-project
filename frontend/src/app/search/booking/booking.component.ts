@@ -28,12 +28,29 @@ export class BookingComponent implements OnInit {
     private toastr: ToastsManager
   ) { }
 
+  ngOnChanges() {
+    //have to change board to undefined to reload the form in the html, the only way to get the pinterest board to update between stylists
+    this.board = undefined;
+
+      this.session.getBoard(this.stylist._id)
+        .subscribe((response) => {
+          this.zone.run(() => {
+            this.board = response.user.board;
+            console.log(this.board);
+            console.log(this.stylist);
+            this.session.runPinterest();
+        });
+    });
+  }
+
   ngOnInit() {
     var date = new Date();
     this.date = this.formatDate(date);
 
     this.userId = localStorage.getItem("id");
-    this.getBoard();
+
+    console.log(this.stylist);
+
   }
 
   formatDate(date) {
@@ -71,17 +88,6 @@ export class BookingComponent implements OnInit {
         }
 
     })
-  }
-
-  getBoard(){
-    this.zone.run(() => {
-      console.log(this.stylist._id);
-      this.session.getBoard(this.stylist._id)
-        .subscribe((response) => {
-          this.board = response.user.board;
-          console.log(this.board);
-        });
-    });
   }
 
 }

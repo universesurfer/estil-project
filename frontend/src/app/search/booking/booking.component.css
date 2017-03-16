@@ -24,3 +24,7 @@ button, input[type="date"], select:first-of-type {
 #make-appointment {
   margin-top: 5em;
 }
+
+#board {
+  margin-top: 2em;
+}

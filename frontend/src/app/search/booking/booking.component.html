@@ -28,16 +28,10 @@
     </select>
   </div>
 
-  <div class="col-xs-6">
-    <div id="stylist-board">
-      <h4>Individual stylist's pinterest board</h4>
-    </div>
-    <!-- doesn't work, need to explore proper api instead of using widget -->
-    <!-- <form *ngIf="user"> -->
-      <!-- <input type="input" name="board" value="{{ user.board }}" placeholder="https://es.pinterest.com/your/board/" [(ngModel)]="user.board" (ngModelChange)="updateBoard()" id="board-url"> -->
-      <!-- <p>{{board}}</p> -->
-      <!-- <a data-pin-do="embedBoard" data-pin-board-width="400" data-pin-scale-height="240" data-pin-scale-width="80" href="https://www.pinterest.com/pinterest/official-news/"></a> -->
-      <!-- <a data-pin-do="embedBoard" data-pin-board-width="400" data-pin-scale-height="400" data-pin-scale-width="80" href="{{board}}"></a> -->
-    <!-- </form> -->
+  <div class="col-xs-6" id="board">
+
+    <form *ngIf="board">
+      <a data-pin-do="embedBoard" data-pin-board-width="400" data-pin-scale-height="400" data-pin-scale-width="80" [href]="board" id="board"></a>
+    </form>
   </div>
 </div>
