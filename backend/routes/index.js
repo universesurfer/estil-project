@@ -108,7 +108,8 @@ router.put('/profile/:role/:id', (req, res) => {
     User.findByIdAndUpdate(req.params.id, {
       firstName: req.body.firstName,
       lastName: req.body.lastName,
-      username: req.body.username
+      username: req.body.username,
+      board: req.body.board
     }, (err,user) => {
       if (err) {
         return res.send(err);
@@ -119,7 +120,6 @@ router.put('/profile/:role/:id', (req, res) => {
     });
   }
   else if (req.params.role == "stylist") {
-
     if (req.body.lng != null && req.body.lat != null) {
       Stylist.findByIdAndUpdate(req.params.id, {
         location: req.body.location,
@@ -135,8 +135,6 @@ router.put('/profile/:role/:id', (req, res) => {
     }
 
     else {
-      console.log(req.body.price);
-
       Stylist.findByIdAndUpdate(req.params.id, {
       firstName: req.body.firstName,
       lastName: req.body.lastName,
