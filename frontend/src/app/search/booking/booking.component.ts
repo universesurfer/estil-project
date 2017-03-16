@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { SearchService } from "../../search.service";
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 @Component({
   selector: 'app-booking',
@@ -18,7 +19,8 @@ export class BookingComponent implements OnInit {
   BASE_URL: string = 'http://localhost:3000';
 
   constructor(
-    private searchService: SearchService
+    private searchService: SearchService,
+    private toastr: ToastsManager
   ) { }
 
   ngOnInit() {
@@ -61,6 +63,11 @@ export class BookingComponent implements OnInit {
     this.searchService.sendAppointment(appointmentData)
       .subscribe((response) => {
         console.log(response);
+        if (response) {
+          this.toastr.success('Appointment saved to your Profile');
+        } else {
+          this.toastr.error('Something went wrong');
+        }
 
     })
   }
