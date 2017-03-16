@@ -98,22 +98,20 @@ export class SessionService implements CanActivate{
   login(webUser) {
     return this.http.post(`${this.BASE_URL}/login`, webUser)
       .map((response: Response) => {
-          // login successful if there's a jwt token in the response
           let token = response.json() && response.json().token;
 
           if (token) {
             // set token property
             this.token = token;
             this.isAuth.emit(true);
-            // store username and jwt token in local storage to keep user logged in between page refreshes
             localStorage.setItem('token', token );
             localStorage.setItem('id', response.json().user._id);
             localStorage.setItem('role', response.json().role);
             this.router.navigate(['/profile']);
-            // return true to indicate successful login
+            // return true for successful login
             return true;
           } else {
-            // return false to indicate failed login
+            // return false for failed login
             return false;
           }
       });

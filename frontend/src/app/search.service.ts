@@ -15,7 +15,6 @@ export class SearchService {
 
   search(location) {
     var locationObject = {"location" : location}
-    console.log(locationObject);
     return this.http.post(`${this.BASE_URL}/api/search`,locationObject)
       .map(res =>
         res.json()

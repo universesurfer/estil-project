@@ -45,8 +45,6 @@ export class BookingComponent implements OnInit {
 
   makeAppointment(){
     var requestTime = this.hour + ":" + this.minute + this.ampm;
-    console.log(this.date, requestTime);
-    console.log(this.userId);
 
     var stylistName = this.stylist.firstName + " " + this.stylist.lastName;
 
@@ -57,8 +55,6 @@ export class BookingComponent implements OnInit {
       date: this.date,
       startTime: requestTime
     }
-
-    console.log(appointmentData);
 
     this.searchService.sendAppointment(appointmentData)
       .subscribe((response) => {
