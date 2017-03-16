@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SessionService } from "../session.service";
 import { Router } from '@angular/router';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 @Component({
   selector: 'app-login',
@@ -29,13 +30,13 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private session: SessionService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastsManager
   ) { }
 
   ngOnInit() {
     this.session.url = this.router.url;
     this.session.checkHome();
-    console.log(this.session.url);
   }
 
   logIn(webUser) {
@@ -49,11 +50,10 @@ export class LoginComponent implements OnInit {
     this.session.login(this.webUser)
       .subscribe(result => {
           if (result === true) {
-            // login successful
             this.router.navigate(['/profile']);
+            this.toastr.success('You logged in successfully');
      			} else {
-            // login failed
-            this.error = 'Username or password is incorrect';
+            this.toastr.error('Username or password is incorrect');
           }
       });
   }

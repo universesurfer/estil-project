@@ -48,7 +48,6 @@ export class ProfileComponent implements OnInit {
       this.getUserDetails(params['id']);
     });
 
-    // update session url
     this.session.url = this.router.url;
     this.session.checkHome();
 
@@ -109,9 +108,6 @@ export class ProfileComponent implements OnInit {
         this.user.services.push(serv);
       }
 
-      // this.user.price = this.price;
-      console.log(this.user);
-
       this.editCheck = false;
       this.session.edit(this.user)
         .subscribe(result => {
@@ -148,7 +144,6 @@ export class ProfileComponent implements OnInit {
       this.session.edit(this.user)
         .subscribe(result => {
             if (result) {
-              // this.router.navigate(['/profile']);
               this.toastr.success('Location updated');
        			} else {
               this.toastr.error('Something went wrong');
@@ -179,13 +174,11 @@ export class ProfileComponent implements OnInit {
       var that = this;
 
       geocoder.geocode({'location': {"lat":position.coords.latitude, "lng":position.coords.longitude}}, function(results, status) {
-        console.log(results[0]["formatted_address"]);
         that.user.location = results[0]["formatted_address"];
 
         that.session.edit(that.user)
           .subscribe(result => {
               if (result) {
-                // this.router.navigate(['/profile']);
                 that.toastr.success('Location updated');
               } else {
                 that.toastr.error('Something went wrong');
