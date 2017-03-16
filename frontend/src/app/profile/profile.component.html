@@ -1,3 +1,5 @@
+<script async defer src="//assets.pinterest.com/js/pinit.js"></script>
+
 <div class="col-lg-3 col-md-4 col-xs-6 thumb profile-pic">
   <form>
     <div class="form-group">
@@ -72,7 +74,10 @@
         <p> Price: {{ user.price }}</p>
         <p> Languages: {{ user.languages }}</p>
         <p> Services: {{ user.services }}</p>
-				<button class="btn btn-primary" (click)="profileToggle()">Edit profile</button><hr>
+
+
+
+        <button class="btn btn-primary" (click)="profileToggle()">Edit profile</button><hr>
         <table style="width: 100%">
           <tr>
             <th>Customer</th>
@@ -129,6 +134,9 @@
 </div>
 
 <div class="col-lg-4 thumb gallery">
-  <h3 class="text-center">Style Gallery</h3>
-  <p> will contain pinterest photos </p>
+  <h3 class="text-center">Your Board</h3>
+  <form *ngIf="user">
+    <input type="input" name="board" value="{{ user.board }}" placeholder="https://es.pinterest.com/your/board/" [(ngModel)]="user.board" (ngModelChange)="updateBoard()" id="board-url">
+    <a data-pin-do="embedBoard" data-pin-board-width="400" data-pin-scale-height="400" data-pin-scale-width="80" href="{{user.board}}"></a>
+  </form>
 </div>

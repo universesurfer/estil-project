@@ -108,7 +108,8 @@ router.put('/profile/:role/:id', (req, res) => {
     User.findByIdAndUpdate(req.params.id, {
       firstName: req.body.firstName,
       lastName: req.body.lastName,
-      username: req.body.username
+      username: req.body.username,
+      board: req.body.board
     }, (err,user) => {
       if (err) {
         return res.send(err);
@@ -119,7 +120,6 @@ router.put('/profile/:role/:id', (req, res) => {
     });
   }
   else if (req.params.role == "stylist") {
-
     if (req.body.lng != null && req.body.lat != null) {
       Stylist.findByIdAndUpdate(req.params.id, {
         location: req.body.location,
@@ -135,8 +135,6 @@ router.put('/profile/:role/:id', (req, res) => {
     }
 
     else {
-      console.log(req.body.price);
-
       Stylist.findByIdAndUpdate(req.params.id, {
       firstName: req.body.firstName,
       lastName: req.body.lastName,
@@ -145,6 +143,7 @@ router.put('/profile/:role/:id', (req, res) => {
       price: req.body.price,
       languages: req.body.languages,
       services: req.body.services,
+      board: req.body.board
       }, (err,user) => {
         if (err) {
           return res.send(err);
@@ -170,6 +169,8 @@ router.post('/profile/:role/:id', upload.single('file'), (req, res, next) => {
     var MongooseCollection = Stylist;
   }
 
+  console.log(req.file);
+
   let image = {
     avatar: `http://localhost:3000/uploads/${req.file.filename}`
   };
@@ -178,6 +179,7 @@ router.post('/profile/:role/:id', upload.single('file'), (req, res, next) => {
     if (err) {
       next(err)
     } else {
+      console.log("response", user);
       res.json(user);
     }
   });

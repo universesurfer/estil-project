@@ -47,6 +47,15 @@ export class SessionService implements CanActivate{
       .catch(this.handleError);
   }
 
+  getBoard(id) {
+    this.id = id;
+    this.role = "stylist";
+
+    return this.http.get(`${this.BASE_URL}/profile/${this.role}/${this.id}`)
+      .map((res) => res.json())
+      .catch(this.handleError);
+  }
+
   edit(user) {
     this.id = localStorage.getItem('id');
     return this.http.put(`${this.BASE_URL}/profile/${this.role}/${this.id}`, user)
@@ -98,22 +107,20 @@ export class SessionService implements CanActivate{
   login(webUser) {
     return this.http.post(`${this.BASE_URL}/login`, webUser)
       .map((response: Response) => {
-          // login successful if there's a jwt token in the response
           let token = response.json() && response.json().token;
 
           if (token) {
             // set token property
             this.token = token;
             this.isAuth.emit(true);
-            // store username and jwt token in local storage to keep user logged in between page refreshes
             localStorage.setItem('token', token );
             localStorage.setItem('id', response.json().user._id);
             localStorage.setItem('role', response.json().role);
             this.router.navigate(['/profile']);
-            // return true to indicate successful login
+            // return true for successful login
             return true;
           } else {
-            // return false to indicate failed login
+            // return false for failed login
             return false;
           }
       });
@@ -124,7 +131,7 @@ export class SessionService implements CanActivate{
       this.token = null;
       this.isAuth.emit(false);
       localStorage.removeItem('token');
-      localStorage.removeItem('userId');
+      localStorage.removeItem('id');
       this.router.navigate(['/login']);
 
    }

@@ -29,3 +29,8 @@ select {
   width: 25%;
   margin-bottom: 3%;
 }
+
+#board-url {
+width: 100%;
+margin-bottom: 5%; 
+}

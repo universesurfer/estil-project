@@ -22,12 +22,12 @@ export class ProfileComponent implements OnInit {
   id: string;
   role: string;
   uploader: FileUploader;
+  uploader2: FileUploader;
   appointments: any;
   days: any = {};
   price: string;
   langs: any = {};
   servs: any = {};
-
 
   BASE_URL: string = 'http://localhost:3000';
 
@@ -39,14 +39,15 @@ export class ProfileComponent implements OnInit {
     private http: Http,
     public el: ElementRef,
     private zone: NgZone
-  ) {}
+  ) {
+  
+  }
 
   ngOnInit() {
   	this.route.params.subscribe(params => {
       this.getUserDetails(params['id']);
     });
 
-    // update session url
     this.session.url = this.router.url;
     this.session.checkHome();
 
@@ -58,11 +59,11 @@ export class ProfileComponent implements OnInit {
       });
 
     this.uploader.onSuccessItem = (item, response) => {
-      return this.http.post(`${this.BASE_URL}/profile/${this.role}/${this.id}`, item)
-      .map((response) => {
-        response.json();
-      })
-      .catch((err) => Observable.throw(err));
+      this.session.get()
+        .subscribe((response) => {
+          this.user = response.user;
+          this.appointments = response.app;
+        });
     };
 
     this.uploader.onErrorItem = (item, response, status, headers) => {
@@ -82,6 +83,7 @@ export class ProfileComponent implements OnInit {
       .subscribe((response) => {
         this.user = response.user;
         this.appointments = response.app;
+        console.log(this.user);
       });
   }
 
@@ -106,9 +108,6 @@ export class ProfileComponent implements OnInit {
         this.user.services.push(serv);
       }
 
-      // this.user.price = this.price;
-      console.log(this.user);
-
       this.editCheck = false;
       this.session.edit(this.user)
         .subscribe(result => {
@@ -122,20 +121,19 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-
- addAvatar(){
-   this.uploader.onBuildItemForm = (item, form) => {
-   };
-   this.uploader.uploadAll();
-   location.reload();
- }
+   addAvatar(){
+     this.uploader.uploadAll()
+   }
 
   updateLocationEventListener() {
 
     var stylistLocation = document.getElementById('location');
     var stylistPlace = new google["maps"].places.Autocomplete(stylistLocation);
+    console.log("stylistLocation", stylistLocation);
+    console.log("stylistPlace", stylistPlace);
 
     google["maps"].event.addListener(stylistPlace, 'place_changed', function() {
+
       this.zone.run(() => {
       	var place = stylistPlace.getPlace();
       	this.user.lng = place.geometry.location.lng();
@@ -146,7 +144,6 @@ export class ProfileComponent implements OnInit {
       this.session.edit(this.user)
         .subscribe(result => {
             if (result) {
-              // this.router.navigate(['/profile']);
               this.toastr.success('Location updated');
        			} else {
               this.toastr.error('Something went wrong');
@@ -163,6 +160,7 @@ export class ProfileComponent implements OnInit {
       alert('Oops, no geolocation support');
     }
   }
+
   showMapWithMyLocation(position) {
 
     this.zone.run(() => {
@@ -176,13 +174,11 @@ export class ProfileComponent implements OnInit {
       var that = this;
 
       geocoder.geocode({'location': {"lat":position.coords.latitude, "lng":position.coords.longitude}}, function(results, status) {
-        console.log(results[0]["formatted_address"]);
         that.user.location = results[0]["formatted_address"];
 
         that.session.edit(that.user)
           .subscribe(result => {
               if (result) {
-                // this.router.navigate(['/profile']);
                 that.toastr.success('Location updated');
               } else {
                 that.toastr.error('Something went wrong');
@@ -190,6 +186,20 @@ export class ProfileComponent implements OnInit {
           });
       });
     })
+  }
+
+  updateBoard() {
+    this.zone.run(() => {
+    this.session.edit(this.user)
+      .subscribe(result => {
+          if (result) {
+            // this.router.navigate(['/profile']);
+            this.toastr.success('Board updated');
+          } else {
+            this.toastr.error('Something went wrong');
+          }
+      });
+    });
   }
 
 }

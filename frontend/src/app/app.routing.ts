@@ -17,8 +17,5 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent},
   { path: 'profile', component: ProfileComponent, canActivate: [SessionService]},
   { path: 'search', component: SearchComponent,
-    // children: [
-    //   { path: 'booking', component: BookingComponent },
-    // ]
   }
 ];

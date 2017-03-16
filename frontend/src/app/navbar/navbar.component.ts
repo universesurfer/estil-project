@@ -19,8 +19,6 @@ export class NavbarComponent implements OnInit {
   ) {
     this.session.isAuth
         .subscribe((isAuth: boolean) => {
-        // user will be false if logged out
-        // or user object if logged in.
           this.isAuth = isAuth;
         });
       if (this.session.token != null) {
@@ -41,8 +39,6 @@ export class NavbarComponent implements OnInit {
 
   }
 
-
-
   ngOnInit() {
 
   }
@@ -50,6 +46,5 @@ export class NavbarComponent implements OnInit {
 
   logout() {
   	this.session.logout();
-  	// this.router.navigate(['/login']);
   }
 }

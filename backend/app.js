@@ -15,8 +15,8 @@ const cors           = require("cors");
 
 var index = require('./routes/index');
 var authController = require('./routes/authController');
-var userProfile = require('./routes/userProfile');
-var stylistProfile = require('./routes/stylistProfile');
+// var userProfile = require('./routes/userProfile');
+// var stylistProfile = require('./routes/stylistProfile');
 
 mongoose.connect('mongodb://localhost/estil');
 
@@ -57,8 +57,8 @@ app.use(flash());
 
 app.use('/', index);
 app.use('/', authController);
-app.use('/', userProfile);
-app.use('/', stylistProfile);
+// app.use('/', userProfile);
+// app.use('/', stylistProfile);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
