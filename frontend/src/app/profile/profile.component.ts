@@ -29,7 +29,6 @@ export class ProfileComponent implements OnInit {
   langs: any = {};
   servs: any = {};
 
-
   BASE_URL: string = 'http://localhost:3000';
 
   constructor(
@@ -40,7 +39,9 @@ export class ProfileComponent implements OnInit {
     private http: Http,
     public el: ElementRef,
     private zone: NgZone
-  ) {}
+  ) {
+  
+  }
 
   ngOnInit() {
   	this.route.params.subscribe(params => {
@@ -83,6 +84,7 @@ export class ProfileComponent implements OnInit {
       .subscribe((response) => {
         this.user = response.user;
         this.appointments = response.app;
+        console.log(this.user);
       });
   }
 
@@ -131,8 +133,11 @@ export class ProfileComponent implements OnInit {
 
     var stylistLocation = document.getElementById('location');
     var stylistPlace = new google["maps"].places.Autocomplete(stylistLocation);
+    console.log("stylistLocation", stylistLocation);
+    console.log("stylistPlace", stylistPlace);
 
     google["maps"].event.addListener(stylistPlace, 'place_changed', function() {
+
       this.zone.run(() => {
       	var place = stylistPlace.getPlace();
       	this.user.lng = place.geometry.location.lng();
@@ -160,6 +165,7 @@ export class ProfileComponent implements OnInit {
       alert('Oops, no geolocation support');
     }
   }
+
   showMapWithMyLocation(position) {
 
     this.zone.run(() => {
@@ -187,6 +193,20 @@ export class ProfileComponent implements OnInit {
           });
       });
     })
+  }
+
+  updateBoard() {
+    this.zone.run(() => {
+    this.session.edit(this.user)
+      .subscribe(result => {
+          if (result) {
+            // this.router.navigate(['/profile']);
+            this.toastr.success('Board updated');
+          } else {
+            this.toastr.error('Something went wrong');
+          }
+      });
+    });
   }
 
 }

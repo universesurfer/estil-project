@@ -47,6 +47,15 @@ export class SessionService implements CanActivate{
       .catch(this.handleError);
   }
 
+  getBoard(id) {
+    this.id = id;
+    this.role = "stylist";
+
+    return this.http.get(`${this.BASE_URL}/profile/${this.role}/${this.id}`)
+      .map((res) => res.json())
+      .catch(this.handleError);
+  }
+
   edit(user) {
     this.id = localStorage.getItem('id');
     return this.http.put(`${this.BASE_URL}/profile/${this.role}/${this.id}`, user)

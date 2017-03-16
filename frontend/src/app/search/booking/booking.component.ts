@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { SessionService } from "../../session.service";
 import { SearchService } from "../../search.service";
+import { NgZone } from '@angular/core';
 
 @Component({
   selector: 'app-booking',
@@ -14,11 +16,14 @@ export class BookingComponent implements OnInit {
   minute: string = "00";
   ampm: string = "pm";
   userId: any;
+  board: string;
 
   BASE_URL: string = 'http://localhost:3000';
 
   constructor(
-    private searchService: SearchService
+    private session: SessionService,
+    private search: SearchService,
+    private zone: NgZone
   ) { }
 
   ngOnInit() {
@@ -26,7 +31,7 @@ export class BookingComponent implements OnInit {
     this.date = this.formatDate(date);
 
     this.userId = localStorage.getItem("id");
-
+    this.getBoard();
   }
 
   formatDate(date) {
@@ -58,11 +63,22 @@ export class BookingComponent implements OnInit {
 
     console.log(appointmentData);
 
-    this.searchService.sendAppointment(appointmentData)
+    this.search.sendAppointment(appointmentData)
       .subscribe((response) => {
         console.log(response);
 
     })
+  }
+
+  getBoard(){
+    this.zone.run(() => {
+      console.log(this.stylist._id);
+      this.session.getBoard(this.stylist._id)
+        .subscribe((response) => {
+          this.board = response.user.board;
+          console.log(this.board);
+        });
+    });
   }
 
 }
