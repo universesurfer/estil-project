@@ -40,7 +40,7 @@ export class ProfileComponent implements OnInit {
     public el: ElementRef,
     private zone: NgZone
   ) {
-  
+
   }
 
   ngOnInit() {
@@ -70,12 +70,15 @@ export class ProfileComponent implements OnInit {
       console.log('Error', response)
     };
 
+
+
   }
 
   ngAfterViewInit(){
     if (this.role == 'stylist') {
       this.updateLocationEventListener();
     }
+
   }
 
   getUserDetails(id) {
@@ -84,6 +87,7 @@ export class ProfileComponent implements OnInit {
         this.user = response.user;
         this.appointments = response.app;
         console.log(this.user);
+        this.session.runPinterest();
       });
   }
 
@@ -190,6 +194,7 @@ export class ProfileComponent implements OnInit {
 
   updateBoard() {
     this.zone.run(() => {
+    console.log(this.user);
     this.session.edit(this.user)
       .subscribe(result => {
           if (result) {

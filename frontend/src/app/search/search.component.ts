@@ -50,7 +50,10 @@ export class SearchComponent implements OnInit {
     }
     event.srcElement.parentElement.parentElement.style.backgroundColor = "#b2e7ff";
 
-    this.stylist = stylist;
+    this.zone.run(() => {
+      this.stylist = stylist;
+    
+    });
 
   }
 
