@@ -28,6 +28,7 @@ export class ProfileComponent implements OnInit {
   price: string;
   langs: any = {};
   servs: any = {};
+  board: any;
 
   BASE_URL: string = 'http://localhost:3000';
 
@@ -86,6 +87,7 @@ export class ProfileComponent implements OnInit {
       .subscribe((response) => {
         this.user = response.user;
         this.appointments = response.app;
+        this.board = this.user.board;
         console.log(this.user);
         this.session.runPinterest();
       });
@@ -193,12 +195,14 @@ export class ProfileComponent implements OnInit {
   }
 
   updateBoard() {
+    this.board = undefined;
     this.zone.run(() => {
-    console.log(this.user);
     this.session.edit(this.user)
       .subscribe(result => {
           if (result) {
             // this.router.navigate(['/profile']);
+            this.board = this.user.board;
+            this.session.runPinterest();
             this.toastr.success('Board updated');
           } else {
             this.toastr.error('Something went wrong');

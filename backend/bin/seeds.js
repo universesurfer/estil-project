@@ -53,14 +53,7 @@ const stylists = [
 			coordinates: [2.191064,41.397737]
 		},
     location    : 'Razzmatazz, Barcelona',
-    reviews : [
-      {
-        name    : " ",
-        comment : " ",
-        stars   : 1,
-        date    : new Date()
-      }
-    ]
+    board       : 'https://es.pinterest.com/nasti/hair/'
   },
   {
     firstName   : 'Angelino',
@@ -83,14 +76,7 @@ const stylists = [
 			coordinates: [2.189949,41.396160]
 		},
     location    : "L'Ovella Negra, Barcelona",
-    reviews : [
-      {
-        name    : " ",
-        comment : " ",
-        stars   : 1,
-        date    : new Date()
-      }
-    ]
+    board       : "https://es.pinterest.com/Coveteur/hair/"
   },
   {
     firstName   : 'Breixo',
@@ -112,15 +98,8 @@ const stylists = [
 			type       : "Point",
 			coordinates: [2.197695, 41.399427]
 		},
-    location : 'Llacuna, Barcelona',
-    reviews : [
-      {
-        name    : " ",
-        comment : " ",
-        stars   : 4,
-        date    : new Date()
-      }
-    ]
+    location    : 'Llacuna, Barcelona',
+    board       : "https://es.pinterest.com/caitlin_cawley/hair/"
   },
   {
     firstName   : 'Clemente',
@@ -143,14 +122,7 @@ const stylists = [
 			coordinates: [2.179456,41.400538]
 		},
     location    : 'Monumental, Barcelona',
-    reviews : [
-      {
-        name    : " ",
-        comment : " ",
-        stars   : 1,
-        date    : new Date()
-      }
-    ]
+    board       : "https://es.pinterest.com/oliviapalermo/hair/"
   },
   {
     firstName   : 'Fran',
@@ -173,14 +145,7 @@ const stylists = [
 			coordinates: [2.187524,41.402260]
 		},
     location    : 'Glories, Barcelona',
-    reviews : [
-      {
-        name    : " ",
-        comment : " ",
-        stars   : 1,
-        date    : new Date()
-      }
-    ]
+    board       : "https://es.pinterest.com/apartment_34/hair/"
   },
   {
     firstName   : 'Lucas',
@@ -203,14 +168,7 @@ const stylists = [
 			coordinates: [2.189858,41.386333]
 		},
     location    : 'Barcelona Zoo, Barcelona',
-    reviews : [
-      {
-        name    : " ",
-        comment : " ",
-        stars   : 1,
-        date    : new Date()
-      }
-    ]
+    board       : "https://es.pinterest.com/dooce/hair/"
   },
   {
     firstName   : 'Antonio',
@@ -233,14 +191,7 @@ const stylists = [
 			coordinates: [2.226342,41.410678]
 		},
     location    : 'Parc del Forum, Barcelona',
-    reviews : [
-      {
-        name    : " ",
-        comment : " ",
-        stars   : 1,
-        date    : new Date()
-      }
-    ]
+    board       : "https://es.pinterest.com/amberlfillerup/hair/"
   }
 ];
 
