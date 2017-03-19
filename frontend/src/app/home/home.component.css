@@ -8,7 +8,7 @@ img {
 }
 
 h2 {
-  font-size: 2em;
+  font-size: 4.5vh;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
@@ -23,18 +23,13 @@ h2:nth-of-type(2){
 }
 
 @media only screen and (max-width : 1200px) {
-  img {
-    width: 35%;
-    height: auto;
-    position: absolute;
-    top: 4em;
-    left: 50%;
-    transform: translateX(-50%);
-  }
+
 }
 
 @media only screen and (max-width : 979px) {
-
+  h2 {
+    font-size: 4vh;
+  }
 }
 
 @media only screen and (max-width : 767px) {
@@ -45,11 +40,11 @@ h2:nth-of-type(2){
 
   h2 {
     position: relative;
-    font-size: 2em;
+    font-size: 4vw;
     text-align: center;
   }
 
-  h2:first-of-type, h2:nth-of-type(2) {
+  h2:nth-of-type(2) {
     top: 8em;
   }
 }
@@ -57,9 +52,5 @@ h2:nth-of-type(2){
 @media only screen and (max-width : 480px) {
   img {
     width: 80%;
-  }
-
-  h2 {
-    font-size: 1.5em;
   }
 }
