@@ -131,7 +131,7 @@
 
 <div class="col-lg-4 thumb gallery">
   <h3 class="text-center">Your Board</h3>
-  <form *ngIf="board">
+  <form *ngIf="board != undefined">
     <input type="input" name="board" value="{{ user.board }}" placeholder="https://es.pinterest.com/your/board/" [(ngModel)]="user.board" (ngModelChange)="updateBoard()" id="board-url">
     <a data-pin-do="embedBoard" data-pin-board-width="400" data-pin-scale-height="400" data-pin-scale-width="80" href="{{user.board}}"></a>
   </form>

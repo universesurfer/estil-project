@@ -88,7 +88,6 @@ export class ProfileComponent implements OnInit {
         this.user = response.user;
         this.appointments = response.app;
         this.board = this.user.board;
-        console.log(this.user);
         this.session.runPinterest();
       });
   }
