@@ -29,7 +29,7 @@ export class SearchComponent implements OnInit {
   BASE_URL: string = 'http://localhost:3000';
 
   constructor(
-    private main: MainService,
+    private mainService: MainService,
     private session: SessionService,
     private router: Router,
     private zone: NgZone
@@ -79,8 +79,8 @@ export class SearchComponent implements OnInit {
       alert('Oops, no geolocation support');
     }
 
-    this.session.url = this.router.url;
-    this.session.checkHome();
+    this.mainService.url = this.router.url;
+    this.mainService.checkHome();
 
   }
 
@@ -159,7 +159,7 @@ export class SearchComponent implements OnInit {
 
      //
 
-      this.main.search([place.geometry.location.lng(),place.geometry.location.lat()])
+      this.mainService.search([place.geometry.location.lng(),place.geometry.location.lat()])
         .subscribe((response) => {
           this.zone.run(() => {
             var stylistData = {};
@@ -175,7 +175,7 @@ export class SearchComponent implements OnInit {
 
    //AUTOCOMPLETE END
 
-   this.main.search([myPosition.lng,myPosition.lat])
+   this.mainService.search([myPosition.lng,myPosition.lat])
      .subscribe((response) => {
        console.log(response);
        this.zone.run(() => {

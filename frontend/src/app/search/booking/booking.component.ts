@@ -23,7 +23,7 @@ export class BookingComponent implements OnInit {
 
   constructor(
     private session: SessionService,
-    private main: MainService,
+    private mainService: MainService,
     private zone: NgZone,
     private toastr: ToastsManager
   ) { }
@@ -38,7 +38,7 @@ export class BookingComponent implements OnInit {
             this.board = response.user.board;
             console.log(this.board);
             console.log(this.stylist);
-            this.session.runPinterest();
+            this.mainService.runPinterest();
         });
     });
   }
@@ -78,7 +78,7 @@ export class BookingComponent implements OnInit {
       startTime: requestTime
     }
 
-    this.main.sendAppointment(appointmentData)
+    this.mainService.sendAppointment(appointmentData)
       .subscribe((response) => {
         console.log(response);
         if (response) {

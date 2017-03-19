@@ -1,5 +1,6 @@
 import { Component, OnInit} from '@angular/core';
 import { SessionService } from '../session.service';
+import { MainService } from '../main.service';
 import { Router } from '@angular/router';
 
 
@@ -14,7 +15,8 @@ export class NavbarComponent implements OnInit {
   url: string;
 
   constructor(
-  	private session: SessionService,
+    private session: SessionService,
+  	private mainService: MainService,
   	private router:  Router
   ) {
     this.session.isAuth
@@ -27,11 +29,11 @@ export class NavbarComponent implements OnInit {
         this.isAuth = false;
       }
 
-    this.session.home
+    this.mainService.home
       .subscribe((home: boolean) => {
         this.home = home;
       })
-    if (this.session.url == "/home") {
+    if (this.mainService.url == "/home") {
       this.home = true;
     } else {
       this.home = false;

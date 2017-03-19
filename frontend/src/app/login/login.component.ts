@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MainService } from "../main.service";
 import { SessionService } from "../session.service";
 import { Router } from '@angular/router';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
@@ -29,14 +30,15 @@ export class LoginComponent implements OnInit {
   userCheck: boolean = false;
 
   constructor(
+    private mainService: MainService,
     private session: SessionService,
     private router: Router,
     private toastr: ToastsManager
   ) { }
 
   ngOnInit() {
-    this.session.url = this.router.url;
-    this.session.checkHome();
+    this.mainService.url = this.router.url;
+    this.mainService.checkHome();
   }
 
   logIn(webUser) {

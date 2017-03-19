@@ -1,4 +1,5 @@
 import { Component, OnInit, Renderer, ElementRef } from '@angular/core';
+import { MainService } from "../main.service";
 import { SessionService } from "../session.service";
 import { Router } from '@angular/router';
 import { CustomFormsModule } from 'ng2-validation';
@@ -32,6 +33,7 @@ newStylist = {
  error: string;
 
   constructor(
+    private mainService: MainService,
     private session: SessionService,
     private router: Router,
     private toastr: ToastsManager,
@@ -40,8 +42,8 @@ newStylist = {
   ) { }
 
   ngOnInit() {
-    this.session.url = this.router.url;
-    this.session.checkHome();
+    this.mainService.url = this.router.url;
+    this.mainService.checkHome();
   }
 
   signUp() {

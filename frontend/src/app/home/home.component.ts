@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SessionService } from "../session.service";
+import { MainService } from "../main.service";
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,14 +10,13 @@ import { Router } from '@angular/router';
 export class HomeComponent implements OnInit {
 
   constructor(
-    private session: SessionService,
+    private mainService: MainService,
     private router: Router
   ) { }
 
   ngOnInit() {
-    this.session.url = this.router.url;
-    this.session.checkHome();
-    console.log(this.session.url);
+    this.mainService.url = this.router.url;
+    this.mainService.checkHome();
   }
 
 }

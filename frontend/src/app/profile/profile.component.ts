@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewContainerRef, ElementRef} from '@angular/core';
 import { SessionService } from "./../session.service";
+import { MainService } from "./../main.service";
 import { Router, ActivatedRoute } from "@angular/router";
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { FileUploader } from 'ng2-file-upload';
@@ -36,6 +37,7 @@ export class ProfileComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private session: SessionService,
+    private mainService: MainService,
     private toastr: ToastsManager,
     private http: Http,
     public el: ElementRef,
@@ -49,8 +51,8 @@ export class ProfileComponent implements OnInit {
       this.getUserDetails(params['id']);
     });
 
-    this.session.url = this.router.url;
-    this.session.checkHome();
+    this.mainService.url = this.router.url;
+    this.mainService.checkHome();
 
     this.id = localStorage.getItem('id');
     this.role = localStorage.getItem('role');
@@ -88,7 +90,7 @@ export class ProfileComponent implements OnInit {
         this.user = response.user;
         this.appointments = response.app;
         this.board = this.user.board;
-        this.session.runPinterest();
+        this.mainService.runPinterest();
       });
   }
 
@@ -201,7 +203,7 @@ export class ProfileComponent implements OnInit {
           if (result) {
             // this.router.navigate(['/profile']);
             this.board = this.user.board;
-            this.session.runPinterest();
+            this.mainService.runPinterest();
             this.toastr.success('Board updated');
           } else {
             this.toastr.error('Something went wrong');
