@@ -3,6 +3,9 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
+import { RouterModule } from "@angular/router";
+import { routes } from './app.routing';
+
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
@@ -15,13 +18,11 @@ import { BookingComponent } from './search/booking/booking.component';
 import { SessionService } from "./session.service";
 import { MainService } from "./main.service";
 
-import { RouterModule } from "@angular/router";
-import { routes } from './app.routing';
 import { DropdownModule } from "ngx-dropdown";
 import { CustomFormsModule } from 'ng2-validation';
 import { ToastModule } from 'ng2-toastr/ng2-toastr';
 import { FileSelectDirective } from "ng2-file-upload";
-
+import { TabsModule, CollapseModule } from 'ng2-bootstrap';
 
 
 @NgModule({
@@ -43,7 +44,9 @@ import { FileSelectDirective } from "ng2-file-upload";
     RouterModule.forRoot(routes),
     DropdownModule,
     CustomFormsModule,
-    ToastModule.forRoot()
+    ToastModule.forRoot(),
+    TabsModule.forRoot(),
+    CollapseModule.forRoot()
   ],
   providers: [SessionService, MainService],
   bootstrap: [AppComponent]

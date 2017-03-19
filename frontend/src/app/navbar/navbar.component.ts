@@ -2,6 +2,7 @@ import { Component, OnInit} from '@angular/core';
 import { SessionService } from '../session.service';
 import { MainService } from '../main.service';
 import { Router } from '@angular/router';
+import { CollapseModule } from 'ng2-bootstrap';
 
 
 @Component({
@@ -13,6 +14,7 @@ export class NavbarComponent implements OnInit {
   isAuth: boolean;
   home: boolean;
   url: string;
+  isCollapsed: boolean = true;
 
   constructor(
     private session: SessionService,
