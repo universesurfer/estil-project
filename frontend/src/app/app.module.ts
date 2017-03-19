@@ -13,7 +13,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { BookingComponent } from './search/booking/booking.component';
 
 import { SessionService } from "./session.service";
-import { SearchService } from "./search.service";
+import { MainService } from "./main.service";
+
 import { RouterModule } from "@angular/router";
 import { routes } from './app.routing';
 import { DropdownModule } from "ngx-dropdown";
@@ -44,7 +45,7 @@ import { FileSelectDirective } from "ng2-file-upload";
     CustomFormsModule,
     ToastModule.forRoot()
   ],
-  providers: [SessionService, SearchService],
+  providers: [SessionService, MainService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

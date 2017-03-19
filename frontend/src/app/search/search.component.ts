@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SearchService } from "../search.service";
+import { MainService } from "../main.service";
 import { SessionService } from "../session.service";
 import { Router } from '@angular/router';
 import { DropdownModule } from "ngx-dropdown";
@@ -14,7 +14,7 @@ declare var markers: any;
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.css'],
-  providers: [SearchService]
+  providers: [MainService]
 })
 export class SearchComponent implements OnInit {
 
@@ -29,7 +29,7 @@ export class SearchComponent implements OnInit {
   BASE_URL: string = 'http://localhost:3000';
 
   constructor(
-    private searchService: SearchService,
+    private main: MainService,
     private session: SessionService,
     private router: Router,
     private zone: NgZone
@@ -52,7 +52,7 @@ export class SearchComponent implements OnInit {
 
     this.zone.run(() => {
       this.stylist = stylist;
-    
+
     });
 
   }
@@ -159,7 +159,7 @@ export class SearchComponent implements OnInit {
 
      //
 
-      this.searchService.search([place.geometry.location.lng(),place.geometry.location.lat()])
+      this.main.search([place.geometry.location.lng(),place.geometry.location.lat()])
         .subscribe((response) => {
           this.zone.run(() => {
             var stylistData = {};
@@ -175,7 +175,7 @@ export class SearchComponent implements OnInit {
 
    //AUTOCOMPLETE END
 
-   this.searchService.search([myPosition.lng,myPosition.lat])
+   this.main.search([myPosition.lng,myPosition.lat])
      .subscribe((response) => {
        console.log(response);
        this.zone.run(() => {

@@ -4,7 +4,7 @@ import { Router, CanActivate } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 
 @Injectable()
-export class SearchService {
+export class MainService {
 
   BASE_URL: string = 'http://localhost:3000';
 

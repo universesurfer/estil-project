@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { SessionService } from "../../session.service";
-import { SearchService } from "../../search.service";
+import { MainService } from "../../main.service";
 import { NgZone } from '@angular/core';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
@@ -23,7 +23,7 @@ export class BookingComponent implements OnInit {
 
   constructor(
     private session: SessionService,
-    private search: SearchService,
+    private main: MainService,
     private zone: NgZone,
     private toastr: ToastsManager
   ) { }
@@ -78,7 +78,7 @@ export class BookingComponent implements OnInit {
       startTime: requestTime
     }
 
-    this.search.sendAppointment(appointmentData)
+    this.main.sendAppointment(appointmentData)
       .subscribe((response) => {
         console.log(response);
         if (response) {
