@@ -2,7 +2,7 @@ import { Component, OnInit} from '@angular/core';
 import { SessionService } from '../session.service';
 import { MainService } from '../main.service';
 import { Router } from '@angular/router';
-import { CollapseModule } from 'ng2-bootstrap';
+import { TabsModule, CollapseModule } from 'ng2-bootstrap';
 
 
 @Component({
