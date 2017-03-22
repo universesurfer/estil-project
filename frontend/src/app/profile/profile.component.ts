@@ -118,7 +118,6 @@ export class ProfileComponent implements OnInit {
       this.editCheck = false;
       this.session.edit(this.user)
         .subscribe(result => {
-          console.log(result);
             if (result) {
               this.toastr.success('User updated');
        			} else {
@@ -136,8 +135,6 @@ export class ProfileComponent implements OnInit {
 
     var stylistLocation = document.getElementById('location');
     var stylistPlace = new google["maps"].places.Autocomplete(stylistLocation);
-    console.log("stylistLocation", stylistLocation);
-    console.log("stylistPlace", stylistPlace);
 
     google["maps"].event.addListener(stylistPlace, 'place_changed', function() {
 

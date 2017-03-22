@@ -36,8 +36,6 @@ export class BookingComponent implements OnInit {
         .subscribe((response) => {
           this.zone.run(() => {
             this.board = response.user.board;
-            console.log(this.board);
-            console.log(this.stylist);
             this.mainService.runPinterest();
         });
     });
@@ -48,8 +46,6 @@ export class BookingComponent implements OnInit {
     this.date = this.formatDate(date);
 
     this.userId = localStorage.getItem("id");
-
-    console.log(this.stylist);
 
   }
 
@@ -80,7 +76,6 @@ export class BookingComponent implements OnInit {
 
     this.mainService.sendAppointment(appointmentData)
       .subscribe((response) => {
-        console.log(response);
         if (response) {
           this.toastr.success('Appointment saved to your Profile');
         } else {

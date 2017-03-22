@@ -109,7 +109,7 @@ export class SearchComponent implements OnInit {
      map: map
    });
 
-   this.myLocationMarker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png')
+   this.myLocationMarker.setIcon('https://maps.google.com/mapfiles/ms/icons/green-dot.png')
 
    this.myLocationInfoWindow = new google.maps.InfoWindow({
      content: "You are here"
@@ -153,7 +153,7 @@ export class SearchComponent implements OnInit {
        position: {"lat":place.geometry.location.lat(),"lng":place.geometry.location.lng()},
        map: map,
      });
-     this.myLocationMarker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png')
+     this.myLocationMarker.setIcon('https://maps.google.com/mapfiles/ms/icons/green-dot.png')
 
      this.myLocationInfoWindow.open(map,this.myLocationMarker);
 
@@ -177,7 +177,6 @@ export class SearchComponent implements OnInit {
 
    this.mainService.search([myPosition.lng,myPosition.lat])
      .subscribe((response) => {
-       console.log(response);
        this.zone.run(() => {
          var stylistData = {};
          response.forEach(function(stylist,index){
